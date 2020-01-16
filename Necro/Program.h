@@ -19,6 +19,9 @@ public:
 	void ImguiRender();
 
 	void ResizeScreen();
+
+	void GameUIRender();
+
 private:
 
 

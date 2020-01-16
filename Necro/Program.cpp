@@ -52,7 +52,7 @@ void Program::Render()
 
 
 
-	CAMERA->GetView().Bind();
+	//CAMERA->GetView().Bind();
 	p2DRenderer->DrawLine(D3DXVECTOR2(-10000, 0), D3DXVECTOR2(10000, 0));
 	p2DRenderer->DrawLine(D3DXVECTOR2(0, -10000), D3DXVECTOR2(0, 10000));
 
@@ -96,4 +96,15 @@ void Program::ResizeScreen()
 {
 	D3DDesc desc;
 	DxRenderer::GetDesc(&desc);
+}
+
+
+void Program::GameUIRender()
+{
+	//D2D + D3D 랜더링이 가능한 영역
+	//다만 순서는 D2D먼저 그려짐 이유는 Window.cpp에서 순서를 보면됨
+
+	//따라서 랜더링을 나눌 매니져급 객체가 필요
+
+
 }

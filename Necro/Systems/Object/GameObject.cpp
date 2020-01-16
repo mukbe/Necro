@@ -4,7 +4,7 @@
 
 GameObject::GameObject(string name)
 	: name(name), bActive(true), worldBuffer(nullptr), shaderKey("None")
-	, alpha(1.f), lifeTiem(0.f), frameTime(0.f)
+	, alpha(1.f), lifeTiem(0.f)
 
 {
 	
@@ -12,7 +12,7 @@ GameObject::GameObject(string name)
 
 GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size, Pivot p)
 	: name(name), bActive(true), worldBuffer(nullptr), shaderKey("None")
-	, alpha(1.f), size(size),  lifeTiem(0.f), frameTime(0.f),
+	, alpha(1.f), size(size),  lifeTiem(0.f)
 {
 
 	worldBuffer = Buffers->FindShaderBuffer<WorldBuffer>();
@@ -20,9 +20,7 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size, Pivot p)
 	
 	bActive = true;
 
-	frameX = frameY = 0;
 
-	frequency = 0.07f;
 }
 
 
@@ -55,7 +53,6 @@ void GameObject::Update(float tick)
 
 
 	lifeTiem += tick;
-	frameTime += tick;
 
 
 }
@@ -75,10 +72,6 @@ void GameObject::Render(bool isRelative)
 	{
 		world = transform * CAMERA->GetView();
 	}
-
-	world.Bind();
-
-	//transform.Render();
 
 	
 }

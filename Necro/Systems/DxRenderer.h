@@ -66,6 +66,8 @@ public:
 	void TurnOffAlphaBlend();
 	void TurnOnAlphaBlend();
 
+	void DrawToD2DSharedBuffer();
+
 public:
 	ID3D11Device* GetDevice() { return pD3dDevice; }
 	ID3D11DeviceContext* GetContext() { return pD3dContext; }

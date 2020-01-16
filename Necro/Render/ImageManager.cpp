@@ -22,7 +22,7 @@ bool ImageManager::AddTexture(string key, wstring fileName)
 		LOG->Warning(__FILE__, __LINE__, "Already Init this key");
 		return false;
 	}
-	
+
 
 	textures.insert(make_pair(key, shared_ptr<Texture>(new Texture(fileName))));
 
@@ -38,7 +38,7 @@ bool ImageManager::AddFrameTexture(string key, wstring fileName, UINT frameX, UI
 		return false;
 	}
 
-	textures.insert(make_pair(key, shared_ptr<Texture>(new Texture( fileName, frameX, frameY))));
+	textures.insert(make_pair(key, shared_ptr<Texture>(new Texture(fileName, frameX, frameY))));
 
 	return true;
 }
@@ -100,7 +100,11 @@ void ImageManager::AllDeleteTexture()
 
 	for (;iter != textures.end(); ++iter)
 	{
-		//Log_ErrorAssert(iter->second.use_count() == 1);
+		if (iter->second.use_count() != 1)
+		{
+			LOG->Warning(__FILE__, __LINE__, "shared_ptr<Testure> use count != 1");
+		}
+
 	}
 
 	textures.clear();

@@ -67,13 +67,9 @@ protected:
 
 	float alpha;
 	float lifeTiem;
-	float frameTime;
 
 	
 
-	UINT frameX;
-	UINT frameY;
-	float frequency;
 
 
 private:

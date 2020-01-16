@@ -46,26 +46,50 @@ WPARAM Window::Run()
 			}
 
 			{//랜더링 영역
-				
+
+				//오브젝트들				D2D
+				//이펙트					D3D
+				//게임에 사용할 UI		D2D
+				//디버깅용 Imgui			D3D
+
+
 				//TODO Program Class를 처리하고 다른 이름으로 부여 Render 순서 d2d에서 라이팅을 제외한 모든것을 처리
 				//d3d에서 파티클과 라이팅을 처리함(ComputeShader 가져와야됨)
 
 				//기본적인 Draw는 d2d
 				p2DRenderer->BeginDraw();
-				program->Render();
+				{
+					program->Render();
+				}
 				p2DRenderer->EndDraw();
 
-				//이펙트, ui처리는 d3d
+				//이펙트처리는 d3d
 				pRenderer->BeginDraw();
-				program->PostRender();
-				program->ImguiRender();
-				LOG->ImShowData();
+				{
+					program->PostRender();
 
-				static bool bImguiWin = true;
-				ImGui::ShowDemoWindow(&bImguiWin);
+					//==============================바뀌면 안됨=====================================================
+										//랜더타겟의 바인딩을 풀어줄때 d3d에 그려진 정보들이 버퍼에 그려진다
+										//따라서 다시 바인딩을 해주면 공용버퍼에 지금까지 그려진 픽셀정보가 나옴
+					pRenderer->DrawToD2DSharedBuffer();
+					//=============================================================================================
 
-				ImGui::Render();
-				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+					p2DRenderer->BeginDrawWithoutClear();
+					{
+						//d2d로 그릴 UI는 여기서 랜더링해야함
+						program->GameUIRender();
+					}
+					p2DRenderer->EndDraw();
+
+					program->ImguiRender();
+					LOG->ImShowData();
+
+					static bool bImguiWin = true;
+					ImGui::ShowDemoWindow(&bImguiWin);
+
+					ImGui::Render();
+					ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+				}
 				pRenderer->EndDraw();
 			}
 		}
@@ -225,7 +249,6 @@ void Window::CreateManagers()
 	BufferManager::Create();
 	ShaderManager::Create();
 
-	Matrix2D::SetRenderTarget();
 
 	SceneManager::Create();
 

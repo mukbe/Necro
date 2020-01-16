@@ -26,6 +26,3 @@ private:
 #define _SceneManager SceneManager::Get()
 #define _GameWorld SceneManager::Get()->GetNowScene()
 #define _MessagePool SceneManager::Get()->GetNowScene()->GetMessagePool()
-#define _ObjectPool SceneManager::Get()->GetNowScene()->GetObjectPool()
-#define _TileMap SceneManager::Get()->GetNowScene()->GetTileMap()
-#define _PathFinder SceneManager::Get()->GetNowScene()->GetPathFinder()

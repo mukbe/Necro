@@ -424,3 +424,11 @@ void DxRenderer::TurnOnAlphaBlend()
 	// ¾ËÆÄ ºí·»µùÀ» ²ü´Ï´Ù.
 	DeviceContext->OMSetBlendState(alphaState, blendFactor, 0xffffffff);
 }
+
+void DxRenderer::DrawToD2DSharedBuffer()
+{
+	ID3D11RenderTargetView* nullview[1] = { nullptr };
+	pD3dContext->OMSetRenderTargets(0, nullview, nullptr);
+	pD3dContext->OMSetRenderTargets(1, &pRenderTargetView, pDepthStencilView);
+
+}

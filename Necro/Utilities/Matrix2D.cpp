@@ -111,7 +111,8 @@ Matrix2D  Matrix2D::operator*(const Matrix2D & other)
 	val.result = this->result * other.result;
 	val.pos = this->pos + other.pos;
 	val.rotation = this->rotation + other.rotation;
-	val.scaleValue = this->scaleValue * other.scaleValue;
+	val.scaleValue.x = this->scaleValue.x * other.scaleValue.x;
+	val.scaleValue.y = this->scaleValue.y * other.scaleValue.y;
 
 	return val;
 }

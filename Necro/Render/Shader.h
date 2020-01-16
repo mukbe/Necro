@@ -16,8 +16,8 @@ public:
 
 	void Render();
 	void Release();
-	void ReleaseShader();
 private:
+
 	void CheckShaderError(HRESULT hr, ID3DBlob* error);
 
 	void CreateShaderFromFile(string funcName, ID3DBlob** vsBlob = nullptr);

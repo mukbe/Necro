@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "TestScene.h"
 
-#include "./Systems/Object/ObjectManager.h"
-#include "./Systems/Object/TileMap.h"
 
 TestScene::TestScene()
 	:SceneBase()
@@ -18,10 +16,6 @@ void TestScene::Init()
 {
 	SceneBase::Init();
 
-	tileMap = new TileMap;
-	TileMap::tileMaxIndex = { 20,20 };
-	tileMap->Init();
-	tileMap->LoadFrame();
 
 }
 
@@ -37,9 +31,6 @@ void TestScene::PreUpdate()
 void TestScene::Update(float tick)
 {
 	SceneBase::Update(tick);
-
-	if(TileMap::bLoadFrame)
-		tileMap->Update(tick);
 }
 
 void TestScene::PostUpdate()
@@ -62,5 +53,4 @@ void TestScene::ImguiRender()
 {
 	SceneBase::ImguiRender();
 
-	tileMap->ImguiRender();
 }
