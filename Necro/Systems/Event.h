@@ -25,7 +25,6 @@ struct EventProc
 class Event
 {
 public:
-	friend class Program;
 	typedef std::multimap<std::string, IEvent*> EventMap;
 
 	static Event* Get();

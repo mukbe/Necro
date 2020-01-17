@@ -14,26 +14,18 @@ public:
 	virtual void Init();
 	//메모리 해제
 	virtual void Release();
-	//카메라에 관한 최초업데이트 - 사용 안해두됨
+	//컨트롤 관련
 	virtual void PreUpdate();
 	//메인 루틴
 	virtual void Update(float tick);
-	//이동관련 계산
-	virtual void PostUpdate();
 
-	//이미지 렌더링 - direct2D
-	virtual void Render(bool isRelative = true);
-	//후처리 렌더링 -direct3D
-	virtual void PostRender();
+	virtual void Render();
 	//imgui debugUI render
 	virtual void ImguiRender() {}
 
 
 
 	const string& Name() { return name; }
-	void SetName(const string& s) { name = s; }
-
-
 	Matrix2D& Transform() { return transform; }
 
 	const bool& IsActive() { return bActive; }
@@ -52,6 +44,7 @@ protected:
 	Matrix2D transform;
 
 	FloatRect rc;
+	D3DXVECTOR2 position;
 	bool bActive;
 
 
@@ -60,6 +53,7 @@ protected:
 	float lifeTiem;
 
 	
+
 
 
 

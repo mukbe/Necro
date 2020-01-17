@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "SceneBase.h"
 
-#include "./Systems/Message/MessageManager.h"
-
 SceneBase::SceneBase()
-	: messageManager(new MessageManager)
+	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
+	  beatManager(new BeatManager)
 {
 	
 }
@@ -14,8 +13,9 @@ SceneBase::~SceneBase()
 {
 	Release();
 	SafeDelete(messageManager);
-	
-	
+	SafeDelete(renderManager);
+	SafeDelete(beatManager);
+	SafeDelete(objectManager);
 }
 
 void SceneBase::Init()
@@ -29,26 +29,33 @@ void SceneBase::Release()
 
 void SceneBase::PreUpdate()
 {
+	objectManager->ControlUpdate();
 }
 
 void SceneBase::Update(float tick)
 {
 	messageManager->Update(tick);
+	objectManager->Update(tick);
 }
 
-void SceneBase::PostUpdate()
+void SceneBase::ObjectRender()
 {
+	renderManager->ObjectRender();
 }
 
-void SceneBase::Render()
+void SceneBase::LightRender()
 {
+	renderManager->LightRender();
 }
 
-void SceneBase::PostRender()
+void SceneBase::UIRender()
 {
+	renderManager->UIRender();
 }
 
 void SceneBase::ImguiRender()
 {
+	renderManager->ImguiRender();
 }
+
 

@@ -5,6 +5,7 @@
 
 Program::Program()
 {
+
 	//게임정보저장 json or sql
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
@@ -41,13 +42,12 @@ void Program::Update(float tick)
 
 void Program::PostUpdate()
 {
-	_GameWorld->PostUpdate();
+
 }
 
 void Program::Render()
 {
-	_GameWorld->Render();
-
+	_GameWorld->ObjectRender();
 
 
 	p2DRenderer->SetCamera(true);
@@ -68,7 +68,7 @@ void Program::Render()
 
 void Program::PostRender()
 {
-	_GameWorld->PostRender();
+	_GameWorld->LightRender();
 }
 
 void Program::ImguiRender()
@@ -109,6 +109,6 @@ void Program::GameUIRender()
 	//다만 순서는 D2D먼저 그려짐 이유는 Window.cpp에서 순서를 보면됨
 
 	//따라서 랜더링을 나눌 매니져급 객체가 필요
-
+	_GameWorld->UIRender();
 
 }

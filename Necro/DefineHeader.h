@@ -92,5 +92,25 @@ void ClassName::Delete()					\
 #define ColorWhite D3DXCOLOR(1.f,1.f,1.f,1.f)
 #define ColorGray(f) D3DXCOLOR(f,f,f,1.0f)
 
-#define SaveJsonPath(n) { std::string("../_Scenes/Scene01/").append(n + ".json") }
-#define SaveBinaryPath(n){std::string("../_Scenes/Scene01/").append(n + ".json") }
+template<typename Base, typename Derived>
+struct Is_Inherited
+{
+private:
+	struct DerivedSize { char word[2]; };
+	struct BaseSize { char byte; };
+
+	static DerivedSize TestCase(Base*);
+	static BaseSize TestCase(...);
+
+public:
+	// SFINAE
+	enum { Result = sizeof(TestCase(static_cast<Derived*>(0))) == sizeof(DerivedSize) };
+
+};
+
+
+
+#define IS_INHERITED_THAN_RETURN(Base)                       \
+template<typename Derived>                                   \
+std::enable_if_t<Is_Inherited<Base, Derived>::Result, Derived*>
+
