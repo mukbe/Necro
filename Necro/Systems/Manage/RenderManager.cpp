@@ -83,6 +83,14 @@ void RenderManager::ObjectRender()
 			obj->Render();
 	}
 
+	arr = renderList[Layer::Object];
+	for (GameObject* obj : arr)
+	{
+		if (obj->IsActive())
+			obj->Render();
+	}
+
+
 }
 
 //라이팅패스

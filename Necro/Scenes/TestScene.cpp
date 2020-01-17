@@ -20,7 +20,7 @@ void TestScene::Init()
 	UIBase* t = _ObjectPool->FindObject<UIBase>("UI");
 
 	
-
+	beatManager->LoadText(ResourcePath + L"zone.txt");
 }
 
 
