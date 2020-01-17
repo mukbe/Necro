@@ -2,6 +2,7 @@
 #include "Program.h"
 
 #include "./Scenes/TestScene.h"
+#include "./Scenes/TileTestScene.h"
 
 Program::Program()
 {
@@ -10,9 +11,11 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
-	SceneBase* scene = new TestScene;
+	/*SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);*/
+	
+	SceneBase* scene = new TileTestScene;
 	_SceneManager->AddScene(scene);
-
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 

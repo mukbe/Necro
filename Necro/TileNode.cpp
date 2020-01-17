@@ -16,6 +16,7 @@ void TileNode::Init(string textureStringKey, POINT textureFrameIndex, AttributeT
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)

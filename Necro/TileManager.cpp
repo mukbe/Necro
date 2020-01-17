@@ -9,7 +9,7 @@ TileManager::TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pi
 
 	_ImageManager->AddFrameTexture("testTile", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
-	mapTiles.insert(make_pair("Map", (*new vecTiles)));
+	mapTiles.insert(make_pair("Map", mapVector));
 	CreateMap();
 }
 
@@ -25,8 +25,10 @@ void TileManager::CreateMap()
 {
 	for (int i = 0; i < _mapSize.x * _mapSize.y; ++i)
 	{
-		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(_tilePivotPos.x + i * (_tileSize.x / 2.f)
-			, _tilePivotPos.y + i * (_tileSize.y / 2.f)), D3DXVECTOR2(_tileSize.x, _tileSize.y));
+		float x = (i % _mapSize.x) * (_tileSize.x / 2.f) + _tilePivotPos.x;
+		float y = (i / _mapSize.x) * (_tileSize.y / 2.f) + _tilePivotPos.y;
+
+		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(_tileSize.x, _tileSize.y));
 		
 		newTile->Init("testTile");
 
@@ -37,4 +39,9 @@ void TileManager::CreateMap()
 TileNode* TileManager::Tile(POINT index)
 {
 	return mapTiles["Map"][index.y * _mapSize.x + index.x];
+}
+
+TileNode * TileManager::Tile(int x, int y)
+{
+	return mapTiles["Map"][y * _mapSize.x + x];
 }

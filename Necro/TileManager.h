@@ -15,11 +15,14 @@ public:
 	void CreateMap();
 
 	TileNode* Tile(POINT index);
+	TileNode* Tile(int x, int y);
 
 private:
 	unordered_map<string, vector<TileNode*>> mapTiles;
 	typedef unordered_map<string, TileNode*>::iterator MapIter;
 	typedef vector<TileNode*> vecTiles;
 	typedef vector<TileNode*>::iterator VecIter;
+
+	vecTiles mapVector;
 };
 
