@@ -3,11 +3,13 @@
 
 enum AttributeType
 {
+	AttributeTypeStart = 0,
 	ObjNone,
 	ObjStatic,
-	ObjDestructable
+	ObjDestructable,
+	AttributeTypeEnd
 };
 
-static const POINTFLOAT tilePivotPos = { 0.f,0.f };
-static POINT mapSize = { 10, 10 };
-static POINTFLOAT tileSize = { 20.f,20.f };
+static D3DXVECTOR2 _tilePivotPos;
+static POINT _mapSize;
+static D3DXVECTOR2 _tileSize;

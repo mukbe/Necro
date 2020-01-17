@@ -3,15 +3,14 @@
 #include "TileHelper.h"
 
 
-class TileNode : GameObject
+class TileNode : public GameObject
 {
 public:
-	TileNode();
-	TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureKey = "NoneTexture", POINT textureFrame = { 0,0 },AttributeType type = ObjNone);
-	
+	TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~TileNode();
 
-	virtual void Init();
+	virtual void Init(string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
+	virtual void Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	virtual void Release();
 	virtual void PreUpdate();
 	virtual void Update();
@@ -42,14 +41,14 @@ public:
 
 	D3DXVECTOR2 indexToPos(const POINT index)
 	{
-		return { index.x * tileSize.x + (tileSize.x / 2.f)
-			,index.y * tileSize.y + (tileSize.y / 2.f) };
+		return { index.x * _tileSize.x + (_tileSize.x / 2.f)
+			    ,index.y * _tileSize.y + (_tileSize.y / 2.f) };
 	}
 
 	POINT posToIndex(const D3DXVECTOR2 pos)
 	{
-		return { static_cast<int>((pos.x - tilePivotPos.x) / tileSize.x),
-			static_cast<int>((pos.y - tilePivotPos.y) / tileSize.y) };
+		return { static_cast<int>((pos.x - _tilePivotPos.x) / _tileSize.x),
+			     static_cast<int>((pos.y - _tilePivotPos.y) / _tileSize.y) };
 	}
 
 protected:

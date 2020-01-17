@@ -7,22 +7,19 @@ class TileNode;
 class TileManager
 {
 public:
-	TileManager();
+	TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pivotPos);
 	~TileManager();
 
 	void Release();
-	void PreUpdate();
-	void Update(float tick);
-	void PostUpdate();
-	void Render();
-	void ImguiRender();
-
+	
 	void CreateMap();
+
+	TileNode* Tile(POINT index);
+
 private:
-	unordered_map<string, TileNode*> mapTiles;
+	unordered_map<string, vector<TileNode*>> mapTiles;
 	typedef unordered_map<string, TileNode*>::iterator MapIter;
 	typedef vector<TileNode*> vecTiles;
-	typedef vector<TileNode*> VecIter;
-	
+	typedef vector<TileNode*>::iterator VecIter;
 };
 
