@@ -15,12 +15,13 @@ TestScene::~TestScene()
 void TestScene::Init()
 {
 	SceneBase::Init();
-
-	UIBase* temp = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(0, 0), D3DXVECTOR2(30, 100));
+	// 하트 템포
+	//UIBase* Heart = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(WinSizeX / 2, 830), D3DXVECTOR2(150, 150));
+	UIBase* temp = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
 	UIBase* t = _ObjectPool->FindObject<UIBase>("UI");
-
 	
-	beatManager->LoadText(ResourcePath + L"zone.txt");
+	
+
 }
 
 
