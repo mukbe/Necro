@@ -69,8 +69,13 @@ public:
 	void ReleaseResource();
 
 
-	void Render(D3DXVECTOR2 size = D3DXVECTOR2(0,0), float alpha = 1.f ,Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f,0.f));
-	void FrameRender( UINT frameX = 0, UINT frameY = 0, D3DXVECTOR2 size = D3DXVECTOR2(0, 0), float alpha = 1.f, Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f,0.f));
+	//void Render(D3DXVECTOR2 size = D3DXVECTOR2(0,0), float alpha = 1.f ,Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f,0.f));
+	//void FrameRender( UINT frameX = 0, UINT frameY = 0, D3DXVECTOR2 size = D3DXVECTOR2(0, 0), float alpha = 1.f, Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f,0.f));
+	
+	void Render(FloatRect rc, Matrix2D* transform, float alpha = 1.f, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
+	void FrameRender(FloatRect rc, Matrix2D* transform, UINT frameX = 0, UINT frameY = 0, float alpha = 1.f, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
+
+
 	//void AniRender(int x, int y, animation* ani, Pivot pivot = Pivot::LEFT_TOP, bool sizeSet = FALSE);
 
 

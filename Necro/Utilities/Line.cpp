@@ -20,6 +20,6 @@ Line::~Line()
 
 void Line::Render()
 {
-	p2DRenderer->DrawLine(start, end, DefaultBrush::blue);
+	p2DRenderer->DrawLine(start, end,nullptr, DefaultBrush::blue);
 
 }

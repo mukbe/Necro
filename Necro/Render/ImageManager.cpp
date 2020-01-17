@@ -43,6 +43,29 @@ bool ImageManager::AddFrameTexture(string key, wstring fileName, UINT frameX, UI
 	return true;
 }
 
+void ImageManager::Render(string key, FloatRect rc, Matrix2D * transform, float alpha, D3DXVECTOR2 offset)
+{
+	shared_ptr<Texture> temp = FindTexture(key);
+	if (temp == nullptr)
+	{
+		LOG->Warning(__FILE__, __LINE__, "Does not exist Texture");
+		return;
+	}
+	temp->Render(rc, transform, alpha, offset);
+}
+
+void ImageManager::FrameRender(string key, FloatRect rc, Matrix2D * transform, UINT frameX, UINT frameY, float alpha, D3DXVECTOR2 offset)
+{
+	shared_ptr<Texture> temp = FindTexture(key);
+	if (temp == nullptr)
+	{
+		LOG->Warning(__FILE__, __LINE__, "Does not exist Texture");
+		return;
+	}
+	temp->FrameRender(rc, transform, frameX, frameY, alpha, offset);
+
+}
+
 shared_ptr<Texture> ImageManager::FindTexture(string key)
 {
 	Iter iter = textures.find(key);
@@ -56,28 +79,7 @@ shared_ptr<Texture> ImageManager::FindTexture(string key)
 
 }
 
-void ImageManager::Render(string key, D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
-{
-	shared_ptr<Texture> temp = FindTexture(key);
-	if (temp == nullptr)
-	{
-		LOG->Warning(__FILE__, __LINE__, "Does not exist Texture");
-		return;
-	}
-	temp->Render(size, alpha, pivot, offset);
-}
 
-void ImageManager::FrameRender(string key, UINT frameX, UINT frameY, D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
-{
-	shared_ptr<Texture> temp = FindTexture(key);
-	if (temp == nullptr)
-	{
-		LOG->Warning(__FILE__, __LINE__, "Does not exist Texture");
-		return;
-	}
-	temp->FrameRender(frameX, frameY, size, alpha, pivot, offset);
-
-}
 
 void ImageManager::DeleteTexture(string key)
 {

@@ -15,8 +15,10 @@ public:
 	bool AddTexture(string key, wstring fileName);
 	bool AddFrameTexture(string key, wstring fileName, UINT frameX = 1, UINT frameY = 1);
 
-	void Render(string key, D3DXVECTOR2 size = D3DXVECTOR2(0, 0), float alpha = 1.f, Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
-	void FrameRender(string key, UINT frameX = 0, UINT frameY = 0, D3DXVECTOR2 size = D3DXVECTOR2(0, 0), float alpha = 1.f, Pivot pivot = Pivot::LEFT_TOP, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
+
+	void Render(string key, FloatRect rc, Matrix2D* transform, float alpha = 1.f, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
+	void FrameRender(string key,FloatRect rc, Matrix2D* transform, UINT frameX = 0, UINT frameY = 0, float alpha = 1.f, D3DXVECTOR2 offset = D3DXVECTOR2(0.f, 0.f));
+
 	void DeleteTexture(string key);
 
 	shared_ptr<Texture> FindTexture(string key);

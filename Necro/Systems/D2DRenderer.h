@@ -9,7 +9,7 @@ namespace DefaultBrush
 }
 
 
-
+class Matrix2D;
 class D2DRenderer
 {
 	SingletonHeader(D2DRenderer)
@@ -48,21 +48,20 @@ private:
 
 	//텍스트 출력 스토리지
 	mapTextList		dwTextFormats;
+
+	bool bCamera;
 	
 public:
-	//텍스트 출력 (기본 브러쉬 사용)
+	//카메라와 트랜스폼 영향 안받음=====
 	void DrawText2D(int x, int y, wstring text, int size, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"맑은고딕");
-	//텍스트 출력 (원하는 색상과 알파값으로 브러쉬 생성해서 출력)
 	void DrawText2D(int x, int y, wstring text, COLORREF rgb, float alpha, int size, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"맑은고딕");
-	//텍스트 필드 출력 (기본 브러쉬 사용)
 	void DrawTextField(int x, int y, wstring text, int size, int width, int height, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"맑은고딕");
-	//텍스트 필드 출력 (원하는 색상과 알파값으로 브러쉬 생성해서 출력)
 	void DrawTextField(int x, int y, wstring text, COLORREF rgb, int size, int width, int height, float alpha = 1.0f, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"맑은고딕");
-
 	//==============================================================
-	// ## 도형 그리기 함수 ##
+
+
+	//쓰지마=================================
 	void DrawLine(D2D1::ColorF::Enum color, float alpha, D3DXVECTOR2 start, D3DXVECTOR2 end,  float strokeWidth = 1);
-	void DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
 	void DrawRectangle(RECT rc, D2D1::ColorF::Enum color, float alpha,float strokeWidth = 1);
 	void DrawRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black,float strokeWidth = 1);
 	void DrawEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha,  float strokeWidth = 1);
@@ -71,17 +70,22 @@ public:
 	void FillRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
 	void FillEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha);
 	void FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
+	//========================================
 
-	void DrawRectangle(FloatRect rc, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);
-	void DrawRectangle(FloatRect rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
-	void DrawEllipse(FloatRect rc, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);
-	void DrawEllipse(FloatRect rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black,float strokeWidth = 1);
-	void FillRectangle(FloatRect rc, D2D1::ColorF::Enum color, float alpha);
-	void FillRectangle(FloatRect rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
-	void FillEllipse(FloatRect rc, D2D1::ColorF::Enum color, float alpha);
-	void FillEllipse(FloatRect rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
+	void DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
+	void DrawRectangle(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);
+	void DrawRectangle(FloatRect rc, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
+	void DrawEllipse(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);
+	void DrawEllipse(FloatRect rc, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black,float strokeWidth = 1);
+	void FillRectangle(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha);
+	void FillRectangle(FloatRect rc, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
+	void FillEllipse(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha);
+	void FillEllipse(FloatRect rc, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
+
 
 	//==============================================================
+	void SetCamera(bool b) { bCamera = b; }
+	void IASet(Matrix2D* transform);
 
 
 	void DrawRectangle(D2D1_RECT_F rc, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);

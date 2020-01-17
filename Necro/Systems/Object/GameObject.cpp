@@ -10,23 +10,22 @@ GameObject::GameObject(string name)
 	
 }
 
-GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size, Pivot p)
+GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: name(name), bActive(true), worldBuffer(nullptr), shaderKey("None")
-	, alpha(1.f), size(size),  lifeTiem(0.f)
+	, alpha(1.f), lifeTiem(0.f)
 {
-
 	worldBuffer = Buffers->FindShaderBuffer<WorldBuffer>();
-	transform = Matrix2D(pos, size, p);
-	
-	bActive = true;
+	transform = Matrix2D(pos);
 
+	bActive = true;
+	rc = FloatRect(pos, size, Pivot::CENTER);
 
 }
 
 
 GameObject::~GameObject()
 {
-	Release();
+
 }
 
 void GameObject::Init()
@@ -66,12 +65,10 @@ void GameObject::Render(bool isRelative)
 {
 	if (bActive == false)return;
 
-	Matrix2D world;
 
-	if (isRelative)
-	{
-		world = transform * CAMERA->GetView();
-	}
+	
+	p2DRenderer->DrawEllipse(rc,nullptr);
+
 
 	
 }

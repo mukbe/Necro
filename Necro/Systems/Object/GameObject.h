@@ -7,7 +7,7 @@ class GameObject : public MessageComponent
 	using VertexType = VertexColor;
 public:
 	GameObject(string name = "None");
-	GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size, Pivot p = Pivot::CENTER);
+	GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~GameObject();
 
 	//초기화
@@ -45,26 +45,17 @@ public:
 	}
 	const float& GetAlpha() { return alpha; }
 
-	void SetSize(const D3DXVECTOR2& s) 
-	{
-		//수정해야됨
-		size = s;
-	}
-	const D3DXVECTOR2& GetSize() { return size; }
-
-
-
-
-
-
-
-
 protected:
+	//이놈의 이름 (중복허용)
 	string name;
+	//이놈의 위치, 회전, 배율의 정보 
 	Matrix2D transform;
-	D3DXVECTOR2 size;
+
+	FloatRect rc;
 	bool bActive;
 
+
+	
 	float alpha;
 	float lifeTiem;
 

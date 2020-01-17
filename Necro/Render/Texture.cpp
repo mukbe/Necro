@@ -251,61 +251,95 @@ void Texture::SetCSResource(UINT slot)
 void Texture::ReleaseResource()
 {
 }
+//
+//void Texture::Render(D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
+//{
+//	//클리핑
+//	//카메라의 충될된 오브젝트를 그리는 방식을 사용한다면 렌더링 매니저 필요
+//
+//	D2D1_RECT_F dxArea;
+//	float len = D3DXVec2Length(&size);
+//
+//	//피벗 계산	
+//	dxArea = CalculatePivot((len <= 0 ? frameSize : size), pivot);
+//
+//	len = D3DXVec2Length(&offset);
+//	if (len >= 0)
+//	{
+//		dxArea.left += offset.x;
+//		dxArea.right += offset.x;
+//		dxArea.top += offset.y;
+//		dxArea.bottom += offset.y;
+//	}
+//
+//	p2DRenderer->GetRenderTarget()->DrawBitmap(bitmap, dxArea, alpha);
+//
+//}
+//
+////프레임이미지가 아닌 1x1프레임 이미지도 동일하게 렌더링 가능
+//void Texture::FrameRender( UINT frameX, UINT frameY, D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
+//{
+//	//클리핑
+//
+//
+//	int frame = frameY * maxFrameX + frameX;
+//
+//	float len = D3DXVec2Length(&size);
+//
+//
+//	D2D1_RECT_F dxArea;
+//	dxArea = CalculatePivot((len <= 0 ? frameSize : size), pivot);
+//
+//	len = D3DXVec2Length(&offset);
+//	if (len >= 0)
+//	{
+//		dxArea.left += offset.x;
+//		dxArea.right += offset.x;
+//		dxArea.top += offset.y;
+//		dxArea.bottom += offset.y;
+//	}
+//
+//	//리소스사이즈
+//	D2D1_RECT_F dxSrc;
+//	dxSrc = D2D1::RectF(frameInfo[frame].X, frameInfo[frame].Y, frameInfo[frame].X + frameInfo[frame].Width, frameInfo[frame].Y + frameInfo[frame].Height);
+//
+//	p2DRenderer->GetRenderTarget()->DrawBitmap(bitmap, dxArea, alpha,D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,&dxSrc);
+//
+//}
 
-void Texture::Render(D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
+void Texture::Render(FloatRect rc, Matrix2D * transform, float alpha, D3DXVECTOR2 offset)
 {
-	//클리핑
-	//카메라의 충될된 오브젝트를 그리는 방식을 사용한다면 렌더링 매니저 필요
+	p2DRenderer->IASet(transform);
 
 	D2D1_RECT_F dxArea;
-	float len = D3DXVec2Length(&size);
-
-	//피벗 계산	
-	dxArea = CalculatePivot((len <= 0 ? frameSize : size), pivot);
-
-	len = D3DXVec2Length(&offset);
-	if (len >= 0)
-	{
-		dxArea.left += offset.x;
-		dxArea.right += offset.x;
-		dxArea.top += offset.y;
-		dxArea.bottom += offset.y;
-	}
+	dxArea.left = rc.left;
+	dxArea.right = rc.right;
+	dxArea.top = rc.top;
+	dxArea.bottom = rc.bottom;
 
 	p2DRenderer->GetRenderTarget()->DrawBitmap(bitmap, dxArea, alpha);
 
 }
 
-//프레임이미지가 아닌 1x1프레임 이미지도 동일하게 렌더링 가능
-void Texture::FrameRender( UINT frameX, UINT frameY, D3DXVECTOR2 size, float alpha, Pivot pivot, D3DXVECTOR2 offset)
+void Texture::FrameRender(FloatRect rc, Matrix2D * transform, UINT frameX, UINT frameY, float alpha, D3DXVECTOR2 offset)
 {
-	//클리핑
-
-
+	p2DRenderer->IASet(transform);
 	int frame = frameY * maxFrameX + frameX;
 
-	float len = D3DXVec2Length(&size);
-
-
 	D2D1_RECT_F dxArea;
-	dxArea = CalculatePivot((len <= 0 ? frameSize : size), pivot);
-
-	len = D3DXVec2Length(&offset);
-	if (len >= 0)
-	{
-		dxArea.left += offset.x;
-		dxArea.right += offset.x;
-		dxArea.top += offset.y;
-		dxArea.bottom += offset.y;
-	}
+	dxArea.left = rc.left;
+	dxArea.right = rc.right;
+	dxArea.top = rc.top;
+	dxArea.bottom = rc.bottom;
 
 	//리소스사이즈
 	D2D1_RECT_F dxSrc;
 	dxSrc = D2D1::RectF(frameInfo[frame].X, frameInfo[frame].Y, frameInfo[frame].X + frameInfo[frame].Width, frameInfo[frame].Y + frameInfo[frame].Height);
-
-	p2DRenderer->GetRenderTarget()->DrawBitmap(bitmap, dxArea, alpha,D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,&dxSrc);
-
+	p2DRenderer->GetRenderTarget()->DrawBitmap(bitmap, dxArea, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &dxSrc);
 }
+
+
+
 
 
 void Texture::SetPixel(vector<D3DXCOLOR>& pixels, int w, int h)
