@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MessageComponent.h"
-#include "MessageManager.h"
+#include "./Systems/Manage/MessageManager.h"
 
 MessageComponent::MessageComponent()
 {

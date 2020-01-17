@@ -17,10 +17,10 @@ public:
 
 	void PostRender();
 	void ImguiRender();
+	void GameUIRender();
 
 	void ResizeScreen();
 
-	void GameUIRender();
 
 private:
 

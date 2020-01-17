@@ -160,16 +160,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Systems\Manage\RenderManager.cpp" />
+    <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
+    <ClCompile Include="Systems\Manage\BeatManager.cpp" />
+    <ClCompile Include="GameObject\Heart.cpp" />
     <ClCompile Include="Render\ImageManager.cpp" />
     <ClCompile Include="Scenes\SceneBase.cpp" />
-    <ClCompile Include="Scenes\SceneManager.cpp" />
+    <ClCompile Include="Systems\Manage\SceneManager.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
     <ClCompile Include="Systems\Message\DataContext.cpp" />
     <ClCompile Include="Systems\Message\MessageComponent.cpp" />
-    <ClCompile Include="Systems\Message\MessageManager.cpp" />
-    <ClCompile Include="Systems\SoundManager.cpp" />
+    <ClCompile Include="Systems\Manage\MessageManager.cpp" />
+    <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
-    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="GameObject\UIBase.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -199,17 +203,21 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Systems\Manage\RenderManager.h" />
+    <ClInclude Include="Systems\Manage\ObjectManager.h" />
+    <ClInclude Include="Systems\Manage\BeatManager.h" />
+    <ClInclude Include="GameObject\Heart.h" />
     <ClInclude Include="Render\ImageManager.h" />
     <ClInclude Include="Scenes\SceneBase.h" />
-    <ClInclude Include="Scenes\SceneManager.h" />
+    <ClInclude Include="Systems\Manage\SceneManager.h" />
     <ClInclude Include="Scenes\TestScene.h" />
     <ClInclude Include="Systems\Message\DataContext.h" />
     <ClInclude Include="Systems\Message\MessageComponent.h" />
-    <ClInclude Include="Systems\Message\MessageManager.h" />
-    <ClInclude Include="Systems\SoundManager.h" />
+    <ClInclude Include="Systems\Manage\MessageManager.h" />
+    <ClInclude Include="Systems\Manage\SoundManager.h" />
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
-    <ClInclude Include="Transform.h" />
+    <ClInclude Include="GameObject\UIBase.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />
     <ClInclude Include="Utilities\FloatRect.h" />

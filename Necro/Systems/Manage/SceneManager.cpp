@@ -33,23 +33,12 @@ void SceneManager::Update(float tick)
 
 }
 
-void SceneManager::PostUpdate()
-{
-	if (nowScene != nullptr)
-		nowScene->PostUpdate();
-}
 
 void SceneManager::Render()
 {
-	if (nowScene != nullptr)
-		nowScene->Render();
 }
 
-void SceneManager::ImguiRender()
-{
-	if (nowScene != nullptr)
-		nowScene->ImguiRender();
-}
+
 
 void SceneManager::AddScene(SceneBase * node)
 {

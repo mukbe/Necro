@@ -10,18 +10,24 @@ public:
 	
 	virtual void PreUpdate();
 	virtual void Update(float tick);
-	virtual void PostUpdate();
 
-	virtual void Render();
-	virtual void PostRender();
+
+	virtual void ObjectRender();
+	virtual void LightRender();
+	virtual void UIRender();
 	virtual void ImguiRender();
 
 
+
 	class MessageManager* GetMessagePool() { return messageManager; }
-
-
+	class ObjectManager* GetObjectPool() { return objectManager; }
+	class RenderManager* GetRenderPool() { return renderManager; }
+	class BeatManager* GetBeatManager() { return beatManager; }
 protected:
 	class MessageManager* messageManager;
+	class ObjectManager* objectManager;
+	class RenderManager* renderManager;
+	class BeatManager* beatManager;
 
 };
 

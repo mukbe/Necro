@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "TestScene.h"
-
+#include "./GameObject/UIBase.h"
 
 TestScene::TestScene()
 	:SceneBase()
@@ -16,41 +16,18 @@ void TestScene::Init()
 {
 	SceneBase::Init();
 
+	UIBase* temp = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(0, 0), D3DXVECTOR2(30, 100));
+	UIBase* t = _ObjectPool->FindObject<UIBase>("UI");
+
+	
 
 }
 
-void TestScene::Release()
-{
-}
 
 void TestScene::PreUpdate()
 {
-	SceneBase::PreUpdate();
-}
-
-void TestScene::Update(float tick)
-{
-	SceneBase::Update(tick);
-}
-
-void TestScene::PostUpdate()
-{
-	SceneBase::PostUpdate();
-}
-
-void TestScene::Render()
-{
-	SceneBase::Render();
-}
-
-void TestScene::PostRender()
-{
-	SceneBase::PostRender();
-}
-
-
-void TestScene::ImguiRender()
-{
-	SceneBase::ImguiRender();
-
+	if (beatManager->Update(Time::Tick()))
+	{
+		SceneBase::PreUpdate();
+	}
 }

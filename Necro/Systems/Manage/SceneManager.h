@@ -8,7 +8,6 @@ public:
 	void Release();
 	void PreUpdate();
 	void Update(float tick);
-	void PostUpdate();
 	void Render();
 	void ImguiRender();
 
@@ -26,3 +25,6 @@ private:
 #define _SceneManager SceneManager::Get()
 #define _GameWorld SceneManager::Get()->GetNowScene()
 #define _MessagePool SceneManager::Get()->GetNowScene()->GetMessagePool()
+#define _ObjectPool SceneManager::Get()->GetNowScene()->GetObjectPool()
+#define _RenderPool SceneManager::Get()->GetNowScene()->GetRenderPool()
+#define _BeatManager SceneManager::Get()->GetNowScene()->GetBeatManager()
