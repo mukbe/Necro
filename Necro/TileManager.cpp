@@ -10,6 +10,8 @@ TileManager::TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pi
 	_ImageManager->AddFrameTexture("testTile", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
 	mapTiles.insert(make_pair("Map", mapVector));
+	mapTiles.insert(make_pair("Object", mapVector));
+
 	CreateMap();
 }
 
@@ -19,6 +21,33 @@ TileManager::~TileManager()
 
 void TileManager::Release()
 {
+}
+
+void TileManager::Update(float tick)
+{
+	if (Keyboard::Get()->Down(VK_LBUTTON))
+	{
+		MapIter mapIter = mapTiles.begin(), mapEnd = mapTiles.end();
+		for (; mapIter != mapEnd; ++mapIter)
+		{
+			VecIter vecIter = (*mapIter).second.begin(), vecEnd = (*mapIter).second.end();
+			for (; vecIter != vecEnd; ++vecIter)
+			{
+				//if (Math::IsPointInAABB((*vecIter)->GetRect(), Mouse::Get()->GetPosition())) {}
+				if (Math::IsPointInAABB((*vecIter)->GetRect(), (D3DXVECTOR2)Mouse::Get()->GetPosition()))
+				{
+					if ((*mapIter).first == "Map")
+					{
+
+					}
+					else if ((*mapIter).first == "Object")
+					{
+
+					}
+				}
+			}
+		}
+	}
 }
 
 void TileManager::CreateMap()
@@ -34,6 +63,12 @@ void TileManager::CreateMap()
 
 		mapTiles["Map"].push_back(newTile);
 	}
+}
+
+void TileManager::UpdatePickInfo(AttributeType inputType, POINT inputIndex)
+{
+	pick.type = inputType;
+	pick.index = inputIndex;
 }
 
 TileNode* TileManager::Tile(POINT index)

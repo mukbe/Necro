@@ -5,6 +5,7 @@
 TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 TileNode::~TileNode()
@@ -16,7 +17,6 @@ void TileNode::Init(string textureStringKey, POINT textureFrameIndex, AttributeT
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
-	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)
@@ -26,8 +26,6 @@ void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, 
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
-
-	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void TileNode::Release()
