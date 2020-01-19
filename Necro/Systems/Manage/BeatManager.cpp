@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "BeatManager.h"
 
-float BeatManager::currentInterval = 0.f;
 
 BeatManager::BeatManager()
 {
@@ -53,7 +52,6 @@ void BeatManager::LoadText(wstring filePath)
 	//delta 와 카운트의 형태로 컨테이너의 크기를 감소
 	ConvertArrayToCount(times, beats);
 
-	currentInterval = beats.front().first;
 
 
 }
@@ -96,7 +94,6 @@ bool BeatManager::Update(float tick)
 			if (beats.front().second == 0)
 				beats.pop_front();
 
-			currentInterval = beats.front().first;
 
 			vector<GameObject*> objects = _ObjectPool->objects;
 			for (GameObject* obj : objects)

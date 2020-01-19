@@ -7,7 +7,6 @@ class BeatManager
 {
 	friend class SceneBase;
 public:
-	static float currentInterval;
 
 	void LoadText(wstring filePath);
 	void ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output);
