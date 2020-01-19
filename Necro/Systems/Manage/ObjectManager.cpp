@@ -19,7 +19,7 @@ void ObjectManager::ControlUpdate()
 {
 	for (GameObject* obj : objects)
 	{
-		obj->PreUpdate();
+		obj->ControlUpdate();
 	}
 }
 

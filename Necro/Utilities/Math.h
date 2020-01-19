@@ -30,7 +30,7 @@ public:
 	static D3DXCOLOR RandomColor();
 
 	//평행이면 0, b가 a의 시계방향에 있으면 양수, b가 a에 반시계방향이면 음수 
-	static double Cross(const D3DXVECTOR2& a, const D3DXVECTOR2& b)
+	static float Cross(const D3DXVECTOR2& a, const D3DXVECTOR2& b)
 	{
 		return a.x * b.y - a.y * b.x;
 	}

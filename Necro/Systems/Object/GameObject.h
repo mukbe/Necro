@@ -15,7 +15,7 @@ public:
 	//메모리 해제
 	virtual void Release();
 	//컨트롤 관련
-	virtual void PreUpdate();
+	virtual void ControlUpdate();
 	//메인 루틴
 	virtual void Update(float tick);
 
@@ -37,6 +37,11 @@ public:
 	}
 	const float& GetAlpha() { return alpha; }
 
+	FloatRect GetRect() { return rc; }
+
+
+	void SetPivot(Pivot p) { rc.Update(position, D3DXVECTOR2(rc.right - rc.left, rc.bottom - rc.top), p); }
+
 protected:
 	//이놈의 이름 (중복허용)
 	string name;
@@ -44,6 +49,7 @@ protected:
 	Matrix2D transform;
 
 	FloatRect rc;
+	Pivot pivot;
 	D3DXVECTOR2 position;
 	bool bActive;
 

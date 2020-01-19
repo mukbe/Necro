@@ -80,6 +80,8 @@ RECT FloatRect::GetRect()
 	return std::move(rc);
 }
 
+
+
 void FloatRect::Update(D3DXVECTOR2 pos, D3DXVECTOR2 size, Pivot p)
 {
 	*this = Calculate(pos, size, p);

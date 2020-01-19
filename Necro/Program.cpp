@@ -11,11 +11,11 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
-	/*SceneBase* scene = new TestScene;
-	_SceneManager->AddScene(scene);*/
-	
-	SceneBase* scene = new TileTestScene;
+	SceneBase* scene = new TestScene;
 	_SceneManager->AddScene(scene);
+	
+	//SceneBase* scene = new TileTestScene;
+	//_SceneManager->AddScene(scene);
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
@@ -35,7 +35,7 @@ Program::~Program()
 
 void Program::PreUpdate()
 {
-	_GameWorld->PreUpdate();
+
 }
 
 void Program::Update(float tick)
@@ -62,7 +62,7 @@ void Program::Render()
 	wstring str;
 	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
 	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
-	p2DRenderer->DrawText2D(Mouse::Get()->GetPosition().x - 200, Mouse::Get()->GetPosition().y - 20, str, 20);
+	p2DRenderer->DrawText2D((int)(Mouse::Get()->GetPosition().x - 200.f), (int)(Mouse::Get()->GetPosition().y - 20.f), str, 20);
 
 	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
@@ -77,7 +77,7 @@ void Program::PostRender()
 void Program::ImguiRender()
 {
 	static bool bLockFPS = true;
-	static int fps = Time::Get()->GetLockFPS();
+	static int fps = (int)Time::Get()->GetLockFPS();
 	ImGui::Begin("Info");
 	{
 		ImGui::Text("FPS : %f", Time::Get()->FPS()); ImGui::SameLine();
@@ -85,7 +85,7 @@ void Program::ImguiRender()
 		if (ImGui::Checkbox("FPS Lock", &bLockFPS) || ImGui::InputInt("FPS Value", &fps))
 		{
 			if (bLockFPS)
-				Time::Get()->SetLockFPS(fps);
+				Time::Get()->SetLockFPS((float)fps);
 			else
 				Time::Get()->SetLockFPS(0.f);
 		}

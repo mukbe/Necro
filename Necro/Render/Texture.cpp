@@ -75,9 +75,9 @@ Texture::Texture(wstring file, UINT frameX, UINT frameY, DXGI_FORMAT format)
 	int dy = bitmap->GetPixelSize().height / frameY;
 
 	WICRect rc;
-	for (int j = 0; j < frameY; ++j)
+	for (UINT j = 0; j < frameY; ++j)
 	{
-		for (int i = 0; i < frameX; ++i)
+		for (UINT i = 0; i < frameX; ++i)
 		{
 			rc.X = i * dx;
 			rc.Y = j * dy;
@@ -86,8 +86,8 @@ Texture::Texture(wstring file, UINT frameX, UINT frameY, DXGI_FORMAT format)
 			frameInfo.push_back(rc);
 		}
 	}
-	frameSize.x = dx;
-	frameSize.y = dy;
+	frameSize.x = (float)dx;
+	frameSize.y = (float)dy;
 }
 
 //Texture::Texture(wstring file, int width, int height, DXGI_FORMAT format)

@@ -1,5 +1,7 @@
 #pragma once
-class SceneBase
+
+
+class SceneBase 
 {
 public:
 	SceneBase();
@@ -8,7 +10,7 @@ public:
 	virtual void Init();
 	virtual void Release();
 	
-	virtual void PreUpdate();
+	virtual void ControlUpdate();
 	virtual void Update(float tick);
 
 
@@ -16,6 +18,7 @@ public:
 	virtual void LightRender();
 	virtual void UIRender();
 	virtual void ImguiRender();
+
 
 
 

@@ -15,7 +15,6 @@ public:
 	bool Update(float tick);
 
 private:
-	ifstream r;
 	//delta, count
 	deque<pair<float, UINT>> beats;
 
@@ -25,7 +24,7 @@ private:
 	BeatManager();
 	~BeatManager();
 
-
+	bool CheckInputForUpdate();
 
 
 

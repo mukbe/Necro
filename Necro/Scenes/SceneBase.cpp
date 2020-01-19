@@ -5,7 +5,6 @@ SceneBase::SceneBase()
 	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
 	  beatManager(new BeatManager)
 {
-	
 }
 
 
@@ -27,13 +26,14 @@ void SceneBase::Release()
 	messageManager->RemoveAllMessage();
 }
 
-void SceneBase::PreUpdate()
+void SceneBase::ControlUpdate()
 {
 	objectManager->ControlUpdate();
 }
 
 void SceneBase::Update(float tick)
 {
+	beatManager->Update(tick);
 	messageManager->Update(tick);
 	objectManager->Update(tick);
 }

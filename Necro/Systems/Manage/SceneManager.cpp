@@ -20,11 +20,7 @@ SceneManager::~SceneManager()
 	}
 }
 
-void SceneManager::PreUpdate()
-{
-	if (nowScene != nullptr)
-		nowScene->PreUpdate();
-}
+
 
 void SceneManager::Update(float tick)
 {
@@ -34,10 +30,6 @@ void SceneManager::Update(float tick)
 }
 
 
-void SceneManager::Render()
-{
-}
-
 
 
 void SceneManager::AddScene(SceneBase * node)
@@ -46,7 +38,6 @@ void SceneManager::AddScene(SceneBase * node)
 
 	node->Init();
 	scenes.push(node);
-
 }
 
 void SceneManager::PopScene()

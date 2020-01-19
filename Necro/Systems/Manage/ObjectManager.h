@@ -3,7 +3,8 @@
 
 class ObjectManager
 {
-	friend class SceneBase;
+	friend class SceneBase;		//씬에서 생성함
+	friend class BeatManager;	//모든 오브젝트가 필요함 ( UI는 빼고 필요한데.. 일단 전부)
 public:
 	void DeletaObject(class GameObject* object);
 	

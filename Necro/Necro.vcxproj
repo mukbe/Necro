@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\Note.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UIBase.cpp" />
+    <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -203,6 +205,7 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Note.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UIBase.h" />
+    <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />
     <ClInclude Include="Utilities\FloatRect.h" />
