@@ -7,6 +7,8 @@ public:
 	Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~Note();
 
+
+
 	virtual void Release();
 
 	virtual void ControlUpdate();
@@ -14,6 +16,9 @@ public:
 	virtual void Update(float tick);
 
 	virtual void Render();
-
+private:
+	float ratio;
+	float saveTime;
+	D3DXVECTOR2 size;
 };
 
