@@ -3,6 +3,7 @@
 #include <fstream>
 #include <time.h>
 
+class Note;
 class BeatManager
 {
 	friend class SceneBase;
@@ -14,11 +15,18 @@ public:
 
 private:
 	using Beat = pair<float, UINT>;
-	//delta, count
-	deque<Beat> beats;
+	using Shown = pair<float, float>;
 
+	deque<Shown> shownInfos;
+	deque<Beat> beats;
 	float saveTime;
 
+
+	vector<Note*> notes;
+	Note* targetNote;
+
+
+	void MakeNote();
 private:
 	BeatManager();
 	~BeatManager();

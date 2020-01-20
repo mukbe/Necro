@@ -160,9 +160,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\AttackSlot.cpp" />
+    <ClCompile Include="GameObject\BodySlot.cpp" />
+    <ClCompile Include="GameObject\BoomSlot.cpp" />
+    <ClCompile Include="GameObject\Coin.cpp" />
+    <ClCompile Include="GameObject\Diamond.cpp" />
+    <ClCompile Include="GameObject\HeadSlot.cpp" />
+    <ClCompile Include="GameObject\HPUi.cpp" />
+    <ClCompile Include="GameObject\ItemSlot.cpp" />
     <ClCompile Include="GameObject\Note.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="GameObject\ShovelSlot.cpp" />
     <ClCompile Include="GameObject\TestPlayer.cpp" />
+    <ClCompile Include="GameObject\ThrowSlot.cpp" />
+    <ClCompile Include="GameObject\TorchSlot.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
@@ -209,9 +220,20 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\AttackSlot.h" />
+    <ClInclude Include="GameObject\BodySlot.h" />
+    <ClInclude Include="GameObject\BoomSlot.h" />
+    <ClInclude Include="GameObject\Coin.h" />
+    <ClInclude Include="GameObject\Diamond.h" />
+    <ClInclude Include="GameObject\HeadSlot.h" />
+    <ClInclude Include="GameObject\HPUi.h" />
+    <ClInclude Include="GameObject\ItemSlot.h" />
     <ClInclude Include="GameObject\Note.h" />
     <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="GameObject\ShovelSlot.h" />
     <ClInclude Include="GameObject\TestPlayer.h" />
+    <ClInclude Include="GameObject\ThrowSlot.h" />
+    <ClInclude Include="GameObject\TorchSlot.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />

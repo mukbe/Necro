@@ -5,6 +5,10 @@
 
 float BeatManager::currentDelta = 0.f;
 
+void BeatManager::MakeNote()
+{
+}
+
 BeatManager::BeatManager()
 {
 	saveTime = 0.f;
@@ -17,11 +21,6 @@ BeatManager::~BeatManager()
 
 bool BeatManager::CheckInputForUpdate()
 {
-	//for (size_t t = 0; t < notes.size(); t++)
-	//{
-	//	FloatRect rc = notes[t]->GetRect();
-	//	
-	//}
 
 	if (Keyboard::Get()->Down(VK_LEFT)
 		||	Keyboard::Get()->Down(VK_RIGHT) 
@@ -70,8 +69,11 @@ void BeatManager::LoadText(wstring filePath)
 	//delta 와 카운트의 형태로 컨테이너의 크기를 감소
 	ConvertArrayToCount(times, beats);
 
-
-
+	notes = _ObjectPool->FindObjects<Note>("Note");
+	for (Note* note : notes)
+	{
+		note->Init();
+	}
 }
 
 void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output)
@@ -80,6 +82,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 	UINT oldtime = 0;
 	for (UINT time : input)
 	{
+		shownInfos.push_back(make_pair((float)(time / 1000.f), 2.f));
 		UINT delta = 0;
 		//시간 하나를 받아서 전에꺼랑 비교
 		delta = time - oldtime;
@@ -117,7 +120,11 @@ bool BeatManager::Update(float tick)
 			vector<GameObject*> objects = _ObjectPool->objects;
 			for (GameObject* obj : objects)
 			{
-				if (obj->Name() == "Player") continue;
+				if (obj->Name() == "Player")
+				{
+					_MessagePool->ReserveMessage(obj, "AddChance");
+					continue;
+				}
 				_MessagePool->ReserveMessage(obj, "OnBeat");
 			}
 

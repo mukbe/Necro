@@ -11,7 +11,16 @@ TestPlayer::TestPlayer(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	AddCallback("OnBeat", [&](TagMessage msg) {
+		if (bBeatChance <= 0)
+		{
+			return;
+		}
 		ControlUpdate();
+	});
+	AddCallback("AddChance", [&](TagMessage msg){
+		if (bBeatChance > 0)
+			return;
+		bBeatChance++;
 	});
 }
 
@@ -51,6 +60,7 @@ void TestPlayer::ControlUpdate()
 		rc += D3DXVECTOR2(0, 30);
 	}
 
+	bBeatChance--;
 }
 
 void TestPlayer::Update(float tick)

@@ -58,15 +58,3 @@ void ObjectManager::DeletaObject(GameObject * object)
 }
 
 
-vector<GameObject*> ObjectManager::FindObjects(string name)
-{
-	vector<GameObject*> vec;
-	for (size_t t = 0; t < objects.size(); t++)
-	{
-		if (name == objects[t]->Name())
-			vec.push_back(objects[t]);
-	}
-
-	return std::move(vec);
-}
-
