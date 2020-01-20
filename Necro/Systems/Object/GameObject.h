@@ -47,14 +47,9 @@ protected:
 	D3DXVECTOR2 position;
 	bool bActive;
 
-
 	
 	float alpha;
 	float lifeTiem;
-
-	
-
-
 
 
 private:

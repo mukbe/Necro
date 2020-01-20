@@ -4,6 +4,9 @@
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
 
+#include "./GameObject/Player.h"
+
+
 Program::Program()
 {
 
@@ -17,6 +20,7 @@ Program::Program()
 	SceneBase* scene = new TileTestScene;
 	_SceneManager->AddScene(scene);
 
+
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
 	//텍스트 앞에 u8을 써주어야함 유니코드 사용
@@ -27,6 +31,7 @@ Program::Program()
 	Shaders->CreateShader("Color", L"Color.hlsl");
 
 	_ImageManager->AddFrameTexture("test", ResourcePath + L"monster04_idle.png", 4, 6);
+	player = new Player("Player", D3DXVECTOR2(50.f, 50.f), D3DXVECTOR2(50, 50));
 }
 
 Program::~Program()
@@ -41,6 +46,7 @@ void Program::PreUpdate()
 void Program::Update(float tick)
 {
 	_GameWorld->Update(tick);
+	player->Update(tick);
 }
 
 void Program::PostUpdate()
@@ -51,7 +57,6 @@ void Program::PostUpdate()
 void Program::Render()
 {
 	_GameWorld->ObjectRender();
-
 
 	p2DRenderer->SetCamera(true);
 
@@ -65,8 +70,10 @@ void Program::Render()
 	p2DRenderer->DrawText2D(Mouse::Get()->GetPosition().x - 200, Mouse::Get()->GetPosition().y - 20, str, 20);
 
 	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
-
-
+	
+	//_ImageManager->FindTexture("PlayerBodyLeft")->FrameRender(FloatRect(D3DXVECTOR2(50, 50), D3DXVECTOR2(50, 50), Pivot::CENTER), nullptr, 0, 0);
+	//_ImageManager->FindTexture("PlayerHeadLeft")->FrameRender(FloatRect(D3DXVECTOR2(50, 50), D3DXVECTOR2(50, 50), Pivot::CENTER), nullptr, 0, 0);
+	player->Render();
 }
 
 void Program::PostRender()

@@ -4,6 +4,7 @@
 #include "TileHelper.h"
 #include "TileNode.h"
 
+
 TileTestScene::TileTestScene()
 	: SceneBase()
 {
@@ -20,8 +21,7 @@ void TileTestScene::Init()
 	// mapSize는 {가로칸수, 세로칸수}
 	// tileSize는 D3DXVECTOR2(가로크기, 세로크기)
 	// 기준좌표는 D3DXVECTOR2(x좌표, y좌표) -> 여기를 LeftTop 위치로 가정하고 쭈르륵 그려짐
-	testTileManager = new TileManager({ 10,10 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(0.f, 0.f));
-
+	testTileManager = new TileManager({ 10,10 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(13.f, 13.f));
 
 	//타일 검출
 	testTileManager->Tile({ 2, 3 }); // 포인트 형태 매개변수 ({2,3})
@@ -42,4 +42,7 @@ void TileTestScene::Init()
 		//5,i 인덱스의 프레임인덱스를 바꾼다.
 		testTileManager->Tile(5, i)->SetFrameX(1);
 	}
+
+	
+	//player = new Player("Player", D3DXVECTOR2(50.f, 50.f), D3DXVECTOR2(50, 50));
 }

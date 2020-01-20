@@ -160,6 +160,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UIBase.cpp" />
+    <ClCompile Include="TileManager.cpp" />
+    <ClCompile Include="TileNode.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -203,6 +207,8 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />
@@ -218,6 +224,9 @@
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UIBase.h" />
+    <ClInclude Include="TileHelper.h" />
+    <ClInclude Include="TileManager.h" />
+    <ClInclude Include="TileNode.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />
     <ClInclude Include="Utilities\FloatRect.h" />
