@@ -7,17 +7,12 @@ public:
 	UIBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~UIBase();
 
-private:
+protected:
 	virtual void Release();
 
-	virtual void PreUpdate();
-	// 틱으로 올 때 마다 덮어 씌운다고 생각을하면되나 .
+	virtual void ControlUpdate();
+	
 	virtual void Update(float tick);
 
 	virtual void Render();
-
-	int frameX;
-	int frameY;
-
 };
-

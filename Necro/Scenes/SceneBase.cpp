@@ -27,7 +27,7 @@ void SceneBase::Release()
 	messageManager->RemoveAllMessage();
 }
 
-void SceneBase::PreUpdate()
+void SceneBase::ControlUpdate()
 {
 	objectManager->ControlUpdate();
 }

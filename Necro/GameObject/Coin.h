@@ -1,21 +1,22 @@
 #pragma once
 #include "UIBase.h"
-class Heart : public UIBase
+
+class Coin : public UIBase
 {
+
 public:
-	Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	~Heart();
+	Coin(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	~Coin();
+
+	// 상속 받을때 이렇게 .
 
 	virtual void Release();
 
 	virtual void ControlUpdate();
-	
+
 	virtual void Update(float tick);
 
 	virtual void Render();
 
-private:
-	int frameX;
-	int frameY;
 };
 

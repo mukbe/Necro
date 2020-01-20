@@ -35,7 +35,7 @@ WPARAM Window::Run()
 				CameraManager::Get()->Update();
 			}
 			SoundManager::Get()->Update();
-			program->PreUpdate();
+			program->ControlUpdate();
 			program->Update(Time::Delta());
 			program->PostUpdate();
 

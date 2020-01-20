@@ -1,21 +1,18 @@
 #pragma once
 #include "UIBase.h"
-class Heart : public UIBase
+class BoomSlot : public UIBase
 {
 public:
-	Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	~Heart();
+	BoomSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	~BoomSlot();
 
 	virtual void Release();
 
 	virtual void ControlUpdate();
-	
+
 	virtual void Update(float tick);
 
 	virtual void Render();
 
-private:
-	int frameX;
-	int frameY;
 };
 

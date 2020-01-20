@@ -66,7 +66,7 @@ void D2DRenderer::BeginDraw()
 	//d2d
 	d2dRenderTarget->BeginDraw();
 	D2D1_COLOR_F temp;
-	temp.r = temp.g = temp.b = 1.f;
+	temp.r = temp.g = temp.b = 0.7f;
 	temp.a = 1.0f;
 	d2dRenderTarget->Clear(temp);
 	d2dRenderTarget->SetTransform(D2D1::IdentityMatrix());

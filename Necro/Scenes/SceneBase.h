@@ -8,7 +8,7 @@ public:
 	virtual void Init();
 	virtual void Release();
 	
-	virtual void PreUpdate();
+	virtual void ControlUpdate();
 	virtual void Update(float tick);
 
 

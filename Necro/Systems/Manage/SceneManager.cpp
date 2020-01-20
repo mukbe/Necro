@@ -20,10 +20,10 @@ SceneManager::~SceneManager()
 	}
 }
 
-void SceneManager::PreUpdate()
+void SceneManager::ControlUpdate()
 {
 	if (nowScene != nullptr)
-		nowScene->PreUpdate();
+		nowScene->ControlUpdate();
 }
 
 void SceneManager::Update(float tick)

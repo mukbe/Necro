@@ -11,11 +11,14 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
-	/*SceneBase* scene = new TestScene;
-	_SceneManager->AddScene(scene);*/
-	
-	SceneBase* scene = new TileTestScene;
+	//여기서 일단 씬 관리  여기는 UI
+	SceneBase* scene = new TestScene;
 	_SceneManager->AddScene(scene);
+	
+
+	// 타일씬 관리 
+	//SceneBase* scene = new TileTestScene;
+	//_SceneManager->AddScene(scene);
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
@@ -26,16 +29,16 @@ Program::Program()
 	}
 	Shaders->CreateShader("Color", L"Color.hlsl");
 
-	_ImageManager->AddFrameTexture("test", ResourcePath + L"monster04_idle.png", 4, 6);
+	//_ImageManager->AddFrameTexture("test", ResourcePath + L"monster04_idle.png", 4, 6);
 }
 
 Program::~Program()
 {
 }
 
-void Program::PreUpdate()
+void Program::ControlUpdate()
 {
-	_GameWorld->PreUpdate();
+	_GameWorld->ControlUpdate();
 }
 
 void Program::Update(float tick)
@@ -57,14 +60,12 @@ void Program::Render()
 
 	p2DRenderer->DrawLine(D3DXVECTOR2(-10000, 0), D3DXVECTOR2(10000, 0),nullptr);
 	p2DRenderer->DrawLine(D3DXVECTOR2(0, -10000), D3DXVECTOR2(0, 10000),nullptr);
-	p2DRenderer->DrawRectangle(FloatRect({ 100,100 }, 100, Pivot::CENTER),nullptr);
+	//p2DRenderer->DrawRectangle(FloatRect({ 100,100 }, 100, Pivot::CENTER),nullptr);
 
 	wstring str;
 	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
 	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
 	p2DRenderer->DrawText2D(Mouse::Get()->GetPosition().x - 200, Mouse::Get()->GetPosition().y - 20, str, 20);
-
-	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
 
 }

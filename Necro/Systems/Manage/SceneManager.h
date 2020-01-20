@@ -6,7 +6,7 @@ class SceneManager
 public:
 
 	void Release();
-	void PreUpdate();
+	void ControlUpdate();
 	void Update(float tick);
 	void Render();
 	void ImguiRender();
