@@ -1,6 +1,5 @@
 #pragma once
 
-#include "./GameObject/Player.h"
 
 class TestScene;
 class Program
@@ -24,6 +23,8 @@ public:
 
 
 private:
-	Player* player;
+	bool bGrid;
+	D3DXCOLOR gridColor;
 
+	void MakeGrid();
 };

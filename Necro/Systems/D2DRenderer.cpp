@@ -59,6 +59,8 @@ void D2DRenderer::Create2DBuffer()
 	AddTextFormat(L"맑은고딕", 20);
 
 	bCamera = false;
+	clearColor = ColorF::Black;
+	clearColor.a = 1.f;
 }
 
 void D2DRenderer::BeginDraw()
@@ -66,8 +68,7 @@ void D2DRenderer::BeginDraw()
 	//d2d
 	d2dRenderTarget->BeginDraw();
 	D2D1_COLOR_F temp;
-	temp.r = temp.g = temp.b = 0.7f;
-	temp.a = 1.0f;
+	memcpy_s(&temp, sizeof(float) * 4, clearColor, sizeof(float) * 4);
 	d2dRenderTarget->Clear(temp);
 	d2dRenderTarget->SetTransform(D2D1::IdentityMatrix());
 }
@@ -286,6 +287,20 @@ void D2DRenderer::DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end ,Matrix2D* transfo
 	d2dRenderTarget->DrawLine(D2D1::Point2F(start.x, start.y), D2D1::Point2F(end.x, end.y), dwDefaultBrush[defaultBrush], strokeWidth);
 }
 
+void D2DRenderer::DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, Matrix2D * transform, D3DXCOLOR color, float strokeWidth)
+{
+	ID2D1SolidColorBrush* brush;
+	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color.r, color.g, color.b, color.a), &brush);
+
+
+	IASet(transform);
+	d2dRenderTarget->DrawLine(D2D1::Point2F(start.x, start.y), D2D1::Point2F(end.x, end.y), brush, strokeWidth);
+
+
+	brush->Release();
+
+}
+
 void D2DRenderer::DrawRectangle(RECT rc, D2D1::ColorF::Enum color, float alpha, float strokeWidth)
 {
 	ID2D1SolidColorBrush* brush;
@@ -387,6 +402,73 @@ void D2DRenderer::FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush)
 	ellipse.radiusY = height * 0.5;
 
 	d2dRenderTarget->FillEllipse(&ellipse, dwDefaultBrush[defaultBrush]);
+}
+
+void D2DRenderer::DrawText2D(D3DXVECTOR2 pos, wstring text, float size, DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, wstring font)
+{
+	//텍스트 레이아웃 생성
+
+	dwFactory->CreateTextLayout(
+		text.c_str(),
+		text.length(),
+		dwTextFormats[font],
+		(float)(text.length()*size),
+		size,
+		&dwLayout
+	);
+
+	//레이아웃 셋업
+	DWRITE_TEXT_RANGE range;
+	range.startPosition = 0;
+	range.length = text.length();
+	dwLayout->SetFontSize((float)size, range);
+
+	dwLayout->SetTextAlignment(align);
+	IASet(nullptr);
+	//d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), dwLayout, dwDefaultBrush[defaultBrush]);
+
+	dwLayout->Release();
+}
+
+void D2DRenderer::DrawText2D(D3DXVECTOR2 pos, wstring text, float size, D3DXCOLOR color, DWRITE_TEXT_ALIGNMENT align, wstring font)
+{
+	//텍스트 레이아웃 생성
+
+	dwFactory->CreateTextLayout(
+		text.c_str(),
+		text.length(),
+		dwTextFormats[font],
+		(float)(text.length()*size),
+		size,
+		&dwLayout
+	);
+
+	//레이아웃 셋업
+	DWRITE_TEXT_RANGE range;
+	range.startPosition = 0;
+	range.length = text.length();
+	dwLayout->SetFontSize((float)size, range);
+
+	ID2D1SolidColorBrush* brush;
+	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(color.r, color.g, color.b, color.a), &brush);
+
+
+
+	dwLayout->SetTextAlignment(align);
+	IASet(nullptr);
+	//d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(pos.x, pos.y), dwLayout, brush);
+
+	dwLayout->Release();
+	brush->Release();
+
+}
+
+void D2DRenderer::DrawTextField(D3DXVECTOR2 pos, wstring text, D3DXVECTOR2 size, int width, int height, DefaultBrush::Enum defaultBrush, DWRITE_TEXT_ALIGNMENT align, wstring font)
+{
 }
 
 void D2DRenderer::DrawRectangle(FloatRect rc, Matrix2D *transform, D2D1::ColorF::Enum color, float alpha, float strokeWidth)

@@ -12,7 +12,7 @@ public:
 	void Update();
 	void ImguiRender();
 
-	RECT GetRenderRect() { return renderRect; }
+	FloatRect GetRenderRect(); 
 	void UpdateRenderRect();
 
 	D3DXVECTOR2 GetPos() { return pos; }
