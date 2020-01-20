@@ -16,11 +16,12 @@ TileTestScene::~TileTestScene()
 void TileTestScene::Init()
 {
 	SceneBase::Init();
+
 	// TileManager(POINT mapSize, tileSize, 기준좌표)
 	// mapSize는 {가로칸수, 세로칸수}
 	// tileSize는 D3DXVECTOR2(가로크기, 세로크기)
 	// 기준좌표는 D3DXVECTOR2(x좌표, y좌표) -> 여기를 LeftTop 위치로 가정하고 쭈르륵 그려짐
-	testTileManager = new TileManager({ 10,10 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(0.f, 0.f));
+	testTileManager = new TileManager(defaultMapSize, defaultTileSize, D3DXVECTOR2(0.f, 0.f));
 
 
 	//타일 검출
@@ -32,8 +33,6 @@ void TileTestScene::Init()
 	// 멤버 함수 모르겠으면 물어보셈.
 
 	testTile->GetAttribute(); //이건 오브젝트 타입 따오는거. 타입 이넘은 TileHelper.h 참조
-
-	_mapSize.x;
 
 	for (int i = 0; i < 8; ++i)
 	{

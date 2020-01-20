@@ -4,42 +4,11 @@
 
 class TileNode;
 
-struct tagPickInfo
-{
-	AttributeType type;
-	POINT index;
-};
-
-struct tagPalleteInfo
-{
-	enum PalleteType
-	{
-		PalleteTypeStart = 0,
-		Terrain,
-		Object,
-		PalleteTypeEnd
-	};
-
-	PalleteType type;
-};
-
-struct tagBrushInfo
-{
-	enum BrushType
-	{
-		BrushTypeStart = 0,
-		Brush,
-		Eraser,
-		BrushTypeEnd
-	};
-	
-	BrushType type;
-};
 
 class TileManager
 {
 public:
-	TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pivotPos);
+	TileManager(POINT sizeOfMap = { 0,0 }, D3DXVECTOR2 sizeOfTile = { 0.f, 0.f }, D3DXVECTOR2 pivot = { 0,0 });
 	~TileManager();
 
 	void Release();
@@ -48,22 +17,44 @@ public:
 
 	void CreateMap();
 
-	void UpdatePickInfo(AttributeType inputType, POINT inputIndex);
+	void ReleaseMap();
 
 	TileNode* Tile(POINT index);
 	TileNode* Tile(int x, int y);
 
-private:
-	unordered_map<string, vector<TileNode*>> mapTiles;
-	typedef unordered_map<string, vector<TileNode*>>::iterator MapIter;
+	vector<TileNode*> GetArray();
 
-	typedef vector<TileNode*> vecTiles;
+	POINT GetMapSize() { return mapSize; }
+	D3DXVECTOR2 GetTileSize() { return tileSize; }
+	D3DXVECTOR2 GetPivotPos() { return pivotPos; }
+
+	void SetMapSize(POINT input) 
+	{
+		ReleaseMap();
+		mapSize = input; 
+		CreateMap();
+	}
+	void SetTileSize(D3DXVECTOR2 input) 
+	{
+		ReleaseMap();
+		tileSize = input; 
+		CreateMap();
+	}
+	void SetPivotPos(D3DXVECTOR2 input) 
+	{ 
+		ReleaseMap();
+		pivotPos = input; 
+		CreateMap();
+	}
+
+
+
+private:
+	vector<TileNode*> mapTiles;
 	typedef vector<TileNode*>::iterator VecIter;
 
-	vecTiles mapVector;
-
-	tagPickInfo pick;
-	tagBrushInfo brush;
-	tagPalleteInfo pallete;
+	POINT mapSize;
+	D3DXVECTOR2 tileSize;
+	D3DXVECTOR2 pivotPos;
 };
 
