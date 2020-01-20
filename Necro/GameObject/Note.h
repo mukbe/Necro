@@ -1,13 +1,14 @@
 #pragma once
+#include "UIBase.h"
 
-class UIBase : public GameObject
+class Note : public UIBase
 {
-
 public:
-	UIBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	~UIBase();
+	Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	virtual~Note();
 
-private:
+
+
 	virtual void Release();
 
 	virtual void ControlUpdate();
@@ -15,7 +16,9 @@ private:
 	virtual void Update(float tick);
 
 	virtual void Render();
-
-
+private:
+	float ratio;
+	float saveTime;
+	D3DXVECTOR2 size;
 };
 

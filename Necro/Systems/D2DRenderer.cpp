@@ -157,7 +157,7 @@ void D2DRenderer::DrawText2D(int x, int y, wstring text, int size, DefaultBrush:
 		text.c_str(),
 		text.length(),
 		dwTextFormats[font],
-		text.length()*size,
+		(float)(text.length()*size),
 		size,
 		&dwLayout
 	);
@@ -166,12 +166,12 @@ void D2DRenderer::DrawText2D(int x, int y, wstring text, int size, DefaultBrush:
 	DWRITE_TEXT_RANGE range;
 	range.startPosition = 0;
 	range.length = text.length();
-	dwLayout->SetFontSize(size, range);
+	dwLayout->SetFontSize((float)size, range);
 
 	dwLayout->SetTextAlignment(align);
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(x, y), dwLayout, dwDefaultBrush[defaultBrush]);
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout, dwDefaultBrush[defaultBrush]);
 
 	dwLayout->Release();
 }
@@ -183,8 +183,8 @@ void D2DRenderer::DrawText2D(int x, int y, wstring text, COLORREF rgb, float alp
 		text.c_str(),
 		text.length(),
 		dwTextFormats[font],
-		text.length()*size,
-		size,
+		(float)text.length()*size,
+		(float)size,
 		&dwLayout
 	);
 
@@ -192,7 +192,7 @@ void D2DRenderer::DrawText2D(int x, int y, wstring text, COLORREF rgb, float alp
 	DWRITE_TEXT_RANGE range;
 	range.startPosition = 0;
 	range.length = text.length();
-	dwLayout->SetFontSize(size, range);
+	dwLayout->SetFontSize((float)size, range);
 	dwLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	dwLayout->SetTextAlignment(align);
 
@@ -200,7 +200,7 @@ void D2DRenderer::DrawText2D(int x, int y, wstring text, COLORREF rgb, float alp
 	ID2D1SolidColorBrush* brush;
 	d2dRenderTarget->CreateSolidColorBrush(D2D1::ColorF(rgb, alpha), &brush);
 
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(x, y), dwLayout, brush);
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout, brush);
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
 	brush->Release();
@@ -213,8 +213,8 @@ void D2DRenderer::DrawTextField(int x, int y, wstring text, int size, int width,
 		text.c_str(),
 		text.length(),
 		dwTextFormats[font],
-		width,
-		height,
+		(float)width,
+		(float)height,
 		&dwLayout
 	);
 
@@ -227,7 +227,7 @@ void D2DRenderer::DrawTextField(int x, int y, wstring text, int size, int width,
 	dwLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	dwLayout->SetTextAlignment(align);
 
-	d2dRenderTarget->DrawTextLayout(D2D1::Point2F(x, y), dwLayout, dwDefaultBrush[defaultBrush]);
+	d2dRenderTarget->DrawTextLayout(D2D1::Point2F((float)x, (float)y), dwLayout, dwDefaultBrush[defaultBrush]);
 	d2dRenderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 
 	dwLayout->Release();

@@ -23,5 +23,6 @@ public:
 	virtual void ProcessEvent(std::string name, IEventArgs* args) = 0;
 
 protected:
-	std::string name;///< 이벤트 이름
+	std::string eventName;///< 이벤트 이름
 };
+

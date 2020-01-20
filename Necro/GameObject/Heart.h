@@ -6,12 +6,16 @@ public:
 	Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~Heart();
 
-	//virtual void PreUpdate();
-	//virtual void Update(float tick);
+	virtual void Release();
 
-	//virtual void Render();
+	virtual void ControlUpdate();
+	virtual void Update(float tick);
 
+	virtual void Render();
 
-
+private:
+	const float holdTime = 0.05f;
+	bool hold;
+	float frameTime;
 };
 

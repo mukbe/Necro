@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TestScene.h"
-#include "./GameObject/UIBase.h"
+#include "./GameObject/Note.h"
+#include "./GameObject/TestPlayer.h"
+#include "./GameObject/Heart.h"
 
 TestScene::TestScene()
 	:SceneBase()
@@ -15,20 +17,20 @@ TestScene::~TestScene()
 void TestScene::Init()
 {
 	SceneBase::Init();
-	// 하트 템포
-	//UIBase* Heart = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(WinSizeX / 2, 830), D3DXVECTOR2(150, 150));
-	UIBase* temp = _ObjectPool->CreateObject<UIBase>("UI", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
-	UIBase* t = _ObjectPool->FindObject<UIBase>("UI");
-	
-	
+	beatManager->LoadText(ResourcePath + L"zone.txt");
+
+	Note* temp = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
+	Note* t = _ObjectPool->FindObject<Note>("Note");
+	_ObjectPool->CreateObject<TestPlayer>("Player", D3DXVECTOR2(200, 200), D3DXVECTOR2(100, 100));
+	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
 }
 
 
 void TestScene::PreUpdate()
 {
-	if (beatManager->Update(Time::Tick()))
-	{
-		SceneBase::PreUpdate();
-	}
+	//if (beatManager->Update(Time::Tick()))
+	//{
+	//	SceneBase::PreUpdate();
+	//}
 }

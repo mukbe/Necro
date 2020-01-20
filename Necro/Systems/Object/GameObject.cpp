@@ -40,7 +40,7 @@ void GameObject::Release()
 	//_RenderPool->Remove(this, RenderManager::Layer::layer);
 }
 
-void GameObject::PreUpdate()
+void GameObject::ControlUpdate()
 {
 
 }

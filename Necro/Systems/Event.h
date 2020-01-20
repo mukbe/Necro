@@ -24,6 +24,7 @@ struct EventProc
 //////////////////////////////////////////////////////////////////////////
 class Event
 {
+	friend class Program;
 public:
 	typedef std::multimap<std::string, IEvent*> EventMap;
 
