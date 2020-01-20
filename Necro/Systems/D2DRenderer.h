@@ -14,7 +14,7 @@ class D2DRenderer
 {
 	SingletonHeader(D2DRenderer)
 public:
-	
+	D3DXCOLOR clearColor;
 	void Create2DBuffer();
 	void BeginDraw();
 	void EndDraw();
@@ -72,7 +72,13 @@ public:
 	void FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
 	//========================================
 
+	void DrawText2D(D3DXVECTOR2 pos, wstring text, float size, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+	void DrawText2D(D3DXVECTOR2 pos, wstring text, float size, D3DXCOLOR color, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+	void DrawTextField(D3DXVECTOR2 pos, wstring text, D3DXVECTOR2 size, int width, int height, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+
+
 	void DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
+	void DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, Matrix2D* transform, D3DXCOLOR color, float strokeWidth = 1);
 	void DrawRectangle(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);
 	void DrawRectangle(FloatRect rc, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
 	void DrawEllipse(FloatRect rc, Matrix2D* transform, D2D1::ColorF::Enum color, float alpha, float strokeWidth = 1);

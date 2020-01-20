@@ -9,7 +9,7 @@ public:
 	virtual ~TestScene();
 
 	virtual void Init();
-	virtual void PreUpdate();
+	virtual void ControlUpdate();
 
 
 };

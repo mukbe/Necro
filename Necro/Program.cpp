@@ -4,18 +4,23 @@
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
 
+
+
 Program::Program()
 {
-
 	//게임정보저장 json or sql
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
+
+	bGrid = true;
+	gridColor = ColorWhite;
 
 	SceneBase* scene = new TestScene;
 	_SceneManager->AddScene(scene);
 	
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
+
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
@@ -35,12 +40,15 @@ Program::~Program()
 
 void Program::PreUpdate()
 {
-
+	if (Keyboard::Get()->Down(VK_F1))
+		bGrid = !bGrid;
 }
 
 void Program::Update(float tick)
 {
 	_GameWorld->Update(tick);
+
+
 }
 
 void Program::PostUpdate()
@@ -50,23 +58,21 @@ void Program::PostUpdate()
 
 void Program::Render()
 {
-	_GameWorld->ObjectRender();
+	if(bGrid)
+		MakeGrid();
 
 
 	p2DRenderer->SetCamera(true);
 
-	p2DRenderer->DrawLine(D3DXVECTOR2(-10000, 0), D3DXVECTOR2(10000, 0),nullptr);
-	p2DRenderer->DrawLine(D3DXVECTOR2(0, -10000), D3DXVECTOR2(0, 10000),nullptr);
-	p2DRenderer->DrawRectangle(FloatRect({ 100,100 }, 100, Pivot::CENTER),nullptr);
+	_GameWorld->ObjectRender();
+
 
 	wstring str;
 	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
 	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
-	p2DRenderer->DrawText2D((int)(Mouse::Get()->GetPosition().x - 200.f), (int)(Mouse::Get()->GetPosition().y - 20.f), str, 20);
+	p2DRenderer->DrawText2D((int)(Mouse::Get()->GetPosition().x - 200.f), (int)(Mouse::Get()->GetPosition().y - 20.f), str, 20,DefaultBrush::white);
 
 	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
-
-
 }
 
 void Program::PostRender()
@@ -91,6 +97,12 @@ void Program::ImguiRender()
 		}
 		ImGui::Text("Tick : %f", Time::Delta());
 		ImGui::Text("PosX : %.2f, PosY : %.2f", CAMERA->GetPos().x, CAMERA->GetPos().y);
+		ImGui::Checkbox("Grid View", &bGrid);
+		
+	
+		ImGui::ColorEdit3("Clear Color", &p2DRenderer->clearColor.r);
+		ImGui::ColorEdit4("Grid Color", &gridColor.r);
+
 	}
 	ImGui::End();
 
@@ -103,6 +115,57 @@ void Program::ResizeScreen()
 {
 	D3DDesc desc;
 	DxRenderer::GetDesc(&desc);
+}
+
+void Program::MakeGrid()
+{
+	vector<pair<D3DXVECTOR2, D3DXVECTOR2>> grid;
+	vector<float> arrayX, arrayY;
+
+	FloatRect rc = CAMERA->GetRenderRect();
+	const float tilesize = 52.f;
+	int starty = (int)(rc.top / tilesize);
+	int endy = (int)(rc.bottom / tilesize);
+
+	for (int y = starty-1; y <= endy + 1; y++)
+	{
+		arrayY.push_back(y * tilesize);
+	}
+
+	int startx = (int)(rc.left / tilesize);
+	int endx = (int)(rc.right / tilesize);
+	for (int x = startx-1; x <= endx + 1; x++)
+	{
+		arrayX.push_back(x * tilesize);
+	}
+
+	p2DRenderer->SetCamera(true);
+
+	//가로
+	for (int i = 0; i < arrayY.size(); i++)
+	{
+		if (arrayY[i] == 0)
+		{
+			p2DRenderer->DrawLine(D3DXVECTOR2(arrayX[0], arrayY[i]), D3DXVECTOR2(arrayX[arrayX.size() - 1], arrayY[i]), nullptr, gridColor, 3.f);
+			continue;
+		}
+
+		p2DRenderer->DrawLine(D3DXVECTOR2(arrayX[0] , arrayY[i] ), D3DXVECTOR2(arrayX[arrayX.size() - 1] , arrayY[i] ), nullptr, gridColor);
+	}
+	//세로
+	for (int i = 0; i < arrayX.size(); i++)
+	{
+		if (arrayX[i] == 0)
+		{
+			p2DRenderer->DrawLine(D3DXVECTOR2(arrayX[i], arrayY[0]), D3DXVECTOR2(arrayX[i], arrayY[arrayY.size() - 1]), nullptr, gridColor,3.f);
+			continue;
+		}
+
+		p2DRenderer->DrawLine(D3DXVECTOR2(arrayX[i] , arrayY[0] ), D3DXVECTOR2(arrayX[i] , arrayY[arrayY.size() - 1]) , nullptr, gridColor);
+	}
+
+	p2DRenderer->DrawText2D(D3DXVECTOR2(0, 0), L"0", 20, gridColor);
+
 }
 
 

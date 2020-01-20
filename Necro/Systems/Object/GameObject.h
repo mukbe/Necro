@@ -53,15 +53,10 @@ protected:
 	D3DXVECTOR2 position;
 	bool bActive;
 
-
 	
 	float alpha;
 	float lifeTiem;
-
-	
-
-
-
+	int bBeatChance;
 
 private:
 	string shaderKey;

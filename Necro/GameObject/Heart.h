@@ -17,5 +17,6 @@ private:
 	const float holdTime = 0.05f;
 	bool hold;
 	float frameTime;
+
 };
 

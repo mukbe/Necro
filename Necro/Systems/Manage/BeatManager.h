@@ -7,15 +7,15 @@ class BeatManager
 {
 	friend class SceneBase;
 public:
-
+	static float currentDelta;
 	void LoadText(wstring filePath);
-	void ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output);
 
 	bool Update(float tick);
 
 private:
+	using Beat = pair<float, UINT>;
 	//delta, count
-	deque<pair<float, UINT>> beats;
+	deque<Beat> beats;
 
 	float saveTime;
 
@@ -24,7 +24,7 @@ private:
 	~BeatManager();
 
 	bool CheckInputForUpdate();
-
+	void ConvertArrayToCount(vector<UINT>& input, deque<Beat>& output);
 
 
 };

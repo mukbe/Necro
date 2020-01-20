@@ -9,7 +9,7 @@ public:
 	Program();
 	~Program();
 
-	void PreUpdate();
+	void ControlUpdate();
 	void Update(float tick);
 	void PostUpdate();
 
@@ -23,6 +23,8 @@ public:
 
 
 private:
+	bool bGrid;
+	D3DXCOLOR gridColor;
 
-
+	void MakeGrid();
 };
