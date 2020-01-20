@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BeatManager.h"
 #include "./GameObject/TestPlayer.h"
-#include "./GameObject/Note.h"
+#include "./GameObject/UI/Note.h"
 
 float BeatManager::currentDelta = 0.f;
 
