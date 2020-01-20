@@ -1,6 +1,5 @@
 #pragma once
 
-#include "./GameObject/Player.h"
 
 class TestScene;
 class Program
@@ -24,6 +23,5 @@ public:
 
 
 private:
-	Player* player;
 
 };
