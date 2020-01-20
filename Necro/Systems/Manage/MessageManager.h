@@ -4,7 +4,7 @@
 
 class MessageComponent;
 class DataContext;
-class TagMessage;
+struct TagMessage;
 class MessageManager
 {
 private:

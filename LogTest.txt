@@ -167,770 +167,180 @@ Code: nowScene != nullptr
 			 End
 ===================================================
 ===================================================
- 2020.1.18	02:00:35	 'Directx11 2D' Start Succeeded
+ 2020.1.18	17:41:56	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.18	02:01:01	 'Directx11 2D' Start Succeeded
+ 2020.1.18	17:46:50	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	00:45:05	 'Directx11 2D' Start Succeeded
+ 2020.1.18	18:00:17	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	00:50:34	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	00:51:17	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	01:41:11	 'Directx11 2D' Start Succeeded
+ 2020.1.18	18:04:45	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	22:47:05	 'Directx11 2D' Start Succeeded
+ 2020.1.19	10:30:10	 'Directx11 2D' Start Succeeded
+10:30:11	Fatal Assertion Failure!
+File: e:\_necro\necro\systems\manage\scenemanager.cpp
+Line: 74
+Code: nowScene != nullptr
 ===================================================
- 2020.1.19	22:47:44	 'Directx11 2D' Start Succeeded
+ 2020.1.19	10:32:12	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:07:19	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:07:50	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:08:23	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:09:43	 'Directx11 2D' Start Succeeded
+ 2020.1.19	12:03:54	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:21:31	 'Directx11 2D' Start Succeeded
+ 2020.1.19	13:14:27	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:22:14	 'Directx11 2D' Start Succeeded
+ 2020.1.19	13:14:39	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	13:23:34	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:22:47	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:23:33	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:23:50	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.19	23:26:28	 'Directx11 2D' Start Succeeded
+ 2020.1.19	13:24:12	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:28:06	 'Directx11 2D' Start Succeeded
+ 2020.1.19	13:59:57	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:28:54	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:04:56	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:29:07	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:07:00	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:33:21	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:10:28	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:50:43	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:25:31	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:52:06	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:25:47	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.19	23:56:37	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:27:25	 'Directx11 2D' Start Succeeded
 ===================================================
- 2020.1.20	00:08:41	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:30:08	 'Directx11 2D' Start Succeeded
 ===================================================
- 2020.1.20	00:09:12	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.20	00:10:06	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.20	00:13:40	 'Directx11 2D' Start Succeeded
-00:13:41	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:42	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-00:13:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 62
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:14:41	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:30:55	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:22:31	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:31:17	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:23:16	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:40:51	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:23:39	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:41:37	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:23:59	 'Directx11 2D' Start Succeeded
+ 2020.1.19	14:42:01	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	14:44:39	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	14:44:49	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:28:54	 'Directx11 2D' Start Succeeded
-00:28:54	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:28:56	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:28:57	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:28:57	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:28:57	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:33:14	 'Directx11 2D' Start Succeeded
-00:33:14	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:20	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:24	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:24	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:25	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:25	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:26	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:27	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:28	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:28	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:29	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:29	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:30	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:31	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:31	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:32	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:32	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:33	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:33:33	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:35:20	 'Directx11 2D' Start Succeeded
-00:35:20	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:22	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:22	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:22	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:22	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:22	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:23	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:35:24	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:35:58	 'Directx11 2D' Start Succeeded
-00:35:59	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:40:43	 'Directx11 2D' Start Succeeded
-00:40:43	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:40:57	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:39:12	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	00:51:08	 'Directx11 2D' Start Succeeded
-00:51:08	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:51:10	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:51:13	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:51:13	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-00:51:14	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	00:59:47	 'Directx11 2D' Start Succeeded
-00:59:48	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	01:01:31	 'Directx11 2D' Start Succeeded
-01:01:32	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:33	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	01:01:40	 'Directx11 2D' Start Succeeded
-01:01:41	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:43	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:44	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:45	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:46	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:01:47	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-===================================================
- 2020.1.20	01:11:31	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:39:55	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	01:12:27	 'Directx11 2D' Start Succeeded
-01:12:27	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:12:30	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:12:31	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:12:31	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
-01:12:50	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 51
-Code: Does not exist Texture
+ 2020.1.19	15:40:27	 'Directx11 2D' Start Succeeded
 ===================================================
- 2020.1.20	01:14:40	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:50:35	 'Directx11 2D' Start Succeeded
 ===================================================
- 2020.1.20	01:17:15	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:50:52	 'Directx11 2D' Start Succeeded
 ===================================================
- 2020.1.20	01:17:47	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:51:00	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:51:23	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:51:49	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:51:58	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:52:07	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:52:31	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:52:53	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:53:00	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:54:17	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	01:19:10	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:54:31	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	01:19:17	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:54:43	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	01:25:27	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.20	01:32:37	 'Directx11 2D' Start Succeeded
-01:32:37	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:32:41	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:32:42	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:32:57	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:32:57	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:32:58	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:33:02	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:33:11	 'Directx11 2D' Start Succeeded
-01:33:11	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:34:03	 'Directx11 2D' Start Succeeded
-01:34:03	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:34:06	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:34:07	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:34:07	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:34:07	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:34:30	 'Directx11 2D' Start Succeeded
-01:34:30	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-01:34:31	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:35:09	 'Directx11 2D' Start Succeeded
-01:35:09	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:35:14	 'Directx11 2D' Start Succeeded
-01:35:16	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 37
-Code: Already Init this key
-===================================================
- 2020.1.20	01:46:11	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:54:54	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	01:47:13	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:54:59	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:02:51	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:55:11	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:03:14	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:55:23	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:05:16	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:55:28	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:05:32	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:55:51	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:10:49	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:56:03	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:11:19	 'Directx11 2D' Start Succeeded
+ 2020.1.19	15:56:16	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:56:59	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.19	15:57:56	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
 ===================================================
- 2020.1.20	02:11:35	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:11:53	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:13:06	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:21:40	 'Directx11 2D' Start Succeeded
-08:21:40	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 22
-Code: Already Init this key
-===================================================
- 2020.1.20	08:22:07	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:22:27	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:22:36	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:26:27	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:38:24	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:53:07	 'Directx11 2D' Start Succeeded
-08:53:07	Assertion Failure!
-File: c:\users\¹ðÁØ´Ô\desktop\ÆÀÆ÷Æú Âð\necro\render\imagemanager.cpp
-Line: 22
-Code: Already Init this key
-===================================================
- 2020.1.20	08:54:28	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:56:06	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:57:20	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	08:58:25	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:06:05	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:06:56	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:10:22	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:23:36	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:23:55	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:55:58	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	09:56:31	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:16:28	 'Directx11 2D' Start Succeeded
-===================================================
- 2020.1.20	10:27:37	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:28:51	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:29:03	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:29:12	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:29:49	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:30:25	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	10:35:24	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	11:35:54	 'Directx11 2D' Start Succeeded
-			 End
-===================================================
-===================================================
- 2020.1.20	12:21:44	 'Directx11 2D' Start Succeeded
+ 2020.1.19	16:27:20	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================

@@ -84,7 +84,7 @@ void CameraManager::AddZoom(float value)
 RECT CameraManager::GetRelativeRECT(RECT rc)
 {
 	RECT temp = rc;
-	MoveRect(&temp, -pos.x, pos.y);
+	MoveRect(&temp, (int)-pos.x, (int)-pos.y);
 	return std::move(temp);
 }
 

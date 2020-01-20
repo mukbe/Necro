@@ -34,7 +34,7 @@ void Time::UpdateWorldTime()
 	worldTime += Delta() * 1000.0f;
 
 	//지금이 6시~12시 중 몇 시인지?
-	float time24HClock = Math::Lerp(6, 12, worldTime * dayTimeRatio / (Math::PI * 0.5f));
+	float time24HClock = (float)Math::Lerp(6, 12, worldTime * dayTimeRatio / (Math::PI * 0.5f));
 
 	hour = (UINT)time24HClock;
 	minute = (UINT)((time24HClock - hour) * 60.0f);

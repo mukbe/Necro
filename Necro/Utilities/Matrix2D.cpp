@@ -60,11 +60,11 @@ void Matrix2D::SetRotate(float rad, D3DXVECTOR2 pos, bool isLocal)
 	rotation = rad;
 	if (!isLocal)
 	{
-		rotate = Matrix3x2F::Rotation(D3DXToDegree(rad), Point2F(pos.x, pos.y));
+		rotate = Matrix3x2F::Rotation((float)D3DXToDegree(rad), Point2F(pos.x, pos.y));
 	}
 	else
 	{
-		rotate = Matrix3x2F::Rotation(D3DXToDegree(rad));
+		rotate = Matrix3x2F::Rotation((float)D3DXToDegree(rad));
 	}
 
 	UpdateMatrix();
@@ -73,7 +73,7 @@ void Matrix2D::SetRotate(float rad, D3DXVECTOR2 pos, bool isLocal)
 void Matrix2D::SetRadian(float rad)
 {
 	rotation = rad;
-	rotate = Matrix3x2F::Rotation(D3DXToDegree(rad));
+	rotate = Matrix3x2F::Rotation((float)D3DXToDegree(rad));
 	UpdateMatrix();
 }
 
@@ -94,7 +94,7 @@ void Matrix2D::SetPos(float x, float y)
 void Matrix2D::SetPos(POINT p)
 {
 	pos = { (float)p.x, (float)p.y };
-	trans = Matrix3x2F::Translation(p.x, p.y);
+	trans = Matrix3x2F::Translation((float)p.x, (float)p.y);
 	UpdateMatrix();
 }
 

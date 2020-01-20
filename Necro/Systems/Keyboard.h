@@ -9,9 +9,18 @@ class Keyboard
 public:
 	void Update();
 
-	bool Down(DWORD key) { return keyMap[key] == KEY_INPUT_STATUS_DOWN; }
-	bool Up(DWORD key) { return keyMap[key] == KEY_INPUT_STATUS_UP; }
-	bool Press(DWORD key) { return keyMap[key] == KEY_INPUT_STATUS_PRESS; }
+	bool Down(DWORD key) 
+	{
+		return keyMap[key] == KEY_INPUT_STATUS_DOWN;
+	}
+	bool Up(DWORD key) 
+	{
+		return keyMap[key] == KEY_INPUT_STATUS_UP; 
+	}
+	bool Press(DWORD key)
+	{ 
+		return keyMap[key] == KEY_INPUT_STATUS_PRESS; 
+	}
 
 private:
 	BYTE keyState[MAX_INPUT_KEY];

@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "BeatManager.h"
 
-float BeatManager::currentInterval = 0.f;
 
 BeatManager::BeatManager()
 {
-	LoadText(ResourcePath + L"zone.txt");
 	saveTime = 0.f;
 
 }
@@ -14,8 +12,20 @@ BeatManager::~BeatManager()
 {
 }
 
+bool BeatManager::CheckInputForUpdate()
+{
+	//for (size_t t = 0; t < notes.size(); t++)
+	//{
+	//	FloatRect rc = notes[t]->GetRect();
+	//	
+	//}
+
+	return false;
+}
+
 void BeatManager::LoadText(wstring filePath)
 {
+	ifstream r;
 	string str;
 	r.open(filePath, ios::in);
 	//파일 읽어서
@@ -42,7 +52,7 @@ void BeatManager::LoadText(wstring filePath)
 	//delta 와 카운트의 형태로 컨테이너의 크기를 감소
 	ConvertArrayToCount(times, beats);
 
-	currentInterval = beats.front().first;
+
 
 }
 
@@ -84,9 +94,14 @@ bool BeatManager::Update(float tick)
 			if (beats.front().second == 0)
 				beats.pop_front();
 
-			currentInterval = beats.front().first;
 
-
+			vector<GameObject*> objects = _ObjectPool->objects;
+			for (GameObject* obj : objects)
+			{
+				//if (obj->Name() == "Player") continue;
+				_MessagePool->ReserveMessage(obj, "OnBeat");
+			}
+			CheckInputForUpdate();
 
 			saveTime = 0;
 			return true;

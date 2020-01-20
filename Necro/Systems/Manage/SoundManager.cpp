@@ -212,7 +212,7 @@ unsigned int SoundManager::Getposition(string keyName)
 			return ps;
 		}
 	}
-
+	return 0;
 }
 unsigned int SoundManager::Getlength(string keyName)
 {
@@ -229,7 +229,7 @@ unsigned int SoundManager::Getlength(string keyName)
 			return ps;
 		}
 	}
-
+	return 0;
 }
 void SoundManager::Setposition(string keyName, unsigned int time)
 {

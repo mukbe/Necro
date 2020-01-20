@@ -1,5 +1,7 @@
 #pragma once
-class SceneBase
+
+
+class SceneBase 
 {
 public:
 	SceneBase();
@@ -16,6 +18,7 @@ public:
 	virtual void LightRender();
 	virtual void UIRender();
 	virtual void ImguiRender();
+
 
 
 

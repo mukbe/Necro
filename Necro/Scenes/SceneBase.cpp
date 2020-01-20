@@ -5,7 +5,6 @@ SceneBase::SceneBase()
 	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
 	  beatManager(new BeatManager)
 {
-	
 }
 
 
@@ -34,6 +33,7 @@ void SceneBase::ControlUpdate()
 
 void SceneBase::Update(float tick)
 {
+	beatManager->Update(tick);
 	messageManager->Update(tick);
 	objectManager->Update(tick);
 }

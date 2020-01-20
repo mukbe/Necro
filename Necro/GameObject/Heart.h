@@ -9,13 +9,13 @@ public:
 	virtual void Release();
 
 	virtual void ControlUpdate();
-	
 	virtual void Update(float tick);
 
 	virtual void Render();
 
 private:
-	int frameX;
-	int frameY;
+	const float holdTime = 0.05f;
+	bool hold;
+	float frameTime;
 };
 

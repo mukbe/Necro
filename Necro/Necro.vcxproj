@@ -99,7 +99,6 @@
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>./;../_Libraries/</AdditionalIncludeDirectories>
       <AdditionalOptions>/await /std:c++latest %(AdditionalOptions)</AdditionalOptions>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,16 +160,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject\BoomSlot.cpp" />
-    <ClCompile Include="GameObject\BodySlot.cpp" />
-    <ClCompile Include="GameObject\AttackSlot.cpp" />
-    <ClCompile Include="GameObject\Coin.cpp" />
-    <ClCompile Include="GameObject\Diamond.cpp" />
-    <ClCompile Include="GameObject\HeadSlot.cpp" />
-    <ClCompile Include="GameObject\ItemSlot.cpp" />
-    <ClCompile Include="GameObject\HPUi.cpp" />
+    <ClCompile Include="GameObject\Player.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
-    <ClCompile Include="GameObject\ShovelSlot.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
@@ -185,10 +176,8 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UIBase.cpp" />
-    <ClCompile Include="GameObject\ThrowSlot.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TileNode.cpp" />
-    <ClCompile Include="GameObject\TorchSlot.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -218,16 +207,8 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject\BoomSlot.h" />
-    <ClInclude Include="GameObject\BodySlot.h" />
-    <ClInclude Include="GameObject\AttackSlot.h" />
-    <ClInclude Include="GameObject\Coin.h" />
-    <ClInclude Include="GameObject\Diamond.h" />
-    <ClInclude Include="GameObject\HeadSlot.h" />
-    <ClInclude Include="GameObject\ItemSlot.h" />
-    <ClInclude Include="GameObject\HPUi.h" />
+    <ClInclude Include="GameObject\Player.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
-    <ClInclude Include="GameObject\ShovelSlot.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />
@@ -243,11 +224,9 @@
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UIBase.h" />
-    <ClInclude Include="GameObject\ThrowSlot.h" />
     <ClInclude Include="TileHelper.h" />
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="TileNode.h" />
-    <ClInclude Include="GameObject\TorchSlot.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />
     <ClInclude Include="Utilities\FloatRect.h" />

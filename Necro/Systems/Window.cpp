@@ -35,8 +35,8 @@ WPARAM Window::Run()
 				CameraManager::Get()->Update();
 			}
 			SoundManager::Get()->Update();
-			program->ControlUpdate();
-			program->Update(Time::Delta());
+			program->PreUpdate();
+			program->Update(Time::Tick());
 			program->PostUpdate();
 
 			{//imgui Update
@@ -251,7 +251,6 @@ void Window::CreateManagers()
 
 
 	SceneManager::Create();
-
 
 	{//Imgui Init
 		D3DDesc desc;

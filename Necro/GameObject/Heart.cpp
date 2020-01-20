@@ -6,8 +6,15 @@
 Heart::Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_ImageManager->AddFrameTexture("UI_Heart", ResourcePath + L"UI/TempHeart.png", 2, 1);
-	frameX = 0;
+	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
+
+	hold = 0;
+	frameTime = 0.f;
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	AddCallback("OnBeat", [&](TagMessage msg) {
+		hold = true;
+	});
+
 }
 
 
@@ -17,6 +24,7 @@ Heart::~Heart()
 
 void Heart::Release()
 {
+	_RenderPool->Remove(this, RenderManager::Layer::UI);
 }
 
 void Heart::ControlUpdate()
@@ -25,23 +33,19 @@ void Heart::ControlUpdate()
 
 void Heart::Update(float tick)
 {
-	// ----------심장 노트 
-	rc = FloatRect::MoveRect(rc, D3DXVECTOR2(5.f, 0));
-	if (rc.right > WinSizeX * 0.5f)
-		rc.Update(D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70), Pivot::CENTER);
-	//---------------
-
-	frameX++;
-	if (frameX > 1) {
-		frameX = 0;
+	if (hold)
+	{
+		frameTime += tick;
+		if (frameTime >= holdTime)
+		{
+			frameTime -= holdTime;
+			hold = false;
+		}
 	}
-
 }
 
 void Heart::Render()
 {
-	//심장
 	p2DRenderer->SetCamera(false);
-	p2DRenderer->DrawRectangle(rc, nullptr);
-	_ImageManager->FrameRender("UI_Heart", FloatRect({ WinSizeX / 2.f , 830.f }, { 130.f,140.f }, Pivot::CENTER), nullptr, frameX, 0);
+	_ImageManager->FrameRender("HeartTemp", rc, nullptr, (UINT)hold, 0);
 }

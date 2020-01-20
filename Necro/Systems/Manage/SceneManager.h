@@ -6,10 +6,9 @@ class SceneManager
 public:
 
 	void Release();
-	void ControlUpdate();
 	void Update(float tick);
-	void Render();
-	void ImguiRender();
+	//void Render();
+	//void ImguiRender();
 
 
 	void AddScene(SceneBase* node);

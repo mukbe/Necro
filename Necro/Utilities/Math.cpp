@@ -271,7 +271,7 @@ bool Math::IsAABBInAABBReaction(FloatRect * me, FloatRect other, D3DXVECTOR2* di
 //직선충돌
 bool Math::IsLineInLine(Line l1, Line l2, D3DXVECTOR2 * point)
 {
-	double det = Math::Cross(l1.GetVector(), l2.GetVector());
+	float det = Math::Cross(l1.GetVector(), l2.GetVector());
 	
 	if (Math::Abs(det) < Epsilon) 
 		return false;

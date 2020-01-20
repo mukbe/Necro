@@ -37,6 +37,11 @@ public:
 	}
 	const float& GetAlpha() { return alpha; }
 
+	FloatRect GetRect() { return rc; }
+
+
+	void SetPivot(Pivot p) { rc.Update(position, D3DXVECTOR2(rc.right - rc.left, rc.bottom - rc.top), p); }
+
 protected:
 	//이놈의 이름 (중복허용)
 	string name;
@@ -44,17 +49,13 @@ protected:
 	Matrix2D transform;
 
 	FloatRect rc;
+	Pivot pivot;
 	D3DXVECTOR2 position;
 	bool bActive;
-
 
 	
 	float alpha;
 	float lifeTiem;
-
-	
-
-
 
 
 private:
