@@ -10,7 +10,7 @@ public:
 	
 	IS_INHERITED_THAN_RETURN(GameObject) CreateObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	IS_INHERITED_THAN_RETURN(GameObject) FindObject(string name);
-	vector<GameObject*> FindObjects(string name);
+	IS_INHERITED_THAN_RETURN_VECTOR_ARRAY(GameObject) FindObjects(string name);
 
 private:
 	using VecIter = vector<class GameObject*>::iterator;
@@ -48,4 +48,17 @@ IS_INHERITED_THAN_RETURN(class GameObject) ObjectManager::FindObject(string name
 	LOG->Error(__FILE__, __LINE__, "can't find object");
 	return nullptr;
 }
+
+
+IS_INHERITED_THAN_RETURN_VECTOR_ARRAY(GameObject) ObjectManager::FindObjects(string name)
+{
+	vector<Derived*> vec;
+	for (size_t t = 0; t < objects.size(); t++)
+	{
+		if (name == objects[t]->Name())
+			vec.push_back(static_cast<Derived*>(objects[t]));
+	}
+	return std::move(vec);
+}
+
 

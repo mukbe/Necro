@@ -7,17 +7,23 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	saveTime = 0.f;
 	this->size = size;
-	ratio = BeatManager::currentDelta;
 	AddCallback("save", [&](TagMessage msg) {
 		temp.push_back(position);
 	});
-
+	AddCallback("Shown", [&](TagMessage msg) {
+		
+	});
 }
 
 Note::~Note()
 {
+}
+
+void Note::Init()
+{
+	ratio = BeatManager::currentDelta;
+	saveTime = 0.f;
 }
 
 void Note::Release()
@@ -39,10 +45,9 @@ void Note::Update(float tick)
 		saveTime = 0.f;
 	}
 	saveTime += tick;
-	//rc = FloatRect::MoveRect(rc, D3DXVECTOR2(5.f, 0));
-	//if (rc.right > WinSizeX * 0.5f)
-	//	rc.Update(D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70), Pivot::CENTER);
 	rc.Update(position, size, Pivot::CENTER);
+
+
 	if (Keyboard::Get()->Down('F')) temp.clear();
 }
 

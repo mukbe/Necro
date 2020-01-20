@@ -7,7 +7,7 @@ public:
 	Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~Note();
 
-
+	virtual void Init();
 
 	virtual void Release();
 
