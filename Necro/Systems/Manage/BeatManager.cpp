@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "BeatManager.h"
+#include "./GameObject/TestPlayer.h"
+#include "./GameObject/Note.h"
 
+float BeatManager::currentDelta = 0.f;
 
 BeatManager::BeatManager()
 {
@@ -19,6 +22,21 @@ bool BeatManager::CheckInputForUpdate()
 	//	FloatRect rc = notes[t]->GetRect();
 	//	
 	//}
+
+	if (Keyboard::Get()->Down(VK_LEFT)
+		||	Keyboard::Get()->Down(VK_RIGHT) 
+		||	Keyboard::Get()->Down(VK_UP) 
+		||	Keyboard::Get()->Down(VK_DOWN))
+	{
+		Beat beat = beats.front();
+		if (Math::Abs(beat.first - saveTime) <= 0.3f)
+		{
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Note>("Note"), "save");
+		}
+	}
+
+
 
 	return false;
 }
@@ -80,7 +98,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 		oldtime = time;
 		oldDelta = delta;
 	}
-
+	currentDelta = beats.front().first;
 }
 
 bool BeatManager::Update(float tick)
@@ -88,6 +106,7 @@ bool BeatManager::Update(float tick)
 	if (beats.size() > 0)
 	{
 		saveTime += tick;
+		CheckInputForUpdate();
 		if (saveTime >= beats.front().first)
 		{
 			beats.front().second--;
@@ -98,11 +117,11 @@ bool BeatManager::Update(float tick)
 			vector<GameObject*> objects = _ObjectPool->objects;
 			for (GameObject* obj : objects)
 			{
-				//if (obj->Name() == "Player") continue;
+				if (obj->Name() == "Player") continue;
 				_MessagePool->ReserveMessage(obj, "OnBeat");
 			}
-			CheckInputForUpdate();
 
+			currentDelta = beats.front().first;
 			saveTime = 0;
 			return true;
 		}

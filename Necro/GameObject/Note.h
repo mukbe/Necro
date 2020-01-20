@@ -20,5 +20,7 @@ private:
 	float ratio;
 	float saveTime;
 	D3DXVECTOR2 size;
+	vector<D3DXVECTOR2> temp;
+
 };
 

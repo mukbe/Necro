@@ -57,6 +57,23 @@ void CameraManager::ImguiRender()
 {
 }
 
+FloatRect CameraManager::GetRenderRect()
+{
+	FloatRect rc;
+	rc.left = rc.top = 0;
+	rc.right = WinSizeX;
+	rc.bottom = WinSizeY;
+	D3DXVECTOR2 start = ScreenToWorld(D3DXVECTOR2(rc.left, rc.top));
+	D3DXVECTOR2 end = ScreenToWorld(D3DXVECTOR2(rc.right, rc.bottom));
+
+	rc.left = start.x;
+	rc.top = start.y;
+	rc.right = end.x;
+	rc.bottom = end.y;
+
+	return rc;
+}
+
 void CameraManager::UpdateRenderRect()
 {
 	renderRect = { (LONG)pos.x,(LONG)pos.y, (LONG)(pos.x + WinSizeX) , (LONG)(pos.y + WinSizeY) };
