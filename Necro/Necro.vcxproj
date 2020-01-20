@@ -160,14 +160,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject\Note.cpp" />
+    <ClCompile Include="GameObject\UI\AttackSlot.cpp" />
+    <ClCompile Include="GameObject\UI\BodySlot.cpp" />
+    <ClCompile Include="GameObject\UI\BoomSlot.cpp" />
+    <ClCompile Include="GameObject\UI\Coin.cpp" />
+    <ClCompile Include="GameObject\UI\Diamond.cpp" />
+    <ClCompile Include="GameObject\UI\HeadSlot.cpp" />
+    <ClCompile Include="GameObject\UI\HPUi.cpp" />
+    <ClCompile Include="GameObject\UI\ItemSlot.cpp" />
+    <ClCompile Include="GameObject\UI\Note.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="GameObject\UI\ShovelSlot.cpp" />
     <ClCompile Include="GameObject\TestPlayer.cpp" />
+    <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
+    <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
-    <ClCompile Include="GameObject\Heart.cpp" />
+    <ClCompile Include="GameObject\UI\Heart.cpp" />
     <ClCompile Include="Render\ImageManager.cpp" />
     <ClCompile Include="Scenes\SceneBase.cpp" />
     <ClCompile Include="Systems\Manage\SceneManager.cpp" />
@@ -177,7 +188,7 @@
     <ClCompile Include="Systems\Manage\MessageManager.cpp" />
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
-    <ClCompile Include="GameObject\UIBase.cpp" />
+    <ClCompile Include="GameObject\UI\UIBase.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="TileNode.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
@@ -209,14 +220,25 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject\Note.h" />
+    <ClInclude Include="GameObject\UI\AttackSlot.h" />
+    <ClInclude Include="GameObject\UI\BodySlot.h" />
+    <ClInclude Include="GameObject\UI\BoomSlot.h" />
+    <ClInclude Include="GameObject\UI\Coin.h" />
+    <ClInclude Include="GameObject\UI\Diamond.h" />
+    <ClInclude Include="GameObject\UI\HeadSlot.h" />
+    <ClInclude Include="GameObject\UI\HPUi.h" />
+    <ClInclude Include="GameObject\UI\ItemSlot.h" />
+    <ClInclude Include="GameObject\UI\Note.h" />
     <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="GameObject\UI\ShovelSlot.h" />
     <ClInclude Include="GameObject\TestPlayer.h" />
+    <ClInclude Include="GameObject\UI\ThrowSlot.h" />
+    <ClInclude Include="GameObject\UI\TorchSlot.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />
-    <ClInclude Include="GameObject\Heart.h" />
+    <ClInclude Include="GameObject\UI\Heart.h" />
     <ClInclude Include="Render\ImageManager.h" />
     <ClInclude Include="Scenes\SceneBase.h" />
     <ClInclude Include="Systems\Manage\SceneManager.h" />
@@ -227,7 +249,7 @@
     <ClInclude Include="Systems\Manage\SoundManager.h" />
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
-    <ClInclude Include="GameObject\UIBase.h" />
+    <ClInclude Include="GameObject\UI\UIBase.h" />
     <ClInclude Include="TileHelper.h" />
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="TileNode.h" />

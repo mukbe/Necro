@@ -23,5 +23,8 @@ public:
 
 
 private:
+	bool bGrid;
+	D3DXCOLOR gridColor;
 
+	void MakeGrid();
 };

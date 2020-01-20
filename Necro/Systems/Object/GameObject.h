@@ -56,7 +56,7 @@ protected:
 	
 	float alpha;
 	float lifeTiem;
-
+	int bBeatChance;
 
 private:
 	string shaderKey;

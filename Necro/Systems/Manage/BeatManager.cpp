@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "BeatManager.h"
+#include "./GameObject/TestPlayer.h"
+#include "./GameObject/UI/Note.h"
 
+float BeatManager::currentDelta = 0.f;
+
+void BeatManager::MakeNote()
+{
+}
 
 BeatManager::BeatManager()
 {
@@ -14,11 +21,21 @@ BeatManager::~BeatManager()
 
 bool BeatManager::CheckInputForUpdate()
 {
-	//for (size_t t = 0; t < notes.size(); t++)
-	//{
-	//	FloatRect rc = notes[t]->GetRect();
-	//	
-	//}
+
+	if (Keyboard::Get()->Down(VK_LEFT)
+		||	Keyboard::Get()->Down(VK_RIGHT) 
+		||	Keyboard::Get()->Down(VK_UP) 
+		||	Keyboard::Get()->Down(VK_DOWN))
+	{
+		Beat beat = beats.front();
+		if (Math::Abs(beat.first - saveTime) <= 0.3f)
+		{
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Note>("Note"), "save");
+		}
+	}
+
+
 
 	return false;
 }
@@ -52,8 +69,11 @@ void BeatManager::LoadText(wstring filePath)
 	//delta 와 카운트의 형태로 컨테이너의 크기를 감소
 	ConvertArrayToCount(times, beats);
 
-
-
+	notes = _ObjectPool->FindObjects<Note>("Note");
+	for (Note* note : notes)
+	{
+		note->Init();
+	}
 }
 
 void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output)
@@ -62,6 +82,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 	UINT oldtime = 0;
 	for (UINT time : input)
 	{
+		shownInfos.push_back(make_pair((float)(time / 1000.f), 2.f));
 		UINT delta = 0;
 		//시간 하나를 받아서 전에꺼랑 비교
 		delta = time - oldtime;
@@ -80,7 +101,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 		oldtime = time;
 		oldDelta = delta;
 	}
-
+	currentDelta = beats.front().first;
 }
 
 bool BeatManager::Update(float tick)
@@ -88,6 +109,7 @@ bool BeatManager::Update(float tick)
 	if (beats.size() > 0)
 	{
 		saveTime += tick;
+		CheckInputForUpdate();
 		if (saveTime >= beats.front().first)
 		{
 			beats.front().second--;
@@ -98,11 +120,15 @@ bool BeatManager::Update(float tick)
 			vector<GameObject*> objects = _ObjectPool->objects;
 			for (GameObject* obj : objects)
 			{
-				//if (obj->Name() == "Player") continue;
+				if (obj->Name() == "Player")
+				{
+					_MessagePool->ReserveMessage(obj, "AddChance");
+					continue;
+				}
 				_MessagePool->ReserveMessage(obj, "OnBeat");
 			}
-			CheckInputForUpdate();
 
+			currentDelta = beats.front().first;
 			saveTime = 0;
 			return true;
 		}

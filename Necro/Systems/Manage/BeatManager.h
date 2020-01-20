@@ -3,28 +3,36 @@
 #include <fstream>
 #include <time.h>
 
+class Note;
 class BeatManager
 {
 	friend class SceneBase;
 public:
-
+	static float currentDelta;
 	void LoadText(wstring filePath);
-	void ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output);
 
 	bool Update(float tick);
 
 private:
-	//delta, count
-	deque<pair<float, UINT>> beats;
+	using Beat = pair<float, UINT>;
+	using Shown = pair<float, float>;
 
+	deque<Shown> shownInfos;
+	deque<Beat> beats;
 	float saveTime;
 
+
+	vector<Note*> notes;
+	Note* targetNote;
+
+
+	void MakeNote();
 private:
 	BeatManager();
 	~BeatManager();
 
 	bool CheckInputForUpdate();
-
+	void ConvertArrayToCount(vector<UINT>& input, deque<Beat>& output);
 
 
 };

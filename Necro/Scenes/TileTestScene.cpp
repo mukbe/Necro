@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "TileTestScene.h"
-#include "./GameObject/UIBase.h"
 #include "TileHelper.h"
 #include "TileNode.h"
 

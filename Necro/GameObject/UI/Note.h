@@ -7,7 +7,7 @@ public:
 	Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~Note();
 
-
+	virtual void Init();
 
 	virtual void Release();
 
@@ -20,5 +20,7 @@ private:
 	float ratio;
 	float saveTime;
 	D3DXVECTOR2 size;
+	vector<D3DXVECTOR2> temp;
+
 };
 
