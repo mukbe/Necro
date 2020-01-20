@@ -2,7 +2,7 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "TileNode.h"
-
+#include "./GameObject/Player.h"
 
 TileTestScene::TileTestScene()
 	: SceneBase()
