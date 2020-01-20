@@ -1,9 +1,11 @@
 #pragma once
 
+#include "TileManager.h"
 
 // 필요한 상태
-// 1. 아이들, 2. 이동. 3. 공격 ?
-// 아이들에서 -> 바닥 검사하고-> 공격범위에있으면 어택 , 없으면 이동 >>> 이런식으로 해야하지않을까??
+// 1. 아이들, 2. 이동. 3. 공격 
+// 아이들에서 -> 바닥 검사하고-> 공격범위에있으면 어택 , 없으면 이동 
+// 이동과 공격에서는 정말 이동과 공격만 해야함 (목표지점에 도달했거나, 데미지를 넣었으면 바로 아이들로 돌아오게)
 
 //전방선언
 class StateBase;
@@ -24,10 +26,19 @@ private:
 	StateBase* currentState;
 	unordered_map<string, StateBase*> stateList;
 
+
 	int frameX, frameY;			// 프레임 렌더용
 	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
 	D3DXVECTOR2 destination;	// 목적지
+	float startTime;			// 시작 시간 
+	D3DXVECTOR2 startPos;		// 시작 위치 저장용
+
+
+	TileManager* tilemanger;
+
+	POINT tileNum;
+	TileNode* tileNode;
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -45,19 +56,15 @@ public:
 
 	virtual void Render();
 	//imgui debugUI render
-	virtual void ImguiRender() {}
+	virtual void ImguiRender();
 
+	// 상태를 변경하는데 쓰일 함수 
 	void ChangeState(string str);
 
 };
 
-enum PlayerState {
-	MOVELEFT,
-	MOVERIGHT,
-	MOVEUP,
-	MOVEDOWN
 
-};
+
 class StateBase
 {
 public:
@@ -69,7 +76,6 @@ public:
 	virtual void Exit() {}		// 
 protected:
 	Player* me;
-	PlayerState PlayerState;
 };
 
 class PlayerIdle : public StateBase

@@ -2,7 +2,7 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "TileNode.h"
-
+#include "./GameObject/Player.h"
 
 TileTestScene::TileTestScene()
 	: SceneBase()
@@ -42,6 +42,6 @@ void TileTestScene::Init()
 		testTileManager->Tile(5, i)->SetFrameX(1);
 	}
 
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
-	//player = new Player("Player", D3DXVECTOR2(50.f, 50.f), D3DXVECTOR2(50, 50));
 }

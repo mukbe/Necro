@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "TileHelper.h"
 #include "TileNode.h"
-#include "TileManager.h"
 
 
 
@@ -18,17 +17,21 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	_pos = pos;
 	_size = size;
 	rc = FloatRect(pos, size, Pivot::CENTER);
-
+	destination = pos;
 	interver = 0;
+
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
-	
+	startTime = 0;
+
 	currentState = nullptr;
 	stateList.insert(make_pair("Idle", new PlayerIdle(this)));
 	stateList.insert(make_pair("Move", new PlayerMove(this)));
 	stateList.insert(make_pair("Attack", new PlayerAttack(this)));
 	ChangeState("Idle");
 
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 
@@ -44,6 +47,8 @@ void Player::Init()
 void Player::Release()
 {
 	GameObject::Release();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 void Player::PreUpdate()
@@ -57,9 +62,6 @@ void Player::Update(float tick)
 
 	GameObject::Update(tick);
 
-	rc = FloatRect(position, 100, 100, Pivot::CENTER);
-
-
 	currentState->Excute();
 	
 	interver += tick * 4;
@@ -68,10 +70,11 @@ void Player::Update(float tick)
 		frameX++;
 		interver = 0;
 	}
-	if (frameX > 2) 
-	{
+	if (frameX > 2){
 		frameX = 0;
 	}
+
+	rc = FloatRect(_pos, _size, Pivot::CENTER);
 }
 
 
@@ -82,14 +85,18 @@ void Player::Render()
 	_ImageManager->FindTexture(body)->FrameRender(FloatRect(_pos, _size, Pivot::CENTER), nullptr, frameX, frameY);
 	_ImageManager->FindTexture(head)->FrameRender(FloatRect(_pos, _size, Pivot::CENTER), nullptr, frameX, frameY);
 
-	//_ImageManager->FindTexture(head)->FrameRender(rc, &this->transform, frameX, frameY);
-	
-	// 우리애 어디있지
-	wstring str;
-	str += L"pos.x : " + to_wstring(destination.x).substr(0, 6);
-	str += L"pos.y : " + to_wstring(destination.y).substr(0, 6);
-	p2DRenderer->DrawText2D(WinSizeX -600,200, str, 20);
+}
 
+void Player::ImguiRender()
+{
+	ImGui::Begin("Info");
+	{
+		//ImGui::Text("Tick : %f", Time::Delta());
+		ImGui::Text("PosX : %.2f, PosY : %.2f", _pos.x, _pos.y);
+		ImGui::Text("startTime : %.2f", startTime);
+		ImGui::Text("destinationX : %.2f, destinationY : %.2f", destination.x, destination.y);
+	}
+	ImGui::End();
 
 }
 
@@ -112,28 +119,65 @@ void PlayerIdle::Enter()
 
 void PlayerIdle::Excute()
 {
-	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 될거같음 
-	// 타일 사이즈 26.f ? 정도 
-	
+	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
+	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
+	//TileNode* tileNode;
+	POINT tileNum;
+	tileNum.x = (me->_pos.x - 26) / 52;
+	tileNum.y = (me->_pos.y - 26) / 52;
+	me->tileNode->SetIndex(tileNum);
+
+
 	if (KeyCode->Down(VK_LEFT))
 	{
 		me-> head = "PlayerHeadLeft";
 		me-> body = "PlayerBodyLeft";
-		me->ChangeState("Move");
+
+		me->startTime = 0;							// 시작 시간 초기화
+		me->startPos = me->_pos;					// 시작 위치 
+		me->destination.x = me->_pos.x -52;			// 목적지
+
+		me->tileNode->GetIndex();
+
+		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x - 1, me->tileNode->GetIndex().y})->GetAttribute() != ObjStatic)
+		{
+			me->ChangeState("Move");
+		}
 	}
 	else if (KeyCode->Down(VK_RIGHT))
 	{
 		me->head = "PlayerHeadRight";
 		me->body = "PlayerBodyRight";
-		me->ChangeState("Move");
+
+		me->startTime = 0;
+		me->startPos = me->_pos;
+		me->destination.x = me->_pos.x + 52; 
+
+		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x + 1, me->tileNode->GetIndex().y })->GetAttribute() != ObjStatic)
+		{
+			me->ChangeState("Move");
+		}
 	}
 	else if (KeyCode->Down(VK_UP))
 	{
-		me->ChangeState("Move");
+		me->startTime = 0;
+		me->startPos = me->_pos;
+		me->destination.y = me->_pos.y - 52; 
+		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x , me->tileNode->GetIndex().y-1 })->GetAttribute() != ObjStatic)
+		{
+			me->ChangeState("Move");
+		}
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
-		me->ChangeState("Move");
+		me->startTime = 0;
+		me->startPos = me->_pos;
+		me->destination.y = me->_pos.y + 52; 
+
+		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x , me->tileNode->GetIndex().y +1})->GetAttribute() != ObjStatic)
+		{
+			me->ChangeState("Move");
+		}
 	}
 }
 
@@ -148,90 +192,19 @@ void PlayerMove::Enter()
 
 void PlayerMove::Excute()
 {
-	float speed = Time::Tick() * 100;
-	
-	//transform;
-	// 타일 중점으로 이동 하게 해 -> 지금은 그냥 절대값으로 이동 하게 했음 ㅇㅅㅇ. 
-	// 이거 다운 누르면 바로 가니까 알아서 해라..
+	// 작동 시작 시간 / 목표 시간 ==1 이 될때 마다 (= 목표 시간마다) 작동해라
+	float factor = me->startTime / 0.25f;							// lerp 함수 안에 넣을 factor , 전체 시간분에 목표시간
 
-	if (KeyCode->Down(VK_LEFT))
+	me->startTime += Time::Tick();									// 0으로 초기화한 startTime에 tick을 더해라 
+
+	me->_pos = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
+
+	if (factor >= 1.0f)												//비울(factor) >= 1  >>>> 목표지점까지 가는데 걸린 시간이 목표한 시간과 같거나 크다 = 도착했다
 	{
-		PlayerState == MOVELEFT;
-		me->destination.x = me->_pos.x - 50; // 목표지 
-		//me->_pos.x += 10 * Time::Tick();
-	}
-	else if (KeyCode->Down(VK_RIGHT))
-	{
-		PlayerState == MOVERIGHT;
-		me->destination.x = me->_pos.x + 50; // 목표지 
-		
-	}
-	else if (KeyCode->Press(VK_UP))
-	{
-		PlayerState == MOVEUP;
-		//me->_pos.y -= speed;
-		//me->_pos.y -= 50;
-	}
-	else if (KeyCode->Press(VK_DOWN))
-	{
-		PlayerState == MOVEDOWN;
-		me->_pos.y += 50;
+		//me->_pos = me->destination;								// 위치 보정 할꺼면 위치보정 
+		me->ChangeState("Idle");
 	}
 
-	
-
-	if (PlayerState == MOVELEFT)
-	{
-		if (me->destination.x < me->_pos.x) {
-			me->_pos.x -= 50;
-		}
-		else {
-			speed = 0;
-			float delta = me->destination.x - me->_pos.x;
-			me->_pos.x += delta;
-			me->ChangeState("Idle");
-		}
-
-	}
-	if (PlayerState == MOVERIGHT)
-	{
-		if (me->destination.x > me->_pos.x) {
-			me->_pos.x += 50;
-		}
-		else {
-			speed = 0;
-			float delta = me->destination.x - me->_pos.x;
-			me->_pos.x += delta;
-			me->ChangeState("Idle");
-		}
-
-	}
-	if (PlayerState == MOVEUP)
-	{
-
-	}
-	if (PlayerState == MOVEDOWN)
-	{
-
-	}
-	
-
-	//if (KeyCode->Up(VK_LEFT))
-	//{
-	//	me->ChangeState("Idle");
-	//}
-	//else if (KeyCode->Up(VK_RIGHT))
-	//{
-	//	me->ChangeState("Idle");
-	//}
-	//else if (KeyCode->Up(VK_UP))
-	//{
-	//	me->ChangeState("Idle");
-	//}
-	//else if (KeyCode->Up(VK_DOWN))
-	//{
-	//	me->ChangeState("Idle");
-	//}
 }
 
 void PlayerMove::Exit()
