@@ -9,7 +9,7 @@ public:
 	Program();
 	~Program();
 
-	void PreUpdate();
+	void ControlUpdate();
 	void Update(float tick);
 	void PostUpdate();
 
