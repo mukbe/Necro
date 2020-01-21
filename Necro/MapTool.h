@@ -35,8 +35,6 @@ public:
 
 	TileNode* isInCollision();
 
-	void ProcessSetMap(TileNode* targetNode);
-
 private:
 	TileManager* map;
 	TileManager* pallete;

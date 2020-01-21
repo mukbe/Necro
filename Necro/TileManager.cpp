@@ -11,16 +11,19 @@ void TileManager::SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPiv
 	tileSize = size;
 	pivotPos = mapPivot;
 }
-void TileManager::SetTexture(wstring path, UINT x, UINT y)
+void TileManager::SetTexture(string name, wstring path, UINT x, UINT y)
 {
 	if (path.empty())
 	{
-		_ImageManager->DeleteTexture("DefaultMap");
-		_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
+		/*_ImageManager->DeleteTexture("DefaultMap");
+		_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);*/
+		
+		imageKey = "DefaultMap";
+
 		return;
 	}
-	_ImageManager->DeleteTexture("DefaultMap");
-	_ImageManager->AddFrameTexture("DefaultMap", path, x, y);
+	//_ImageManager->DeleteTexture("DefaultMap");
+	//_ImageManager->AddFrameTexture("DefaultMap", path, x, y);
 
 }
 

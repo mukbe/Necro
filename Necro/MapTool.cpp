@@ -12,11 +12,11 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	pallete = new TileManager({ 1,1 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(map->GetMapSize().x * (defaultTileSize.x), defaultTileSize.y / 2.f ));*/
 
 	TileManager::SetMapInfo(defaultMapSize, defaultTileSize, D3DXVECTOR2(0.f, 0.f));
-	TileManager::SetTexture();
+	TileManager::SetTexture("DefaultMap");
 	map = new TileManager;
 
 	TileManager::SetMapInfo({ 1,1 }, defaultTileSize, D3DXVECTOR2(1040.f, 0.f));
-	TileManager::SetTexture();
+	TileManager::SetTexture("DefaultMap");
 	pallete = new TileManager;
 
 	ImGuiIO& io = ImGui::GetIO();
@@ -149,18 +149,4 @@ TileNode* MapTool::isInCollision()
 		}
 	}
 	return nullptr;
-}
-
-void MapTool::ProcessSetMap(TileNode* targetNode)
-{
-	switch (brushType)
-	{
-	case Brush:
-		break;
-	case Eraser:
-		targetNode->Init();
-		break;
-	default:
-		break;
-	}
 }
