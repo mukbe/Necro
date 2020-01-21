@@ -17,15 +17,14 @@ void TileManager::Release()
 
 void TileManager::Update(float tick)
 {
-	
 }
 
 void TileManager::CreateMap()
 {
 	for (int i = 0; i < mapSize.x * mapSize.y; ++i)
 	{
-		float x = (i % mapSize.x) * (tileSize.x / 2.f) + pivotPos.x;
-		float y = (i / mapSize.x) * (tileSize.y / 2.f) + pivotPos.y;
+		float x = (i % mapSize.x) * (tileSize.x ) + pivotPos.x;
+		float y = (i / mapSize.x) * (tileSize.y ) + pivotPos.y;
 
 		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
 		
@@ -41,11 +40,12 @@ void TileManager::ReleaseMap()
 {
 	if (mapTiles.size() > 0)
 	{
-		VecIter iter = mapTiles.begin(), end = mapTiles.end();
-		for (; iter != end; ++iter)
+		for (int i = 0; i < mapTiles.size(); ++i)
 		{
+			VecIter iter = mapTiles.begin() + i;
+			(*iter)->Release();
 			mapTiles.erase(iter);
-			--iter;
+			--i;
 		}
 	}
 }

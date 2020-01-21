@@ -45,5 +45,10 @@ private:
 	BrushType brushType;
 
 	TileNode* selectedNode;
+
+	vector<GameObject*> myObjects;
+
+	int MapSize[2];
+	int oldMapSize[2];
 };
 

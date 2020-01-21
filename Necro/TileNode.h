@@ -19,6 +19,8 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 
+	virtual void HighlightRender();
+
 	string GetTextureKey() { return textureKey; }
 	POINT GetFrame() { return textureFrame; }
 	int GetFrameX() { return textureFrame.x; }
@@ -36,9 +38,9 @@ public:
 
 	void SetPivotPos(D3DXVECTOR2 input) { pivotPos = input; }
 
-	POINT GetTileIndex(TileNode* targetNode)
+	POINT GetIndex()
 	{
-		return posToIndex(targetNode->GetPos());
+		return posToIndex(GetPos());
 	}
 
 	D3DXVECTOR2 indexToPos(const POINT index)
@@ -95,4 +97,6 @@ protected:
 
 	D3DXVECTOR2 tileSize;
 	D3DXVECTOR2 pivotPos;
+
+	bool isSelected;
 };

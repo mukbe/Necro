@@ -3,6 +3,7 @@
 
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
+#include "./Scenes/MapToolScene.h"
 
 
 
@@ -15,7 +16,7 @@ Program::Program()
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	SceneBase* scene = new TestScene;
+	SceneBase* scene = new MapToolScene;
 	_SceneManager->AddScene(scene);
 	
 	//SceneBase* scene = new TileTestScene;
