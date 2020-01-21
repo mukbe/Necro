@@ -1,10 +1,32 @@
 #include "TileManager.h"
 #include "TileNode.h"
 
-TileManager::TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pivot)
-	:mapSize(sizeOfMap), tileSize(sizeOfTile), pivotPos(pivot)
+POINT TileManager::mapSize = { 0,0 };
+D3DXVECTOR2 TileManager::tileSize = { 0.f,0.f };
+D3DXVECTOR2 TileManager::pivotPos = { 0.f,0.f };
+
+void TileManager::SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPivot)
 {
-	CreateMap();
+	mapSize = tileMax;
+	tileSize = size;
+	pivotPos = mapPivot;
+}
+void TileManager::SetTexture(wstring path, UINT x, UINT y)
+{
+	if (path.empty())
+	{
+		_ImageManager->DeleteTexture("DefaultMap");
+		_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
+		return;
+	}
+	_ImageManager->DeleteTexture("DefaultMap");
+	_ImageManager->AddFrameTexture("DefaultMap", path, x, y);
+
+}
+
+
+TileManager::TileManager()
+{
 }
 
 TileManager::~TileManager()
@@ -15,9 +37,6 @@ void TileManager::Release()
 {
 }
 
-void TileManager::Update(float tick)
-{
-}
 
 void TileManager::CreateMap()
 {

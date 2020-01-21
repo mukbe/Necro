@@ -8,16 +8,18 @@ class TileNode;
 class TileManager
 {
 public:
-	TileManager(POINT sizeOfMap = { 0,0 }, D3DXVECTOR2 sizeOfTile = { 0.f, 0.f }, D3DXVECTOR2 pivot = { 0,0 });
+	static POINT mapSize;
+	static D3DXVECTOR2 tileSize;
+	static D3DXVECTOR2 pivotPos;
+
+	static void SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPivot);
+	static void SetTexture(wstring path = L"", UINT x = 1, UINT y = 1);
+private:
+	friend class SceneBase;
+public:
+	TileManager();
 	~TileManager();
 
-	void Release();
-	
-	void Update(float tick);
-
-	void CreateMap();
-
-	void ReleaseMap();
 
 	TileNode* Tile(POINT index);
 	TileNode* Tile(int x, int y);
@@ -28,33 +30,38 @@ public:
 	D3DXVECTOR2 GetTileSize() { return tileSize; }
 	D3DXVECTOR2 GetPivotPos() { return pivotPos; }
 
-	void SetMapSize(POINT input) 
-	{
-		ReleaseMap();
-		mapSize = input; 
-		CreateMap();
-	}
-	void SetTileSize(D3DXVECTOR2 input) 
-	{
-		ReleaseMap();
-		tileSize = input; 
-		CreateMap();
-	}
-	void SetPivotPos(D3DXVECTOR2 input) 
-	{ 
-		ReleaseMap();
-		pivotPos = input; 
-		CreateMap();
-	}
 
 
 
 private:
-	vector<TileNode*> mapTiles;
 	typedef vector<TileNode*>::iterator VecIter;
+	vector<TileNode*> mapTiles;
 
-	POINT mapSize;
-	D3DXVECTOR2 tileSize;
-	D3DXVECTOR2 pivotPos;
+
+	void Release();
+
+	void CreateMap();
+
+	void ReleaseMap();
+
+	void SetMapSize(POINT input)
+	{
+		ReleaseMap();
+		mapSize = input;
+		CreateMap();
+	}
+	void SetTileSize(D3DXVECTOR2 input)
+	{
+		ReleaseMap();
+		tileSize = input;
+		CreateMap();
+	}
+	void SetPivotPos(D3DXVECTOR2 input)
+	{
+		ReleaseMap();
+		pivotPos = input;
+		CreateMap();
+	}
+
 };
 

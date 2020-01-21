@@ -13,6 +13,7 @@
 #include "./Systems/Manage/BeatManager.h"
 #include "./Systems/Manage/ObjectManager.h"
 #include "./Systems/Manage/RenderManager.h"
+#include "./TileManager.h"
 #include "./Utilities/Matrix2D.h"
 #include "./Utilities/Matrix2x2.h"
 
