@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TileHelper.h"
+#include "MapTool.h"
 
 
 class TileNode : public GameObject
@@ -40,22 +41,25 @@ public:
 
 	POINT GetIndex()
 	{
-		return posToIndex(GetPos());
+		//return posToIndex(GetPos());
+		return PosToIndex(GetPos(), tileSize, pivotPos);
 	}
 
-	D3DXVECTOR2 indexToPos(const POINT index)
-	{
-		return { index.x * tileSize.x + (tileSize.x / 2.f),
-				index.y * tileSize.y + (tileSize.y / 2.f) };
-	}
+	//D3DXVECTOR2 indexToPos(const POINT index)
+	//{
+	//	float x = index.x * tileSize.x + (tileSize.x / 2.f) + pivotPos.x;
+	//	float y = index.y * tileSize.y + (tileSize.y / 2.f) + pivotPos.y;
 
-	POINT posToIndex(const D3DXVECTOR2 pos)
-	{
-		float x = ((pos.x - pivotPos.x) / tileSize.x) * 2.f;
-		float y =  ((pos.y - pivotPos.y) / tileSize.y) * 2.f;
+	//	return D3DXVECTOR2(x, y);
+	//}
 
-		return { (int)x,(int)y };
-	}
+	//POINT posToIndex(const D3DXVECTOR2 pos)
+	//{
+	//	float x = ((pos.x - pivotPos.x) / tileSize.x) * 2.f;
+	//	float y =  ((pos.y - pivotPos.y) / tileSize.y) * 2.f;
+
+	//	return { (int)x,(int)y };
+	//}
 
 	RECT GetCollision() { return rc.GetRect(); }
 
