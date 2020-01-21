@@ -218,6 +218,7 @@
     <ClCompile Include="Utilities\Logging.cpp" />
     <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Utilities\String.cpp" />
+    <ClCompile Include="GameObject\UI\Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject\UI\AttackSlot.h" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Utilities\Json.h" />
     <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Utilities\String.h" />
+    <ClInclude Include="GameObject\UI\Item.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Color.hlsl">
