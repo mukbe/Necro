@@ -26,11 +26,13 @@ public:
 	class ObjectManager* GetObjectPool() { return objectManager; }
 	class RenderManager* GetRenderPool() { return renderManager; }
 	class BeatManager* GetBeatManager() { return beatManager; }
+	class TileManager* GetTileManager() { return tileManager; }
 protected:
 	class MessageManager* messageManager;
 	class ObjectManager* objectManager;
 	class RenderManager* renderManager;
 	class BeatManager* beatManager;
+	class TileManager* tileManager;
 
 };
 

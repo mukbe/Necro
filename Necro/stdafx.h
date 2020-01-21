@@ -1,4 +1,5 @@
 #pragma once
+#define _HAS_STD_BYTE 0
 
 #include <windows.h>
 #include <assert.h>
@@ -13,7 +14,6 @@
 #include <type_traits>
 
 using namespace std;
-
 
 //Direct3D
 #include <dxgi1_2.h>

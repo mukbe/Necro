@@ -3,7 +3,7 @@
 
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
-
+#include "./Scenes/MapToolScene.h"
 
 
 Program::Program()
@@ -12,14 +12,20 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
+//	TestFunc();
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	SceneBase* scene = new TestScene;
-	_SceneManager->AddScene(scene);
+	//SceneBase* scene = new MapToolScene;
+	//_SceneManager->AddScene(scene);
 	
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
+
+
+	SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);
+
 
 
 	//IMGUI FONT SETUP
@@ -65,14 +71,15 @@ void Program::Render()
 	p2DRenderer->SetCamera(true);
 
 	_GameWorld->ObjectRender();
+	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
 
 	wstring str;
 	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
 	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
-	p2DRenderer->DrawText2D((int)(Mouse::Get()->GetPosition().x - 200.f), (int)(Mouse::Get()->GetPosition().y - 20.f), str, 20,DefaultBrush::white);
+	p2DRenderer->SetCamera(false);
+	p2DRenderer->DrawText2D(D3DXVECTOR2((Mouse::Get()->GetPosition().x - 200.f), (Mouse::Get()->GetPosition().y - 20.f)), str, 20, gridColor);
 
-	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 }
 
 void Program::PostRender()
@@ -100,8 +107,19 @@ void Program::ImguiRender()
 		ImGui::Checkbox("Grid View", &bGrid);
 		
 	
-		ImGui::ColorEdit3("Clear Color", &p2DRenderer->clearColor.r);
-		ImGui::ColorEdit4("Grid Color", &gridColor.r);
+		if (ImGui::ColorEdit3("Clear Color", &p2DRenderer->clearColor.r))
+		{
+			gridColor.r = 1.f - p2DRenderer->clearColor.r;
+			gridColor.g = 1.f - p2DRenderer->clearColor.g;
+			gridColor.b = 1.f - p2DRenderer->clearColor.b;
+		}
+		if (ImGui::ColorEdit4("Grid Color", &gridColor.r))
+		{
+			p2DRenderer->clearColor.r = 1.f - gridColor.r;
+			p2DRenderer->clearColor.g = 1.f - gridColor.g;
+			p2DRenderer->clearColor.b = 1.f - gridColor.b;
+
+		}
 
 	}
 	ImGui::End();
@@ -116,6 +134,31 @@ void Program::ResizeScreen()
 	D3DDesc desc;
 	DxRenderer::GetDesc(&desc);
 }
+
+//void Program::TestFunc()
+//{
+	//IGraphBuilder* graph = nullptr;
+	//IMediaControl* control = nullptr;
+	//IMediaEvent* eventMedia = nullptr;
+	//HRESULT hr;
+	//hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	//hr = CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)graph);
+	//graph->QueryInterface(IID_IMediaControl, (void**)eventMedia);
+
+	//graph->RenderFile(L"../_Resources/intro.avi", nullptr);
+	//if (SUCCEEDED(control->Run()))
+	//{
+	//	long ev;
+	//	eventMedia->WaitForCompletion(INFINITE, &ev);
+	//}
+
+
+	//eventMedia->Release();
+	//control->Release();
+	//graph->Release();
+	//CoUninitialize();
+
+//}
 
 void Program::MakeGrid()
 {
