@@ -12,6 +12,7 @@ public:
 	void LoadText(wstring filePath);
 
 	bool Update(float tick);
+	void ReturnNote();
 
 private:
 	using Beat = pair<float, UINT>;
@@ -26,14 +27,13 @@ private:
 	Note* targetNote;
 
 
-	void MakeNote();
+
 private:
 	BeatManager();
 	~BeatManager();
 
 	bool CheckInputForUpdate();
 	void ConvertArrayToCount(vector<UINT>& input, deque<Beat>& output);
-
-
+	void MakeNote(float inputTime, float shownTime);
 };
 

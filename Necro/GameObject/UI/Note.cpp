@@ -9,10 +9,14 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	_RenderPool->Request(this, RenderManager::Layer::UI);
 	this->size = size;
 	AddCallback("save", [&](TagMessage msg) {
+		bMove = false;
 		temp.push_back(position);
+		_BeatManager->ReturnNote();
 	});
 	AddCallback("Shown", [&](TagMessage msg) {
-		
+		float lerp = msg.Data->GetValue<float>();
+		Init(lerp);
+
 	});
 }
 
@@ -23,6 +27,13 @@ Note::~Note()
 void Note::Init()
 {
 	ratio = BeatManager::currentDelta;
+	saveTime = 0.f;
+}
+
+void Note::Init(float lerpTime)
+{
+	ratio = lerpTime;
+	bMove = true;
 	saveTime = 0.f;
 }
 
@@ -37,6 +48,8 @@ void Note::ControlUpdate()
 
 void Note::Update(float tick)
 {	
+	if (bMove == false) return;
+
 	float factor = saveTime / ratio;
 	position.x = Math::Lerp(WinSizeX *0.5f *0.25f, WinSizeX *0.5f, factor);
 	if (factor > 1.0f)
@@ -54,7 +67,10 @@ void Note::Update(float tick)
 void Note::Render()
 {
 	p2DRenderer->SetCamera(false);
-	p2DRenderer->DrawRectangle(rc, nullptr);
+	if(bMove)
+		p2DRenderer->DrawRectangle(rc, nullptr);
+	else 
+		p2DRenderer->DrawRectangle(rc, nullptr, DefaultBrush::blue);
 
 	for (int i = 0; i < temp.size(); i++)
 	{
