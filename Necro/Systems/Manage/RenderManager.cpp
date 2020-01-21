@@ -35,13 +35,12 @@ void RenderManager::Remove(GameObject * const obj)
 	MapIter mIter = renderList.begin();
 	for (; mIter != renderList.end(); mIter++)
 	{
-		vector<GameObject*>& arr = mIter->second;
-		VecIter vIter = arr.begin();
-		for (; vIter != arr.end();)
+		VecIter vIter = mIter->second.begin();
+		for (; vIter != mIter->second.end();)
 		{
 			if (*vIter == obj)
 			{
-				vIter = arr.erase(vIter);
+				vIter = mIter->second.erase(vIter);
 				break;
 			}
 
@@ -74,7 +73,7 @@ void RenderManager::Render()
 //
 void RenderManager::ObjectRender()
 {
-	vector<GameObject*>& arr = renderList[Layer::BackGround];
+	vector<GameObject*> arr = renderList[Layer::BackGround];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end(); ++Iter)
 	{
