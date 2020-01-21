@@ -1,16 +1,32 @@
 #include "TileManager.h"
 #include "TileNode.h"
 
-TileManager::TileManager(POINT sizeOfMap, D3DXVECTOR2 sizeOfTile, D3DXVECTOR2 pivotPos)
+POINT TileManager::mapSize = { 0,0 };
+D3DXVECTOR2 TileManager::tileSize = { 0.f,0.f };
+D3DXVECTOR2 TileManager::pivotPos = { 0.f,0.f };
+
+void TileManager::SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPivot)
 {
-	_mapSize = sizeOfMap;
-	_tileSize = sizeOfTile;
-	_tilePivotPos = pivotPos;
+	mapSize = tileMax;
+	tileSize = size;
+	pivotPos = mapPivot;
+}
+void TileManager::SetTexture(wstring path, UINT x, UINT y)
+{
+	if (path.empty())
+	{
+		_ImageManager->DeleteTexture("DefaultMap");
+		_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
+		return;
+	}
+	_ImageManager->DeleteTexture("DefaultMap");
+	_ImageManager->AddFrameTexture("DefaultMap", path, x, y);
 
-	_ImageManager->AddFrameTexture("testTile", ResourcePath + L"DefaultTileMap.png", 2, 2);
+}
 
-	mapTiles.insert(make_pair("Map", mapVector));
-	CreateMap();
+
+TileManager::TileManager()
+{
 }
 
 TileManager::~TileManager()
@@ -21,27 +37,54 @@ void TileManager::Release()
 {
 }
 
+
 void TileManager::CreateMap()
 {
-	for (int i = 0; i < _mapSize.x * _mapSize.y; ++i)
+	for (int i = 0; i < mapSize.x * mapSize.y; ++i)
 	{
-		float x = (i % _mapSize.x) * (_tileSize.x / 2.f) + _tilePivotPos.x;
-		float y = (i / _mapSize.x) * (_tileSize.y / 2.f) + _tilePivotPos.y;
+		float x = (i % mapSize.x) * (tileSize.x ) + pivotPos.x;
+		float y = (i / mapSize.x) * (tileSize.y ) + pivotPos.y;
 
-		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(_tileSize.x, _tileSize.y));
+		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
 		
-		newTile->Init("testTile");
+		newTile->Init("DefaultMap");
 
-		mapTiles["Map"].push_back(newTile);
+		newTile->SetPivotPos(pivotPos);
+
+		mapTiles.push_back(newTile);
 	}
 }
 
+void TileManager::ReleaseMap()
+{
+	if (mapTiles.size() > 0)
+	{
+		for (int i = 0; i < mapTiles.size(); ++i)
+		{
+			_ObjectPool->DeletaObject(mapTiles[i]);
+
+			//VecIter iter = mapTiles.begin() + i;
+			//(*iter)->Release();
+			//mapTiles.erase(iter);
+			//--i;
+		}
+		mapTiles.clear();
+	}
+}
+
+
+
 TileNode* TileManager::Tile(POINT index)
 {
-	return mapTiles["Map"][index.y * _mapSize.x + index.x];
+	return mapTiles[index.y * mapSize.x + index.x];
 }
 
 TileNode * TileManager::Tile(int x, int y)
 {
-	return mapTiles["Map"][y * _mapSize.x + x];
+	return mapTiles[y * mapSize.x + x];
+}
+
+vector<TileNode*> TileManager::GetArray()
+{
+	return mapTiles;
 }

@@ -3,6 +3,7 @@
 
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
+#include "./Scenes/MapToolScene.h"
 
 
 Program::Program()
@@ -11,15 +12,20 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
-	TestFunc();
+//	TestFunc();
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	SceneBase* scene = new TestScene;
-	_SceneManager->AddScene(scene);
+	//SceneBase* scene = new MapToolScene;
+	//_SceneManager->AddScene(scene);
 	
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
+
+
+	SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);
+
 
 
 	//IMGUI FONT SETUP

@@ -10,6 +10,5 @@ enum AttributeType
 	AttributeTypeEnd
 };
 
-static D3DXVECTOR2 _tilePivotPos;
-static POINT _mapSize;
-static D3DXVECTOR2 _tileSize;
+static const POINT defaultMapSize = { 10,10 };
+static const D3DXVECTOR2 defaultTileSize = { 52.f, 52.f };
