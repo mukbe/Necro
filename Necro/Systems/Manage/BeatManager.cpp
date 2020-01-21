@@ -11,6 +11,8 @@ BeatManager::BeatManager()
 {
 	saveTime = -4.f;
 	target = nullptr;
+	bMusic = false;
+
 	onBeatObjectList.clear();
 	onBeatObjectList.push_back("Monster");
 	onBeatObjectList.push_back("Heart");
@@ -89,7 +91,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 	UINT oldtime = 0;
 	for (UINT time : input)
 	{
-		shownInfos.push_back(make_pair((float)(time / 1000.f), 1.5f));
+		shownInfos.push_back(make_pair((float)(time / 1000.f), 2.f));
 		UINT delta = 0;
 		//시간 하나를 받아서 전에꺼랑 비교
 		delta = time - oldtime;
@@ -108,7 +110,7 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 		oldtime = time;
 		oldDelta = delta;
 	}
-	currentDelta = beats.front().first;
+	currentDelta = beats.front().first; 
 }
 
 void BeatManager::MakeNote(float inputTime, float shownTime)
@@ -131,6 +133,17 @@ bool BeatManager::OnBeatObject(GameObject* obj)
 	return false;
 }
 
+void BeatManager::MusicTest()
+{
+	if (bMusic == false)
+	{
+		saveTime = 0.f;
+		SOUNDMANAGER->Play("stage1");
+		SOUNDMANAGER->SetVolume("stage1", 0.6f);
+		bMusic = true;
+	}
+}
+
 void BeatManager::ReturnNote()
 {
 	target = nullptr;
@@ -150,6 +163,13 @@ void BeatManager::Update(float tick)
 	if (shownInfos.size() > 0)
 	{
 		saveTime += tick;
+		
+
+		if (saveTime >= 0)
+		{
+			MusicTest();
+		}
+
 		CheckInputForUpdate();
 		if (shownInfos.front().first - shownInfos.front().second <= saveTime)
 		{

@@ -42,6 +42,9 @@ void Note::Init(float lerpTime)
 	saveTime = 0.f;
 	alpha = 0.f;
 	gracePeriod = 0.5f;
+
+	position.x = -30.f;
+	rc.Update(position, size, Pivot::CENTER);
 }
 
 void Note::Release()
@@ -92,7 +95,7 @@ void Note::Render()
 {
 	p2DRenderer->SetCamera(false);
 
-	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha,1.f);
+	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha, 1.f);
 }
 
 void Note::OnBeatEnter()

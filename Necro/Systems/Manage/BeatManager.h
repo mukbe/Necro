@@ -42,5 +42,10 @@ private:
 
 	//비트에 맞춰서 움직일 객체인가
 	bool OnBeatObject(GameObject* obj);
+
+
+//=====TEST======
+	void MusicTest();
+	bool bMusic;
 };
 
