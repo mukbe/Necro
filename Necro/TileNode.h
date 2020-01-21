@@ -1,10 +1,12 @@
 #pragma once
 
 #include "TileHelper.h"
+#include "MapTool.h"
 
 
 class TileNode : public GameObject
 {
+	//friend MapTool;
 public:
 	TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~TileNode();
