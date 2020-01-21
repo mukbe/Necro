@@ -1,7 +1,5 @@
 #pragma once
 
-#include "TileManager.h"
-
 // 필요한 상태
 // 1. 아이들, 2. 이동. 3. 공격 
 // 아이들에서 -> 바닥 검사하고-> 공격범위에있으면 어택 , 없으면 이동 
@@ -44,11 +42,8 @@ private:
 	float startTime;			// 시작 시간 
 	D3DXVECTOR2 startPos;		// 시작 위치 저장용
 
-
-	TileManager* tilemanger;
-
-	POINT tileNum;
-	TileNode* tileNode;
+	POINT nowPos;				// 현제 위치 
+	POINT goPos;				// 이동할 타일 위치 
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
