@@ -23,7 +23,7 @@ Program::Program()
 	//_SceneManager->AddScene(scene);
 
 
-	SceneBase* scene = new MapToolScene;
+	SceneBase* scene = new TestScene;
 	_SceneManager->AddScene(scene);
 
 

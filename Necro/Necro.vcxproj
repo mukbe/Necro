@@ -179,7 +179,6 @@
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
     <ClCompile Include="MapTool.cpp" />
-    <ClCompile Include="Pallete.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
@@ -247,7 +246,6 @@
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
     <ClInclude Include="MapTool.h" />
-    <ClInclude Include="Pallete.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />

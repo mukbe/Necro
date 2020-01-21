@@ -11,10 +11,9 @@ public:
 	static POINT mapSize;
 	static D3DXVECTOR2 tileSize;
 	static D3DXVECTOR2 pivotPos;
-	static string imageKey;
 
 	static void SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPivot);
-	static void SetTexture(string name, wstring path = L"", UINT x = 1, UINT y = 1);
+	static void SetTexture(wstring path = L"", UINT x = 1, UINT y = 1);
 private:
 	friend class SceneBase;
 	friend class MapTool;
