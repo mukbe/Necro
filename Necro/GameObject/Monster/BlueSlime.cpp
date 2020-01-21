@@ -140,7 +140,7 @@ void BlueSlime::MoveAndCheck()
 		break;
 	case Monster1LEFT:
 
-		if (tilemanger->Tile({ tileX - 1 , tileY })->GetAttribute() != ObjStatic)
+		if (_GameWorld->GetTileManager()->Tile({ tileX - 1 , tileY })->GetAttribute() != ObjStatic)
 		{
 			x -= speed.x;
 		}
@@ -148,7 +148,7 @@ void BlueSlime::MoveAndCheck()
 		break;
 	case Monster1RIGHT:
 
-		if (tilemanger->Tile({ tileX + 1 , tileY })->GetAttribute() != ObjStatic)
+		if (_GameWorld->GetTileManager()->Tile({ tileX + 1 , tileY })->GetAttribute() != ObjStatic)
 		{
 			x += speed.x;
 		}
@@ -156,7 +156,7 @@ void BlueSlime::MoveAndCheck()
 		break;
 	case Monster1TOP:
 
-		if (tilemanger->Tile({ tileX , tileY - 1 })->GetAttribute() != ObjStatic)
+		if (_GameWorld->GetTileManager()->Tile({ tileX , tileY - 1 })->GetAttribute() != ObjStatic)
 		{
 			y -= speed.y;
 		}
@@ -164,7 +164,7 @@ void BlueSlime::MoveAndCheck()
 		break;
 	case Monster1BOTTOM:
 
-		if (tilemanger->Tile({ tileX , tileY + 1 })->GetAttribute() != ObjStatic)
+		if (_GameWorld->GetTileManager()->Tile({ tileX , tileY + 1 })->GetAttribute() != ObjStatic)
 		{
 			y += speed.y;
 		}

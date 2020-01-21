@@ -39,10 +39,10 @@ public:
 	virtual void ImguiRender();
 	//virtual void SettingCenterXY(float tilesize);
 	virtual void MoveAndCheck();
-	virtual void setMapMemoryAddressLink(TileManager* tm){ tilemanger = tm;}
+	
 
 private:
-	TileManager *tilemanger;
+	
 	MonsterState mosterstate;
 	/*int FrameCount;
 	int frameX;

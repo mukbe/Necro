@@ -21,6 +21,22 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	position = pos;
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	bBeatChance = 1;
+
+
+
+	AddCallback("OnBeat", [&](TagMessage msg) {
+		if (bBeatChance <= 0)
+		{
+			return;
+		}
+		ControlUpdate();
+		bBeatChance--;
+	});
+	AddCallback("AddChance", [&](TagMessage msg) {
+		if (bBeatChance > 0)
+			return;
+		bBeatChance++;
+	});
 }
 
 

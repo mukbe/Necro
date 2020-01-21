@@ -29,10 +29,13 @@ void TestScene::Init()
 {
 	SceneBase::Init();
 
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(0, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
 
 
 
