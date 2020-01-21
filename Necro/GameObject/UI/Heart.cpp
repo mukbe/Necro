@@ -11,9 +11,6 @@ Heart::Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	hold = 0;
 	frameTime = 0.f;
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	AddCallback("OnBeat", [&](TagMessage msg) {
-		hold = true;
-	});
 
 
 }
@@ -30,6 +27,7 @@ void Heart::Release()
 
 void Heart::ControlUpdate()
 {
+	hold = true;
 }
 
 void Heart::Update(float tick)
