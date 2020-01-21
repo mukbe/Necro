@@ -66,7 +66,7 @@ void Player::Update(float tick)
 	
 	interver += tick * 4;
 
-	if (interver > 1.f) {
+	if (interver > 0.5f) {
 		frameX++;
 		interver = 0;
 	}
@@ -82,8 +82,9 @@ void Player::Render()
 {
 	if (bActive == false) return;
 	
-	_ImageManager->FindTexture(body)->FrameRender(FloatRect(_pos, _size, Pivot::CENTER), nullptr, frameX, frameY);
-	_ImageManager->FindTexture(head)->FrameRender(FloatRect(_pos, _size, Pivot::CENTER), nullptr, frameX, frameY);
+	// 타일 중앙에 배치 하기 위해 - 20으로 위치 조정 
+	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
 
 }
 
@@ -91,7 +92,6 @@ void Player::ImguiRender()
 {
 	ImGui::Begin("Info");
 	{
-		//ImGui::Text("Tick : %f", Time::Delta());
 		ImGui::Text("PosX : %.2f, PosY : %.2f", _pos.x, _pos.y);
 		ImGui::Text("startTime : %.2f", startTime);
 		ImGui::Text("destinationX : %.2f, destinationY : %.2f", destination.x, destination.y);
@@ -121,11 +121,7 @@ void PlayerIdle::Excute()
 {
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
-	//TileNode* tileNode;
-	POINT tileNum;
-	tileNum.x = (me->_pos.x - 26) / 52;
-	tileNum.y = (me->_pos.y - 26) / 52;
-	me->tileNode->SetIndex(tileNum);
+
 
 
 	if (KeyCode->Down(VK_LEFT))
@@ -137,12 +133,13 @@ void PlayerIdle::Excute()
 		me->startPos = me->_pos;					// 시작 위치 
 		me->destination.x = me->_pos.x -52;			// 목적지
 
-		me->tileNode->GetIndex();
+		//if (me->tilemanger->Tile({ me->tileNode->GetIndex().x - 1, me->tileNode->GetIndex().y})->GetAttribute() != ObjStatic)
+		//{
+		//	me->ChangeState("Move");
+		//}
 
-		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x - 1, me->tileNode->GetIndex().y})->GetAttribute() != ObjStatic)
-		{
-			me->ChangeState("Move");
-		}
+		me->ChangeState("Move");
+
 	}
 	else if (KeyCode->Down(VK_RIGHT))
 	{
@@ -153,20 +150,15 @@ void PlayerIdle::Excute()
 		me->startPos = me->_pos;
 		me->destination.x = me->_pos.x + 52; 
 
-		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x + 1, me->tileNode->GetIndex().y })->GetAttribute() != ObjStatic)
-		{
-			me->ChangeState("Move");
-		}
+		me->ChangeState("Move");
 	}
 	else if (KeyCode->Down(VK_UP))
 	{
 		me->startTime = 0;
 		me->startPos = me->_pos;
 		me->destination.y = me->_pos.y - 52; 
-		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x , me->tileNode->GetIndex().y-1 })->GetAttribute() != ObjStatic)
-		{
-			me->ChangeState("Move");
-		}
+
+		me->ChangeState("Move");
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
@@ -174,10 +166,7 @@ void PlayerIdle::Excute()
 		me->startPos = me->_pos;
 		me->destination.y = me->_pos.y + 52; 
 
-		if (me->tilemanger->Tile({ me->tileNode->GetIndex().x , me->tileNode->GetIndex().y +1})->GetAttribute() != ObjStatic)
-		{
-			me->ChangeState("Move");
-		}
+		me->ChangeState("Move");
 	}
 }
 
