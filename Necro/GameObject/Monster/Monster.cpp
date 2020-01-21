@@ -81,10 +81,28 @@ void MonsterStateOneStep::Enter()
 
 void MonsterStateOneStep::Update()
 {
+	me->realtime = me->startTime;
+	me->startTime += Time::Tick();
+	
+	//박쥐 움직임
+	if (me->name == "Bat") 
+	{
+
+		if (me->realtime <= 1.f)
+		{
+			me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->realtime);
+			me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->realtime);
+		}
+		if (me->realtime > 1.f)
+		{
+			me->ChangeState("Idle");
+		}
+
+	}
+	//파란 슬라임 움직임
 	if (me->name == "BlueSlime") {
 
-		me->realtime = me->startTime ;
-		me->startTime += Time::Tick()*2;
+		
 		if (me->realtime <= 1.f) 
 		{
 			me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->realtime);
@@ -101,14 +119,51 @@ void MonsterStateOneStep::Update()
 
 void MonsterStateIdle::Enter()
 {
+	float _TileSize = _GameWorld->GetTileManager()->GetTileSize().x;
 	me->startTime = 0.f;
 	me->realtime = 0.f;
 
-	if (me->firstmove) {
-		D3DXVECTOR2 temp;
-		temp.x = me->endPos.x;
-		me->endPos.x = me->startPos.x;
-		me->startPos.x = temp.x;
+	//박쥐 아이덜
+
+	Math::Random(0, 3);
+	if (me->name == "Bat") {
+		me->startPos.x = me->endPos.x;
+		me->startPos.y = me->endPos.y;
+		int batmove= Math::Random(0, 3);
+		switch (batmove) {
+
+		case 0 :
+			me->endPos.x = me->startPos.x + _TileSize;
+			break;
+
+		case 1 :
+			me->endPos.x = me->startPos.x - _TileSize;
+			break;
+
+		case 2:
+			me->endPos.y = me->startPos.y + _TileSize;
+			break;
+
+		case 3:
+			me->endPos.y = me->startPos.y - _TileSize;
+			break;
+
+
+		}
+
+
+	}
+
+
+	//파란슬라임 아이덜
+	if (me->name == "BlueSlime") {
+
+		if (me->firstmove) {
+			D3DXVECTOR2 temp;
+			temp.x = me->endPos.x;
+			me->endPos.x = me->startPos.x;
+			me->startPos.x = temp.x;
+		}
 	}
 }
 
