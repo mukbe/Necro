@@ -16,10 +16,10 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 	virtual void MoveAndCheck();
-	virtual void setMapMemoryAddressLink(TileManager* tm) { tilemanger = tm; }
+
 
 private:
-	TileManager *tilemanger;
+	
 	//MonsterState mosterstate;
 
 };

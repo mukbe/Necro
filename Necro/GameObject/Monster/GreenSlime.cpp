@@ -148,8 +148,7 @@ void GreenSlime::MoveAndCheck()
 	tileX = x / tilesize;    // 몬스터 현재위치 검출 
 	tileY = y / tilesize;
 	
-	
-	
+	//_GameWorld->GetTileManager()->Tile()
 	
 		switch (mosterstate)
 		{
@@ -162,7 +161,7 @@ void GreenSlime::MoveAndCheck()
 			break;
 		case MonsterLEFT:
 			
-			if (tilemanger->Tile({ tileX-1 , tileY })->GetAttribute() != ObjStatic)
+			if (_GameWorld->GetTileManager()->Tile({ tileX-1 , tileY })->GetAttribute() != ObjStatic)
 			{
 				x -= speed.x;
 			}
@@ -170,7 +169,7 @@ void GreenSlime::MoveAndCheck()
 			break;
 		case MonsterRIGHT:
 			
-			if (tilemanger->Tile({ tileX+1 , tileY })->GetAttribute() != ObjStatic)
+			if (_GameWorld->GetTileManager()->Tile({ tileX+1 , tileY })->GetAttribute() != ObjStatic)
 			{
 				x += speed.x;
 			}
@@ -178,7 +177,7 @@ void GreenSlime::MoveAndCheck()
 			break;
 		case MonsterTOP:
 			
-		      if (tilemanger->Tile({ tileX , tileY-1  })->GetAttribute() != ObjStatic) 
+		      if (_GameWorld->GetTileManager()->Tile({ tileX , tileY-1  })->GetAttribute() != ObjStatic)
 			{
 				y -= speed.y;
 			}
@@ -186,7 +185,7 @@ void GreenSlime::MoveAndCheck()
 			break;
 		case MonsterBOTTOM:
 			
-			if (tilemanger->Tile({ tileX , tileY+1  })->GetAttribute() != ObjStatic)
+			if (_GameWorld->GetTileManager()->Tile({ tileX , tileY+1  })->GetAttribute() != ObjStatic)
 			{
 				y += speed.y;
 			}
