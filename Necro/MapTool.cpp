@@ -6,9 +6,18 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
 	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
-//	map = new TileManager(defaultMapSize, defaultTileSize, D3DXVECTOR2(0.f, 0.f));
-	map = new TileManager({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
-	pallete = new TileManager({ 1,1 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(map->GetMapSize().x * (defaultTileSize.x), defaultTileSize.y / 2.f ));
+
+	
+	/*map = new TileManager({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
+	pallete = new TileManager({ 1,1 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(map->GetMapSize().x * (defaultTileSize.x), defaultTileSize.y / 2.f ));*/
+
+	TileManager::SetMapInfo(defaultMapSize, defaultTileSize, D3DXVECTOR2(0.f, 0.f));
+	TileManager::SetTexture();
+	map = new TileManager;
+
+	TileManager::SetMapInfo({ 1,1 }, defaultTileSize, D3DXVECTOR2(1040.f, 1040.f));
+	TileManager::SetTexture();
+	pallete = new TileManager;
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("..//_Resources//TTF//Maplestory Light.ttf", 16.f, nullptr, io.Fonts->GetGlyphRangesKorean());
