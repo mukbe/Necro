@@ -5,9 +5,7 @@
 
 float BeatManager::currentDelta = 0.f;
 
-void BeatManager::MakeNote()
-{
-}
+
 
 BeatManager::BeatManager()
 {
@@ -104,6 +102,20 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 	currentDelta = beats.front().first;
 }
 
+void BeatManager::MakeNote(float inputTime, float shownTime)
+{
+	Note* note = notes.front();
+	_MessagePool->ReserveMessage(note, "Shown", 0, float(shownTime));
+
+
+}
+
+void BeatManager::ReturnNote()
+{
+	notes.push_back(notes.front());
+	notes.erase(notes.begin());
+}
+
 bool BeatManager::Update(float tick)
 {
 	if (beats.size() > 0)
@@ -116,7 +128,7 @@ bool BeatManager::Update(float tick)
 			if (beats.front().second == 0)
 				beats.pop_front();
 
-
+			//MakeNote()
 			vector<GameObject*> objects = _ObjectPool->objects;
 			for (GameObject* obj : objects)
 			{

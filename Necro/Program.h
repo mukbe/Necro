@@ -21,7 +21,7 @@ public:
 
 	void ResizeScreen();
 
-
+	//void TestFunc();
 private:
 	bool bGrid;
 	D3DXCOLOR gridColor;

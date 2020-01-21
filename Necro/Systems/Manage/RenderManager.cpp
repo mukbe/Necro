@@ -14,7 +14,7 @@ void RenderManager::Remove(GameObject * const obj, const Layer & layer)
 {
 	if (obj == nullptr) return;
 
-	vector<GameObject*> arr = renderList[layer];
+	vector<GameObject*>& arr = renderList[layer];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end();)
 	{
@@ -24,7 +24,7 @@ void RenderManager::Remove(GameObject * const obj, const Layer & layer)
 			break;
 		}
 		
-		//else ++Iter;
+		else ++Iter;
 	}
 }
 
@@ -35,13 +35,12 @@ void RenderManager::Remove(GameObject * const obj)
 	MapIter mIter = renderList.begin();
 	for (; mIter != renderList.end(); mIter++)
 	{
-		vector<GameObject*> arr = mIter->second;
-		VecIter vIter = arr.begin();
-		for (; vIter != arr.end();)
+		VecIter vIter = mIter->second.begin();
+		for (; vIter != mIter->second.end();)
 		{
 			if (*vIter == obj)
 			{
-				vIter = arr.erase(vIter);
+				vIter = mIter->second.erase(vIter);
 				break;
 			}
 
@@ -101,7 +100,7 @@ void RenderManager::LightRender()
 //게임 UI를 위한
 void RenderManager::UIRender()
 {
-	vector<GameObject*> arr = renderList[Layer::UI];
+	vector<GameObject*>& arr = renderList[Layer::UI];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end(); ++Iter)
 	{
@@ -115,7 +114,7 @@ void RenderManager::UIRender()
 //특정 객체에 디버깅을 위한
 void RenderManager::ImguiRender()
 {
-	vector<GameObject*> arr = renderList[Layer::Imgui];
+	vector<GameObject*>& arr = renderList[Layer::Imgui];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end(); ++Iter)
 	{

@@ -8,6 +8,7 @@ public:
 	virtual~Note();
 
 	virtual void Init();
+	void Init(float lerpTime);
 
 	virtual void Release();
 
@@ -19,6 +20,7 @@ public:
 private:
 	float ratio;
 	float saveTime;
+	bool bMove;
 	D3DXVECTOR2 size;
 	vector<D3DXVECTOR2> temp;
 

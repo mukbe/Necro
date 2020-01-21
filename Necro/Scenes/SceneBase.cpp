@@ -3,8 +3,13 @@
 
 SceneBase::SceneBase()
 	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
-	  beatManager(new BeatManager)
+	  beatManager(new BeatManager), tileManager(nullptr)
 {
+	float tile = 52.f;
+	TileManager::SetMapInfo({ 10,10 }, { tile,tile }, { tile * 0.5f,tile * 0.5f });
+	TileManager::SetTexture();
+	tileManager = new TileManager;
+
 }
 
 
@@ -19,6 +24,7 @@ SceneBase::~SceneBase()
 
 void SceneBase::Init()
 {
+	tileManager->CreateMap();
 }
 
 void SceneBase::Release()

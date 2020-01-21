@@ -9,15 +9,17 @@ public:
 	TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~TileNode();
 
-	virtual void Init(string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
+	virtual void Init(string textureStringKey = "DefaultMap", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	virtual void Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
+	
 	virtual void Release();
-	virtual void PreUpdate();
-	virtual void Update();
-	virtual void PostUpdate();
+	virtual void ControllUpdate();
+	virtual void Update(float tick);
 
 	virtual void Render();
 	virtual void ImguiRender();
+
+	virtual void HighlightRender();
 
 	string GetTextureKey() { return textureKey; }
 	POINT GetFrame() { return textureFrame; }
@@ -31,28 +33,70 @@ public:
 	void SetFrameY(int frameY) { textureFrame.y = frameY; }
 	void SetAttribute(AttributeType inputAttribute) { attribute = inputAttribute; }
 
-	POINT GetIndex() { return posToIndex(this->GetPos()); }
-	void SetIndex(POINT inputIndex) { this->SetPos(indexToPos(inputIndex)); }
-
 	D3DXVECTOR2 GetPos() { return this->Transform().GetPos();}
-	void SetPos(D3DXVECTOR2 inputPos) { this->Transform().SetPos(inputPos);}
+	//void SetPos(D3DXVECTOR2 inputPos) { this->Transform().SetPos(inputPos);}
 
-	RECT GetCollision() { return rc.GetRect(); }
+	void SetPivotPos(D3DXVECTOR2 input) { pivotPos = input; }
+
+	POINT GetIndex()
+	{
+		return posToIndex(GetPos());
+	}
 
 	D3DXVECTOR2 indexToPos(const POINT index)
 	{
-		return { index.x * _tileSize.x + (_tileSize.x / 2.f)
-			    ,index.y * _tileSize.y + (_tileSize.y / 2.f) };
+		return { index.x * tileSize.x + (tileSize.x / 2.f),
+				index.y * tileSize.y + (tileSize.y / 2.f) };
 	}
 
 	POINT posToIndex(const D3DXVECTOR2 pos)
 	{
-		return { static_cast<int>((pos.x - _tilePivotPos.x) / _tileSize.x),
-			     static_cast<int>((pos.y - _tilePivotPos.y) / _tileSize.y) };
+		float x = ((pos.x - pivotPos.x) / tileSize.x) * 2.f;
+		float y =  ((pos.y - pivotPos.y) / tileSize.y) * 2.f;
+
+		return { (int)x,(int)y };
+	}
+
+	RECT GetCollision() { return rc.GetRect(); }
+
+	vector<GameObject*> GetObjects() { return onMyHead; }
+	void AddObject(GameObject* input) { onMyHead.push_back(input); }
+	void DeleteObject(GameObject* input) 
+	{
+		OnIter iter = onMyHead.begin(), end = onMyHead.end();
+		for(;iter != end; ++iter)
+		{
+			if ((*iter) == input)
+			{
+				onMyHead.erase(iter);
+				--iter;
+			}
+		}
+	}
+	void ReleaseObjects()
+	{
+		if (onMyHead.size() > 0)
+		{
+			OnIter iter = onMyHead.begin(), end = onMyHead.end();
+			for (; iter != end; ++iter)
+			{
+				onMyHead.erase(iter);
+				--iter;
+			}
+		}
+		onMyHead.clear();
 	}
 
 protected:
 	string textureKey;
 	POINT textureFrame;
 	AttributeType attribute;
+	
+	vector<GameObject*> onMyHead;
+	typedef vector<GameObject*>::iterator OnIter;
+
+	D3DXVECTOR2 tileSize;
+	D3DXVECTOR2 pivotPos;
+
+	bool isSelected;
 };

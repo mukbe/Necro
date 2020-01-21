@@ -3,7 +3,7 @@
 
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
-
+#include "./Scenes/MapToolScene.h"
 
 
 Program::Program()
@@ -12,14 +12,20 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
+//	TestFunc();
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	SceneBase* scene = new TestScene;
-	_SceneManager->AddScene(scene);
+	//SceneBase* scene = new MapToolScene;
+	//_SceneManager->AddScene(scene);
 	
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
+
+
+	SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);
+
 
 
 	//IMGUI FONT SETUP
@@ -128,6 +134,31 @@ void Program::ResizeScreen()
 	D3DDesc desc;
 	DxRenderer::GetDesc(&desc);
 }
+
+//void Program::TestFunc()
+//{
+	//IGraphBuilder* graph = nullptr;
+	//IMediaControl* control = nullptr;
+	//IMediaEvent* eventMedia = nullptr;
+	//HRESULT hr;
+	//hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	//hr = CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)graph);
+	//graph->QueryInterface(IID_IMediaControl, (void**)eventMedia);
+
+	//graph->RenderFile(L"../_Resources/intro.avi", nullptr);
+	//if (SUCCEEDED(control->Run()))
+	//{
+	//	long ev;
+	//	eventMedia->WaitForCompletion(INFINITE, &ev);
+	//}
+
+
+	//eventMedia->Release();
+	//control->Release();
+	//graph->Release();
+	//CoUninitialize();
+
+//}
 
 void Program::MakeGrid()
 {

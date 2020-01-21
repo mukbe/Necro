@@ -125,7 +125,7 @@ void PlayerIdle::Excute()
 	POINT tileNum;
 	tileNum.x = (me->_pos.x - 26) / 52;
 	tileNum.y = (me->_pos.y - 26) / 52;
-	me->tileNode->SetIndex(tileNum);
+	//me->tileNode->SetIndex(tileNum);
 
 
 	if (KeyCode->Down(VK_LEFT))

@@ -118,3 +118,7 @@ std::enable_if_t<Is_Inherited<Base, Derived>::Result, Derived*>
 #define IS_INHERITED_THAN_RETURN_VECTOR_ARRAY(Base)				 \
 template<typename Derived>                                   \
 std::enable_if_t<Is_Inherited<Base, Derived>::Result, vector<Derived*>>
+
+#define IS_INHERITED_THAN_RETURN_VECTOR_ARRAY_WITH_CUSTOM		\
+template<typename Base, typename Derived>						\
+std::enable_if_t<Is_Inherited<Base,Derived>::Result,vector<Derived*>>
