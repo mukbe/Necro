@@ -24,7 +24,7 @@ void RenderManager::Remove(GameObject * const obj, const Layer & layer)
 			break;
 		}
 		
-		//else ++Iter;
+		else ++Iter;
 	}
 }
 

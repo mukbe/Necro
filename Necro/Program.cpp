@@ -12,7 +12,7 @@ Program::Program()
 	//jsonRoot = new Json::Value();
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
-	TestFunc();
+//	TestFunc();
 	bGrid = true;
 	gridColor = ColorWhite;
 

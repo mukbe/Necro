@@ -121,7 +121,8 @@ void MapTool::ImguiRender()
 		ImGui::Separator();
 		
 		//ImGui::SliderInt2("Map Size", MapSize, 5, 100);
-		//ImGui::InputInt2("Map Size", MapSize);
+		
+		ImGui::InputInt2("Map Size", MapSize, ImGuiInputTextFlags_EnterReturnsTrue);
 	}
 	ImGui::End();
 }

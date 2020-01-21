@@ -25,10 +25,13 @@ void ObjectManager::ControlUpdate()
 
 void ObjectManager::Update(float tick)
 {
-	for (GameObject* obj : objects)
+
+	for (int i= 0; i < objects.size(); i++)
 	{
-		obj->Update(tick);
+		objects[i]->Update(tick);
 	}
+
+
 	if (deleteList.empty() == false)
 	{
 		VecIter Iter = deleteList.begin();

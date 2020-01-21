@@ -42,11 +42,14 @@ void TileManager::ReleaseMap()
 	{
 		for (int i = 0; i < mapTiles.size(); ++i)
 		{
-			VecIter iter = mapTiles.begin() + i;
-			(*iter)->Release();
-			mapTiles.erase(iter);
-			--i;
+			_ObjectPool->DeletaObject(mapTiles[i]);
+
+			//VecIter iter = mapTiles.begin() + i;
+			//(*iter)->Release();
+			//mapTiles.erase(iter);
+			//--i;
 		}
+		mapTiles.clear();
 	}
 }
 

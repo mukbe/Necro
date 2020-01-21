@@ -13,7 +13,6 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 TileNode::~TileNode()
 {
-	_RenderPool->Remove(this, RenderManager::Layer::Object);
 
 }
 
@@ -37,7 +36,8 @@ void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, 
 
 void TileNode::Release()
 {
-	_ObjectPool->DeletaObject(this);
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
+	//_ObjectPool->DeletaObject(this);
 }
 
 void TileNode::ControllUpdate()
