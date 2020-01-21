@@ -160,6 +160,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\Monster\Bat.cpp" />
+    <ClCompile Include="GameObject\Monster\BlueSlime.cpp" />
+    <ClCompile Include="GameObject\Monster\GreenSlime.cpp" />
+    <ClCompile Include="GameObject\Monster\Monster.cpp" />
     <ClCompile Include="GameObject\UI\AttackSlot.cpp" />
     <ClCompile Include="GameObject\UI\BodySlot.cpp" />
     <ClCompile Include="GameObject\UI\BoomSlot.cpp" />
@@ -220,8 +224,13 @@
     <ClCompile Include="Utilities\Logging.cpp" />
     <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Utilities\String.cpp" />
+    <ClCompile Include="GameObject\UI\Item.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Monster\Bat.h" />
+    <ClInclude Include="GameObject\Monster\BlueSlime.h" />
+    <ClInclude Include="GameObject\Monster\GreenSlime.h" />
+    <ClInclude Include="GameObject\Monster\Monster.h" />
     <ClInclude Include="GameObject\UI\AttackSlot.h" />
     <ClInclude Include="GameObject\UI\BodySlot.h" />
     <ClInclude Include="GameObject\UI\BoomSlot.h" />
@@ -294,6 +303,7 @@
     <ClInclude Include="Utilities\Json.h" />
     <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Utilities\String.h" />
+    <ClInclude Include="GameObject\UI\Item.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Color.hlsl">
