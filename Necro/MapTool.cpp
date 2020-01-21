@@ -15,7 +15,7 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	TileManager::SetTexture();
 	map = new TileManager;
 
-	TileManager::SetMapInfo({ 1,1 }, defaultTileSize, D3DXVECTOR2(1040.f, 1040.f));
+	TileManager::SetMapInfo({ 1,1 }, defaultTileSize, D3DXVECTOR2(1040.f, 0.f));
 	TileManager::SetTexture();
 	pallete = new TileManager;
 
