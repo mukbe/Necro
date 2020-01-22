@@ -7,6 +7,8 @@ public:
 	Diamond(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~Diamond();
 
+	virtual void Init();
+
 	virtual void Release();
 
 	virtual void ControlUpdate();
@@ -16,3 +18,14 @@ public:
 	virtual void Render();
 };
 
+class DiamondCount : public Diamond
+{
+	DiamondCount(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	~DiamondCount();
+	virtual void Init();
+	virtual void Release();
+	virtual void Update();
+	virtual void Render();
+
+
+};

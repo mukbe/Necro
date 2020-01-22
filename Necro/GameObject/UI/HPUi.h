@@ -5,6 +5,8 @@ class HPUi : public UIBase
 public:
 	HPUi(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~HPUi();
+
+	virtual void Init();
 	virtual void Release();
 
 	virtual void ControlUpdate();

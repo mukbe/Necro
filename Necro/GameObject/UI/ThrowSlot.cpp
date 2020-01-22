@@ -6,14 +6,19 @@
 ThrowSlot::ThrowSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/Throw_Slot.png");
-	_ImageManager->AddTexture("UI_ThrowWaitSlot", ResourcePath + L"UI/Throw_Slot2.png");
+	
 }
 
 
 ThrowSlot::~ThrowSlot()
 {
+}
+
+void ThrowSlot::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/Throw_Slot.png");
+	_ImageManager->AddTexture("UI_ThrowWaitSlot", ResourcePath + L"UI/Throw_Slot2.png");
 }
 
 void ThrowSlot::Release()

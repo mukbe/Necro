@@ -7,6 +7,8 @@ public:
 	BodySlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~BodySlot();
 
+	virtual void Init();
+
 	virtual void Release();
 
 	virtual void ControlUpdate();
