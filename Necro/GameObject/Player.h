@@ -45,6 +45,8 @@ private:
 	POINT nowPos;				// 현제 위치 
 	POINT goPos;				// 이동할 타일 위치 
 
+	POINT myIndex;
+
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~Player();
@@ -55,7 +57,8 @@ public:
 	virtual void Release();
 
 	//컨트롤 관련 -> 키입력 같은것만 넣으랬음
-	virtual void PreUpdate();
+	virtual void ControlUpdate();
+
 	//메인 루틴 -> 기타 업데이트 넣기 
 	virtual void Update(float tick);
 
@@ -76,9 +79,14 @@ public:
 	StateBase(Player* me) :me(me) {}
 	~StateBase() {}
 
-	virtual void Enter() = 0;	// 초기화	
-	virtual void Excute() = 0;	// 업데이트
-	virtual void Exit() {}		// 
+	virtual void Enter() = 0;	// 초기화
+
+	//움직여야되는 타이밍에서 해줘야할 업데이트
+	//키입력받아서 해동할 어떠한 것들 
+	virtual void BeatExcute() = 0;	
+
+	virtual void Excute() = 0;		// 박자에 맞추지 않아도 될 어떠한 업데이트
+	virtual void Exit() {}			// 
 protected:
 	Player* me;
 };
@@ -89,6 +97,7 @@ public:
 	PlayerIdle(Player* me) :StateBase(me) {}
 	~PlayerIdle() {}
 	virtual void Enter();
+	virtual void BeatExcute();
 	virtual void Excute();
 	virtual void Exit();
 };
@@ -99,6 +108,8 @@ public:
 	PlayerMove(Player* me) :StateBase(me) {}
 	~PlayerMove() {}
 	virtual void Enter();
+
+	virtual void BeatExcute();
 	virtual void Excute();
 	virtual void Exit();
 };
@@ -109,6 +120,8 @@ public:
 	PlayerAttack(Player* me) :StateBase(me) {}
 	~PlayerAttack() {}
 	virtual void Enter();
+
+	virtual void BeatExcute();
 	virtual void Excute();
 	virtual void Exit();
 private:

@@ -11,6 +11,8 @@ public:
 	virtual void Init();
 
 	TileManager* testTileManager;
+	//===for Init()==========
+	void ImageLoad();
 
 };
 
