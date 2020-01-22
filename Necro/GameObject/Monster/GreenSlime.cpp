@@ -2,6 +2,7 @@
 #include "GreenSlime.h"
 #include "TileManager.h"
 #include "TileNode.h"
+#include "Bat.h"
 //#include "Monster.h"
 
 GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)

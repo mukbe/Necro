@@ -1,12 +1,10 @@
 #include "stdafx.h"
-#include "Bat.h"
+#include "Skeleton.h"
 #include "TileManager.h"
 #include "TileNode.h"
 
 
-
-
-Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
 {
 	_RenderPool->Request(this, RenderManager::Layer::Object);
@@ -17,28 +15,28 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	y = pos.y;
 	tilesize = size.x;
 	startPos = pos;
-	endPos = { x + 52.f, y };
+	endPos = { x , y };
 	speed = D3DXVECTOR2(tilesize, tilesize);
 }
 
 
-Bat::~Bat()
+Skeleton::~Skeleton()
 {
 }
 
-void Bat::Init()
+void Skeleton::Init()
 {
 }
 
-void Bat::Release()
+void Skeleton::Release()
 {
 }
 
-void Bat::ControlUpdate()
+void Skeleton::ControlUpdate()
 {
 }
 
-void Bat::Update(float tick)
+void Skeleton::Update(float tick)
 {
 	Monster::Update(tick);
 	SettingCenterXY(tilesize);
@@ -48,7 +46,7 @@ void Bat::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 3)
+		if (frameX > 7)
 		{
 
 			frameX = 0;
@@ -57,22 +55,20 @@ void Bat::Update(float tick)
 
 }
 
-void Bat::PostUpdate()
+void Skeleton::PostUpdate()
 {
 }
 
-void Bat::Render()
+void Skeleton::Render()
 {
 	p2DRenderer->SetCamera(true);
-	_ImageManager->FindTexture("bat")->FrameRender(rc, nullptr, frameX, frameY);
+	_ImageManager->FindTexture("skeleton")->FrameRender(rc, nullptr, frameX, frameY);
 }
 
-void Bat::ImguiRender()
+void Skeleton::ImguiRender()
 {
 }
 
-
-
-void Bat::MoveAndCheck()
+void Skeleton::MoveAndCheck()
 {
 }
