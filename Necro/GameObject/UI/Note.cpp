@@ -8,6 +8,7 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	this->size = size;
 	AddCallback("EnterBeat", [&](TagMessage msg) {
+
 		OnBeatEnter();
 	});
 	AddCallback("Shown", [&](TagMessage msg) {
@@ -16,6 +17,7 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		Init(lerp);
 
 	});
+	state = Note_None;
 }
 
 Note::~Note()
@@ -27,8 +29,7 @@ void Note::Init()
 	_RenderPool->Request(this, RenderManager::Layer::UI);
 	ratio = BeatManager::currentDelta;
 	saveTime = 0.f;
-	bMove = false;
-	bGrace = false;
+	state = Note_None;
 	gracePeriod = 0.5f;
 	alpha = 1.0f;
 }
@@ -36,8 +37,7 @@ void Note::Init()
 void Note::Init(float lerpTime)
 {
 	ratio = lerpTime;
-	bMove = true;
-	bGrace = false;
+	state = Note_Move;
 	saveTime = 0.f;
 	alpha = 0.f;
 	gracePeriod = 0.5f;
@@ -57,34 +57,42 @@ void Note::ControlUpdate()
 
 void Note::Update(float tick)
 {	
-	if (bMove)
+
+	switch (state)
 	{
-		alpha = Math::Lerp(0.f, 1.f, position.x / 100);
-
-		float factor = saveTime / ratio;
-		position.x = Math::Lerp(-30.f, WinSizeX *0.5f, factor);
-		if (factor > 1.0f)
+		case Note::Note_None:
+		break;
+		case Note::Note_Move:
 		{
-			saveTime = 0.f;
-			bMove = false;
+			alpha = Math::Lerp(0.f, 1.f, position.x / 100);
 
-			_BeatManager->ReturnNote();
+			float factor = saveTime / ratio;
+			position.x = Math::Lerp(-30.f, WinSizeX *0.5f, factor);
+			if (factor > 1.0f)
+			{
+				saveTime = 0.f;
+
+				OnBeatEnter();
+				_BeatManager->ReturnNote();
+
+			}
+			saveTime += tick;
+			rc.Update(position, size, Pivot::CENTER);
 
 		}
-		saveTime += tick;
-		rc.Update(position, size, Pivot::CENTER);
-
-	}
-	if (bGrace)
-	{
-		saveTime -= tick;
-		alpha = Math::Lerp(0.f, 1.f, saveTime / gracePeriod);
-		if (alpha > 1.f)
+		break;
+		case Note::Note_Grace:
 		{
-			_BeatManager->ReturnNote();
-			bGrace = false;
+			saveTime -= tick;
+			alpha = Math::Lerp(0.f, 1.f, saveTime / gracePeriod);
+			if (alpha > 1.f)
+			{
+				state = Note_None;
+			}
 		}
-
+		break;
+		default:
+		break;
 	}
 
 }
@@ -106,6 +114,7 @@ void Note::OnBeatEnter()
 
 	saveTime = gracePeriod = 0.5f;
 	alpha = 1.f;
-	bGrace = true;
-	bMove = false;
+	state = Note_Grace;
+	_BeatManager->ReturnNote();
+
 }

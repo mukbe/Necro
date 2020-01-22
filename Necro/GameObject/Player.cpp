@@ -1,15 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
-
+#include "TileNode.h"
 
 
 Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
-	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
 
 	frameX = frameY = 0;
 	_pos = pos;
@@ -17,8 +13,6 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
-	nowPos.x = nowPos.y = goPos.x = goPos.y = 0;
-
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
 	startTime = 0;
@@ -29,8 +23,6 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	stateList.insert(make_pair("Attack", new PlayerAttack(this)));
 	ChangeState("Idle");
 
-	_RenderPool->Request(this, RenderManager::Layer::Object);
-	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 
@@ -41,6 +33,9 @@ Player::~Player()
 void Player::Init()
 {
 	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Imgui);
+
 }
 
 void Player::Release()
@@ -50,26 +45,25 @@ void Player::Release()
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
-void Player::PreUpdate()
+void Player::ControlUpdate()
 {
-
+	currentState->BeatExcute();
 }
 
 void Player::Update(float tick)
 {
-	if (bActive == false) return;
-
 	GameObject::Update(tick);
 
 	currentState->Excute();
-	
+
+
 	interver += tick * 4;
 
-	if (interver > 1.f) {
+	if (interver > 0.35f) {
 		frameX++;
 		interver = 0;
 	}
-	if (frameX > 2){
+	if (frameX > 2) {
 		frameX = 0;
 	}
 
@@ -79,12 +73,9 @@ void Player::Update(float tick)
 
 void Player::Render()
 {
-	if (bActive == false) return;
-	
 	// 이미지 위치 보정 (-20);
-	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x,_pos.y-20), _size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
 	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
-
 }
 
 void Player::ImguiRender()
@@ -95,6 +86,12 @@ void Player::ImguiRender()
 		ImGui::Text("PosX : %.2f, PosY : %.2f", _pos.x, _pos.y);
 		ImGui::Text("startTime : %.2f", startTime);
 		ImGui::Text("destinationX : %.2f, destinationY : %.2f", destination.x, destination.y);
+
+		POINT XY = PosToIndex(_pos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		ImGui::Text("Index : %d, %d", XY.x, XY.y);
+		ImGui::Text("Index-1 : %d, %d", XY.x - 1, XY.y - 1);
+		ImGui::Text("MapSize : %d, %d", _GameWorld->GetTileManager()->GetMapSize().x, _GameWorld->GetTileManager()->GetMapSize().y);
+
 	}
 	ImGui::End();
 
@@ -115,60 +112,90 @@ void Player::ChangeState(string str)
 
 void PlayerIdle::Enter()
 {
+
 }
 
-void PlayerIdle::Excute()
+void PlayerIdle::BeatExcute()
 {
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-	_GameWorld->GetTileManager()->Tile(2, 3);	//이걸로 해당씬의 타일을 불러올 수 있음 
-	//_GameWorld->GetBeatManager();				// 이거는 비트용
+	me->myIndex = PosToIndex(me->_pos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+
 
 	if (KeyCode->Down(VK_LEFT))
 	{
-		me-> head = "PlayerHeadLeft";
-		me-> body = "PlayerBodyLeft";
+		me->head = "PlayerHeadLeft";
+		me->body = "PlayerBodyLeft";
 
-		me->startTime = 0;							// 시작 시간 초기화
-		me->startPos = me->_pos;					// 시작 위치 
-		me->destination.x = me->_pos.x -52;			// 목적지
 
-		
-		//_GameWorld->GetTileManager()
-		//if (me->tilemanger->Tile({ me->tileNode->GetIndex().x - 1, me->tileNode->GetIndex().y})->GetAttribute() != ObjStatic)
-		//{
-		//	me->ChangeState("Move");
-		//}
+		// 왠진 모르겠지만 이 이프문 두개를 &&로 묶어서 같이 놓으면 인덱스에 오류생겨서 터짐 
+		// 갈 곳의 인덱스가 맵밖이 아니고 , 장애물이 아닌경우 > > > 움직여라!
+		if (me->myIndex.x - 1 >= 0) {
+			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
+			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
+			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetAttribute() != ObjStatic)
+			{
+				me->startTime = 0;																					  // 시작 시간 초기화
+				me->startPos = me->_pos;																			  // 시작 위치 
+				//me->destination.x = me->_pos.x - _GameWorld->GetTileManager()->GetTileSize().x; >> 이렇게 계산을 이곳저곳에서 하지 말자. 
+				me->destination.x = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetPos().x; // 목적지
+
+				me->ChangeState("Move");
+			}
+		}
+
 	}
 	else if (KeyCode->Down(VK_RIGHT))
 	{
 		me->head = "PlayerHeadRight";
 		me->body = "PlayerBodyRight";
 
-		me->startTime = 0;
-		me->startPos = me->_pos;
-		me->destination.x = me->_pos.x + 52; 
+		if (me->myIndex.x + 1 < _GameWorld->GetTileManager()->GetMapSize().x)
+		{
+			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetAttribute() != ObjStatic)
+			{
+				me->startTime = 0;
+				me->startPos = me->_pos;
+				me->destination.x = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetPos().x;
 
-		me->ChangeState("Move");
+				me->ChangeState("Move");
+			}
+		}
 	}
 	else if (KeyCode->Down(VK_UP))
 	{
-		me->startTime = 0;
-		me->startPos = me->_pos;
-		me->destination.y = me->_pos.y - 52; 
+		if (me->myIndex.y - 1 >= 0)
+		{
+			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetAttribute() != ObjStatic)
+			{
+				me->startTime = 0;
+				me->startPos = me->_pos;
+				me->destination.y = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetPos().y;
 
-		me->ChangeState("Move");
-	
+				me->ChangeState("Move");
+			}
+		}
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
-		me->startTime = 0;
-		me->startPos = me->_pos;
-		me->destination.y = me->_pos.y + 52; 
+		if (me->myIndex.y + 1 < _GameWorld->GetTileManager()->GetMapSize().y)
+		{
+			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetAttribute() != ObjStatic)
+			{
+				me->startTime = 0;
+				me->startPos = me->_pos;
+				me->destination.y = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetPos().y;
 
-		me->ChangeState("Move");
+				me->ChangeState("Move");
+			}
+		}
 	}
+}
+
+void PlayerIdle::Excute()
+{
+
 }
 
 void PlayerIdle::Exit()
@@ -178,6 +205,10 @@ void PlayerIdle::Exit()
 void PlayerMove::Enter()
 {
 
+}
+
+void PlayerMove::BeatExcute()
+{
 }
 
 void PlayerMove::Excute()
@@ -202,6 +233,10 @@ void PlayerMove::Exit()
 }
 
 void PlayerAttack::Enter()
+{
+}
+
+void PlayerAttack::BeatExcute()
 {
 }
 

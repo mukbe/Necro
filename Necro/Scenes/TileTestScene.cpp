@@ -6,10 +6,9 @@
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
-#include "./GameObject/UI/Coin.h"
+#include "./GameObject/UI/Heart.h"
+#include "./GameObject/UI/Note.h"
 
-#define TILESIZE 52
-#define FIRSTCENTERXY 26
 TileTestScene::TileTestScene()
 	: SceneBase()
 {
@@ -22,6 +21,17 @@ TileTestScene::~TileTestScene()
 void TileTestScene::Init()
 {
 	SceneBase::Init();
+
+	ImageLoad();
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
+
 	// TileManager(POINT mapSize, tileSize, 기준좌표)
 	// mapSize는 {가로칸수, 세로칸수}
 	// tileSize는 D3DXVECTOR2(가로크기, 세로크기)
@@ -69,6 +79,22 @@ void TileTestScene::Init()
 	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
 	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
 	//
-	Player* player = _ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26, 26), D3DXVECTOR2(52.f, 52.f));
+
+
+	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
+	wstring path = ResourcePath + L"Music/stage1.ogg";
+	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+}
+
+void TileTestScene::ImageLoad()
+{
+	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
+
+
+	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
+	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
+	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
+	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
 
 }

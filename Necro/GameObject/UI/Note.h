@@ -4,6 +4,12 @@
 class Note : public UIBase
 {
 public:
+	enum NoteState
+	{
+		Note_None, Note_Move, Note_Grace,
+	};
+
+public:
 	Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~Note();
 
@@ -19,13 +25,15 @@ public:
 	virtual void Render();
 	
 	void OnBeatEnter();
-	bool IsMove() { return bMove; }
+
+	NoteState GetState() { return state; }
+
 private:
 	float ratio;
 	float saveTime;
-	bool bMove;
-	bool bGrace;
 	float gracePeriod;
+
+	NoteState state;
 
 };
 

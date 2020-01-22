@@ -40,6 +40,9 @@ protected :
 	D3DXVECTOR2 startPos;
 	D3DXVECTOR2 endPos;
 
+	float batX;
+	float batY;
+
 private:
 	bool firstmove;
 	float startTime;
