@@ -9,8 +9,15 @@ float BeatManager::currentDelta = 0.f;
 
 BeatManager::BeatManager()
 {
-	saveTime = 0.f;
+	saveTime = -4.f;
+	syncTime = -0.02f;
+	target = nullptr;
+	bMusic = false;
 
+	onBeatObjectList.clear();
+	onBeatObjectList.push_back("Monster");
+	onBeatObjectList.push_back("Heart");
+	onBeatObjectList.push_back("");
 }
 
 BeatManager::~BeatManager()
@@ -25,11 +32,16 @@ bool BeatManager::CheckInputForUpdate()
 		||	Keyboard::Get()->Down(VK_UP) 
 		||	Keyboard::Get()->Down(VK_DOWN))
 	{
-		Beat beat = beats.front();
-		if (Math::Abs(beat.first - saveTime) <= 0.3f)
+		if (checkInfos.size() <= 0) return false;
+
+		Shown beat = checkInfos.front();
+		if (Math::Abs(beat.first - saveTime) <= 0.25f)
 		{
+			//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
+			//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
+
 			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
-			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Note>("Note"), "save");
+			_MessagePool->ReserveMessage(target, "EnterBeat");
 		}
 	}
 
@@ -99,50 +111,92 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 		oldtime = time;
 		oldDelta = delta;
 	}
-	currentDelta = beats.front().first;
+	currentDelta = beats.front().first; 
 }
 
 void BeatManager::MakeNote(float inputTime, float shownTime)
 {
 	Note* note = notes.front();
 	_MessagePool->ReserveMessage(note, "Shown", 0, float(shownTime));
+	notes.push_back(note);
+	notes.erase(notes.begin());
+	if(target == nullptr)
+		target = note;
+}
 
+bool BeatManager::OnBeatObject(GameObject* obj)
+{
+	for (size_t t = 0; t < onBeatObjectList.size();t++)
+	{
+		if (obj->Name() == onBeatObjectList[t])
+			return true;
+	}
+	return false;
+}
 
+void BeatManager::MusicStart()
+{
+	if (bMusic == false)
+	{
+		saveTime = 0.f;
+		SOUNDMANAGER->Play("stage1");
+		SOUNDMANAGER->SetVolume("stage1", 0.6f);
+		bMusic = true;
+	}
 }
 
 void BeatManager::ReturnNote()
 {
-	notes.push_back(notes.front());
-	notes.erase(notes.begin());
+	target = nullptr;
+	for (size_t t = 0; t < notes.size(); t++)
+	{
+		if (notes[t]->IsMove())
+		{
+			target = notes[t];
+			break;
+		}
+	}
 }
 
-bool BeatManager::Update(float tick)
+void BeatManager::Update(float tick)
 {
-	if (beats.size() > 0)
+
+	if (shownInfos.size() > 0)
 	{
 		saveTime += tick;
-		CheckInputForUpdate();
-		if (saveTime >= beats.front().first)
+		
+
+		if (saveTime >= syncTime)
 		{
-			beats.front().second--;
-			if (beats.front().second == 0)
-				beats.pop_front();
+			MusicStart();
+		}
 
-			//MakeNote()
-			vector<GameObject*> objects = _ObjectPool->objects;
-			for (GameObject* obj : objects)
+		CheckInputForUpdate();
+		if (shownInfos.front().first - shownInfos.front().second <= saveTime)
+		{
+			float delta = saveTime - (shownInfos.front().first - shownInfos.front().second);
+			MakeNote(0, shownInfos.front().second - delta);
+			checkInfos.push_back(shownInfos.front());
+			shownInfos.pop_front();
+
+		}
+		if (checkInfos.size() > 0)
+		{
+			if (checkInfos.front().first - saveTime <= 0)
 			{
-				if (obj->Name() == "Player")
+				vector<GameObject*> objects = _ObjectPool->objects;
+				for (GameObject* obj : objects)
 				{
+					if (OnBeatObject(obj))
+					{
+						_MessagePool->ReserveMessage(obj, "OnBeat");
+					}
 					_MessagePool->ReserveMessage(obj, "AddChance");
-					continue;
-				}
-				_MessagePool->ReserveMessage(obj, "OnBeat");
-			}
 
-			currentDelta = beats.front().first;
-			saveTime = 0;
-			return true;
+				}
+
+				checkInfos.pop_front();
+			}
 		}
 
 	}
@@ -150,5 +204,6 @@ bool BeatManager::Update(float tick)
 	{
 		//스테이지 끝남 이벤트
 	}
-	return false;
+
+
 }

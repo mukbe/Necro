@@ -4,6 +4,7 @@
 #include <time.h>
 
 
+
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR param, int command)
 {
 	D3DDesc desc;

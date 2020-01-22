@@ -17,12 +17,15 @@ public:
 	virtual void Update(float tick);
 
 	virtual void Render();
+	
+	void OnBeatEnter();
+	bool IsMove() { return bMove; }
 private:
 	float ratio;
 	float saveTime;
 	bool bMove;
-	D3DXVECTOR2 size;
-	vector<D3DXVECTOR2> temp;
+	bool bGrace;
+	float gracePeriod;
 
 };
 

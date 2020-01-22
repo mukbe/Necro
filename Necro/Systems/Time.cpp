@@ -57,11 +57,12 @@ void Time::Update()
 			timeElapsed = (float)((currentTime - lastTime)) / (float)ticksPerSecond;
 		}
 	}
-
-
-
-
-
+	else if (Math::FloatEqual(lockFPS, 0.f))
+	{
+		QueryPerformanceCounter((LARGE_INTEGER*)&this->currentTime);
+		timeElapsed = (float)((currentTime - lastTime)) / (float)ticksPerSecond;
+		InvLockFPS = timeElapsed;
+	}
 
 
 	runningTime += timeElapsed;
@@ -110,6 +111,8 @@ void Time::Stop()
 
 void Time::SetLockFPS(float val)
 {
-	lockFPS = val;
-	InvLockFPS = 1.f / lockFPS;
+	if (val <= 0.0001f)
+	{
+		lockFPS = val;
+	}
 }

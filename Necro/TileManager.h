@@ -16,6 +16,7 @@ public:
 	static void SetTexture(wstring path = L"", UINT x = 1, UINT y = 1);
 private:
 	friend class SceneBase;
+	friend class MapTool;
 public:
 	TileManager();
 	~TileManager();
