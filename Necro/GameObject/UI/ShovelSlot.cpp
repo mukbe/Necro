@@ -6,13 +6,18 @@
 ShovelSlot::ShovelSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/Shovel_Slot.png");
+	
 }
 
 
 ShovelSlot::~ShovelSlot()
 {
+}
+
+void ShovelSlot::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/Shovel_Slot.png");
 }
 
 void ShovelSlot::Release()

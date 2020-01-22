@@ -5,12 +5,17 @@
 BoomSlot::BoomSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/Boom_Slot.png");
+	
 }
 
 BoomSlot::~BoomSlot()
 {
+}
+
+void BoomSlot::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/Boom_Slot.png");
 }
 
 void BoomSlot::Release()

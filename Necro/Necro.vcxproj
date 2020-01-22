@@ -174,8 +174,6 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
-    <ClCompile Include="MapTool.cpp" />
-    <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
@@ -220,7 +218,6 @@
     <ClCompile Include="Utilities\Logging.cpp" />
     <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Utilities\String.cpp" />
-    <ClCompile Include="GameObject\UI\Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject\UI\AttackSlot.h" />
@@ -237,8 +234,6 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
-    <ClInclude Include="MapTool.h" />
-    <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
@@ -295,7 +290,6 @@
     <ClInclude Include="Utilities\Json.h" />
     <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Utilities\String.h" />
-    <ClInclude Include="GameObject\UI\Item.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Color.hlsl">

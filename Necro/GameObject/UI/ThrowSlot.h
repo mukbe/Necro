@@ -14,6 +14,7 @@ public:
 	ThrowSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~ThrowSlot();
 
+	virtual void Init();
 	virtual void Release();
 
 	virtual void ControlUpdate();

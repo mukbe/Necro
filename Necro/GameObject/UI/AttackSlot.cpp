@@ -6,13 +6,16 @@
 AttackSlot::AttackSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/Attack_Slot.png");
-	_RenderPool->Request(this, RenderManager::Layer::UI);
 }
-
 
 AttackSlot::~AttackSlot()
 {
+}
+
+void AttackSlot::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/Attack_Slot.png");
 }
 
 void AttackSlot::Release()
