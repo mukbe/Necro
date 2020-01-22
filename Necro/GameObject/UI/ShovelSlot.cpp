@@ -17,7 +17,7 @@ ShovelSlot::~ShovelSlot()
 void ShovelSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/Shovel_Slot.png");
+	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
 }
 
 void ShovelSlot::Release()
@@ -37,5 +37,5 @@ void ShovelSlot::Render()
 {
 	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_ShovelSlot", rc, nullptr);
-	_ImageManager->Render("UI_ShovelSlot", FloatRect({ 70,75}, { 75,75}, Pivot::CENTER), nullptr);
+
 }

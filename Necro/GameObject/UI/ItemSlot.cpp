@@ -17,7 +17,7 @@ ItemSlot::~ItemSlot()
 void ItemSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/Item_Slot.png");
+	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot.png");
 }
 
 void ItemSlot::Release()

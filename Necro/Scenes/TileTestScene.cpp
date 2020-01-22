@@ -6,6 +6,8 @@
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
+#include "./GameObject/UI/Coin.h"
+
 #define TILESIZE 52
 #define FIRSTCENTERXY 26
 TileTestScene::TileTestScene()
@@ -68,7 +70,5 @@ void TileTestScene::Init()
 	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
 	//
 	Player* player = _ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
-
-
 
 }

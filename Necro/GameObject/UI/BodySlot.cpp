@@ -17,7 +17,7 @@ BodySlot::~BodySlot()
 
 void BodySlot::Init()
 {
-	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/Body_Slot.png");
+	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
 	_RenderPool->Request(this, RenderManager::Layer::UI);
 }
 
