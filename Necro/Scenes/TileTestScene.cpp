@@ -35,14 +35,16 @@ void TileTestScene::Init()
 	// 멤버 함수 모르겠으면 물어보셈.
 
 
-
-
 	//testTile->GetAttribute(); //이건 오브젝트 타입 따오는거. 타입 이넘은 TileHelper.h 참조
 
+
+	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
 
 
 	for (int i = 0; i < 8; ++i)
 	{
+		_TileMap->Tile(5, i)->SetAttribute(ObjStatic);
+		_TileMap->Tile(5, i)->SetFrameX(1);
 		//5,i 인덱스의 타일을 스태틱타입으로 바꾼다.
 		//testTileManager->Tile(5, i)->SetAttribute(ObjStatic);
 		//5,i 인덱스의 프레임인덱스를 바꾼다.
@@ -55,15 +57,18 @@ void TileTestScene::Init()
 
 
 
-	//몬스터
-	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
-	_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
-	_ImageManager->AddFrameTexture("bat", ResourcePath + L"bat.png", 4, 2);
-	
-	GreenSlime* greenslime = _ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
-	BlueSlime* blueslime = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(FIRSTCENTERXY+TILESIZE, FIRSTCENTERXY + TILESIZE), D3DXVECTOR2(52.f, 52.f));
-	BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
-	Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
-	
+	////몬스터
+	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
+	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
+	//_ImageManager->AddFrameTexture("bat", ResourcePath + L"bat.png", 4, 2);
+	//
+	//GreenSlime* greenslime = _ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
+	//BlueSlime* blueslime = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(FIRSTCENTERXY+TILESIZE, FIRSTCENTERXY + TILESIZE), D3DXVECTOR2(52.f, 52.f));
+	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
+	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
+	//
+	Player* player = _ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
+
+
 
 }
