@@ -6,6 +6,7 @@ public:
 	Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	~Heart();
 
+	virtual void Init();
 	virtual void Release();
 
 	virtual void ControlUpdate();

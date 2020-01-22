@@ -35,8 +35,10 @@ private:
 IS_INHERITED_THAN_RETURN(class GameObject) ObjectManager::CreateObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	Derived* temp = new Derived(name, pos, size);
-
 	objects.push_back(temp);
+
+	//virtual void GameObject::Init
+	temp->Init();
 
 	return temp;
 }

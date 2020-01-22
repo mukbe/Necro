@@ -6,13 +6,18 @@
 ItemSlot::ItemSlot(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/Item_Slot.png");
+	
 }
 
 
 ItemSlot::~ItemSlot()
 {
+}
+
+void ItemSlot::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/Item_Slot.png");
 }
 
 void ItemSlot::Release()
