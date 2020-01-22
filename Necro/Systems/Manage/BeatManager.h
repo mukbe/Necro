@@ -25,7 +25,7 @@ private:
 	deque<Shown> checkInfos;
 
 	float saveTime;
-
+	float syncTime;
 	
 	//메세지를 전달할 노트들
 	vector<Note*> notes;
@@ -44,8 +44,8 @@ private:
 	bool OnBeatObject(GameObject* obj);
 
 
-//=====TEST======
-	void MusicTest();
+	//TODO 나중에 스테이지 변경할 때 수정해야됨
+	void MusicStart();
 	bool bMusic;
 };
 

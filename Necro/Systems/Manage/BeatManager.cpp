@@ -2,6 +2,7 @@
 #include "BeatManager.h"
 #include "./GameObject/TestPlayer.h"
 #include "./GameObject/UI/Note.h"
+#include"./GameObject/Player.h"
 
 float BeatManager::currentDelta = 0.f;
 
@@ -10,6 +11,7 @@ float BeatManager::currentDelta = 0.f;
 BeatManager::BeatManager()
 {
 	saveTime = -4.f;
+	syncTime = -0.02f;
 	target = nullptr;
 	bMusic = false;
 
@@ -40,6 +42,8 @@ bool BeatManager::CheckInputForUpdate()
 			//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
 
 			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
 			_MessagePool->ReserveMessage(target, "EnterBeat");
 		}
 	}
@@ -133,7 +137,7 @@ bool BeatManager::OnBeatObject(GameObject* obj)
 	return false;
 }
 
-void BeatManager::MusicTest()
+void BeatManager::MusicStart()
 {
 	if (bMusic == false)
 	{
@@ -165,9 +169,9 @@ void BeatManager::Update(float tick)
 		saveTime += tick;
 		
 
-		if (saveTime >= 0)
+		if (saveTime >= syncTime)
 		{
-			MusicTest();
+			MusicStart();
 		}
 
 		CheckInputForUpdate();

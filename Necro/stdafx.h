@@ -32,7 +32,6 @@ using namespace std;
 
 //다이렉트2D 라이브러리
 #pragma comment(lib, "d2d1.lib")
-//#include <D2D1.h>
 #include <d2d1_1.h>
 #include <d2d1helper.h>
 
@@ -44,6 +43,7 @@ using namespace std;
 #pragma comment(lib, "WindowsCodecs.lib")
 #include <wincodec.h>
 
+//#define DEBUGMODE
 
 
 //ImGui

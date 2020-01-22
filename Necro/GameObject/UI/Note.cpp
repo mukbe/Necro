@@ -6,11 +6,9 @@
 Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::UI);
 	this->size = size;
 	AddCallback("EnterBeat", [&](TagMessage msg) {
 		OnBeatEnter();
-		temp.push_back(position);
 	});
 	AddCallback("Shown", [&](TagMessage msg) {
 		//if (this->IsMove() == false)return;
@@ -26,6 +24,7 @@ Note::~Note()
 
 void Note::Init()
 {
+	_RenderPool->Request(this, RenderManager::Layer::UI);
 	ratio = BeatManager::currentDelta;
 	saveTime = 0.f;
 	bMove = false;
@@ -88,14 +87,17 @@ void Note::Update(float tick)
 
 	}
 
-	if (Keyboard::Get()->Down('F')) temp.clear();
 }
 
 void Note::Render()
 {
 	p2DRenderer->SetCamera(false);
 
+#ifdef DEBUGMODE
 	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha, 1.f);
+#else
+	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha, 1.f);
+#endif // DEBUGMODE
 }
 
 void Note::OnBeatEnter()

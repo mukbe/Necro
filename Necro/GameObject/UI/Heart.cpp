@@ -6,11 +6,9 @@
 Heart::Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:UIBase(name, pos, size)
 {
-	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 
 	hold = 0;
 	frameTime = 0.f;
-	_RenderPool->Request(this, RenderManager::Layer::UI);
 
 
 }
@@ -18,6 +16,11 @@ Heart::Heart(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 Heart::~Heart()
 {
+}
+
+void Heart::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::UI);
 }
 
 void Heart::Release()

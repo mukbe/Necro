@@ -9,8 +9,10 @@ public:
 	virtual ~TestScene();
 
 	virtual void Init();
-	virtual void ControlUpdate();
 
+
+//===for Init()==========
+	void ImageLoad();
 
 };
 
