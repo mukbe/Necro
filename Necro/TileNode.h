@@ -67,13 +67,13 @@ public:
 	void AddObject(GameObject* input) { onMyHead.push_back(input); }
 	void DeleteObject(GameObject* input) 
 	{
-		OnIter iter = onMyHead.begin(), end = onMyHead.end();
-		for(;iter != end; ++iter)
+		for (int i = 0; i < onMyHead.size(); ++i)
 		{
-			if ((*iter) == input)
+			if (onMyHead[i] == input)
 			{
-				onMyHead.erase(iter);
-				--iter;
+				OnIter pointIter = onMyHead.begin() + i;
+				onMyHead.erase(pointIter);
+				--i;
 			}
 		}
 	}
@@ -81,15 +81,19 @@ public:
 	{
 		if (onMyHead.size() > 0)
 		{
-			OnIter iter = onMyHead.begin(), end = onMyHead.end();
-			for (; iter != end; ++iter)
+			for (int i = 0; i < onMyHead.size(); ++i)
 			{
-				onMyHead.erase(iter);
-				--iter;
+				OnIter pointIter = onMyHead.begin() + i;
+				onMyHead.erase(pointIter);
+				--i;
 			}
 		}
 		onMyHead.clear();
 	}
+
+	bool GetSelected() { return isSelected; }
+	bool GetHighlight() { return haveIDrawHighlight; }
+	void SetHighlight(bool input) { haveIDrawHighlight = input; }
 
 protected:
 	string textureKey;
@@ -103,4 +107,5 @@ protected:
 	D3DXVECTOR2 pivotPos;
 
 	bool isSelected;
+	bool haveIDrawHighlight;
 };

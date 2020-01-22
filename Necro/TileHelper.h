@@ -10,6 +10,36 @@ enum AttributeType
 	AttributeTypeEnd
 };
 
+enum ObjectType
+{
+	ObjectTypeBegin = 0,
+	ObjectAll,
+	ObjectTerrain,
+	ObjectPlayer,
+	ObjectMonster,
+	ObjectItem,
+	ObjectNPC,
+	ObjectWall,
+	ObjectTypeEnd
+};
+
+enum BrushType
+{
+	BrushTypeStart = 0,
+	Brush,
+	Eraser,
+	BrushTypeEnd
+};
+
+enum PalleteType
+{
+	PalleteTypeStart = 0,
+	Terrain,
+	Object,
+	PalleteTypeEnd
+};
+
+
 static const POINT defaultMapSize = { 10,10 };
 static const D3DXVECTOR2 defaultTileSize = { 52.f, 52.f };
 

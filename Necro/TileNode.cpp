@@ -9,6 +9,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	tileSize = size;
 	isSelected = false;
+	haveIDrawHighlight = false;
 }
 
 TileNode::~TileNode()
@@ -46,13 +47,25 @@ void TileNode::ControllUpdate()
 
 void TileNode::Update(float tick)
 {
+	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	{
+		if (Keyboard::Get()->Down(VK_LBUTTON))
+		{
+			isSelected = true;
+		}
+	}
+
+	if (Keyboard::Get()->Up(VK_LBUTTON))
+	{
+		isSelected = false;
+	}
 }
 
 void TileNode::Render()
 {
 	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
 	
-	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()) && haveIDrawHighlight)
 	{
 		HighlightRender();
 	}

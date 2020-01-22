@@ -61,7 +61,7 @@ void Player::Update(float tick)
 
 	GameObject::Update(tick);
 
-	currentState->Excute();
+	//currentState->Excute();
 	
 	interver += tick * 4;
 
