@@ -33,7 +33,6 @@ void AttackSlot::Update(float tick)
 
 void AttackSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_AttackSlot", rc, nullptr);
 	
 }

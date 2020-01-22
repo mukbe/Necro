@@ -33,7 +33,10 @@ private:
 	float saveTime;
 	float gracePeriod;
 
+	shared_ptr<Texture> tex;
+
 	NoteState state;
+	FloatRect reflect;
 
 };
 

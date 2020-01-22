@@ -36,7 +36,6 @@ void TorchSlot::Update(float tick)
 
 void TorchSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_TorchSlot", rc, nullptr);
 	
 }

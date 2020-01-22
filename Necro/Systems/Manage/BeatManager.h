@@ -22,7 +22,8 @@ private:
 
 	using Shown = pair<float, float>;
 	deque<Shown> shownInfos;
-	deque<Shown> checkInfos;
+	using Check = pair<float, bool>;
+	deque<Check> checkInfos;
 
 	float saveTime;
 	float syncTime;

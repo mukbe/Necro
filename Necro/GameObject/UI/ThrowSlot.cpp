@@ -34,6 +34,5 @@ void ThrowSlot::Update(float tick)
 
 void ThrowSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_ThrowSlot", rc, nullptr);
 }

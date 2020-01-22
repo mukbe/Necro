@@ -73,6 +73,7 @@ void RenderManager::Render()
 //
 void RenderManager::ObjectRender()
 {
+	p2DRenderer->SetCamera(true);
 	vector<GameObject*> arr = renderList[Layer::BackGround];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end(); ++Iter)
@@ -95,11 +96,14 @@ void RenderManager::ObjectRender()
 //라이팅패스
 void RenderManager::LightRender()
 {
+
 }
 
 //게임 UI를 위한
 void RenderManager::UIRender()
 {
+	p2DRenderer->SetCamera(false);
+
 	vector<GameObject*>& arr = renderList[Layer::UI];
 	VecIter Iter = arr.begin();
 	for (; Iter != arr.end(); ++Iter)

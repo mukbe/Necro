@@ -57,7 +57,6 @@ void TestPlayer::Update(float tick)
 
 void TestPlayer::Render()
 {
-	p2DRenderer->SetCamera(true);
 	p2DRenderer->FillRectangle(rc, nullptr);
 }
 

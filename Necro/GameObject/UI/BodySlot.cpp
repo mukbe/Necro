@@ -36,7 +36,6 @@ void BodySlot::Update(float tick)
 
 void BodySlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_BodySlot", rc, nullptr);
 	
 }

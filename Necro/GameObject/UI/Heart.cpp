@@ -48,6 +48,5 @@ void Heart::Update(float tick)
 
 void Heart::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->FrameRender("HeartTemp", rc, nullptr, (UINT)hold, 0);
 }

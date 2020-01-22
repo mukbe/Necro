@@ -32,7 +32,6 @@ void Diamond::Update(float tick)
 
 void Diamond::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_Diamond", rc, nullptr);
 	
 }

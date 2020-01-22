@@ -18,6 +18,9 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	});
 	state = Note_None;
+	reflect.Update(D3DXVECTOR2(WinSizeX - position.x, position.y), size, Pivot::CENTER);
+
+	tex = _ImageManager->FindTexture("NoteBeat");
 }
 
 Note::~Note()
@@ -44,6 +47,7 @@ void Note::Init(float lerpTime)
 
 	position.x = -30.f;
 	rc.Update(position, size, Pivot::CENTER);
+	reflect.Update(D3DXVECTOR2(WinSizeX - position.x, position.y), size, Pivot::CENTER);
 }
 
 void Note::Release()
@@ -64,7 +68,8 @@ void Note::Update(float tick)
 		break;
 		case Note::Note_Move:
 		{
-			alpha = Math::Lerp(0.f, 1.f, position.x / 100);
+			alpha = Math::Lerp(0.f, 1.f, position.x / 200);
+			alpha = (alpha > 1.f ? 1.f : alpha);
 
 			float factor = saveTime / ratio;
 			position.x = Math::Lerp(-30.f, WinSizeX *0.5f, factor);
@@ -78,6 +83,7 @@ void Note::Update(float tick)
 			}
 			saveTime += tick;
 			rc.Update(position, size, Pivot::CENTER);
+			reflect.Update(D3DXVECTOR2(WinSizeX - position.x, position.y), size, Pivot::CENTER);
 
 		}
 		break;
@@ -99,19 +105,20 @@ void Note::Update(float tick)
 
 void Note::Render()
 {
-	p2DRenderer->SetCamera(false);
 
 #ifdef DEBUGMODE
 	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha, 1.f);
+	p2DRenderer->DrawRectangle(reflect, nullptr, ColorF::White, alpha, 1.f);
+	tex->Render(rc, nullptr, alpha);
+	tex->Render(reflect, nullptr, alpha);
 #else
-	p2DRenderer->DrawRectangle(rc, nullptr, ColorF::White, alpha, 1.f);
+	tex->Render(rc, nullptr, alpha);
+	tex->Render(reflect, nullptr, alpha);
 #endif // DEBUGMODE
 }
 
 void Note::OnBeatEnter()
 {
-	//_BeatManager->ReturnNote();
-
 	saveTime = gracePeriod = 0.5f;
 	alpha = 1.f;
 	state = Note_Grace;

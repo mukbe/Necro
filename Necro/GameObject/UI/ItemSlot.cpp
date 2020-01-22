@@ -35,6 +35,5 @@ void ItemSlot::Update(float tick)
 
 void ItemSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_ItemlSlot", rc, nullptr);
 }

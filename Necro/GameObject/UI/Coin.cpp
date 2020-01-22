@@ -49,7 +49,6 @@ void Coin::Update(float tick)
 void Coin::Render()
 {
 	//카메라 설정 
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_Coin", rc, nullptr);
 	_ImageManager->FrameRender("Field_coin", rc, nullptr, 0, 0); //(UINT)hold);
 

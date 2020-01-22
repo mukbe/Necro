@@ -35,16 +35,27 @@ bool BeatManager::CheckInputForUpdate()
 	{
 		if (checkInfos.size() <= 0) return false;
 
-		Shown beat = checkInfos.front();
-		if (Math::Abs(beat.first - saveTime) <= 0.25f)
+		Check check = checkInfos.front();
+
+		if (Math::Abs(check.first - saveTime) <= 0.25f)
 		{
-			//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
-			//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
+			if (check.second)
+			{
+				//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
+				//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
 
-			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+				_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
 
-			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
-			_MessagePool->ReserveMessage(target, "EnterBeat");
+				_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
+				_MessagePool->ReserveMessage(target, "EnterBeat");
+
+				checkInfos.front().second = false;
+
+			}
+		}
+		else
+		{
+
 		}
 	}
 
@@ -85,7 +96,6 @@ void BeatManager::LoadText(wstring filePath)
 	notes = _ObjectPool->FindObjects<Note>("Note");
 	for (Note* note : notes)
 	{
-		note->Init();
 		freeNoteList.push(note);
 	}
 	notes.clear();
@@ -186,7 +196,7 @@ void BeatManager::Update(float tick)
 		{
 			float delta = saveTime - (shownInfos.front().first - shownInfos.front().second);
 			MakeNote(0, shownInfos.front().second - delta);
-			checkInfos.push_back(shownInfos.front());
+			checkInfos.push_back(make_pair(shownInfos.front().first, true));
 			shownInfos.pop_front();
 
 		}

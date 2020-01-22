@@ -35,7 +35,6 @@ void ShovelSlot::Update(float tick)
 
 void ShovelSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_ShovelSlot", rc, nullptr);
 
 }

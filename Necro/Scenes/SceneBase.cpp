@@ -17,9 +17,10 @@ SceneBase::~SceneBase()
 {
 	Release();
 	SafeDelete(messageManager);
-	SafeDelete(renderManager);
 	SafeDelete(beatManager);
 	SafeDelete(objectManager);
+	SafeDelete(renderManager);
+
 }
 
 void SceneBase::Init()

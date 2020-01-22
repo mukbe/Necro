@@ -95,7 +95,6 @@ void BlueSlime::PostUpdate()
 
 void BlueSlime::Render()
 {
-		p2DRenderer->SetCamera(true);
 	_ImageManager->FindTexture("blueslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

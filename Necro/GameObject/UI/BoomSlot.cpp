@@ -33,6 +33,5 @@ void BoomSlot::Update(float tick)
 
 void BoomSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_BoomSlot", rc, nullptr);
 }

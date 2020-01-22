@@ -108,7 +108,6 @@ void GreenSlime::PostUpdate()
 
 void GreenSlime::Render()
 {
-	p2DRenderer->SetCamera(true);
 	_ImageManager->FindTexture("greenslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

@@ -36,6 +36,5 @@ void HeadSlot::Update(float tick)
 
 void HeadSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_HeadSlot", rc, nullptr);
 }

@@ -63,7 +63,6 @@ void Bat::PostUpdate()
 
 void Bat::Render()
 {
-	p2DRenderer->SetCamera(true);
 	_ImageManager->FindTexture("bat")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

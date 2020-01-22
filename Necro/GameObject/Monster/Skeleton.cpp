@@ -61,7 +61,6 @@ void Skeleton::PostUpdate()
 
 void Skeleton::Render()
 {
-	p2DRenderer->SetCamera(true);
 	_ImageManager->FindTexture("skeleton")->FrameRender(rc, nullptr, frameX, frameY);
 }
 
