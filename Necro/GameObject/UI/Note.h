@@ -24,8 +24,6 @@ private:
 	float ratio;
 	float saveTime;
 	bool bMove;
-	D3DXVECTOR2 size;
-	vector<D3DXVECTOR2> temp;
 	bool bGrace;
 	float gracePeriod;
 

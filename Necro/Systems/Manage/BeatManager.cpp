@@ -10,6 +10,7 @@ float BeatManager::currentDelta = 0.f;
 BeatManager::BeatManager()
 {
 	saveTime = -4.f;
+	syncTime = -0.02f;
 	target = nullptr;
 	bMusic = false;
 
@@ -133,7 +134,7 @@ bool BeatManager::OnBeatObject(GameObject* obj)
 	return false;
 }
 
-void BeatManager::MusicTest()
+void BeatManager::MusicStart()
 {
 	if (bMusic == false)
 	{
@@ -165,9 +166,9 @@ void BeatManager::Update(float tick)
 		saveTime += tick;
 		
 
-		if (saveTime >= 0)
+		if (saveTime >= syncTime)
 		{
-			MusicTest();
+			MusicStart();
 		}
 
 		CheckInputForUpdate();

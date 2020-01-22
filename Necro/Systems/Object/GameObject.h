@@ -51,6 +51,8 @@ protected:
 	FloatRect rc;
 	Pivot pivot;
 	D3DXVECTOR2 position;
+	D3DXVECTOR2 size;
+
 	bool bActive;
 
 	

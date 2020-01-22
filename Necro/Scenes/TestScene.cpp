@@ -29,6 +29,8 @@ void TestScene::Init()
 {
 	SceneBase::Init();
 
+	ImageLoad();
+
 	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
 	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
 	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
@@ -59,10 +61,11 @@ void TestScene::Init()
 }
 
 
-void TestScene::ControlUpdate()
+
+void TestScene::ImageLoad()
 {
-	//if (beatManager->Update(Time::Tick()))
-	//{
-	//	SceneBase::ControlUpdate();
-	//}
+	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
+
+
+
 }
