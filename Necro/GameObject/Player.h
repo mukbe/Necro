@@ -5,14 +5,13 @@
 // 아이들에서 -> 바닥 검사하고-> 공격범위에있으면 어택 , 없으면 이동 
 // 이동과 공격에서는 정말 이동과 공격만 해야함 (목표지점에 도달했거나, 데미지를 넣었으면 바로 아이들로 돌아오게)
 
-// 20200121 오늘 할 일
-// 0. 타일 검출 부터 해보자
-// 1. 플레이어 위치 조정						  >>>>>>> 완료
+// 할 일
+// 0. 타일 검출 부터 해보자																>> 완료 
 // 3. 아이템에 따른 상태 만들기  ( 다른 오브젝트나 에너미에 붙여도 되게 만들라고 하던데 뭘까
 //    아이템 담당자한테 머만들지 함 물어보기
-// 4. 심장 템포에 캐릭터 움직임을 약간 제어 할수있을ㅈ ㅣ 보자 
+// 4. 심장 템포에 캐릭터 움직임을 약간 제어 할수있을ㅈ ㅣ 보자								>> 완료 
 // 2. 플레이어 이동(점프)로 바꾸기				  
-// 
+// 5. _pos , _size 이 두개 게임 오브젝트에서 변수 만드는걸로 바꾸기 
 
 
 //전방선언
@@ -29,7 +28,7 @@ private:
 	friend class PlayerIdle;
 	friend class PlayerAttack;
 
-	D3DXVECTOR2 _pos , _size;		//중점 , 사이즈 < 이거 겟셋으로 불러 올수있는거같긴한데 일단 그냥 넣어놈.
+	D3DXVECTOR2 _pos , _size;	//중점 , 사이즈 < 이거 겟셋으로 불러 올수있는거같긴한데 일단 그냥 넣어놈.
 	
 	StateBase* currentState;
 	unordered_map<string, StateBase*> stateList;
@@ -42,10 +41,10 @@ private:
 	float startTime;			// 시작 시간 
 	D3DXVECTOR2 startPos;		// 시작 위치 저장용
 
-	POINT nowPos;				// 현제 위치 
-	POINT goPos;				// 이동할 타일 위치 
+	POINT myIndex;				// 이동할때마다 확인하기용 현제 내위치 인덱스 
 
-	POINT myIndex;
+	int money;					// 플레이어 돈!!!! 
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);

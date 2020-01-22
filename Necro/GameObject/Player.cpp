@@ -13,8 +13,6 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
-	nowPos.x = nowPos.y = goPos.x = goPos.y = 0;
-
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
 	startTime = 0;
@@ -65,7 +63,7 @@ void Player::Update(float tick)
 		frameX++;
 		interver = 0;
 	}
-	if (frameX > 2){
+	if (frameX > 2) {
 		frameX = 0;
 	}
 
@@ -120,7 +118,7 @@ void PlayerIdle::Enter()
 void PlayerIdle::BeatExcute()
 {
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
-// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
+	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
 	me->myIndex = PosToIndex(me->_pos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 
@@ -134,6 +132,8 @@ void PlayerIdle::BeatExcute()
 		// 왠진 모르겠지만 이 이프문 두개를 &&로 묶어서 같이 놓으면 인덱스에 오류생겨서 터짐 
 		// 갈 곳의 인덱스가 맵밖이 아니고 , 장애물이 아닌경우 > > > 움직여라!
 		if (me->myIndex.x - 1 >= 0) {
+			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
+			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
 			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;																					  // 시작 시간 초기화
