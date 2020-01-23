@@ -7,7 +7,8 @@ GameObject::GameObject(string name)
 	, alpha(1.f), lifeTiem(0.f)
 
 {
-	
+	moveType = MoveType_Beat;
+
 }
 
 GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -22,7 +23,7 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	bBeatChance = 1;
 
-
+	moveType = MoveType_Beat;
 
 	AddCallback("OnBeat", [&](TagMessage msg) {
 		if (bBeatChance <= 0)
@@ -34,7 +35,10 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	});
 	AddCallback("AddChance", [&](TagMessage msg) {
 		if (bBeatChance > 0)
+		{
+			MissControlUpdate();
 			return;
+		}
 		bBeatChance++;
 	});
 }
@@ -59,6 +63,10 @@ void GameObject::Release()
 void GameObject::ControlUpdate()
 {
 
+}
+
+void GameObject::MissControlUpdate()
+{
 }
 
 void GameObject::Update(float tick)
