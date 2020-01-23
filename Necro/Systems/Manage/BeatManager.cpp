@@ -41,12 +41,20 @@ bool BeatManager::CheckInputForUpdate()
 		{
 			if (check.second)
 			{
+				vector<GameObject*> objects = _ObjectPool->objects;
+				for (GameObject* obj : objects)
+				{
+					if (obj->GetMoveType() == MoveType_Control)
+					{
+						_MessagePool->ReserveMessage(obj, "OnBeat");
+					}
+				}
 				//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
 				//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
 
-				_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
 
-				_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
+				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
 				_MessagePool->ReserveMessage(target, "EnterBeat");
 
 				checkInfos.front().second = false;
@@ -55,6 +63,7 @@ bool BeatManager::CheckInputForUpdate()
 		}
 		else
 		{
+			//너무 빨리 눌렀다면
 
 		}
 	}
@@ -207,7 +216,7 @@ void BeatManager::Update(float tick)
 				vector<GameObject*> objects = _ObjectPool->objects;
 				for (GameObject* obj : objects)
 				{
-					if (OnBeatObject(obj))
+					if (obj->GetMoveType() == MoveType_Beat)
 					{
 						_MessagePool->ReserveMessage(obj, "OnBeat");
 					}
