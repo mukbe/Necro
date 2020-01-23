@@ -32,7 +32,7 @@ public:
 	
 	virtual void Init();
 	virtual void Release();
-	virtual void ControlUpdate();
+	
 	virtual void Update(float tick);
 	virtual void PostUpdate();
 	virtual void Render();

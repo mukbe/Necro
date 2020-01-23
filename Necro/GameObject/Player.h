@@ -28,7 +28,8 @@ private:
 	friend class PlayerIdle;
 	friend class PlayerAttack;
 
-	D3DXVECTOR2 _pos , _size;	//중점 , 사이즈 < 이거 겟셋으로 불러 올수있는거같긴한데 일단 그냥 넣어놈.
+	D3DXVECTOR2 _pos , _size;	// 중점 , 사이즈 < 이거 겟셋으로 불러 올수있는거같긴한데 일단 그냥 넣어놈.
+	D3DXVECTOR2 imagePos;		// 이미지 옮길떄 쓰일 변수
 	
 	StateBase* currentState;
 	unordered_map<string, StateBase*> stateList;
@@ -44,7 +45,6 @@ private:
 	POINT myIndex;				// 이동할때마다 확인하기용 현제 내위치 인덱스 
 
 	int money;					// 플레이어 돈!!!! 
-
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);

@@ -9,7 +9,6 @@
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
 
-
 TileTestScene::TileTestScene()
 	: SceneBase()
 {
@@ -29,8 +28,7 @@ void TileTestScene::Init()
 		Note* note = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
 		note->Init();
 	}
-	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 820.f }, { 110.f,120.f });
-
+	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
 	// TileManager(POINT mapSize, tileSize, ±âÁØÁÂÇ¥)
 	// mapSize´Â {°¡·ÎÄ­¼ö, ¼¼·ÎÄ­¼ö}
@@ -90,11 +88,12 @@ void TileTestScene::Init()
 void TileTestScene::ImageLoad()
 {
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
-	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
+
 
 	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
 	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
 	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
 	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
-
+	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
+	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 }

@@ -9,10 +9,10 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name, pos, size)
 {
 	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	//_RenderPool->Request(this, RenderManager::Layer::Object);
 	
 	//값 출력 테스트 할 창을 그려보아요
-	_RenderPool->Request(this, RenderManager::Layer::Imgui);
+	//_RenderPool->Request(this, RenderManager::Layer::Imgui);
 
 	
 	FrameCount=0;
@@ -32,19 +32,20 @@ GreenSlime::~GreenSlime()
 
 void GreenSlime::Init()
 {
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 void GreenSlime::Release()
 {
+	GameObject::Release();
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
-
 	//값 출력 테스트 할 창을 지워보아요
 	_RenderPool->Remove(this, RenderManager::Layer::Imgui);
 }
 
-void GreenSlime::ControlUpdate()
-{
-}
+
 
 void GreenSlime::Update(float tick)
 {
