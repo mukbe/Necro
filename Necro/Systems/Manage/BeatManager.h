@@ -3,6 +3,10 @@
 #include <fstream>
 #include <time.h>
 
+
+//속도가 느려진다면 메세지를 통해서 호출하던걸 직접호출로 변경
+
+
 class Note;
 class BeatManager
 {
@@ -33,6 +37,7 @@ private:
 	queue<Note*> freeNoteList;
 	//인풋을 받을 노트
 	Note* target;
+	
 	vector<string> onBeatObjectList;
 private:
 	BeatManager();

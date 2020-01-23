@@ -8,8 +8,8 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	this->size = size;
 	AddCallback("EnterBeat", [&](TagMessage msg) {
-
 		OnBeatEnter();
+		bBeatChance--;
 	});
 	AddCallback("Shown", [&](TagMessage msg) {
 		//if (this->IsMove() == false)return;
