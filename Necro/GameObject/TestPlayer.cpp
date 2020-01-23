@@ -9,8 +9,7 @@
 TestPlayer::TestPlayer(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Object);
-
+	moveType = MoveType_Control;
 }
 
 TestPlayer::~TestPlayer()
@@ -19,6 +18,7 @@ TestPlayer::~TestPlayer()
 
 void TestPlayer::Init()
 {
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void TestPlayer::Release()
@@ -57,7 +57,6 @@ void TestPlayer::Update(float tick)
 
 void TestPlayer::Render()
 {
-	p2DRenderer->SetCamera(true);
 	p2DRenderer->FillRectangle(rc, nullptr);
 }
 

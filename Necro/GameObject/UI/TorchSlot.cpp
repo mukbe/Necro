@@ -17,7 +17,7 @@ TorchSlot::~TorchSlot()
 void TorchSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/Torch_Slot.png");
+	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
 
 }
 
@@ -36,7 +36,6 @@ void TorchSlot::Update(float tick)
 
 void TorchSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_TorchSlot", rc, nullptr);
 	
 }

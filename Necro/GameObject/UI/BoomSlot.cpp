@@ -15,7 +15,7 @@ BoomSlot::~BoomSlot()
 void BoomSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/Boom_Slot.png");
+	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
 }
 
 void BoomSlot::Release()
@@ -33,6 +33,5 @@ void BoomSlot::Update(float tick)
 
 void BoomSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_BoomSlot", rc, nullptr);
 }

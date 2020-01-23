@@ -9,7 +9,7 @@ BlueSlime::BlueSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: Monster(name, pos, size)
 {
 	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	
 		FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -29,17 +29,18 @@ BlueSlime::~BlueSlime()
 
 void BlueSlime::Init()
 {
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void BlueSlime::Release()
 {
+	GameObject::Release();
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
 
 }
 
-void BlueSlime::ControlUpdate()
-{
-}
+
 
 void BlueSlime::Update(float tick)
 {
@@ -95,7 +96,6 @@ void BlueSlime::PostUpdate()
 
 void BlueSlime::Render()
 {
-		p2DRenderer->SetCamera(true);
 	_ImageManager->FindTexture("blueslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

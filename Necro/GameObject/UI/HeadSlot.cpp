@@ -17,7 +17,7 @@ HeadSlot::~HeadSlot()
 void HeadSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/Head_Slot.png");
+	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
 }
 
 void HeadSlot::Release()
@@ -36,6 +36,5 @@ void HeadSlot::Update(float tick)
 
 void HeadSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_HeadSlot", rc, nullptr);
 }

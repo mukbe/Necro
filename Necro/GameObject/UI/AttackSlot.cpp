@@ -15,7 +15,7 @@ AttackSlot::~AttackSlot()
 void AttackSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/Attack_Slot.png");
+	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 }
 
 void AttackSlot::Release()
@@ -33,7 +33,6 @@ void AttackSlot::Update(float tick)
 
 void AttackSlot::Render()
 {
-	p2DRenderer->SetCamera(false);
 	_ImageManager->Render("UI_AttackSlot", rc, nullptr);
 	
 }

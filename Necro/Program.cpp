@@ -19,12 +19,12 @@ Program::Program()
 	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
 	
-	//SceneBase* scene = new TileTestScene;
-	//_SceneManager->AddScene(scene);
-
-
-	SceneBase* scene = new TestScene;
+	SceneBase* scene = new TileTestScene;
 	_SceneManager->AddScene(scene);
+
+
+	//SceneBase* scene = new TestScene;
+	//_SceneManager->AddScene(scene);
 
 
 
@@ -166,20 +166,20 @@ void Program::MakeGrid()
 	vector<float> arrayX, arrayY;
 
 	FloatRect rc = CAMERA->GetRenderRect();
-	const float tilesize = 52.f;
-	int starty = (int)(rc.top / tilesize);
-	int endy = (int)(rc.bottom / tilesize);
+	D3DXVECTOR2 tilesize = TileManager::tileSize;
+	int starty = (int)(rc.top / tilesize.y);
+	int endy = (int)(rc.bottom / tilesize.y);
 
 	for (int y = starty-1; y <= endy + 1; y++)
 	{
-		arrayY.push_back(y * tilesize);
+		arrayY.push_back(y * tilesize.y);
 	}
 
-	int startx = (int)(rc.left / tilesize);
-	int endx = (int)(rc.right / tilesize);
+	int startx = (int)(rc.left / tilesize.x);
+	int endx = (int)(rc.right / tilesize.x);
 	for (int x = startx-1; x <= endx + 1; x++)
 	{
-		arrayX.push_back(x * tilesize);
+		arrayX.push_back(x * tilesize.x);
 	}
 
 	p2DRenderer->SetCamera(true);

@@ -2,6 +2,8 @@
 #include "Monster.h"
 
 
+static float batX;
+static float batY;
 
 Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: GameObject(name, pos, size)
@@ -15,7 +17,7 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	//startPos = pos;
 	//endPos = { pos.x+52.f, pos.y+52.f };
 	firstmove = false;
-	ChangeState("Idle");
+	ChangeState("Move");
 }
 
 Monster::~Monster()
@@ -32,6 +34,7 @@ void Monster::Release()
 
 void Monster::PreUpdate()
 {
+
 }
 
 void Monster::Update(float tick)
@@ -42,6 +45,7 @@ void Monster::Update(float tick)
 
 void Monster::ControlUpdate()
 {
+	ChangeState("Move");
 }
 
 void Monster::Render()
@@ -82,10 +86,42 @@ void MonsterStateOneStep::Enter()
 void MonsterStateOneStep::Update()
 {
 	me->realtime = me->startTime;
-	me->startTime += Time::Tick();
+	me->startTime += Time::Tick()*4;
 	
+	
+	//½ºÄÌ·¹Åæ ¿òÁ÷ÀÓ
+	if (me->name == "Skeleton")
+	{
+
+		if (me->realtime <= 1.f)
+		{
+
+			//0Àº ¸ñÇ¥ÁöÁ¡ ÁÂÇ¥
+			if (me->startPos.x < batX) {
+				me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->realtime);
+			}
+			if (me->startPos.x > batX) {
+				me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->realtime);
+			}
+		    if (me->startPos.y > batY) {
+				me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->realtime);
+			}
+			if(me->startPos.y < batY) {
+				me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->realtime);
+			}
+
+		}
+
+		if (me->realtime > 1.f)
+		{
+			me->ChangeState("Idle");
+		}
+	}
+
+
+
 	//¹ÚÁã ¿òÁ÷ÀÓ
-	if (me->name == "Bat") 
+	if (me->name == "Monster") 
 	{
 
 		if (me->realtime <= 1.f)
@@ -123,10 +159,44 @@ void MonsterStateIdle::Enter()
 	me->startTime = 0.f;
 	me->realtime = 0.f;
 
-	//¹ÚÁã ¾ÆÀÌ´ú
+	if (me->name == "Monster")
+	{
+		batX = me->startPos.x;
+		batY = me->startPos.y;
+	}
 
-	Math::Random(0, 3);
-	if (me->name == "Bat") {
+	//½ºÄÌ·¹Åæ ¾ÆÀÌ´ú
+	if (me->name == "Skeleton")
+	{
+		me->startPos.x = me->endPos.x;
+		me->startPos.y = me->endPos.y;
+
+		if (me->startPos.x < batX)
+		{
+			me->endPos.x = me->startPos.x + _TileSize;
+		}
+		else if (me->startPos.y > batY)
+		{
+			me->endPos.y = me->startPos.y - _TileSize;
+		}
+		else if (me->startPos.x > batX)
+		{
+			me->endPos.x = me->startPos.x - _TileSize;
+		}
+		else if (me->startPos.y < batY)
+		{
+			me->endPos.y = me->startPos.y + _TileSize;
+		}
+
+
+	}
+
+
+
+
+	//¹ÚÁã ¾ÆÀÌ´ú
+	if (me->name == "Monster") 
+	{
 		me->startPos.x = me->endPos.x;
 		me->startPos.y = me->endPos.y;
 		int batmove= Math::Random(0, 3);
@@ -156,20 +226,21 @@ void MonsterStateIdle::Enter()
 
 
 	//ÆÄ¶õ½½¶óÀÓ ¾ÆÀÌ´ú
-	if (me->name == "BlueSlime") {
+	if (me->name == "BlueSlime") 
+	{
 
-		if (me->firstmove) {
+		//if (me->firstmove) {
 			D3DXVECTOR2 temp;
 			temp.x = me->endPos.x;
 			me->endPos.x = me->startPos.x;
 			me->startPos.x = temp.x;
-		}
+		//}
 	}
 }
 
 void MonsterStateIdle::Update()
 {
 	
-		me->ChangeState("Move");
+		//me->ChangeState("Move");
 	
 }

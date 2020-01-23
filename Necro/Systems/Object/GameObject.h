@@ -16,6 +16,8 @@ public:
 	virtual void Release();
 	//컨트롤 관련
 	virtual void ControlUpdate();
+	//노트를 못 눌렀을 경우 ( Movetype_Control만 해당함)
+	virtual void MissControlUpdate();
 	//메인 루틴
 	virtual void Update(float tick);
 
@@ -39,13 +41,15 @@ public:
 
 	FloatRect GetRect() { return rc; }
 
-
 	void SetPivot(Pivot p) { rc.Update(position, D3DXVECTOR2(rc.right - rc.left, rc.bottom - rc.top), p); }
+
+	ObjectMoveType GetMoveType() { return moveType; }
 
 protected:
 	//이놈의 이름 (중복허용)
 	string name;
 	//이놈의 위치, 회전, 배율의 정보 
+	//지금은 잘 사용안함
 	Matrix2D transform;
 
 	FloatRect rc;
@@ -54,12 +58,11 @@ protected:
 	D3DXVECTOR2 size;
 
 	bool bActive;
-
-	
 	float alpha;
 	float lifeTiem;
 	int bBeatChance;
 
+	ObjectMoveType moveType;
 private:
 	string shaderKey;
 	WorldBuffer* worldBuffer;

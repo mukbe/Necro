@@ -35,16 +35,36 @@ bool BeatManager::CheckInputForUpdate()
 	{
 		if (checkInfos.size() <= 0) return false;
 
-		Shown beat = checkInfos.front();
-		if (Math::Abs(beat.first - saveTime) <= 0.25f)
+		Check check = checkInfos.front();
+
+		if (Math::Abs(check.first - saveTime) <= 0.25f)
 		{
-			//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
-			//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
+			if (check.second)
+			{
+				vector<GameObject*> objects = _ObjectPool->objects;
+				for (GameObject* obj : objects)
+				{
+					if (obj->GetMoveType() == MoveType_Control)
+					{
+						_MessagePool->ReserveMessage(obj, "OnBeat");
+					}
+				}
+				//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
+				//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
 
-			_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
+				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
 
-			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
-			_MessagePool->ReserveMessage(target, "EnterBeat");
+				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
+				_MessagePool->ReserveMessage(target, "EnterBeat");
+
+				checkInfos.front().second = false;
+
+			}
+		}
+		else
+		{
+			//너무 빨리 눌렀다면
+
 		}
 	}
 
@@ -85,8 +105,9 @@ void BeatManager::LoadText(wstring filePath)
 	notes = _ObjectPool->FindObjects<Note>("Note");
 	for (Note* note : notes)
 	{
-		note->Init();
+		freeNoteList.push(note);
 	}
+	notes.clear();
 }
 
 void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output)
@@ -119,12 +140,18 @@ void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UIN
 
 void BeatManager::MakeNote(float inputTime, float shownTime)
 {
-	Note* note = notes.front();
+	Note* note = freeNoteList.front();
+	freeNoteList.pop();
+	//TODO 노트수가 적으면 생성해줄 코드가 필요하다
+
 	_MessagePool->ReserveMessage(note, "Shown", 0, float(shownTime));
 	notes.push_back(note);
-	notes.erase(notes.begin());
-	if(target == nullptr)
+
+	//처음엔 타겟이 없기때문에 맨 처음 타겟을 정해주기 위함
+	if (target == nullptr)
 		target = note;
+
+
 }
 
 bool BeatManager::OnBeatObject(GameObject* obj)
@@ -150,15 +177,14 @@ void BeatManager::MusicStart()
 
 void BeatManager::ReturnNote()
 {
-	target = nullptr;
-	for (size_t t = 0; t < notes.size(); t++)
+	Note* note = notes.front();
+	while (note->GetState() != Note::Note_Move)
 	{
-		if (notes[t]->IsMove())
-		{
-			target = notes[t];
-			break;
-		}
+		freeNoteList.push(note);
+		notes.erase(notes.begin());
+		note = notes.front();
 	}
+	target = note;
 }
 
 void BeatManager::Update(float tick)
@@ -179,7 +205,7 @@ void BeatManager::Update(float tick)
 		{
 			float delta = saveTime - (shownInfos.front().first - shownInfos.front().second);
 			MakeNote(0, shownInfos.front().second - delta);
-			checkInfos.push_back(shownInfos.front());
+			checkInfos.push_back(make_pair(shownInfos.front().first, true));
 			shownInfos.pop_front();
 
 		}
@@ -190,7 +216,7 @@ void BeatManager::Update(float tick)
 				vector<GameObject*> objects = _ObjectPool->objects;
 				for (GameObject* obj : objects)
 				{
-					if (OnBeatObject(obj))
+					if (obj->GetMoveType() == MoveType_Beat)
 					{
 						_MessagePool->ReserveMessage(obj, "OnBeat");
 					}

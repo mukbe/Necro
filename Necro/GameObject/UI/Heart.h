@@ -15,7 +15,7 @@ public:
 	virtual void Render();
 
 private:
-	const float holdTime = 0.05f;
+	const float holdTime = 0.08f;
 	bool hold;
 	float frameTime;
 

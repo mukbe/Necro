@@ -12,6 +12,28 @@ ObjectManager::ObjectManager()
 
 ObjectManager::~ObjectManager()
 {
+	if (objects.empty() == false)
+	{
+		VecIter Iter = objects.begin();
+		for (; Iter != objects.end();)
+		{
+			(*Iter)->Release();
+			SafeDelete(*Iter);
+			Iter = objects.erase(Iter);
+		}
+
+	}
+
+	if (deleteList.empty() == false)
+	{
+		VecIter Iter = deleteList.begin();
+		for (; Iter != deleteList.end();)
+		{
+			(*Iter)->Release();
+			SafeDelete(*Iter);
+			Iter = deleteList.erase(Iter);
+		}
+	}
 
 }
 
