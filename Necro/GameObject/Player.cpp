@@ -41,8 +41,8 @@ void Player::Init()
 void Player::Release()
 {
 	GameObject::Release();
-	_RenderPool->Request(this, RenderManager::Layer::Object);
-	_RenderPool->Request(this, RenderManager::Layer::Imgui);
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
+	_RenderPool->Remove(this, RenderManager::Layer::Imgui);
 }
 
 void Player::ControlUpdate()
@@ -73,9 +73,13 @@ void Player::Update(float tick)
 
 void Player::Render()
 {
+	
+	imagePos = _pos;
 	// 이미지 위치 보정 (-20);
-	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
-	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(_pos.x, _pos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
+	// 이미지만 점프 시킬꺼면 변수를 _포즈 말고 다른거 써야됨 . >> 포즈는 인덱스 검출하고 그래서 그냥 중점에 박혀있는게 좋기 때문.. 
+	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(_pos.x, _pos.y), D3DXVECTOR2(_size.x, _size.y / 4), Pivot::CENTER), nullptr);
+	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(imagePos.x, imagePos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(imagePos.x, imagePos.y - 20), _size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void Player::ImguiRender()
@@ -134,12 +138,15 @@ void PlayerIdle::BeatExcute()
 		if (me->myIndex.x - 1 >= 0) {
 			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
 			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
-			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetAttribute() != ObjStatic)
+			TileNode* leftTilePos;
+			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y);
+
+			if (leftTilePos->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;																					  // 시작 시간 초기화
 				me->startPos = me->_pos;																			  // 시작 위치 
 				//me->destination.x = me->_pos.x - _GameWorld->GetTileManager()->GetTileSize().x; >> 이렇게 계산을 이곳저곳에서 하지 말자. 
-				me->destination.x = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetPos().x; // 목적지
+				me->destination.x = leftTilePos->GetPos().x; // 목적지
 
 				me->ChangeState("Move");
 			}
@@ -151,13 +158,17 @@ void PlayerIdle::BeatExcute()
 		me->head = "PlayerHeadRight";
 		me->body = "PlayerBodyRight";
 
-		if (me->myIndex.x + 1 < _GameWorld->GetTileManager()->GetMapSize().x)
+		// mapSize 멀리 돌아갈 필요 없이 바로 소환할수있으면 소환해서 하는게 좋다 . 
+		if (me->myIndex.x + 1 < TileManager::mapSize.x)
 		{
-			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetAttribute() != ObjStatic)
+			TileNode* rightTilePos;
+			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y);
+
+			if (rightTilePos->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;
 				me->startPos = me->_pos;
-				me->destination.x = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetPos().x;
+				me->destination.x = rightTilePos->GetPos().x;
 
 				me->ChangeState("Move");
 			}
@@ -167,11 +178,14 @@ void PlayerIdle::BeatExcute()
 	{
 		if (me->myIndex.y - 1 >= 0)
 		{
-			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetAttribute() != ObjStatic)
+			TileNode* upTilePos;
+			upTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y-1);
+
+			if (upTilePos->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;
 				me->startPos = me->_pos;
-				me->destination.y = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetPos().y;
+				me->destination.y = upTilePos->GetPos().y;
 
 				me->ChangeState("Move");
 			}
@@ -179,13 +193,16 @@ void PlayerIdle::BeatExcute()
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
-		if (me->myIndex.y + 1 < _GameWorld->GetTileManager()->GetMapSize().y)
+		if (me->myIndex.y + 1 < TileManager::mapSize.y)
 		{
-			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetAttribute() != ObjStatic)
+			TileNode* downTilePos;
+			downTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1);
+
+			if (downTilePos->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;
 				me->startPos = me->_pos;
-				me->destination.y = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetPos().y;
+				me->destination.y = downTilePos->GetPos().y;
 
 				me->ChangeState("Move");
 			}
@@ -220,6 +237,18 @@ void PlayerMove::Excute()
 
 	me->_pos = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
 
+	// y축 ㅏㄸ라 가야 하느디.. 
+
+	me->imagePos = Math::Lerp(me->startPos, me->destination, factor);
+	
+	if (factor <= 0.5f)												
+	{
+
+	}
+	if (factor > 0.5f&&factor < 1.0f)
+	{
+
+	}
 	if (factor >= 1.0f)												//비울(factor) >= 1  >>>> 목표지점까지 가는데 걸린 시간이 목표한 시간과 같거나 크다 = 도착했다
 	{
 		//me->_pos = me->destination;								// 위치 보정 할꺼면 위치보정 
