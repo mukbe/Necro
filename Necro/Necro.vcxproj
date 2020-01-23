@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\GameTest.cpp" />
     <ClCompile Include="GameObject\Monster\Bat.cpp" />
     <ClCompile Include="GameObject\Monster\BlueSlime.cpp" />
     <ClCompile Include="GameObject\Monster\GreenSlime.cpp" />
@@ -178,6 +179,15 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
+    <ClCompile Include="GameObject\Item\ItemCoin.cpp" />
+    <ClCompile Include="GameObject\Item\ItemBase.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeapon.cpp" />
+    <ClCompile Include="GameObject\Item\ItemDiamond.cpp" />
+    <ClCompile Include="GameObject\Item\ItemBody.cpp" />
+    <ClCompile Include="GameObject\Item\ItemShovel.cpp" />
+    <ClCompile Include="GameObject\Item\ItemHead.cpp" />
+    <ClCompile Include="GameObject\Item\ItemBoom.cpp" />
+    <ClCompile Include="GameObject\Item\ItemHP.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
@@ -224,6 +234,7 @@
     <ClCompile Include="Utilities\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\GameTest.h" />
     <ClInclude Include="GameObject\Monster\Bat.h" />
     <ClInclude Include="GameObject\Monster\BlueSlime.h" />
     <ClInclude Include="GameObject\Monster\GreenSlime.h" />
@@ -242,6 +253,15 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
+    <ClInclude Include="GameObject\Item\ItemCoin.h" />
+    <ClInclude Include="GameObject\Item\ItemBase.h" />
+    <ClInclude Include="GameObject\Item\ItemWeapon.h" />
+    <ClInclude Include="GameObject\Item\ItemDiamond.h" />
+    <ClInclude Include="GameObject\Item\ItemBody.h" />
+    <ClInclude Include="GameObject\Item\ItemShovel.h" />
+    <ClInclude Include="GameObject\Item\ItemHead.h" />
+    <ClInclude Include="GameObject\Item\ItemBoom.h" />
+    <ClInclude Include="GameObject\Item\ItemHP.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />

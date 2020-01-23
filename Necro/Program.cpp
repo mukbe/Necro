@@ -16,13 +16,15 @@ Program::Program()
 	bGrid = true;
 	gridColor = ColorWhite;
 
+	//¸ÊÅø
 	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
 	
+	//Tile / monster / Player
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
 
-
+	// UI / Item 
 	SceneBase* scene = new TestScene;
 	_SceneManager->AddScene(scene);
 
@@ -71,7 +73,7 @@ void Program::Render()
 	p2DRenderer->SetCamera(true);
 
 	_GameWorld->ObjectRender();
-	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
+	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
 
 	wstring str;

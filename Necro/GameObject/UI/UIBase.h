@@ -8,6 +8,8 @@ public:
 	~UIBase();
 
 private:
+	virtual void Init();
+
 	virtual void Release();
 
 	virtual void ControlUpdate();

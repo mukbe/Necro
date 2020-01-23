@@ -17,7 +17,7 @@ ShovelSlot::~ShovelSlot()
 void ShovelSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
+	
 }
 
 void ShovelSlot::Release()

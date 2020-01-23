@@ -15,9 +15,7 @@ HPUi::~HPUi()
 void HPUi::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_FullHp", ResourcePath + L"UI/UI_FullHp.png");
-	_ImageManager->AddTexture("UI_HalfHp", ResourcePath + L"UI/UI_HalfHp.png");
-	_ImageManager->AddTexture("UI_EmptyHp", ResourcePath + L"UI/UI_EmptyHp.png");
+	
 }
 
 void HPUi::Release()

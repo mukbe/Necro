@@ -1,26 +1,18 @@
 #pragma once
-#include "./GameObject/UI/UIBase.h"
-
-class Coin : public UIBase
+#include "./GameObject/Item/ItemBase.h"
+class ItemBoom : public ItemBase
 {
-
 public:
-	Coin(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	~Coin();
+	ItemBoom(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	~ItemBoom();
 
-	// »ó¼Ó ¹ÞÀ»¶§ ÀÌ·¸°Ô .
-	
 	virtual void Init();
-
 	virtual void Release();
-
 	virtual void ControlUpdate();
-
 	virtual void Update(float tick);
-
 	virtual void Render();
 
 private:
-	
+	//ÆøÅº 
 };
 
