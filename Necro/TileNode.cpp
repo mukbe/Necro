@@ -10,6 +10,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	tileSize = size;
 	isSelected = false;
 	haveIDrawHighlight = false;
+	isUI = false;
 }
 
 TileNode::~TileNode()
@@ -63,6 +64,7 @@ void TileNode::Update(float tick)
 
 void TileNode::Render()
 {
+	p2DRenderer->SetCamera(!isUI);
 	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
 	
 	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()) && haveIDrawHighlight)

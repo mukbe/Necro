@@ -61,22 +61,28 @@ void MapTool::Update(float tick)
 	case ObjectAll:
 		break;
 	case ObjectTerrain:
-		pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
 		break;
 	case ObjectPlayer:
-		pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
 		break;
 	case ObjectMonster:
-		pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
 		break;
 	case ObjectItem:
-		pallete->CreatePallete(ObjectItem, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
 		break;
 	case ObjectNPC:
-		pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
 		break;
 	case ObjectWall:
-		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(10, 10));
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
 		break;
 	default:
 		pallete->ReleasePallete();

@@ -49,6 +49,6 @@ private:
 	typedef vector<GameObject*>::iterator VecIter;
 
 	vector<TileNode*> palleteTiles;
-	vector<TileNode*>::iterator PalleteIter;
+	typedef vector<TileNode*>::iterator PalleteIter;
 };
 

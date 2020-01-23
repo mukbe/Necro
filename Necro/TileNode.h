@@ -94,6 +94,7 @@ public:
 	bool GetSelected() { return isSelected; }
 	bool GetHighlight() { return haveIDrawHighlight; }
 	void SetHighlight(bool input) { haveIDrawHighlight = input; }
+	void SetUIMode(bool input) { isUI = input; }
 
 protected:
 	string textureKey;
@@ -108,4 +109,5 @@ protected:
 
 	bool isSelected;
 	bool haveIDrawHighlight;
+	bool isUI;
 };

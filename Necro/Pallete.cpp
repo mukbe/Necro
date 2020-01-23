@@ -29,14 +29,14 @@ Pallete::Pallete(D3DXVECTOR2 pivot)
 
 	string namePal = "Pallete_";
 	GameObject* temp;
-	//temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	//AddObject(ObjectPlayer, temp);
-	//temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	//AddObject(ObjectMonster, temp);
-	//temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	//AddObject(ObjectMonster, temp);
-	/*temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	AddObject(ObjectMonster, temp);*/
+	temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	AddObject(ObjectPlayer, temp);
+	temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	AddObject(ObjectMonster, temp);
+	temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	AddObject(ObjectMonster, temp);
+	temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	AddObject(ObjectMonster, temp);
 }
 
 Pallete::~Pallete()
@@ -83,16 +83,38 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 {
 	for (int i = 0; i < objectStorage[inputType].size(); ++i)
 	{
-		float x = pivotPos.x + (i % separateSize) * defaultTileSize.x;
-		float y = pivotPos.y + (i / separateSize) * defaultTileSize.y;
+		float x = inputPivotPos.x + (i % separateSize) * defaultTileSize.x;
+		float y = inputPivotPos.y + (i / separateSize) * defaultTileSize.y;
 		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
-		newTile->Init("DefautMap");
+		newTile->Init("DefaultMap");
 		newTile->SetPivotPos(inputPivotPos);
 		newTile->AddObject(objectStorage[inputType][i]);
 		newTile->SetHighlight(true);
+		newTile->SetUIMode(true);
+		
+		palleteTiles.push_back(newTile);
+
+		objectStorage[inputType][i]->Transform().SetPos(x, y);
+		_RenderPool->Remove(objectStorage[inputType][i]);
+		_RenderPool->Request(objectStorage[inputType][i], RenderManager::Layer::UI);
+
+
 	}
 }
 
 void Pallete::ReleasePallete()
 {
+	PalleteIter iter;
+
+	if(palleteTiles.size() > 0)
+	{
+		for (int i = 0; i < palleteTiles.size(); ++i)
+		{
+			iter = palleteTiles.begin() + i;
+			_ObjectPool->DeletaObject(palleteTiles[i]);
+			palleteTiles.erase(iter);
+
+			--i;
+		}
+	}
 }
