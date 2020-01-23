@@ -179,7 +179,7 @@ void PlayerIdle::BeatExcute()
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
-		if (me->myIndex.y + 1 < _GameWorld->GetTileManager()->GetMapSize().y)
+		if (me->myIndex.y + 1 < TileManager::mapSize.y)
 		{
 			if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetAttribute() != ObjStatic)
 			{

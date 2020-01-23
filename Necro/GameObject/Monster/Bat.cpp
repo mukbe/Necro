@@ -9,7 +9,7 @@
 Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	//_RenderPool->Request(this, RenderManager::Layer::Object);
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -28,15 +28,19 @@ Bat::~Bat()
 
 void Bat::Init()
 {
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void Bat::Release()
 {
+
+	GameObject::Release();
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
+
 }
 
-void Bat::ControlUpdate()
-{
-}
+
 
 void Bat::Update(float tick)
 {

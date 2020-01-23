@@ -6,8 +6,10 @@
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
+#include "./GameObject/Monster/Skeleton.h"
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
+
 
 TileTestScene::TileTestScene()
 	: SceneBase()
@@ -23,13 +25,12 @@ void TileTestScene::Init()
 	SceneBase::Init();
 
 	ImageLoad();
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
-	_ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+	for (int i = 0; i < 10; i++)
+	{
+		Note* note = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+		note->Init();
+	}
+
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
 	// TileManager(POINT mapSize, tileSize, 기준좌표)
@@ -69,16 +70,18 @@ void TileTestScene::Init()
 
 
 
-	////몬스터
-	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
-	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
-	//_ImageManager->AddFrameTexture("bat", ResourcePath + L"bat.png", 4, 2);
-	//
-	//GreenSlime* greenslime = _ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
-	//BlueSlime* blueslime = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(FIRSTCENTERXY+TILESIZE, FIRSTCENTERXY + TILESIZE), D3DXVECTOR2(52.f, 52.f));
-	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
-	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
-	//
+	//몬스터
+	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
+	_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
+	_ImageManager->AddFrameTexture("bat", ResourcePath + L"bat.png", 4, 2);
+	
+	_ImageManager->AddFrameTexture("skeleton", ResourcePath + L"skeleton.png", 8, 2);
+
+	GreenSlime* greenslime = _ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(26, 26), D3DXVECTOR2(52.f, 52.f));
+	BlueSlime* blueslime = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(26+52, 26 + 52), D3DXVECTOR2(52.f, 52.f));
+	BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
+	Bat* bat = _ObjectPool->CreateObject<Bat>("Monster", D3DXVECTOR2(26 + 52*8, 26 + 52 * 8), D3DXVECTOR2(52.f, 52.f));
+	Skeleton* skeleton = _ObjectPool->CreateObject<Skeleton>("Skeleton", D3DXVECTOR2(26 + 52 * 8, 26 + 52 * 8), D3DXVECTOR2(52.f, 52.f));
 	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26, 26), D3DXVECTOR2(52.f, 52.f));
 
 
@@ -96,5 +99,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
 	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
 	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
+	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
+
 
 }

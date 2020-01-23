@@ -45,6 +45,7 @@ void Monster::Update(float tick)
 
 void Monster::ControlUpdate()
 {
+	ChangeState("Move");
 }
 
 void Monster::Render()
@@ -85,7 +86,7 @@ void MonsterStateOneStep::Enter()
 void MonsterStateOneStep::Update()
 {
 	me->realtime = me->startTime;
-	me->startTime += Time::Tick()*2;
+	me->startTime += Time::Tick()*4;
 	
 	
 	//½ºÄÌ·¹Åæ ¿òÁ÷ÀÓ
@@ -120,7 +121,7 @@ void MonsterStateOneStep::Update()
 
 
 	//¹ÚÁã ¿òÁ÷ÀÓ
-	if (me->name == "Bat") 
+	if (me->name == "Monster") 
 	{
 
 		if (me->realtime <= 1.f)
@@ -158,14 +159,15 @@ void MonsterStateIdle::Enter()
 	me->startTime = 0.f;
 	me->realtime = 0.f;
 
-	if (me->name == "Bat")
+	if (me->name == "Monster")
 	{
 		batX = me->startPos.x;
 		batY = me->startPos.y;
 	}
 
 	//½ºÄÌ·¹Åæ ¾ÆÀÌ´ú
-	if (me->name == "Skeleton") {
+	if (me->name == "Skeleton")
+	{
 		me->startPos.x = me->endPos.x;
 		me->startPos.y = me->endPos.y;
 
@@ -193,7 +195,8 @@ void MonsterStateIdle::Enter()
 
 
 	//¹ÚÁã ¾ÆÀÌ´ú
-	if (me->name == "Bat") {
+	if (me->name == "Monster") 
+	{
 		me->startPos.x = me->endPos.x;
 		me->startPos.y = me->endPos.y;
 		int batmove= Math::Random(0, 3);
@@ -223,7 +226,8 @@ void MonsterStateIdle::Enter()
 
 
 	//ÆÄ¶õ½½¶óÀÓ ¾ÆÀÌ´ú
-	if (me->name == "BlueSlime") {
+	if (me->name == "BlueSlime") 
+	{
 
 		//if (me->firstmove) {
 			D3DXVECTOR2 temp;
@@ -237,6 +241,6 @@ void MonsterStateIdle::Enter()
 void MonsterStateIdle::Update()
 {
 	
-		me->ChangeState("Move");
+		//me->ChangeState("Move");
 	
 }
