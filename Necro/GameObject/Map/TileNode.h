@@ -57,7 +57,7 @@ public:
 			{
 				OnIter pointIter = onMyHead.begin() + i;
 				onMyHead.erase(pointIter);
-				--i;
+				return;
 			}
 		}
 	}

@@ -30,10 +30,17 @@ public:
 	
 	virtual void ImguiRender() {}
 
-	virtual void SetTextureInfo(string textureStringKey = "DefaultWall", POINT textureFrameIndex = { 0,0 }, WallType inputType = WallDestructableShovel);
+	virtual void SetTextureInfo(string textureStringKey = "DefaultWall", POINT textureFrameIndex = { 0,0 }, WallType inputType = WallDestructableShovel)
+	{
+		textureKey = textureStringKey;
+		textureFrame = textureFrameIndex;
+		type = inputType;
+	}
 	virtual void SetType(WallType inputType){ type = inputType; }
 
-	
+	virtual WallType GetType() { return type; }
+
+	virtual void ProcessDestroy();
 
 private:
 	string textureKey;
@@ -44,5 +51,8 @@ private:
 	
 	POINT myIndex;
 	TileNode* myTile;
+
+	bool haveIShowIcon;
+	float IconLifeTime;
 };
 

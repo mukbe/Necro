@@ -14,6 +14,10 @@
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/GreenSlime.h"
 
+/*
+	Wall
+*/
+
 
 Pallete::Pallete(D3DXVECTOR2 pivot)
 	:pivotPos(pivot), separateSize(5)
@@ -93,14 +97,14 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 	{
 		float x = inputPivotPos.x + (i % separateSize) * defaultTileSize.x;
 		float y = inputPivotPos.y + (i / separateSize) * defaultTileSize.y;
-		//TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
-		//newTile->Init("DefaultMap");
-		//newTile->SetPivotPos(inputPivotPos);
-		//newTile->AddObject(objectStorage[inputType][i]);
-		//newTile->SetHighlight(true);
-		//newTile->SetUIMode(true);
-		//
-		//palleteTiles.push_back(newTile);
+		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
+		newTile->Init("DefaultMap");
+		newTile->SetPivotPos(inputPivotPos);
+		newTile->AddObject(objectStorage[inputType][i]);
+		newTile->SetHighlight(true);
+		newTile->SetUIMode(true);
+		
+		palleteTiles.push_back(newTile);
 
 		objectStorage[inputType][i]->Transform().SetPos(x, y);
 		_RenderPool->Remove(objectStorage[inputType][i], RenderManager::Layer::Object);
