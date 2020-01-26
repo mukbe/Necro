@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ItemBase.h"
-#include "./TileNode.h" // 타일위에 아이템을 올리기 위해서 
+#include "./GameObject/Map/TileNode.h" // 타일위에 아이템을 올리기 위해서 
 
 
 ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
