@@ -12,6 +12,10 @@ UIBase::~UIBase()
 }
 
 
+void UIBase::Init()
+{
+}
+
 void UIBase::Release()
 {
 }
