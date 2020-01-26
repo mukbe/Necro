@@ -33,7 +33,8 @@ public:
 	D3DXVECTOR2 GetTileSize() { return tileSize; }
 	D3DXVECTOR2 GetPivotPos() { return pivotPos; }
 
-	
+
+	void CreateMap();
 
 private:
 	typedef vector<TileNode*>::iterator VecIter;
@@ -43,7 +44,6 @@ private:
 
 	void Release();
 
-	void CreateMap();
 
 	void ReleaseMap();
 

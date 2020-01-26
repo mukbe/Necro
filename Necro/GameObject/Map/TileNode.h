@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TileHelper.h"
-#include "MapTool.h"
+//#include "MapTool.h"
 
 
 class TileNode : public GameObject

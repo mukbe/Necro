@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TileTestScene.h"
 #include "TileHelper.h"
-#include "TileNode.h"
+#include "./GameObject/Map/TileNode.h"
 #include "./GameObject/Player.h"
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
@@ -49,7 +49,8 @@ void TileTestScene::Init()
 
 
 	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
-
+	
+	_TileMap->CreateMap();
 
 	for (int i = 0; i < 8; ++i)
 	{
@@ -89,6 +90,7 @@ void TileTestScene::ImageLoad()
 {
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 
+	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
 	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
 	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);

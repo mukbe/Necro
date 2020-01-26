@@ -179,6 +179,9 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
+    <ClCompile Include="GameObject\Map\MapTool\MapTool.cpp" />
+    <ClCompile Include="GameObject\Map\MapTool\Pallete.cpp" />
+    <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
@@ -194,8 +197,8 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UI\UIBase.cpp" />
-    <ClCompile Include="TileManager.cpp" />
-    <ClCompile Include="TileNode.cpp" />
+    <ClCompile Include="Systems\Manage\TileManager.cpp" />
+    <ClCompile Include="GameObject\Map\TileNode.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -223,6 +226,7 @@
     <ClCompile Include="Utilities\Logging.cpp" />
     <ClCompile Include="Utilities\Math.cpp" />
     <ClCompile Include="Utilities\String.cpp" />
+    <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject\Monster\Bat.h" />
@@ -244,6 +248,9 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
+    <ClInclude Include="GameObject\Map\MapTool\MapTool.h" />
+    <ClInclude Include="GameObject\Map\MapTool\Pallete.h" />
+    <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
@@ -261,8 +268,8 @@
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UI\UIBase.h" />
     <ClInclude Include="TileHelper.h" />
-    <ClInclude Include="TileManager.h" />
-    <ClInclude Include="TileNode.h" />
+    <ClInclude Include="Systems\Manage\TileManager.h" />
+    <ClInclude Include="GameObject\Map\TileNode.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />
     <ClInclude Include="Utilities\FloatRect.h" />
@@ -300,6 +307,7 @@
     <ClInclude Include="Utilities\Json.h" />
     <ClInclude Include="Utilities\Math.h" />
     <ClInclude Include="Utilities\String.h" />
+    <ClInclude Include="GameObject\Map\WallBase.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Color.hlsl">

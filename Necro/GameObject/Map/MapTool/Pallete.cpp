@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Pallete.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./GameObject/Map/TileNode.h"
 
 /*
 	Player
@@ -30,13 +29,22 @@ Pallete::Pallete(D3DXVECTOR2 pivot)
 	string namePal = "Pallete_";
 	GameObject* temp;
 	temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	//_RenderPool->Remove(temp,RenderManager::Layer::Object);
+	//_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
+	//_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectPlayer, temp);
-	temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	/*temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp);
+	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectMonster, temp);
 	temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp);
+	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectMonster, temp);
 	temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	AddObject(ObjectMonster, temp);
+	_RenderPool->Remove(temp);
+	_RenderPool->Request(temp, RenderManager::Layer::UI);
+	AddObject(ObjectMonster, temp);*/
 }
 
 Pallete::~Pallete()
@@ -85,20 +93,18 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 	{
 		float x = inputPivotPos.x + (i % separateSize) * defaultTileSize.x;
 		float y = inputPivotPos.y + (i / separateSize) * defaultTileSize.y;
-		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
-		newTile->Init("DefaultMap");
-		newTile->SetPivotPos(inputPivotPos);
-		newTile->AddObject(objectStorage[inputType][i]);
-		newTile->SetHighlight(true);
-		newTile->SetUIMode(true);
-		
-		palleteTiles.push_back(newTile);
+		//TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
+		//newTile->Init("DefaultMap");
+		//newTile->SetPivotPos(inputPivotPos);
+		//newTile->AddObject(objectStorage[inputType][i]);
+		//newTile->SetHighlight(true);
+		//newTile->SetUIMode(true);
+		//
+		//palleteTiles.push_back(newTile);
 
 		objectStorage[inputType][i]->Transform().SetPos(x, y);
-		_RenderPool->Remove(objectStorage[inputType][i]);
+		_RenderPool->Remove(objectStorage[inputType][i], RenderManager::Layer::Object);
 		_RenderPool->Request(objectStorage[inputType][i], RenderManager::Layer::UI);
-
-
 	}
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "./Scenes/SceneBase.h"
-#include "MapTool.h"
+#include "./GameObject/Map/MapTool/MapTool.h"
 
 class MapToolScene : public SceneBase
 {
@@ -11,5 +11,7 @@ public:
 	virtual void Init();
 
 	MapTool* tool;
+
+	void LoadResource();
 };
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BlueSlime.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 //#include "Monster.h"
 
 

@@ -1,6 +1,6 @@
 #include "MapTool.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 #include "Pallete.h"
 
 MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
