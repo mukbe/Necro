@@ -18,6 +18,8 @@
 	Wall
 */
 
+#include "./GameObject/Map/WallBase.h"
+
 
 Pallete::Pallete(D3DXVECTOR2 pivot)
 	:pivotPos(pivot), separateSize(5)
@@ -32,23 +34,28 @@ Pallete::Pallete(D3DXVECTOR2 pivot)
 
 	string namePal = "Pallete_";
 	GameObject* temp;
-	temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	//_RenderPool->Remove(temp,RenderManager::Layer::Object);
-	//_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
-	//_RenderPool->Request(temp, RenderManager::Layer::UI);
+	/*temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp,RenderManager::Layer::Object);
+	_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
+	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectPlayer, temp);
-	/*temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp);
+	temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
 	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectMonster, temp);
 	temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp);
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
 	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectMonster, temp);
 	temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp);
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
 	_RenderPool->Request(temp, RenderManager::Layer::UI);
 	AddObject(ObjectMonster, temp);*/
+
+	temp = _ObjectPool->CreateObject<WallBase>(namePal + "WallBase", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	//_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	//_RenderPool->Request(temp, RenderManager::Layer::UI);
+	AddObject(ObjectWall, temp);
 }
 
 Pallete::~Pallete()
@@ -104,12 +111,16 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 		newTile->SetHighlight(true);
 		newTile->SetUIMode(true);
 		
+		newTile->AddObject(objectStorage[inputType][i]);
+
 		palleteTiles.push_back(newTile);
 
-		objectStorage[inputType][i]->Transform().SetPos(x, y);
-		_RenderPool->Remove(objectStorage[inputType][i], RenderManager::Layer::Object);
-		_RenderPool->Request(objectStorage[inputType][i], RenderManager::Layer::UI);
+		//objectStorage[inputType][i]->Transform().SetPos(x, y);
+		//_RenderPool->Remove(objectStorage[inputType][i], RenderManager::Layer::Object);
+		//_RenderPool->Request(objectStorage[inputType][i], RenderManager::Layer::UI);
 	}
+
+	int b = 20;
 }
 
 void Pallete::ReleasePallete()

@@ -46,8 +46,8 @@ static const D3DXVECTOR2 defaultTileSize = { 52.f, 52.f };
 
 static D3DXVECTOR2 IndexToPos(const POINT index, const D3DXVECTOR2 tileSize, const D3DXVECTOR2 pivotPos)
 {
-	float x = index.x * tileSize.x + (tileSize.x / 2.f) + pivotPos.x;
-	float y = index.y * tileSize.y + (tileSize.y / 2.f) + pivotPos.y;
+	float x = index.x * tileSize.x + /*(tileSize.x / 2.f)*/ + pivotPos.x;
+	float y = index.y * tileSize.y + /*(tileSize.y / 2.f)*/ + pivotPos.y;
 
 	return D3DXVECTOR2(x,y);
 }

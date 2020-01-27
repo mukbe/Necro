@@ -195,6 +195,7 @@
     <ClCompile Include="Scenes\Loading.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
+    <ClCompile Include="GameObject\Map\StoneWall.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="Scenes\Loading.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
+    <ClInclude Include="GameObject\Map\StoneWall.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />

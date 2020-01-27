@@ -4,15 +4,9 @@
 
 
 WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-	:GameObject(name, pos, size), haveIShowIcon(false), IconLifeTime(0.f), life(1)
+	:GameObject(name, pos, size), haveIShowIcon(false), IconLifeTime(0.f)
 {
 	_RenderPool->Request(this,RenderManager::Layer::Object);
-
-	D3DXVECTOR2 tempPivot = _GameWorld->GetTileManager()->GetPivotPos();
-	D3DXVECTOR2 tempTileSize = _GameWorld->GetTileManager()->GetTileSize();
-
-	myIndex = PosToIndex(pos, tempTileSize, tempPivot);
-	myTile = _GameWorld->GetTileManager()->Tile(myIndex);
 	
 	AddCallback("ShovelHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
@@ -33,25 +27,14 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 WallBase::~WallBase()
 {
-	_RenderPool->Remove(this);
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
 }
 
 void WallBase::Init()
 {
-	switch (type)
-	{
-	case WallDestructableShovel:
-		myTile->SetAttribute(ObjDestructable);
-		break;
-	case WallDestructablePick:
-		myTile->SetAttribute(ObjDestructable);
-		break;
-	case WallUndestructable:
-		myTile->SetAttribute(ObjStatic);
-		break;
-	default:
-		break;
-	}
+	life = 1;
+	type = WallDestructableShovel;
+	textureKey = "DefaultWall";
 }
 
 void WallBase::Release()
@@ -81,9 +64,30 @@ void WallBase::Update(float tick)
 
 void WallBase::Render()
 {
+	
+	_ImageManager->FindTexture(textureKey)->Render(FloatRect(D3DXVECTOR2(this->Transform().GetPos().x, this->Transform().GetPos().y - 14.f) , D3DXVECTOR2(52.f, 80.f), Pivot::CENTER), NULL);
+
 	if(haveIShowIcon)
 	{
-		_ImageManager->FindTexture("ShovelIcon")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+		_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+	}
+}
+
+void WallBase::SetTileAttribute()
+{
+	switch (type)
+	{
+	case WallDestructableShovel:
+		myTile->SetAttribute(ObjDestructable);
+		break;
+	case WallDestructablePick:
+		myTile->SetAttribute(ObjDestructable);
+		break;
+	case WallUndestructable:
+		myTile->SetAttribute(ObjStatic);
+		break;
+	default:
+		break;
 	}
 }
 

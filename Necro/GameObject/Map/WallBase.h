@@ -30,19 +30,57 @@ public:
 	
 	virtual void ImguiRender() {}
 
-	virtual void SetTextureInfo(string textureStringKey = "DefaultWall", POINT textureFrameIndex = { 0,0 }, WallType inputType = WallDestructableShovel)
+	virtual void SetTransformInfo()
+	{
+		D3DXVECTOR2 tempPivot = _GameWorld->GetTileManager()->GetPivotPos();
+		D3DXVECTOR2 tempTileSize = _GameWorld->GetTileManager()->GetTileSize();
+		
+		myIndex = PosToIndex(this->Transform().GetPos(), tempTileSize, tempPivot);
+		myTile = _GameWorld->GetTileManager()->Tile(myIndex);
+
+		SetTileAttribute();
+	}
+	virtual void SetTransformInfo(int x, int y)
+	{
+		D3DXVECTOR2 tempPivot = _GameWorld->GetTileManager()->GetPivotPos();
+		D3DXVECTOR2 tempTileSize = _GameWorld->GetTileManager()->GetTileSize();
+
+		myIndex = { x,y };
+		this->Transform().SetPos(IndexToPos(myIndex, tempTileSize, tempPivot));
+		myTile = _GameWorld->GetTileManager()->Tile(myIndex);
+
+		SetTileAttribute();
+	}
+	virtual void SetTransformInfo(TileNode* tile, D3DXVECTOR2 pos, D3DXVECTOR2 size, D3DXVECTOR2 pivot)
+	{
+		D3DXVECTOR2 tempPivot = pivot;
+		D3DXVECTOR2 tempTileSize = size;
+
+		myIndex = PosToIndex(pos, tempTileSize, tempPivot);
+		myTile = tile;
+
+		SetTileAttribute();
+	}
+
+	virtual void SetTextureInfo(string textureStringKey = "DefaultWall", POINT textureFrameIndex = { 0,0 })
 	{
 		textureKey = textureStringKey;
 		textureFrame = textureFrameIndex;
-		type = inputType;
 	}
+
+	virtual void SetTextureKey(string textureStringKey) { textureKey = textureStringKey; }
+	virtual void SetTextureFrame(POINT texturFrameIndex) { textureFrame = texturFrameIndex; }
+
+	virtual void SetTileAttribute();
+
+
 	virtual void SetType(WallType inputType){ type = inputType; }
 
 	virtual WallType GetType() { return type; }
 
 	virtual void ProcessDestroy();
 
-private:
+protected:
 	string textureKey;
 	POINT textureFrame;
 	WallType type;

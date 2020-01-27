@@ -9,6 +9,9 @@
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
 
+#include "./GameObject/Map/WallBase.h"
+#include "./GameObject/Map/StoneWall.h"
+
 TileTestScene::TileTestScene()
 	: SceneBase()
 {
@@ -52,16 +55,7 @@ void TileTestScene::Init()
 	
 	_TileMap->CreateMap();
 
-	for (int i = 0; i < 8; ++i)
-	{
-		_TileMap->Tile(5, i)->SetAttribute(ObjStatic);
-		_TileMap->Tile(5, i)->SetFrameX(1);
-		//5,i ÀÎµ¦½ºÀÇ Å¸ÀÏÀ» ½ºÅÂÆ½Å¸ÀÔÀ¸·Î ¹Ù²Û´Ù.
-		//testTileManager->Tile(5, i)->SetAttribute(ObjStatic);
-		//5,i ÀÎµ¦½ºÀÇ ÇÁ·¹ÀÓÀÎµ¦½º¸¦ ¹Ù²Û´Ù.
-		//testTileManager->Tile(5, i)->SetFrameX(1);
-	}
-
+	
 	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
 
@@ -78,12 +72,40 @@ void TileTestScene::Init()
 	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
 	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
 	//
-	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26, 26), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78, 78), D3DXVECTOR2(52.f, 52.f));
 
 
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(0, i);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(9, i);
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i+1, 0);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i+1, 9);
+	}
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(5, i + 1);
+	}
+
+
+
 }
 
 void TileTestScene::ImageLoad()
@@ -98,4 +120,8 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
 	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
+
+	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
+	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
 }
