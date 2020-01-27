@@ -44,6 +44,6 @@ void ItemBase::Render()
 void ItemBase::Init(POINT tileIndex)
 {
 	position = _TileMap->Tile(tileIndex)->GetPos();							// 타일위치 검출!  
-	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 중점 값?
+	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 
 	
 }

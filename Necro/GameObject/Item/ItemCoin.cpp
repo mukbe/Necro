@@ -6,7 +6,7 @@ ItemCoin::ItemCoin(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;
-	AddCallback("Merge", [&](TagMessage msg) {
+	AddCallback("SendCoinDate", [&](TagMessage msg) {
 		//게임데이터한테 코인증가량을 전달
 	});	
 }

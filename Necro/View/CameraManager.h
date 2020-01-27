@@ -6,7 +6,7 @@
 //마우스의 휠메세지 받아와서 줌 크기 결정하면 될듯
 class CameraManager
 {
-	SingletonHeader(CameraManager)
+	SingletonHeader(CameraManager)  // 싱글톤 선언 
 public:
 
 	void Update();

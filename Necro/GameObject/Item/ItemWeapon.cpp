@@ -7,15 +7,15 @@ ItemWeapon::ItemWeapon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	bShow = false;
 
 	//아이템 정보 보내보기 
-	AddCallback("Dagger", [&](TagMessage msg)
+	AddCallback("SendDaggerDate", [&](TagMessage msg)
 	{
 		//데미지 // 러프로 인벤토리 해야함. // 범위 
 	});
-	AddCallback("BrodSword", [&](TagMessage)
+	AddCallback("SendBroadswordDate", [&](TagMessage)
 	{ 
 		// 데미지  // 범위 // 1인 공격
 	});
-	AddCallback("Spear", [&](TagMessage) 
+	AddCallback("SendSpearDate", [&](TagMessage) 
 	{
 		// 데미지 // 범위 // 1인 공격 
 	});
@@ -46,9 +46,9 @@ void ItemWeapon::Update()
 
 void ItemWeapon::Render()
 {
+	_ImageManager->FindTexture("Broadsword")->FrameRender(rc, nullptr, 0, (UINT)bShow);
 	_ImageManager->FindTexture("Dagger")->FrameRender(rc, nullptr, 0, (UINT)bShow);
 	_ImageManager->FindTexture("Spear")->FrameRender(rc, nullptr,0,(UINT)bShow);
-	_ImageManager->FindTexture("BrodSword")->FrameRender(rc, nullptr, 0, 0, (UINT)bShow);
 }
 
 void ItemWeapon::Init(POINT tileIndex)
