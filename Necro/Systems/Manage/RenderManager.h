@@ -7,7 +7,7 @@ class RenderManager
 public:
 	enum class Layer : short
 	{
-		BackGround = 0 , Terrain, Object, Light, UI, Imgui,
+		BackGround = 0 , Terrain, GameText, Object, Light, UI, UIText, Imgui,
 	};
 
 	void Request(class GameObject*const obj, const Layer& layer);
