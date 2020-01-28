@@ -32,7 +32,8 @@ void ItemWeapon::Update()
 
 void ItemWeapon::Render()
 {
-	Log_ErrorAssert(info.Imagekey == "")
+	Log_ErrorAssert(info.Imagekey == "");
+	if (info.Imagekey == "")return;
 	_ImageManager->FindTexture(info.Imagekey)->FrameRender(rc, nullptr, 0, (UINT)bShow);
 }
 

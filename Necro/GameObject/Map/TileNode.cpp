@@ -5,7 +5,7 @@
 TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Terrain);
 
 	tileSize = size;
 	isSelected = false;
@@ -38,7 +38,7 @@ void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, 
 
 void TileNode::Release()
 {
-	_RenderPool->Remove(this, RenderManager::Layer::Object);
+	_RenderPool->Remove(this, RenderManager::Layer::Terrain);
 	//_ObjectPool->DeletaObject(this);
 }
 
