@@ -13,10 +13,12 @@ public:
 	static D3DXVECTOR2 pivotPos;
 
 	static void SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPivot);
-	static void SetTexture(wstring path = L"", UINT x = 1, UINT y = 1);
+
 private:
 	friend class SceneBase;
 	friend class MapTool;
+	friend class Pallete;
+
 public:
 	TileManager();
 	~TileManager();
@@ -32,16 +34,16 @@ public:
 	D3DXVECTOR2 GetPivotPos() { return pivotPos; }
 
 
-
+	void CreateMap();
 
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;
 
+	string textureName;
 
 	void Release();
 
-	void CreateMap();
 
 	void ReleaseMap();
 
@@ -50,6 +52,7 @@ private:
 		ReleaseMap();
 		mapSize = input;
 		CreateMap();
+		
 	}
 	void SetTileSize(D3DXVECTOR2 input)
 	{
@@ -64,5 +67,5 @@ private:
 		CreateMap();
 	}
 
+	void SetTexture(string key);
 };
-

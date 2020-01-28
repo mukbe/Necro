@@ -1,6 +1,5 @@
 #pragma once
 #include "./Scenes/SceneBase.h"
-#include "TileManager.h"
 
 class TileTestScene : public SceneBase
 {
@@ -10,7 +9,6 @@ public:
 
 	virtual void Init();
 
-	TileManager* testTileManager;
 	//===for Init()==========
 	void ImageLoad();
 	void MonsterLoad();

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Monster.h"
-#include "TileNode.h"
+//#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 
 static float batX;
 static float batY;
@@ -19,6 +21,7 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	firstmove = false;
 	myIndex = { 0,0 };
 	startPos = { 0,0 };
+	//mynextIndex = { 0,0 };
 	ChangeState("Idle");
 }
 
@@ -82,17 +85,9 @@ void Monster::ImguiRender()
 {
 }
 
-void Monster::SettingCenterXY(float tilesize)
-{
-	rc.left = x - tilesize / 2;
-	rc.right = x + tilesize / 2;
-	rc.top = y - tilesize / 2;
-	rc.bottom = y + tilesize / 2;
-}
 
-void Monster::MoveAndCheck()
-{
-}
+
+
 //현재 상태 바꿔주는 함수~
 void Monster::ChangeState(string key)
 {
@@ -129,16 +124,16 @@ void MonsterStateOneStep::Update()
 
 				//batX랑 batY는 박쥐좌표인데 일단 따라가게 해놓은거임
 				if (me->startPos.x < batX) {
-					me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+					me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 				}
 				if (me->startPos.x > batX) {
-					me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+					me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 				}
 				if (me->startPos.y > batY) {
-					me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+					me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 				}
 				if (me->startPos.y < batY) {
-					me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+					me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 				}
 
 			}
@@ -158,8 +153,8 @@ void MonsterStateOneStep::Update()
 
 			if (me->startTime <= 1.f)
 			{
-				me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
-				me->y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+				me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+				me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 			}
 		
 		if (me->startTime > 1.f)
@@ -174,7 +169,7 @@ void MonsterStateOneStep::Update()
 		
 		if (me->startTime <= 1.f)
 		{
-			me->x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+			me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 			me->firstmove = true;
 			
 		}
@@ -204,7 +199,7 @@ void MonsterStateIdle::Enter()
 	float _TileSize = _GameWorld->GetTileManager()->GetTileSize().x;
 	me->startTime = 0.f;
 	//me->realtime = 0.f;
-
+	
 	//모든 몬스터는 갈위치에 벽이 있으면 못움직이게 할꼬얌
 	//오른쪽에 있으면 
 
@@ -291,9 +286,11 @@ void MonsterStateIdle::Enter()
 		int batmove = Math::Random(0, 3);
 
 		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-
+		me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		
 		
 
+		_GameWorld->GetTileManager()->Tile(me->myIndex)->AddObject(me);
 
 			me->startPos.x = me->endPos.x;
 			me->startPos.y = me->endPos.y;
@@ -303,47 +300,63 @@ void MonsterStateIdle::Enter()
 
 			switch (batmove) {
 
+				if (me->myIndex.x <= 0 || me->myIndex.y <= 0) {
+					me->myIndex = POINT{ 1,1 };
+				}
 				
-
 
 			case 0:
-				
+				me->endPos.x = me->startPos.x + _TileSize;
 				//me->endPos.x = me->startPos.x + _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetAttribute() == ObjStatic)
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x-1, me->myIndex.y)->GetAttribute() != ObjDestructable)
 				{
 					me->endPos.x = me->startPos.x - _TileSize;
 				}
-				else 
+				/*else 
 				{
 					me->endPos.x = me->startPos.x + _TileSize;
-				}
+				}*/
 				break;
 
 			case 1:
+				me->endPos.x = me->startPos.x - _TileSize;
 				//me->endPos.x = me->startPos.x - _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetAttribute() == ObjStatic)
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x+1, me->myIndex.y)->GetAttribute() != ObjDestructable)
 				{
 					me->endPos.x = me->startPos.x + _TileSize;
 				}
-				else
+				/*else
 				{
 					me->endPos.x = me->startPos.x - _TileSize;
-				}
+					
+				}*/
 				break;
 
 			case 2:
-				me->endPos.y = me->startPos.y + _TileSize;
-				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y+1)->GetAttribute() == ObjStatic)
-				//{
-				//	me->endPos.y = me->startPos.y - _TileSize;
-				//}
+				me->endPos.y = me->startPos.y - _TileSize;
+				//me->endPos.y = me->startPos.y + _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y+1)->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.y = me->startPos.y + _TileSize;
+				}
+				/*else
+				{
+					me->endPos.y = me->startPos.y - _TileSize;
+					
+				}*/
 				break;
 
 			case 3:
-				me->endPos.y = me->startPos.y - _TileSize;
-				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetAttribute() == ObjStatic)
+				me->endPos.y = me->startPos.y + _TileSize;
+				//me->endPos.y = me->startPos.y - _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y-1)->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.y = me->startPos.y - _TileSize;
+				}
+				//else
 				//{
-				//	me->endPos.y = me->startPos.y + _TileSize;
+					//me->endPos.y = me->startPos.y + _TileSize;
+					
 				//}
 
 				break;
@@ -353,7 +366,7 @@ void MonsterStateIdle::Enter()
 
 			//내위치가 타일안에 있을때만 움직임
 
-			me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+			
 
 			if (me->mynextIndex.x < 0 )
 			{

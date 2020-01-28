@@ -9,12 +9,11 @@ Monkey::Monkey(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
-	x = pos.x;
-	y = pos.y;
-	tilesize = size.x;
+	position = pos;
+	this->size = size;
 	startPos = pos;
-	endPos = { pos.x + 52.f, pos.y + 52.f };
-	speed = D3DXVECTOR2(tilesize, tilesize);
+	endPos = { position.x + 52.f, position.y + 52.f };
+	
 	monsterBeat = 2;
 }
 
@@ -39,7 +38,7 @@ void Monkey::Release()
 void Monkey::Update(float tick)
 {
 	Monster::Update(tick);
-	SettingCenterXY(tilesize);
+	
 
 	FrameCount++;
 	if (FrameCount == 10)
@@ -60,13 +59,11 @@ void Monkey::PostUpdate()
 
 void Monkey::Render()
 {
-	_ImageManager->FindTexture("monkey")->FrameRender(rc, nullptr, frameX, frameY);
+	
+	_ImageManager->FindTexture("monkey")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void Monkey::ImguiRender()
 {
 }
 
-void Monkey::MoveAndCheck()
-{
-}

@@ -1,22 +1,16 @@
 #include "stdafx.h"
 #include "TileTestScene.h"
 #include "TileHelper.h"
-#include "TileNode.h"
+#include "./GameObject/Map/TileNode.h"
 #include "./GameObject/Player.h"
-//일반몹
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
-#include "./GameObject/Monster/Skeleton.h"
-#include "./GameObject/Monster/Ghost.h"
-#include "./GameObject/Monster/Monkey.h"
-//보스몹
-#include "./GameObject/Monster/Minotaur.h"
-#include "./GameObject/Monster/RedDragon.h"
-#include "./GameObject/Monster/GreenDragon.h"
-
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
+
+#include "./GameObject/Map/WallBase.h"
+#include "./GameObject/Map/StoneWall.h"
 
 TileTestScene::TileTestScene()
 	: SceneBase()
@@ -58,39 +52,67 @@ void TileTestScene::Init()
 
 
 	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
-
-
-	for (int i = 0; i < 8; ++i)
-	{
-		_TileMap->Tile(5, i)->SetAttribute(ObjStatic);
-		_TileMap->Tile(5, i)->SetFrameX(1);
-		//5,i 인덱스의 타일을 스태틱타입으로 바꾼다.
-		//testTileManager->Tile(5, i)->SetAttribute(ObjStatic);
-		//5,i 인덱스의 프레임인덱스를 바꾼다.
-		//testTileManager->Tile(5, i)->SetFrameX(1);
-	}
+	
+	_TileMap->CreateMap();
 
 	
-	//몬스터
-	MonsterLoad();
+	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
-	
-	//플레이어
-
-	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26, 26), D3DXVECTOR2(52.f, 52.f));
 
 
+
+
+	////몬스터
+	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
+	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
+	//_ImageManager->AddFrameTexture("bat", ResourcePath + L"bat.png", 4, 2);
+	//
+	//GreenSlime* greenslime = _ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(FIRSTCENTERXY, FIRSTCENTERXY), D3DXVECTOR2(52.f, 52.f));
+	//BlueSlime* blueslime = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(FIRSTCENTERXY+TILESIZE, FIRSTCENTERXY + TILESIZE), D3DXVECTOR2(52.f, 52.f));
+	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
+	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
+	//
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78, 78), D3DXVECTOR2(52.f, 52.f));
 
 
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(0, i);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(9, i);
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i+1, 0);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i+1, 9);
+	}
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(5, i + 1);
+	}
+
+
+
 }
 
 void TileTestScene::ImageLoad()
 {
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 
+	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
 	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
 	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
@@ -99,30 +121,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
-	//몬스터
-	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"Monster/slime_green.png", 4, 2);
-	_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"Monster/slime_ice.png", 4, 2);
-	_ImageManager->AddFrameTexture("bat", ResourcePath + L"Monster/bat.png", 4, 2);
-	_ImageManager->AddFrameTexture("skeleton", ResourcePath + L"Monster/skeleton.png", 8, 2);
-	_ImageManager->AddFrameTexture("ghost", ResourcePath + L"Monster/ghost.png", 2, 2);
-	_ImageManager->AddFrameTexture("monkey", ResourcePath + L"Monster/monkey.png", 6, 2);
-	_ImageManager->AddFrameTexture("minotaur", ResourcePath + L"Monster/minotaur.png", 9, 2);
-	_ImageManager->AddFrameTexture("reddragon", ResourcePath + L"Monster/dragon_red.png", 7, 2);
-	_ImageManager->AddFrameTexture("greendragon", ResourcePath + L"Monster/dragon_green.png", 2, 2);
+	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
+	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
 }
-
-void TileTestScene::MonsterLoad()
-{
-	_ObjectPool->CreateObject<GreenSlime>("GreenSlime", D3DXVECTOR2(26, 52), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(26 + 52, 26 + 52), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(26 + 52 , 26 + 52 *6), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<Skeleton>("Skeleton", D3DXVECTOR2(26 + 52 , 26 + 52 * 8), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<Ghost>("Ghost", D3DXVECTOR2(26 + 52*4, 26 + 52 * 8), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<Monkey>("Monkey", D3DXVECTOR2(26 + 52 * 5, 26 + 52 * 5), D3DXVECTOR2(52.f, 52.f));
-	_ObjectPool->CreateObject<Minotaur>("Minotaur", D3DXVECTOR2(26 + 52 * 5, 26 + 52 * 6), D3DXVECTOR2(100.f, 100.f));
-	_ObjectPool->CreateObject<RedDragon>("RedDragon", D3DXVECTOR2(26 + 52 * 3, 26 + 52 * 4), D3DXVECTOR2(100.f, 100.f));
-	_ObjectPool->CreateObject<GreenDragon>("GreenDragon", D3DXVECTOR2(26 + 52 * 3, 26 + 52 * 5), D3DXVECTOR2(100.f, 100.f));
-}
-
-

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TileHelper.h"
-#include "MapTool.h"
+//#include "MapTool.h"
 
 
 class TileNode : public GameObject
@@ -45,35 +45,19 @@ public:
 		return PosToIndex(GetPos(), tileSize, pivotPos);
 	}
 
-	//D3DXVECTOR2 indexToPos(const POINT index)
-	//{
-	//	float x = index.x * tileSize.x + (tileSize.x / 2.f) + pivotPos.x;
-	//	float y = index.y * tileSize.y + (tileSize.y / 2.f) + pivotPos.y;
-
-	//	return D3DXVECTOR2(x, y);
-	//}
-
-	//POINT posToIndex(const D3DXVECTOR2 pos)
-	//{
-	//	float x = ((pos.x - pivotPos.x) / tileSize.x) * 2.f;
-	//	float y =  ((pos.y - pivotPos.y) / tileSize.y) * 2.f;
-
-	//	return { (int)x,(int)y };
-	//}
-
 	RECT GetCollision() { return rc.GetRect(); }
 
 	vector<GameObject*> GetObjects() { return onMyHead; }
 	void AddObject(GameObject* input) { onMyHead.push_back(input); }
 	void DeleteObject(GameObject* input) 
 	{
-		OnIter iter = onMyHead.begin(), end = onMyHead.end();
-		for(;iter != end; ++iter)
+		for (int i = 0; i < onMyHead.size(); ++i)
 		{
-			if ((*iter) == input)
+			if (onMyHead[i] == input)
 			{
-				onMyHead.erase(iter);
-				--iter;
+				OnIter pointIter = onMyHead.begin() + i;
+				onMyHead.erase(pointIter);
+				return;
 			}
 		}
 	}
@@ -81,15 +65,20 @@ public:
 	{
 		if (onMyHead.size() > 0)
 		{
-			OnIter iter = onMyHead.begin(), end = onMyHead.end();
-			for (; iter != end; ++iter)
+			for (int i = 0; i < onMyHead.size(); ++i)
 			{
-				onMyHead.erase(iter);
-				--iter;
+				OnIter pointIter = onMyHead.begin() + i;
+				onMyHead.erase(pointIter);
+				--i;
 			}
 		}
 		onMyHead.clear();
 	}
+
+	bool GetSelected() { return isSelected; }
+	bool GetHighlight() { return haveIDrawHighlight; }
+	void SetHighlight(bool input) { haveIDrawHighlight = input; }
+	void SetUIMode(bool input) { isUI = input; }
 
 protected:
 	string textureKey;
@@ -103,4 +92,6 @@ protected:
 	D3DXVECTOR2 pivotPos;
 
 	bool isSelected;
+	bool haveIDrawHighlight;
+	bool isUI;
 };

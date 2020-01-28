@@ -28,7 +28,7 @@ private:
 	friend class PlayerIdle;
 	friend class PlayerAttack;
 
-	D3DXVECTOR2 _pos , _size;	// 중점 , 사이즈 < 이거 겟셋으로 불러 올수있는거같긴한데 일단 그냥 넣어놈.
+
 	D3DXVECTOR2 imagePos;		// 이미지 옮길떄 쓰일 변수
 	
 	StateBase* currentState;
@@ -39,6 +39,7 @@ private:
 	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
 	D3DXVECTOR2 destination;	// 목적지
+	D3DXVECTOR2 jumpPos;		// 점프지 최고점 (방향 마다 다름!)
 	float startTime;			// 시작 시간 
 	D3DXVECTOR2 startPos;		// 시작 위치 저장용
 
@@ -57,6 +58,9 @@ public:
 
 	//컨트롤 관련 -> 키입력 같은것만 넣으랬음
 	virtual void ControlUpdate();
+
+	//노트를 못 눌렀을 경우 ( Movetype_Control만 해당함)
+	virtual void MissControlUpdate();
 
 	//메인 루틴 -> 기타 업데이트 넣기 
 	virtual void Update(float tick);

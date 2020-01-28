@@ -1,5 +1,5 @@
 #include "TileManager.h"
-#include "TileNode.h"
+#include "./GameObject/Map/TileNode.h"
 
 POINT TileManager::mapSize = { 0,0 };
 D3DXVECTOR2 TileManager::tileSize = { 0.f,0.f };
@@ -11,18 +11,7 @@ void TileManager::SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPiv
 	tileSize = size;
 	pivotPos = mapPivot;
 }
-void TileManager::SetTexture(wstring path, UINT x, UINT y)
-{
-	if (path.empty())
-	{
-		_ImageManager->DeleteTexture("DefaultMap");
-		_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
-		return;
-	}
-	_ImageManager->DeleteTexture("DefaultMap");
-	_ImageManager->AddFrameTexture("DefaultMap", path, x, y);
 
-}
 
 
 TileManager::TileManager()
@@ -31,6 +20,11 @@ TileManager::TileManager()
 
 TileManager::~TileManager()
 {
+}
+
+void TileManager::SetTexture(string key)
+{
+	textureName = key;
 }
 
 void TileManager::Release()
@@ -46,7 +40,7 @@ void TileManager::CreateMap()
 		float y = (i / mapSize.x) * (tileSize.y ) + pivotPos.y;
 
 		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
-		
+
 		newTile->Init("DefaultMap");
 
 		newTile->SetPivotPos(pivotPos);

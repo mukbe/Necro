@@ -3,22 +3,9 @@
 
 class TileManager;
 class TileNode;
+class Pallete;
 
-enum PalleteType
-{
-	PalleteTypeStart = 0,
-	Terrain,
-	Object,
-	PalleteTypeEnd
-};
 
-enum BrushType
-{
-	BrushTypeStart = 0,
-	Brush,
-	Eraser,
-	BrushTypeEnd
-};
 
 class MapTool : public GameObject
 {
@@ -33,15 +20,17 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 
+	void SetTexture(string input) {}
+
 	TileNode* isInCollision();
 
 	void ProcessSetMap(TileNode* targetNode);
 
 private:
 	TileManager* map;
-	TileManager* pallete;
+	Pallete* pallete;
 
-	PalleteType palleteType;
+	ObjectType palleteType;
 	BrushType brushType;
 
 	TileNode* selectedNode;

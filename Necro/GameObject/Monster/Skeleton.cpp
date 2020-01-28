@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Skeleton.h"
-//#include "TileManager.h"
-//#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 
 
 Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -17,8 +17,6 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	startPos = pos;
 	endPos = { x , y };
 	speed = D3DXVECTOR2(tilesize, tilesize);
-	monsterBeat = 2;
-	
 }
 
 

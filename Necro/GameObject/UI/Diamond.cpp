@@ -14,7 +14,7 @@ Diamond::~Diamond()
 void Diamond::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	
 }
 
 void Diamond::Release()

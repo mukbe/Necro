@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BlueSlime.h"
-//#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 //#include "Monster.h"
 
 
@@ -19,7 +19,6 @@ BlueSlime::BlueSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	startPos = pos;
 	endPos = { pos.x + 52.f, pos.y + 52.f };
 	speed = D3DXVECTOR2(tilesize, tilesize);
-	monsterBeat = 2;
 }
 
 

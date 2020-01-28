@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GreenSlime.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 #include "Bat.h"
 //#include "Monster.h"
 
@@ -18,10 +18,9 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	FrameCount=0;
 	frameX=0;
 	frameY=0;
-	x = pos.x;
-	y = pos.y;
-	tilesize = size.x;
-	speed = D3DXVECTOR2(tilesize, tilesize);
+	position = pos;
+	this->size = size;
+	
 }
 
 
@@ -50,7 +49,7 @@ void GreenSlime::Release()
 void GreenSlime::Update(float tick)
 {
 	Monster::Update(tick);
-	SettingCenterXY(tilesize);
+	
 	//MoveAndCheck();
 
 
@@ -109,92 +108,17 @@ void GreenSlime::PostUpdate()
 
 void GreenSlime::Render()
 {
-	_ImageManager->FindTexture("greenslime")->FrameRender(rc, nullptr, frameX, frameY);
+	
+	_ImageManager->FindTexture("greenslime")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	//_ImageManager->FindTexture("greenslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 
 void GreenSlime::ImguiRender()
 {
 
-	//값을 창에 출력해보아요
-	char aa[100];
-	sprintf(aa, "%d", tileX);
-	ImGui::Begin(u8"씨발");
-	ImGui::Text(aa);
-	ImGui::End();
-}
-
-
-
-
-//움직임과 못가는 타일 체크를해보아요
-void GreenSlime::MoveAndCheck()
-{
-
-	FloatRect rcCollision;		//임의의 충돌판정 렉트를 선언한다
-	int tileIndex[2];		//이동 방향에 따라 타일속성을 검출하기 위한 타일 인덱스 값 계산용
-	//int tileX, tileY;		//실제 몬스터가 어디 타일에 있는지 검출용도(인덱스)
-
-
-	// 충돌 사각형이연
-	rcCollision = rc;
-	   
-
-
-	rcCollision.left += 3;
-	rcCollision.right -= 3;
-	rcCollision.top += 3;
-	rcCollision.bottom -= 3;
-
-
-	tileX = x / tilesize;    // 몬스터 현재위치 검출 
-	tileY = y / tilesize;
-	
-	//_GameWorld->GetTileManager()->Tile()
-	
-		switch (mosterstate)
-		{
-
-
-			// 타일 매니저 가져와서 내좌표값과 사방으로 검사를 합니다.
-
-		case MonsterIDEL:
-			
-			break;
-		case MonsterLEFT:
-			
-			if (_GameWorld->GetTileManager()->Tile({ tileX-1 , tileY })->GetAttribute() != ObjStatic)
-			{
-				x -= speed.x;
-			}
-			mosterstate = MonsterIDEL;
-			break;
-		case MonsterRIGHT:
-			
-			if (_GameWorld->GetTileManager()->Tile({ tileX+1 , tileY })->GetAttribute() != ObjStatic)
-			{
-				x += speed.x;
-			}
-			mosterstate = MonsterIDEL;
-			break;
-		case MonsterTOP:
-			
-		      if (_GameWorld->GetTileManager()->Tile({ tileX , tileY-1  })->GetAttribute() != ObjStatic)
-			{
-				y -= speed.y;
-			}
-			mosterstate = MonsterIDEL;
-			break;
-		case MonsterBOTTOM:
-			
-			if (_GameWorld->GetTileManager()->Tile({ tileX , tileY+1  })->GetAttribute() != ObjStatic)
-			{
-				y += speed.y;
-			}
-			mosterstate = MonsterIDEL;
-			break;
-
-		}
 	
 }
+
+
 
 

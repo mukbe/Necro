@@ -15,6 +15,6 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 
-	virtual void MoveAndCheck();
+	
 };
 

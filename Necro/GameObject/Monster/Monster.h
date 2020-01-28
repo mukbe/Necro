@@ -17,23 +17,15 @@ public:
 
 	virtual void Render();
 	virtual void ImguiRender();
-	virtual void SettingCenterXY(float tilesize);
-	virtual void MoveAndCheck();
 	void ChangeState(string key);
 	
-	//void setMapMemoryAddressLink(TileManager* tm) { tilemanger = tm; }
+	
 
 protected :
 
 	int FrameCount;
 	int frameX;
 	int frameY;
-	float tilesize;
-	float x;
-	float y;
-	D3DXVECTOR2 speed;
-	int tileX, tileY;
-	//TileManager *tilemanger;
 	unordered_map<string, class MonsterStateBase*> states;
 	MonsterStateBase* currentState;
 	D3DXVECTOR2 startPos;

@@ -9,12 +9,11 @@ RedDragon::RedDragon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
-	x = pos.x;
-	y = pos.y;
-	tilesize = size.x;
+	position = pos;
+	this->size = size;
 	startPos = pos;
-	endPos = { pos.x + 52.f, pos.y + 52.f };
-	speed = D3DXVECTOR2(tilesize, tilesize);
+	endPos = { position.x + 52.f, position.y + 52.f };
+	
 	monsterBeat = 2;
 }
 
@@ -38,7 +37,7 @@ void RedDragon::Release()
 void RedDragon::Update(float tick)
 {
 	Monster::Update(tick);
-	SettingCenterXY(tilesize);
+	
 
 	FrameCount++;
 	if (FrameCount == 10)
@@ -59,13 +58,11 @@ void RedDragon::PostUpdate()
 
 void RedDragon::Render()
 {
-	_ImageManager->FindTexture("reddragon")->FrameRender(rc, nullptr, frameX, frameY);
+	
+	_ImageManager->FindTexture("reddragon")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void RedDragon::ImguiRender()
 {
 }
 
-void RedDragon::MoveAndCheck()
-{
-}

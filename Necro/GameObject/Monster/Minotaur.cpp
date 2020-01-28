@@ -9,12 +9,11 @@ Minotaur::Minotaur(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
-	x = pos.x;
-	y = pos.y;
-	tilesize = size.x;
+	position = pos;
+	this->size = size;
 	startPos = pos;
-	endPos = { pos.x + 52.f, pos.y + 52.f };
-	speed = D3DXVECTOR2(tilesize, tilesize);
+	endPos = { position.x + 52.f, position.y + 52.f };
+	
 	monsterBeat = 2;
 }
 
@@ -38,7 +37,6 @@ void Minotaur::Release()
 void Minotaur::Update(float tick)
 {
 	Monster::Update(tick);
-	SettingCenterXY(tilesize);
 
 	FrameCount++;
 	if (FrameCount == 10)
@@ -59,7 +57,7 @@ void Minotaur::PostUpdate()
 
 void Minotaur::Render()
 {
-	_ImageManager->FindTexture("minotaur")->FrameRender(rc, nullptr, frameX, frameY);
+	_ImageManager->FindTexture("minotaur")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void Minotaur::ImguiRender()

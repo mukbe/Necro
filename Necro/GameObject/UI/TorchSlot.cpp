@@ -17,7 +17,7 @@ TorchSlot::~TorchSlot()
 void TorchSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
+	
 
 }
 

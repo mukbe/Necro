@@ -15,7 +15,7 @@ public:
 	virtual void PostUpdate();
 	virtual void Render();
 	virtual void ImguiRender();
-	virtual void MoveAndCheck();
+	
 	
 private:
 	
