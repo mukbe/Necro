@@ -6,13 +6,11 @@
 // 이동과 공격에서는 정말 이동과 공격만 해야함 (목표지점에 도달했거나, 데미지를 넣었으면 바로 아이들로 돌아오게)
 
 // 할 일
-// 0. 타일 검출 부터 해보자																>> 완료 
-// 3. 아이템에 따른 상태 만들기  ( 다른 오브젝트나 에너미에 붙여도 되게 만들라고 하던데 뭘까
-//    아이템 담당자한테 머만들지 함 물어보기
-// 4. 심장 템포에 캐릭터 움직임을 약간 제어 할수있을ㅈ ㅣ 보자								>> 완료 
-// 2. 플레이어 이동(점프)로 바꾸기				  
-// 5. _pos , _size 이 두개 게임 오브젝트에서 변수 만드는걸로 바꾸기 
-
+// 1. 이동 수정 >> 인덱스 말고 수치 이동으로 바꾸자 그냥 
+// 2. 
+// 3. 일단은 이동 범위만 확인
+//    이동 범위 = 0(첫번쨰)로 두고, 공격 범위에 적이 있으면 공격 > 장애물이 있으면 장애물에 따라 삽질 , 아무것도없으면 이동 
+// 4. 
 
 //전방선언
 class StateBase;
@@ -29,23 +27,23 @@ private:
 	friend class PlayerAttack;
 
 
-	D3DXVECTOR2 imagePos;		// 이미지 옮길떄 쓰일 변수
 	
 	StateBase* currentState;
 	unordered_map<string, StateBase*> stateList;
 
-
 	int frameX, frameY;			// 프레임 렌더용
 	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
+
+	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
+	
 	D3DXVECTOR2 destination;	// 목적지
-	D3DXVECTOR2 jumpPos;		// 점프지 최고점 (방향 마다 다름!)
+	D3DXVECTOR2 jumpPos;		// 점프지 최고점 (방향 마다 다름)
 	float startTime;			// 시작 시간 
 	D3DXVECTOR2 startPos;		// 시작 위치 저장용
 
 	POINT myIndex;				// 이동할때마다 확인하기용 현제 내위치 인덱스 
 
-	int money;					// 플레이어 돈!!!! 
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);

@@ -21,6 +21,7 @@ public:
 
 	// Returns random float in [0, 1).
 	static float RandF();
+	static D3DXVECTOR2 RandVec2();
 
 	static float Lerp(float val1, float val2,float amount);
 	static float Clamp(float value, float min, float max);

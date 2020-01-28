@@ -6,9 +6,8 @@ ItemCoin::ItemCoin(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;
-	AddCallback("SendCoinDate", [&](TagMessage msg) {
-		//게임데이터한테 코인증가량을 전달
-	});	
+	hasCoin = (UINT)Math::Random(1.f, 7.f);
+
 }
 
 ItemCoin::~ItemCoin()
@@ -37,5 +36,11 @@ void ItemCoin::Render()
 void ItemCoin::Init(POINT tileIndex)
 {
 	ItemBase::Init(tileIndex);
+}
+
+void ItemCoin::EatItem()
+{
+	//콤보가 있는지
+	//_GameData->AddCoin(hasCoin * 콤보배율)
 }
 

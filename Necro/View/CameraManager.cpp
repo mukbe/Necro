@@ -12,9 +12,9 @@ CameraManager::CameraManager()
 	zoom = 1.f;
 	view = Matrix2D(pos, D3DXVECTOR2(WinSizeX, WinSizeY), Pivot::LEFT_TOP);
 	buffer = make_unique<CameraBuffer>();
+	bShake = false;
 
 	UpdateMatrix();
-	UpdateRenderRect();
 }
 
 
@@ -51,6 +51,24 @@ void CameraManager::Update()
 
 		UpdateMatrix();
 	}
+
+	if (bShake)
+	{
+		if (shakeTime > 0)
+		{
+			shakeDir = Math::RandVec2();
+			shakeTime -= Time::Tick();
+		}
+		else
+		{
+			UpdateMatrix();
+			bShake = false;
+		}
+
+
+
+		ShakeUpdateMatrix();
+	}
 }
 
 void CameraManager::ImguiRender()
@@ -74,10 +92,7 @@ FloatRect CameraManager::GetRenderRect()
 	return rc;
 }
 
-void CameraManager::UpdateRenderRect()
-{
-	renderRect = { (LONG)pos.x,(LONG)pos.y, (LONG)(pos.x + WinSizeX) , (LONG)(pos.y + WinSizeY) };
-}
+
 
 void CameraManager::AddZoom(float value)
 {
@@ -134,7 +149,7 @@ D3DXVECTOR2 CameraManager::GetMousePos()
 
 BOOL CameraManager::IsCollision(D3DXVECTOR2 p)
 {
-	FloatRect rc(p.x, p.y, WinSizeX / zoom, WinSizeY / zoom);
+	FloatRect rc = GetRenderRect();
 
 	if (rc.left <= p.x &&
 		rc.right >= p.x &&
@@ -146,6 +161,15 @@ BOOL CameraManager::IsCollision(D3DXVECTOR2 p)
 	return false;
 }
 
+void CameraManager::Shake()
+{
+	shakeAmount = 2.f;
+	shakeTime = 0.3f;
+	shakeDir = Math::RandVec2();
+	oldPos = pos;
+	bShake = true;
+}
+
 void CameraManager::CameraDataBind()
 {
 	//쉐이더에서 사용할 카메라의 행렬을 바인딩하면 쉐이더에 항상 들어감
@@ -153,6 +177,13 @@ void CameraManager::CameraDataBind()
 	buffer->Setting(view.GetResult());
 	buffer->SetPSBuffer(0);
 	buffer->SetVSBuffer(0);
+}
+
+void CameraManager::ShakeUpdateMatrix()
+{
+	view.SetPos(-pos + shakeDir * shakeAmount);
+	view.SetScale(zoom);
+
 }
 
 void CameraManager::UpdateMatrix()

@@ -70,7 +70,7 @@ void RenderManager::Render()
 	ImguiRender();
 }
 
-//
+
 void RenderManager::ObjectRender()
 {
 	p2DRenderer->SetCamera(true);
@@ -84,10 +84,14 @@ void RenderManager::ObjectRender()
 	}
 
 	arr = renderList[Layer::Object];
+	FloatRect render = CAMERA->GetRenderRect();
 	for (GameObject* obj : arr)
 	{
 		if (obj->IsActive())
-			obj->Render();
+		{
+			if(Math::IsAABBInAABB(render,obj->GetRect()))
+				obj->Render();
+		}
 	}
 
 

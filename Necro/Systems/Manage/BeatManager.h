@@ -24,6 +24,12 @@ private:
 	deque<Beat> beats;
 //=====================================
 
+	enum class MoveMode
+	{
+		MOVE_MUSIC,
+		MOVE_FREE
+	}moveMode;
+
 	using Shown = pair<float, float>;
 	deque<Shown> shownInfos;
 	using Check = pair<float, bool>;
@@ -38,7 +44,6 @@ private:
 	//인풋을 받을 노트
 	Note* target;
 	
-	vector<string> onBeatObjectList;
 private:
 	BeatManager();
 	~BeatManager();
@@ -47,8 +52,6 @@ private:
 	void ConvertArrayToCount(vector<UINT>& input, deque<Beat>& output);
 	void MakeNote(float inputTime, float shownTime);
 
-	//비트에 맞춰서 움직일 객체인가
-	bool OnBeatObject(GameObject* obj);
 
 
 	//TODO 나중에 스테이지 변경할 때 수정해야됨

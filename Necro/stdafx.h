@@ -90,6 +90,10 @@ const wstring LibPath = L"../_Libraries/";
 #include "./Render/WorldBuffer.h"
 
 #include "./Systems/Object/GameObject.h"
+#include "./GameObject/GameData.h"
+
+
+
 
 
 
