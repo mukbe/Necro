@@ -3,7 +3,7 @@
 
 SceneBase::SceneBase()
 	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
-	  beatManager(new BeatManager), tileManager(nullptr)
+	  beatManager(new BeatManager), tileManager(nullptr), gameData(new GameData)
 {
 	float tile = 52.f;
 	TileManager::SetMapInfo({ 1,1 }, { tile,tile }, { tile * 0.5f,tile * 0.5f });

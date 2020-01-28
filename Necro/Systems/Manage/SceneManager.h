@@ -28,3 +28,4 @@ private:
 #define _RenderPool SceneManager::Get()->GetNowScene()->GetRenderPool()
 #define _BeatManager SceneManager::Get()->GetNowScene()->GetBeatManager()
 #define _TileMap SceneManager::Get()->GetNowScene()->GetTileManager()
+#define _GameData SceneManager::Get()->GetNowScene()->GetGameData()

@@ -23,6 +23,9 @@
 #include "./GameObject/Item/ItemShovel.h"	// »ð / °î±ª
 #include "./GameObject/Item/ItemHP.h"		// Ã¼·Â¾ÆÀÌÅÛ / À½½Ä 
 
+#include "./GameObject/Map/WallBase.h"
+#include "./GameObject/Map/StoneWall.h"
+
 
 TestScene::TestScene()
 	:SceneBase()
@@ -61,6 +64,36 @@ void TestScene::Init()
 	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
 
 	
+	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
+
+	_TileMap->CreateMap();
+
+	for (int i = 0; i < 10; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(0, i);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(9, i);
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i + 1, 0);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i + 1, 9);
+	}
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(5, i + 1);
+	}
+
+
 	//ÇÊµå ¾ÆÀÌÅÛ °ü·Ã 
 	ItemCoin* Coin =  _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
 	Coin->Init({ 8,1 }); // ¾ÆÀÌÅÛ »Ñ¸± Å¸ÀÏ ÁÂÇ¥
@@ -128,4 +161,10 @@ void TestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 	_ImageManager->AddFrameTexture("FullHeat", ResourcePath + L"Item/FullHeart.png", 1, 2);
 	_ImageManager->AddFrameTexture("Heart", ResourcePath + L"Item/Heart.png", 1, 2);
+
+	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
+	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
+
 }

@@ -48,6 +48,8 @@ void Program::PreUpdate()
 {
 	if (Keyboard::Get()->Down(VK_F1))
 		bGrid = !bGrid;
+	if (Keyboard::Get()->Down(VK_F2))
+		CAMERA->Shake();
 }
 
 void Program::Update(float tick)

@@ -160,7 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject\GameTest.cpp" />
+    <ClCompile Include="GameObject\GameData.cpp" />
     <ClCompile Include="GameObject\Item\ItemBase.cpp" />
     <ClCompile Include="GameObject\Item\ItemBody.cpp" />
     <ClCompile Include="GameObject\Item\ItemBoom.cpp" />
@@ -241,7 +241,7 @@
     <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject\GameTest.h" />
+    <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />
     <ClInclude Include="GameObject\Item\ItemBody.h" />
     <ClInclude Include="GameObject\Item\ItemBoom.h" />
