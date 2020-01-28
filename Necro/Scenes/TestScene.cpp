@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TestScene.h"
+#include "TileHelper.h"
 #include "./GameObject/UI/Coin.h"
 #include "./GameObject/UI/Diamond.h"
 #include "./GameObject/UI/AttackSlot.h"
@@ -23,6 +24,8 @@
 #include "./GameObject/Item/ItemShovel.h"	// 삽 / 곡괭
 #include "./GameObject/Item/ItemHP.h"		// 체력아이템 / 음식 
 
+#include "./GameObject/Map/WallBase.h"
+#include "./GameObject/Map/StoneWall.h"
 
 TestScene::TestScene()
 	:SceneBase()
@@ -39,6 +42,14 @@ void TestScene::Init()
 	SceneBase::Init();
 
 	ImageLoad();
+
+	//필드 
+
+	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
+
+	_TileMap->CreateMap();
+
+
 	// UI 관련
 	for (int i = 0; i < 10; i++)
 	{
@@ -46,13 +57,13 @@ void TestScene::Init()
 		node->Init();
 	}
 
-	_ObjectPool->CreateObject<TestPlayer>("Player", D3DXVECTOR2(200, 200), D3DXVECTOR2(100, 100));
+	_ObjectPool->CreateObject<TestPlayer>("Player", D3DXVECTOR2(200, 200), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 820.f }, { 110.f,120.f });
 	_ObjectPool->CreateObject<HPUi>("UI_HPUi", D3DXVECTOR2(800, 50), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
+	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(52.f, 52.f));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<BodySlot>("UI_BodySlot", D3DXVECTOR2(310, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<HeadSlot>("UI_HeadSlot", D3DXVECTOR2(390, 75), D3DXVECTOR2(75, 75));
@@ -69,10 +80,10 @@ void TestScene::Init()
 	Weapon->Init({ 2, 5 });
 
 	ItemBody* Body = _ObjectPool->CreateObject<ItemBody>("ItemBody", D3DXVECTOR2(), D3DXVECTOR2());
-	Body->Init({ 1, 5 });
+	Body->Init({ 5, 5 });
 
 	ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	Head->Init({ 1,6 });
+	Head->Init({ 5,6 });
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });
@@ -85,6 +96,33 @@ void TestScene::Init()
 	ItemDiamond* Dia2 = _ObjectPool->CreateObject<ItemDiamond>("Dia2", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia2->Init({ 7,2 });
 
+	
+
+	for (int i = 0; i < 10; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(0, i);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(9, i);
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i + 1, 0);
+
+		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(i + 1, 9);
+	}
+
+
+	for (int i = 0; i < 5; ++i)
+	{
+		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall->SetTransformInfo(5, i + 1);
+	}
+
 	// 노래 
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
@@ -95,6 +133,12 @@ void TestScene::Init()
 // 이미지 
 void TestScene::ImageLoad()
 {
+	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
+
+	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
+	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
@@ -128,4 +172,6 @@ void TestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 	_ImageManager->AddFrameTexture("FullHeat", ResourcePath + L"Item/FullHeart.png", 1, 2);
 	_ImageManager->AddFrameTexture("Heart", ResourcePath + L"Item/Heart.png", 1, 2);
+
+	
 }
