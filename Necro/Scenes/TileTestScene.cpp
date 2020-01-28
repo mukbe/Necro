@@ -2,12 +2,18 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "./GameObject/Map/TileNode.h"
+
 #include "./GameObject/Player.h"
+
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
+
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
+
+#include "./GameObject/Item/ItemBase.h"
+#include "./GameObject/Item/ItemShovel.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -32,6 +38,8 @@ void TileTestScene::Init()
 		note->Init();
 	}
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
+
+	
 
 	// TileManager(POINT mapSize, tileSize, ±âÁØÁÂÇ¥)
 	// mapSize´Â {°¡·ÎÄ­¼ö, ¼¼·ÎÄ­¼ö}
@@ -59,9 +67,6 @@ void TileTestScene::Init()
 	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
 
-
-
-
 	////¸ó½ºÅÍ
 	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
 	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
@@ -83,18 +88,22 @@ void TileTestScene::Init()
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(0, i);
+		_TileMap->Tile(0, i)->AddObject(testWall);
 
 		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(9, i);
+		_TileMap->Tile(9, i)->AddObject(testWall);
 	}
 
 	for (int i = 0; i < 8; ++i)
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 0);
+		_TileMap->Tile(i+1, 0)->AddObject(testWall);
 
 		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 9);
+		_TileMap->Tile(i+1, 9)->AddObject(testWall);
 	}
 
 
@@ -102,9 +111,13 @@ void TileTestScene::Init()
 	{
 		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(5, i + 1);
+		_TileMap->Tile(5, i+1)->AddObject(testWall);
 	}
+	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
+	//Shovel->Init({ 2,6 });
 
-
+	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
+	Shovel->Init({ 2,6 });
 
 }
 
@@ -124,4 +137,6 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+
+	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 }

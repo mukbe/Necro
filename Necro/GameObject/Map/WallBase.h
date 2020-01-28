@@ -47,20 +47,21 @@ public:
 
 		myIndex = { x,y };
 		this->Transform().SetPos(IndexToPos(myIndex, tempTileSize, tempPivot));
+		this->rc = FloatRect::Calculate(this->Transform().GetPos(), tempTileSize, Pivot::CENTER);
 		myTile = _GameWorld->GetTileManager()->Tile(myIndex);
 
 		SetTileAttribute();
 	}
-	virtual void SetTransformInfo(TileNode* tile, D3DXVECTOR2 pos, D3DXVECTOR2 size, D3DXVECTOR2 pivot)
-	{
-		D3DXVECTOR2 tempPivot = pivot;
-		D3DXVECTOR2 tempTileSize = size;
+	//virtual void SetTransformInfo(TileNode* tile, D3DXVECTOR2 pos, D3DXVECTOR2 size, D3DXVECTOR2 pivot)
+	//{
+	//	D3DXVECTOR2 tempPivot = pivot;
+	//	D3DXVECTOR2 tempTileSize = size;
 
-		myIndex = PosToIndex(pos, tempTileSize, tempPivot);
-		myTile = tile;
+	//	myIndex = PosToIndex(pos, tempTileSize, tempPivot);
+	//	myTile = tile;
 
-		SetTileAttribute();
-	}
+	//	SetTileAttribute();
+	//}
 
 	virtual void SetTextureInfo(string textureStringKey = "DefaultWall", POINT textureFrameIndex = { 0,0 })
 	{
