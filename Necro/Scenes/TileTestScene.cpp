@@ -2,12 +2,18 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "./GameObject/Map/TileNode.h"
+
 #include "./GameObject/Player.h"
+
 #include "./GameObject/Monster/GreenSlime.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
+
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
+
+#include "./GameObject/Item/ItemBase.h"
+#include "./GameObject/Item/ItemShovel.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -104,7 +110,8 @@ void TileTestScene::Init()
 		testWall->SetTransformInfo(5, i + 1);
 	}
 
-
+	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
+	Shovel->Init({ 2,6 });
 
 }
 
@@ -124,4 +131,6 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+
+	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 }

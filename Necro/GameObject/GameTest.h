@@ -1,6 +1,6 @@
 #pragma once
 
-struct PlayerState
+struct PlayerInfo
 {
 	int Hp;				// 체력
 	int AttackPower;	// 공격력
@@ -22,6 +22,6 @@ public:
 	virtual void ImguiRender();
 
 private:
-	PlayerState PS;
+	PlayerInfo PInfo;
 };
 

@@ -13,8 +13,8 @@ GameDate::~GameDate()
 void GameDate::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
-	PS.Hp = 6;
-	PS.AttackPower = 1;
+	PInfo.Hp = 6;
+	PInfo.AttackPower = 1;
 	//PS.PlayerVision
 }
 
