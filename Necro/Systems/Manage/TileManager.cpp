@@ -1,7 +1,7 @@
 #include "TileManager.h"
 #include "./GameObject/Map/TileNode.h"
 
-POINT TileManager::mapSize = { 0,0 };
+POINT TileManager::mapSize = defaultMapSize;
 D3DXVECTOR2 TileManager::tileSize = { 0.f,0.f };
 D3DXVECTOR2 TileManager::pivotPos = { 0.f,0.f };
 
@@ -34,6 +34,8 @@ void TileManager::Release()
 
 void TileManager::CreateMap()
 {
+	ReleaseMap();
+
 	for (int i = 0; i < mapSize.x * mapSize.y; ++i)
 	{
 		float x = (i % mapSize.x) * (tileSize.x ) + pivotPos.x;
