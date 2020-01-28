@@ -290,7 +290,7 @@ void MonsterStateIdle::Enter()
 		
 		
 
-		_GameWorld->GetTileManager()->Tile(me->myIndex)->AddObject(me);
+		//_GameWorld->GetTileManager()->Tile(me->myIndex)->AddObject(me);
 
 			me->startPos.x = me->endPos.x;
 			me->startPos.y = me->endPos.y;
@@ -308,10 +308,10 @@ void MonsterStateIdle::Enter()
 			case 0:
 				me->endPos.x = me->startPos.x + _TileSize;
 				//me->endPos.x = me->startPos.x + _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x-1, me->myIndex.y)->GetAttribute() != ObjDestructable)
-				{
-					me->endPos.x = me->startPos.x - _TileSize;
-				}
+				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x-1, me->myIndex.y)->GetAttribute() != ObjDestructable)
+				//{
+					//me->endPos.x = me->startPos.x - _TileSize;
+				//}
 				/*else 
 				{
 					me->endPos.x = me->startPos.x + _TileSize;
@@ -321,10 +321,10 @@ void MonsterStateIdle::Enter()
 			case 1:
 				me->endPos.x = me->startPos.x - _TileSize;
 				//me->endPos.x = me->startPos.x - _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x+1, me->myIndex.y)->GetAttribute() != ObjDestructable)
-				{
-					me->endPos.x = me->startPos.x + _TileSize;
-				}
+				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x+1, me->myIndex.y)->GetAttribute() != ObjDestructable)
+				//{
+					//me->endPos.x = me->startPos.x + _TileSize;
+				//}
 				/*else
 				{
 					me->endPos.x = me->startPos.x - _TileSize;
@@ -335,10 +335,10 @@ void MonsterStateIdle::Enter()
 			case 2:
 				me->endPos.y = me->startPos.y - _TileSize;
 				//me->endPos.y = me->startPos.y + _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y+1)->GetAttribute() != ObjDestructable)
-				{
-					me->endPos.y = me->startPos.y + _TileSize;
-				}
+				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y+1)->GetAttribute() != ObjDestructable)
+				//{
+					//me->endPos.y = me->startPos.y + _TileSize;
+				//}
 				/*else
 				{
 					me->endPos.y = me->startPos.y - _TileSize;
@@ -349,10 +349,10 @@ void MonsterStateIdle::Enter()
 			case 3:
 				me->endPos.y = me->startPos.y + _TileSize;
 				//me->endPos.y = me->startPos.y - _TileSize;
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y-1)->GetAttribute() != ObjDestructable)
-				{
-					me->endPos.y = me->startPos.y - _TileSize;
-				}
+				//if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y-1)->GetAttribute() != ObjDestructable)
+				//{
+					//me->endPos.y = me->startPos.y - _TileSize;
+				//}
 				//else
 				//{
 					//me->endPos.y = me->startPos.y + _TileSize;

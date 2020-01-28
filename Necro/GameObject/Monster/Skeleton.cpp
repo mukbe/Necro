@@ -1,7 +1,12 @@
 #include "stdafx.h"
 #include "Skeleton.h"
+
+//#include "TileManager.h"
+//#include "TileNode.h"
+
 #include "./Systems/Manage/TileManager.h""
 #include "./GameObject/Map/TileNode.h"
+
 
 
 Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -11,12 +16,13 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
-	x = pos.x;
-	y = pos.y;
-	tilesize = size.x;
+	position = pos;
+	this->size = size;
 	startPos = pos;
-	endPos = { x , y };
-	speed = D3DXVECTOR2(tilesize, tilesize);
+	endPos = { position.x ,position.y };
+	
+	monsterBeat = 2;
+	
 }
 
 
@@ -41,7 +47,7 @@ void Skeleton::Release()
 void Skeleton::Update(float tick)
 {
 	Monster::Update(tick);
-	SettingCenterXY(tilesize);
+	
 
 	FrameCount++;
 	if (FrameCount == 10)
@@ -63,13 +69,11 @@ void Skeleton::PostUpdate()
 
 void Skeleton::Render()
 {
-	_ImageManager->FindTexture("skeleton")->FrameRender(rc, nullptr, frameX, frameY);
+	
+	_ImageManager->FindTexture("skeleton")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void Skeleton::ImguiRender()
 {
 }
 
-void Skeleton::MoveAndCheck()
-{
-}
