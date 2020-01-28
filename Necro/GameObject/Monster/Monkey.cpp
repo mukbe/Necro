@@ -1,15 +1,11 @@
 #include "stdafx.h"
-#include "Bat.h"
-//#include "TileManager.h"
-//#include "TileNode.h"
+#include "Monkey.h"
 
 
 
-
-Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-	:Monster(name,pos,size)
+Monkey::Monkey(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+	: Monster(name, pos, size)
 {
-	//_RenderPool->Request(this, RenderManager::Layer::Object);
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -17,33 +13,30 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	y = pos.y;
 	tilesize = size.x;
 	startPos = pos;
-	endPos = { x + 52.f, y };
+	endPos = { pos.x + 52.f, pos.y + 52.f };
 	speed = D3DXVECTOR2(tilesize, tilesize);
 	monsterBeat = 2;
 }
 
 
-Bat::~Bat()
+Monkey::~Monkey()
 {
+
 }
 
-void Bat::Init()
+void Monkey::Init()
 {
 	GameObject::Init();
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
-void Bat::Release()
+void Monkey::Release()
 {
-
 	GameObject::Release();
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
-
 }
 
-
-
-void Bat::Update(float tick)
+void Monkey::Update(float tick)
 {
 	Monster::Update(tick);
 	SettingCenterXY(tilesize);
@@ -53,30 +46,27 @@ void Bat::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 3)
+		if (frameX > 5)
 		{
 
 			frameX = 0;
 		}
 	}
-
 }
 
-void Bat::PostUpdate()
+void Monkey::PostUpdate()
 {
 }
 
-void Bat::Render()
+void Monkey::Render()
 {
-	_ImageManager->FindTexture("bat")->FrameRender(rc, nullptr, frameX, frameY);
+	_ImageManager->FindTexture("monkey")->FrameRender(rc, nullptr, frameX, frameY);
 }
 
-void Bat::ImguiRender()
+void Monkey::ImguiRender()
 {
 }
 
-
-
-void Bat::MoveAndCheck()
+void Monkey::MoveAndCheck()
 {
 }

@@ -12,7 +12,6 @@ public:
 
 	virtual void Init();
 	virtual void Release();
-	virtual void PreUpdate();
 	virtual void Update(float tick);
 	virtual void ControlUpdate();
 
@@ -42,12 +41,13 @@ protected :
 
 	float batX;
 	float batY;
-
+	int monsterBeat;
 private:
+	POINT myIndex;
+	POINT mynextIndex;
 	bool firstmove;
 	float startTime;
 	float realtime;
-	
 	
 };
 
