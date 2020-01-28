@@ -11,7 +11,7 @@ public:
 
 	//===for Init()==========
 	void ImageLoad();
-
+	void MonsterLoad();
 };
 
   

@@ -175,8 +175,13 @@
     <ClCompile Include="GameObject\Map\TileNode.cpp" />
     <ClCompile Include="GameObject\Monster\Bat.cpp" />
     <ClCompile Include="GameObject\Monster\BlueSlime.cpp" />
+    <ClCompile Include="GameObject\Monster\Ghost.cpp" />
+    <ClCompile Include="GameObject\Monster\GreenDragon.cpp" />
     <ClCompile Include="GameObject\Monster\GreenSlime.cpp" />
+    <ClCompile Include="GameObject\Monster\Minotaur.cpp" />
+    <ClCompile Include="GameObject\Monster\Monkey.cpp" />
     <ClCompile Include="GameObject\Monster\Monster.cpp" />
+    <ClCompile Include="GameObject\Monster\RedDragon.cpp" />
     <ClCompile Include="GameObject\Monster\Skeleton.cpp" />
     <ClCompile Include="GameObject\UI\AttackSlot.cpp" />
     <ClCompile Include="GameObject\UI\BodySlot.cpp" />
@@ -256,8 +261,13 @@
     <ClInclude Include="GameObject\Map\TileNode.h" />
     <ClInclude Include="GameObject\Monster\Bat.h" />
     <ClInclude Include="GameObject\Monster\BlueSlime.h" />
+    <ClInclude Include="GameObject\Monster\Ghost.h" />
+    <ClInclude Include="GameObject\Monster\GreenDragon.h" />
     <ClInclude Include="GameObject\Monster\GreenSlime.h" />
+    <ClInclude Include="GameObject\Monster\Minotaur.h" />
+    <ClInclude Include="GameObject\Monster\Monkey.h" />
     <ClInclude Include="GameObject\Monster\Monster.h" />
+    <ClInclude Include="GameObject\Monster\RedDragon.h" />
     <ClInclude Include="GameObject\Monster\Skeleton.h" />
     <ClInclude Include="GameObject\UI\AttackSlot.h" />
     <ClInclude Include="GameObject\UI\BodySlot.h" />
@@ -345,6 +355,9 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameObject\Monster\Bat.cpp.rej" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
