@@ -97,6 +97,7 @@ void RenderManager::ObjectRender()
 	}
 
 
+	//TODO Äü¼ÒÆ®·Î ¹Ù²ã¶ó
 	multimap<float, GameObject*> sorted;
 	multimap<float, GameObject*>::iterator sortedIter;
 
