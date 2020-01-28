@@ -39,6 +39,8 @@ void TileTestScene::Init()
 	}
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
+	
+
 	// TileManager(POINT mapSize, tileSize, 기준좌표)
 	// mapSize는 {가로칸수, 세로칸수}
 	// tileSize는 D3DXVECTOR2(가로크기, 세로크기)
@@ -64,9 +66,6 @@ void TileTestScene::Init()
 	
 	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
-
-
-
 
 	////몬스터
 	//_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"slime_green.png", 4, 2);
@@ -114,9 +113,11 @@ void TileTestScene::Init()
 		testWall->SetTransformInfo(5, i + 1);
 		_TileMap->Tile(5, i+1)->AddObject(testWall);
 	}
-
 	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
 	//Shovel->Init({ 2,6 });
+
+	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
+	Shovel->Init({ 2,6 });
 
 }
 
