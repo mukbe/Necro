@@ -158,7 +158,9 @@ void PlayerIdle::BeatExcute()
 			TileNode* leftTilePos;
 			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y);
 			
-			if (leftTilePos->GetAttribute() != ObjStatic)
+			if (leftTilePos->GetAttribute() == ObjDestructable)leftTilePos->SendCallbackMessage("ShovelHit");
+			
+			if (leftTilePos->GetAttribute() != ObjDestructable)
 			{
 				me->startTime = 0;																					  // 시작 시간 초기화
 				me->startPos = me->position;																			  // 시작 위치 
@@ -183,7 +185,9 @@ void PlayerIdle::BeatExcute()
 			TileNode* rightTilePos;
 			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x+2 , me->myIndex.y);
 
-			if (rightTilePos->GetAttribute() != ObjStatic)
+			if (rightTilePos->GetAttribute() == ObjDestructable)rightTilePos->SendCallbackMessage("ShovelHit");
+			
+			if (rightTilePos->GetAttribute() != ObjDestructable)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
@@ -200,8 +204,13 @@ void PlayerIdle::BeatExcute()
 		{
 			TileNode* upTilePos;
 			upTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y-1);
+			
+			//upTilePos->GetObjects();
 
-			if (upTilePos->GetAttribute() != ObjStatic)
+
+
+
+			if (upTilePos->GetAttribute() != ObjDestructable)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
@@ -209,6 +218,17 @@ void PlayerIdle::BeatExcute()
 				me->jumpPos = D3DXVECTOR2(me->destination.x , me->startPos.y - 78); 
 				
 				me->ChangeState("Move");
+			}
+
+			// 이게 아래 있어야 부수기만함. 서순이 이동 전에 있으면 부수자마자 이동으로 가기때문에 이동 가능한 타일이라 부수는 동시에 이동함(이거 완전 창 아니냐)
+			if (upTilePos->GetAttribute() == ObjDestructable)
+			{
+				// 해당 오브젝트 찾아서 조지는듯 
+				vector<GameObject*> tempArr = upTilePos->GetObjects();
+				for (int i = 0; i < tempArr.size(); ++i)
+				{
+					tempArr[i]->SendCallbackMessage("ShovelHit");
+				}
 			}
 		}
 	}
@@ -219,7 +239,9 @@ void PlayerIdle::BeatExcute()
 			TileNode* downTilePos;
 			downTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1);
 
-			if (downTilePos->GetAttribute() != ObjStatic)
+			if (downTilePos->GetAttribute() == ObjDestructable)downTilePos->SendCallbackMessage("ShovelHit");
+
+			if (downTilePos->GetAttribute() != ObjDestructable)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
