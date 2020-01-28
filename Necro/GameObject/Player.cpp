@@ -17,6 +17,8 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	interver = 0;
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
+	jumpPower = 0;
+	gravity = 0 ;
 	startTime = 0;
 	currentState = nullptr;
 	stateList.insert(make_pair("Idle", new PlayerIdle(this)));
@@ -83,14 +85,14 @@ void Player::Render()
 	
 	// 이미지 위치 보정 (-20);
 	// 이미지만 점프 시킬꺼면 변수를 _포즈 말고 다른거 써야됨 . >> 포즈는 인덱스 검출하고 그래서 그냥 중점에 박혀있는게 좋기 때문.. 
-	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(position.x, position.y), D3DXVECTOR2(size.x, size.y / 4), Pivot::CENTER), nullptr);
-	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(imagePos.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
-	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(imagePos.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(position.x, position.y+5), D3DXVECTOR2(size.x, size.y / 4), Pivot::CENTER), nullptr);
+	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
 
 void Player::ImguiRender()
 {
-	ImGui::Begin("Info");
+	ImGui::Begin("Player");
 	{
 		//ImGui::Text("Tick : %f", Time::Delta());
 		ImGui::Text("PosX : %.2f, PosY : %.2f", position.x, position.y);
@@ -156,7 +158,7 @@ void PlayerIdle::BeatExcute()
 			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
 			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
 			TileNode* leftTilePos;
-			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y);
+			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x -1, me->myIndex.y);
 			
 			if (leftTilePos->GetAttribute() == ObjDestructable)leftTilePos->SendCallbackMessage("ShovelHit");
 			
@@ -167,9 +169,22 @@ void PlayerIdle::BeatExcute()
 				//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
 				//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
 				me->destination.x = leftTilePos->GetPos().x; // 목적지
-				me->jumpPos = D3DXVECTOR2(me->destination.x + 26, me->startPos.y - 40); 
+
+
+				me->jumpPower = 4.5f;
+				me->gravity = 0.6f;
 
 				me->ChangeState("Move");
+			}
+			// 이게 이동 위에 있으면 부순뒤 - 이동이 됨으로 전진하면서 부숨 ( 창 )
+			if (leftTilePos->GetAttribute() == ObjDestructable)
+			{
+				// 해당 오브젝트 찾아서 조지는듯 
+				vector<GameObject*> tempArr = leftTilePos->GetObjects();
+				for (int i = 0; i < tempArr.size(); ++i)
+				{
+					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
+				}
 			}
 		}
 
@@ -183,7 +198,7 @@ void PlayerIdle::BeatExcute()
 		if (me->myIndex.x + 1 < TileManager::mapSize.x)
 		{
 			TileNode* rightTilePos;
-			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x+2 , me->myIndex.y);
+			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x+1 , me->myIndex.y);
 
 			if (rightTilePos->GetAttribute() == ObjDestructable)rightTilePos->SendCallbackMessage("ShovelHit");
 			
@@ -192,9 +207,19 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 				me->destination.x = rightTilePos->GetPos().x;
-				me->jumpPos = D3DXVECTOR2(me->destination.x-26, me->startPos.y-40); 
+
+				me->jumpPower = 4.5f;
+				me->gravity = 0.6f;
 
 				me->ChangeState("Move");
+			}
+			if (rightTilePos->GetAttribute() == ObjDestructable)
+			{
+				vector<GameObject*> tempArr = rightTilePos->GetObjects();
+				for (int i = 0; i < tempArr.size(); ++i)
+				{
+					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
+				}
 			}
 		}
 	}
@@ -205,29 +230,24 @@ void PlayerIdle::BeatExcute()
 			TileNode* upTilePos;
 			upTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y-1);
 			
-			//upTilePos->GetObjects();
-
-
-
-
 			if (upTilePos->GetAttribute() != ObjDestructable)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
 				me->destination.y = upTilePos->GetPos().y;
-				me->jumpPos = D3DXVECTOR2(me->destination.x , me->startPos.y - 78); 
-				
+
+				me->jumpPower = 9.5f;
+				me->gravity = 0.6f;
 				me->ChangeState("Move");
 			}
 
-			// 이게 아래 있어야 부수기만함. 서순이 이동 전에 있으면 부수자마자 이동으로 가기때문에 이동 가능한 타일이라 부수는 동시에 이동함(이거 완전 창 아니냐)
 			if (upTilePos->GetAttribute() == ObjDestructable)
 			{
-				// 해당 오브젝트 찾아서 조지는듯 
+\
 				vector<GameObject*> tempArr = upTilePos->GetObjects();
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
-					tempArr[i]->SendCallbackMessage("ShovelHit");
+					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
 				}
 			}
 		}
@@ -246,9 +266,19 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 				me->destination.y = downTilePos->GetPos().y;
-				me->jumpPos = D3DXVECTOR2(me->destination.x, me->startPos.y - 13);
 
+				me->jumpPower = 0.6f;
+				me->gravity = 0.6f;
 				me->ChangeState("Move");
+			}
+
+			if (downTilePos->GetAttribute() == ObjDestructable)
+			{
+				vector<GameObject*> tempArr = downTilePos->GetObjects();
+				for (int i = 0; i < tempArr.size(); ++i)
+				{
+					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
+				}
 			}
 		}
 	}
@@ -275,25 +305,28 @@ void PlayerMove::BeatExcute()
 void PlayerMove::Excute()
 {
 	// 작동 시작 시간 / 목표 시간 ==1 이 될때 마다 (= 목표 시간마다) 작동해라
+
+	me->startTime += Time::Tick()*1.5f;									// 0으로 초기화한 startTime에 tick을 더해라 
 	float factor = me->startTime / 0.25f;							// lerp 함수 안에 넣을 factor , 전체 시간분에 목표시간
 
-	me->startTime += Time::Tick();									// 0으로 초기화한 startTime에 tick을 더해라 
+	//if (factor >= 0.5f)
+	//{
+	//	me->startTime +=   2.0f*Time::Tick();
+	//	factor = me->startTime / 0.25f;
+	//}
 
 	me->position = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
 
-	// 점프 왤케 이상하지
-	if (factor <= 0.4f)												
+	// 점프 
+	if (factor <= 1.0f)												
 	{
-		me->imagePos = Math::Lerp(me->startPos, me->jumpPos, factor);
+		me->imagePos.y -= me->jumpPower;
+		me->jumpPower -= me->gravity;
 	}
-	if (factor > 0.4f && factor < 1.0f)
-	{
-		me->imagePos = Math::Lerp(me->startPos, me->destination, factor);
-	}
-
 
 	if (factor >= 1.0f)										//비울(factor) >= 1  >>>> 목표지점까지 가는데 걸린 시간이 목표한 시간과 같거나 크다 = 도착했다
 	{
+		me->imagePos.y = me->destination.y;
 		me->position = me->destination;						// 위치 보정 할꺼면 위치보정 
 		me->ChangeState("Idle");
 	}
