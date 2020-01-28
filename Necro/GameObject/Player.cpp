@@ -36,7 +36,7 @@ void Player::Init()
 	GameObject::Init();
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
-
+	
 }
 
 void Player::Release()
@@ -138,20 +138,32 @@ void PlayerIdle::BeatExcute()
 		me->head = "PlayerHeadLeft";
 		me->body = "PlayerBodyLeft";
 
+		//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
+		//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
 
+		// 플레이어가 돌아다니는 발판 마다 이거 해줘야됨 ( 등록 / 삭제 
+		// 그럼 일단 시작할때 INIT?에서 플레이어 발판 등록 해주고 이동할때마다 삭제 - 등록 해주면 될거같음
+		// 1. 플레이어 수치이동으로 다시 바꾸고 ? 일단 인덱스 해보자 -> 수정 했음 
+		// 2. 발판 등록 해주고 
+		// 3. 삽 되는거 확인한 다음에 >> 되면 인덱스 검출 되는거니까 
+		// 4. 공격 하는거 확인 하자 
+		// -> 일단은 이동 범위로 하기. 0번쨰 검출할 타일이 이거인거임 .
+
+	
 		// 왠진 모르겠지만 이 이프문 두개를 &&로 묶어서 같이 놓으면 인덱스에 오류생겨서 터짐 
 		// 갈 곳의 인덱스가 맵밖이 아니고 , 장애물이 아닌경우 > > > 움직여라!
 		if (me->myIndex.x - 1 >= 0) {
 			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
 			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
 			TileNode* leftTilePos;
-			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y);
-
+			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y);
+			
 			if (leftTilePos->GetAttribute() != ObjStatic)
 			{
 				me->startTime = 0;																					  // 시작 시간 초기화
 				me->startPos = me->position;																			  // 시작 위치 
-				//me->destination.x = me->_pos.x - _GameWorld->GetTileManager()->GetTileSize().x; >> 이렇게 계산을 이곳저곳에서 하지 말자. 
+				//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
+				//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
 				me->destination.x = leftTilePos->GetPos().x; // 목적지
 				me->jumpPos = D3DXVECTOR2(me->destination.x + 26, me->startPos.y - 40); 
 
@@ -169,7 +181,7 @@ void PlayerIdle::BeatExcute()
 		if (me->myIndex.x + 1 < TileManager::mapSize.x)
 		{
 			TileNode* rightTilePos;
-			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y);
+			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x+2 , me->myIndex.y);
 
 			if (rightTilePos->GetAttribute() != ObjStatic)
 			{
@@ -194,8 +206,8 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 				me->destination.y = upTilePos->GetPos().y;
-				me->jumpPos = D3DXVECTOR2(me->destination.x , me->startPos.y - 75); 
-
+				me->jumpPos = D3DXVECTOR2(me->destination.x , me->startPos.y - 78); 
+				
 				me->ChangeState("Move");
 			}
 		}
@@ -212,7 +224,7 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 				me->destination.y = downTilePos->GetPos().y;
-				me->jumpPos = D3DXVECTOR2(me->destination.x, me->startPos.y - 10);
+				me->jumpPos = D3DXVECTOR2(me->destination.x, me->startPos.y - 13);
 
 				me->ChangeState("Move");
 			}
@@ -247,24 +259,20 @@ void PlayerMove::Excute()
 
 	me->position = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
 
-	// y축 ㅏㄸ라 가야 하느디.. 
-	// Lerp 안쓰는게 좋을듯. 미끄러지듯이 움직이게된다. 중력 넣어서 점프하는것처럼 만드는게 ㅇㅅㅇ.. 
-	// 점프 ㅎ야 한다 ㅣㅇ거.. 
-	if (factor <= 0.55f)												
+	// 점프 왤케 이상하지
+	if (factor <= 0.4f)												
 	{
 		me->imagePos = Math::Lerp(me->startPos, me->jumpPos, factor);
 	}
-	if (factor > 0.55f && factor < 1.0f)
+	if (factor > 0.4f && factor < 1.0f)
 	{
 		me->imagePos = Math::Lerp(me->startPos, me->destination, factor);
 	}
 
 
-
-
-	if (factor >= 1.0f)												//비울(factor) >= 1  >>>> 목표지점까지 가는데 걸린 시간이 목표한 시간과 같거나 크다 = 도착했다
+	if (factor >= 1.0f)										//비울(factor) >= 1  >>>> 목표지점까지 가는데 걸린 시간이 목표한 시간과 같거나 크다 = 도착했다
 	{
-		//me->_pos = me->destination;								// 위치 보정 할꺼면 위치보정 
+		me->position = me->destination;						// 위치 보정 할꺼면 위치보정 
 		me->ChangeState("Idle");
 	}
 
