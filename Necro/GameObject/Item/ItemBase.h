@@ -13,16 +13,11 @@ public:
 public:
 											// 게임 오브젝트에서  상속 받을 때 필요한 함수 그리고 Itembase에 상속 받는 클래스들은 쓸 거만 가져가면 됨!
 	virtual void Init();					// 인잇!
-											
 	virtual void Release();					// 릴리즈!  위 두개는 필수
-											
-	virtual void ControlUpdate();			
-											
 	virtual void Update(float tick);		
-											
-	virtual void Render();					
-											
+	virtual void Render();									
 	virtual void Init(POINT tileIndex);		
+	virtual void EatItem();
 
 protected:
 	

@@ -19,12 +19,12 @@ Program::Program()
 	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
 	
-	SceneBase* scene = new TileTestScene;
-	_SceneManager->AddScene(scene);
-
-
-	//SceneBase* scene = new TestScene;
+	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
+
+
+	SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);
 
 
 
@@ -48,6 +48,8 @@ void Program::PreUpdate()
 {
 	if (Keyboard::Get()->Down(VK_F1))
 		bGrid = !bGrid;
+	if (Keyboard::Get()->Down(VK_F2))
+		CAMERA->Shake();
 }
 
 void Program::Update(float tick)
@@ -71,7 +73,7 @@ void Program::Render()
 	p2DRenderer->SetCamera(true);
 
 	_GameWorld->ObjectRender();
-//	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
+	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
 
 	wstring str;

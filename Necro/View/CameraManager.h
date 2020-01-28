@@ -13,14 +13,12 @@ public:
 	void ImguiRender();
 
 	FloatRect GetRenderRect(); 
-	void UpdateRenderRect();
 
 	D3DXVECTOR2 GetPos() { return pos; }
-	void SetPos(D3DXVECTOR2 p)
-	{
-		pos = p;
-		UpdateRenderRect();
-	}
+	//void SetPos(D3DXVECTOR2 p)
+	//{
+	//	pos = p;
+	//}
 
 	float GetZoom() { return zoom; }
 	void AddZoom(float value);
@@ -34,11 +32,14 @@ public:
 	BOOL IsCollision(D3DXVECTOR2 p);
 	Matrix2D GetView() { return view; }
 
-	void CameraDataBind();
+	void Shake();
+
 private:
 	void UpdateMatrix();
 	void ClipMouse();
-	
+	void CameraDataBind();
+	void ShakeUpdateMatrix();
+
 	Matrix2D view;
 	D3DXVECTOR2 pos;
 	RECT renderRect;
@@ -48,7 +49,11 @@ private:
 	D3DXVECTOR2 picked;
 
 
-
+	float shakeAmount;
+	float shakeTime;
+	D3DXVECTOR2 shakeDir;
+	D3DXVECTOR2 oldPos;
+	bool bShake;
 
 private:
 

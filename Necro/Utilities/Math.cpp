@@ -41,6 +41,13 @@ float Math::RandF()
 	return (float)(rand()) / (float)RAND_MAX;
 }
 
+D3DXVECTOR2 Math::RandVec2()
+{
+	float val0 = RandF() > 0.5f ? RandF() : -RandF();
+	float val1 = RandF() > 0.5f ? RandF() : -RandF();
+	return D3DXVECTOR2(val0, val1);
+}
+
 float Math::Lerp(float val1, float val2, float amount)
 {
 	return val1 + (val2 - val1)* amount;

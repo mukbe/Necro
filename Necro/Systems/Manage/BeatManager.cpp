@@ -14,11 +14,7 @@ BeatManager::BeatManager()
 	syncTime = -0.02f;
 	target = nullptr;
 	bMusic = false;
-
-	onBeatObjectList.clear();
-	onBeatObjectList.push_back("Monster");
-	onBeatObjectList.push_back("Heart");
-	onBeatObjectList.push_back("");
+	moveMode = MoveMode::MOVE_FREE;
 }
 
 BeatManager::~BeatManager()
@@ -67,8 +63,6 @@ bool BeatManager::CheckInputForUpdate()
 
 		}
 	}
-
-
 
 	return false;
 }
@@ -151,17 +145,6 @@ void BeatManager::MakeNote(float inputTime, float shownTime)
 	if (target == nullptr)
 		target = note;
 
-
-}
-
-bool BeatManager::OnBeatObject(GameObject* obj)
-{
-	for (size_t t = 0; t < onBeatObjectList.size();t++)
-	{
-		if (obj->Name() == onBeatObjectList[t])
-			return true;
-	}
-	return false;
 }
 
 void BeatManager::MusicStart()
@@ -177,11 +160,19 @@ void BeatManager::MusicStart()
 
 void BeatManager::ReturnNote()
 {
+	if (notes.empty()) return;
+
 	Note* note = notes.front();
+
 	while (note->GetState() != Note::Note_Move)
 	{
 		freeNoteList.push(note);
 		notes.erase(notes.begin());
+		if (notes.empty())
+		{
+			note = nullptr;
+			break;
+		}
 		note = notes.front();
 	}
 	target = note;
@@ -189,50 +180,78 @@ void BeatManager::ReturnNote()
 
 void BeatManager::Update(float tick)
 {
-
-	if (shownInfos.size() > 0)
+	if (Keyboard::Get()->Down(VK_F3))
 	{
-		saveTime += tick;
-		
-
-		if (saveTime >= syncTime)
+		if (moveMode == MoveMode::MOVE_FREE)
 		{
-			MusicStart();
+			 moveMode = MoveMode::MOVE_MUSIC;
 		}
-
-		CheckInputForUpdate();
-		if (shownInfos.front().first - shownInfos.front().second <= saveTime)
+		else if (moveMode == MoveMode::MOVE_MUSIC)
 		{
-			float delta = saveTime - (shownInfos.front().first - shownInfos.front().second);
-			MakeNote(0, shownInfos.front().second - delta);
-			checkInfos.push_back(make_pair(shownInfos.front().first, true));
-			shownInfos.pop_front();
-
+			 moveMode = MoveMode::MOVE_FREE;
 		}
-		if (checkInfos.size() > 0)
+	}
+
+
+	if (moveMode == MoveMode::MOVE_FREE)
+	{
+		vector<GameObject*> objects = _ObjectPool->objects;
+		for (GameObject* obj : objects)
 		{
-			if (checkInfos.front().first - saveTime <= 0)
+			if (obj->GetMoveType() == MoveType_Control)
 			{
-				vector<GameObject*> objects = _ObjectPool->objects;
-				for (GameObject* obj : objects)
-				{
-					if (obj->GetMoveType() == MoveType_Beat)
-					{
-						_MessagePool->ReserveMessage(obj, "OnBeat");
-					}
-					_MessagePool->ReserveMessage(obj, "AddChance");
-
-				}
-
-				checkInfos.pop_front();
+				_MessagePool->ReserveMessage(obj, "OnBeat");
 			}
+			_MessagePool->ReserveMessage(obj, "AddChance");
+
 		}
 
 	}
-	else
+	else if (moveMode == MoveMode::MOVE_MUSIC)
 	{
-		//스테이지 끝남 이벤트
-	}
+		if (shownInfos.size() > 0)
+		{
+			saveTime += tick;
 
+
+			if (saveTime >= syncTime)
+			{
+				MusicStart();
+			}
+
+			CheckInputForUpdate();
+			if (shownInfos.front().first - shownInfos.front().second <= saveTime)
+			{
+				float delta = saveTime - (shownInfos.front().first - shownInfos.front().second);
+				MakeNote(0, shownInfos.front().second - delta);
+				checkInfos.push_back(make_pair(shownInfos.front().first, true));
+				shownInfos.pop_front();
+
+			}
+			if (checkInfos.size() > 0)
+			{
+				if (checkInfos.front().first - saveTime <= 0)
+				{
+					vector<GameObject*> objects = _ObjectPool->objects;
+					for (GameObject* obj : objects)
+					{
+						if (obj->GetMoveType() == MoveType_Beat)
+						{
+							_MessagePool->ReserveMessage(obj, "OnBeat");
+						}
+						_MessagePool->ReserveMessage(obj, "AddChance");
+
+					}
+
+					checkInfos.pop_front();
+				}
+			}
+
+		}
+		else
+		{
+			//스테이지 끝남 이벤트
+		}
+	}//else if (moveMode == MoveMode::MOVE_MUSIC)
 
 }

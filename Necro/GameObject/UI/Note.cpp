@@ -12,7 +12,6 @@ Note::Note(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		bBeatChance--;
 	});
 	AddCallback("Shown", [&](TagMessage msg) {
-		//if (this->IsMove() == false)return;
 		float lerp = msg.Data->GetValue<float>();
 		Init(lerp);
 

@@ -27,12 +27,14 @@ public:
 	class RenderManager* GetRenderPool() { return renderManager; }
 	class BeatManager* GetBeatManager() { return beatManager; }
 	class TileManager* GetTileManager() { return tileManager; }
+	class GameData* GetGameData() { return gameData; }
 protected:
 	class MessageManager* messageManager;
 	class ObjectManager* objectManager;
 	class RenderManager* renderManager;
 	class BeatManager* beatManager;
 	class TileManager* tileManager;
+	class GameData* gameData;
 
 };
 
