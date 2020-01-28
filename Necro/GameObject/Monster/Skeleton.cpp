@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Skeleton.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 
 
 Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	//_RenderPool->Request(this, RenderManager::Layer::Object);
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -26,15 +26,17 @@ Skeleton::~Skeleton()
 
 void Skeleton::Init()
 {
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void Skeleton::Release()
 {
+	GameObject::Release();
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
 }
 
-void Skeleton::ControlUpdate()
-{
-}
+
 
 void Skeleton::Update(float tick)
 {

@@ -9,6 +9,8 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	tileSize = size;
 	isSelected = false;
+	haveIDrawHighlight = false;
+	isUI = false;
 }
 
 TileNode::~TileNode()
@@ -46,15 +48,39 @@ void TileNode::ControllUpdate()
 
 void TileNode::Update(float tick)
 {
+	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	{
+		if (Keyboard::Get()->Down(VK_LBUTTON))
+		{
+			isSelected = true;
+		}
+	}
+
+	if (Keyboard::Get()->Up(VK_LBUTTON))
+	{
+		isSelected = false;
+	}
 }
 
 void TileNode::Render()
 {
+	p2DRenderer->SetCamera(!isUI);
 	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
 	
-	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	if(!isUI)
 	{
-		HighlightRender();
+	
+		if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()) && haveIDrawHighlight)
+		{
+			HighlightRender();
+		}
+	}
+	else
+	{
+		if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()) && haveIDrawHighlight)
+		{
+			HighlightRender();
+		}
 	}
 	/*wstring str;
 	wstring abc = L" , ";
@@ -70,7 +96,9 @@ void TileNode::ImguiRender()
 
 void TileNode::HighlightRender()
 {
-	p2DRenderer->SetCamera(true);
+	if(!isUI)p2DRenderer->SetCamera(true);
+	else p2DRenderer->SetCamera(false);
+
 	p2DRenderer->DrawLine(D3DXVECTOR2(rc.left, rc.top), D3DXVECTOR2(rc.right, rc.top), nullptr,
 		D3DXCOLOR(200, 50, 50, 1), 2);
 	p2DRenderer->DrawLine(D3DXVECTOR2(rc.right, rc.top), D3DXVECTOR2(rc.right, rc.bottom), nullptr,

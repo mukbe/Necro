@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BlueSlime.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
 //#include "Monster.h"
 
 
@@ -9,7 +9,7 @@ BlueSlime::BlueSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: Monster(name, pos, size)
 {
 	//_ImageManager->AddFrameTexture("blueslime", ResourcePath + L"slime_ice.png", 4, 2);
-	_RenderPool->Request(this, RenderManager::Layer::Object);
+	
 		FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -29,17 +29,18 @@ BlueSlime::~BlueSlime()
 
 void BlueSlime::Init()
 {
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
 }
 
 void BlueSlime::Release()
 {
+	GameObject::Release();
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
 
 }
 
-void BlueSlime::ControlUpdate()
-{
-}
+
 
 void BlueSlime::Update(float tick)
 {

@@ -1,23 +1,15 @@
 #include "MapTool.h"
-#include "TileManager.h"
-#include "TileNode.h"
+#include "./Systems/Manage/TileManager.h""
+#include "./GameObject/Map/TileNode.h"
+#include "Pallete.h"
 
 MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
-
-	
-	/*map = new TileManager({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
-	pallete = new TileManager({ 1,1 }, D3DXVECTOR2(52.f, 52.f), D3DXVECTOR2(map->GetMapSize().x * (defaultTileSize.x), defaultTileSize.y / 2.f ));*/
-
-	TileManager::SetMapInfo(defaultMapSize, defaultTileSize, D3DXVECTOR2(0.f, 0.f));
-	TileManager::SetTexture();
+	TileManager::SetMapInfo(defaultMapSize, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
 	map = new TileManager;
 
-	TileManager::SetMapInfo({ 1,1 }, defaultTileSize, D3DXVECTOR2(1040.f, 1040.f));
-	TileManager::SetTexture();
-	pallete = new TileManager;
+	pallete = new Pallete(D3DXVECTOR2(defaultMapSize.x * defaultTileSize.x, 0.f));
 
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("..//_Resources//TTF//Maplestory Light.ttf", 16.f, nullptr, io.Fonts->GetGlyphRangesKorean());
@@ -28,6 +20,8 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	MapSize[1] = 1;
 	oldMapSize[0] = 1;
 	oldMapSize[1] = 1;
+
+	map->CreateMap();
 }
 
 MapTool::~MapTool()
@@ -58,9 +52,41 @@ void MapTool::Update(float tick)
 
 		if (tempNode != nullptr)
 		{
-			
-			//ProcessSetMap(tempNode);
+			ProcessSetMap(tempNode);
 		}
+	}
+
+	switch (palleteType)
+	{
+	case ObjectAll:
+		break;
+	case ObjectTerrain:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
+		break;
+	case ObjectPlayer:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
+		break;
+	case ObjectMonster:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
+		break;
+	case ObjectItem:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
+		break;
+	case ObjectNPC:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
+		break;
+	case ObjectWall:
+		pallete->ReleasePallete();
+		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
+		break;
+	default:
+		pallete->ReleasePallete();
+		break;
 	}
 }
 
@@ -86,14 +112,30 @@ void MapTool::ImguiRender()
 	const char* currentPalleteMode;
 	switch (palleteType)
 	{
-	case Terrain:
+	case ObjectAll:
+		currentPalleteMode = "AllObjects";
+		break;
+	case ObjectTerrain:
 		currentPalleteMode = "Terrain";
 		break;
-	case Object:
-		currentPalleteMode = "Object";
+	case ObjectPlayer:
+		currentPalleteMode = "Player";
+		break;
+	case ObjectMonster:
+		currentPalleteMode = "Monster";
+		break;
+	case ObjectItem:
+		currentPalleteMode = "Item";
+		break;
+	case ObjectNPC:
+		currentPalleteMode = "NPC";
+		break;
+	case ObjectWall:
+		currentPalleteMode = "Wall";
 		break;
 	default:
 		currentPalleteMode = "None Selected";
+		break;
 	}
 
 	ImGui::Begin(u8"Map Tool");
@@ -118,14 +160,38 @@ void MapTool::ImguiRender()
 		ImGui::Text("Pallete Mode");
 		ImGui::Separator();
 		ImGui::Text("Pallete Mode = %s", currentPalleteMode);
-		if (ImGui::Button("Terrain", ImVec2(100, 50)))
+		if (ImGui::Button("All", ImVec2(100, 50)))
 		{
-			palleteType = Terrain;
+			palleteType = ObjectAll;
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Object", ImVec2(100, 50)))
+		if (ImGui::Button("Terrain", ImVec2(100, 50)))
 		{
-			palleteType = Object;
+			palleteType = ObjectTerrain;
+		}
+		if (ImGui::Button("Player", ImVec2(100, 50)))
+		{
+			palleteType = ObjectPlayer;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Monster", ImVec2(100, 50)))
+		{
+			palleteType = ObjectMonster;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Item", ImVec2(100, 50)))
+		{
+			ImGui::SameLine();
+			palleteType = ObjectItem;
+		}
+		if (ImGui::Button("NPC", ImVec2(100, 50)))
+		{
+			palleteType = ObjectNPC;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Wall", ImVec2(100, 50)))
+		{
+			palleteType = ObjectWall;
 		}
 		ImGui::Separator();
 		

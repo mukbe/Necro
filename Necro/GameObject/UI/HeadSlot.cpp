@@ -17,7 +17,7 @@ HeadSlot::~HeadSlot()
 void HeadSlot::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
+	
 }
 
 void HeadSlot::Release()

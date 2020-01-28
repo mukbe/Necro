@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "TestPlayer.h"
 
-
-
-
-
+#include "./GameObject/Item/ItemCoin.h"
 
 TestPlayer::TestPlayer(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
@@ -42,11 +39,18 @@ void TestPlayer::ControlUpdate()
 	{
 		position.y -= 30.f;
 		rc += D3DXVECTOR2(0, -30);
+
+		ItemCoin* temp = _ObjectPool->FindObject<ItemCoin>("ItemCoin");
+		_MessagePool->ReserveMessage(temp, "Hide");
+
 	}
 	else if (Keyboard::Get()->Down(VK_DOWN))
 	{
 		position.y += 30.f;
 		rc += D3DXVECTOR2(0, 30);
+
+		ItemCoin* temp = _ObjectPool->FindObject<ItemCoin>("ItemCoin");
+		_MessagePool->ReserveMessage(temp, "Show");
 	}
 
 }

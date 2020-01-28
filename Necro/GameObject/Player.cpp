@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "TileNode.h"
+#include "./GameObject/Map/TileNode.h"
 
 
 Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
