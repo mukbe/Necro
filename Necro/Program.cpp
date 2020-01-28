@@ -37,7 +37,7 @@ Program::Program()
 	}
 	Shaders->CreateShader("Color", L"Color.hlsl");
 
-	_ImageManager->AddFrameTexture("test", ResourcePath + L"monster04_idle.png", 4, 6);
+	//_ImageManager->AddFrameTexture("test", ResourcePath + L"monster04_idle.png", 4, 6);
 }
 
 Program::~Program()
@@ -71,7 +71,7 @@ void Program::Render()
 	p2DRenderer->SetCamera(true);
 
 	_GameWorld->ObjectRender();
-	_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
+	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 
 
 	wstring str;

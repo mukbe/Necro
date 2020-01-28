@@ -27,7 +27,6 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 WallBase::~WallBase()
 {
-	_RenderPool->Remove(this, RenderManager::Layer::Object);
 }
 
 void WallBase::Init()
@@ -39,6 +38,8 @@ void WallBase::Init()
 
 void WallBase::Release()
 {
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
+
 }
 
 void WallBase::ControlUpdate()
