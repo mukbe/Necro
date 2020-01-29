@@ -25,6 +25,7 @@ public:
 
 	static float Lerp(float val1, float val2,float amount);
 	static float Clamp(float value, float min, float max);
+	static int Clamp(int value, int min, int max);
 
 	static float Modulo(float val1, float val2);
 
@@ -76,6 +77,26 @@ public:
 	static T Lerp(const T& a, const T& b, float t)
 	{
 		return a + (b - a)*t;
+	}
+
+	template<typename T>
+	static T LerpSmoothArrival(const T& a, const T& b, const float& t, int& amount)
+	{
+		float ratio = 1 - t;
+		amount = Clamp(amount, 3, 7);
+		return a + (b - a) * (1 - ratio ^ amount);
+	}
+	template<typename T>
+	static T LerpSmoothStart(const T& a, const T& b, const float& t, int& amount)
+	{
+		amount = Clamp(amount, 3, 7);
+		return a + (b - a) * t ^ amount;
+	}
+
+	template<typename T>
+	static T SmoothStepLerp(const T& a, const T& b, const float& ratio)
+	{
+		return a + (b - a) * ratio * ratio * (3.f - 2.f * ratio);
 	}
 
 	template<typename T>

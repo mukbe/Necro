@@ -18,6 +18,14 @@ class PlayerMove;
 class PlayerIdle;
 class PlayerAttack;
 
+enum PlayerDirection
+{
+	PlayerLeft,
+	PlayerRight,
+	PlayerUp,
+	PlayerDown
+};
+
 class Player : public GameObject
 {
 private:
@@ -45,6 +53,11 @@ private:
 
 	float jumpPower;			// 점프 힘
 	float gravity;				// 중력
+
+	PlayerDirection playerDirection;		// 방향
+
+	POINT attackrRange;						// 공격 범위
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
