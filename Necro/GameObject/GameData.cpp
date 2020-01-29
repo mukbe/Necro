@@ -6,6 +6,7 @@ GameData::GameData(string name)
 {
 	moveType = MoveType_Custom;
 	playerCoin = 0;
+	playerDia = 0;
 }
 GameData::~GameData()
 {
@@ -43,16 +44,32 @@ void GameData::ImguiRender()
 {
 }
 
+void GameData::AddDia(UINT val)
+{
+	playerDia += val;
+}
+
 void GameData::AddCoin(UINT val)
 {
 	playerCoin += val;
 }
 
+//Minus 는 상점 관련 
 void GameData::MinusCoin(UINT val)
 {
+	//상점 관련 
 	if (playerCoin < val)
 	{
 		//못 사는데 왜 넘겨줌?
 	}
 	playerCoin -= (int)val;
+}
+
+void GameData::MinusDia(UINT val)
+{
+	if (playerDia < val)
+	{
+		// 역시 못 산다 . 
+	}
+	playerDia -= (int)val;
 }

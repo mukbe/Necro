@@ -1,6 +1,20 @@
 #pragma once
 
+class palleteNode : public GameObject
+{
+public:
+	palleteNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+		: GameObject(name,pos,size)
+	{
+		_RenderPool->Request(this, RenderManager::Layer::UI);
+	}
+	~palleteNode(){}
 
+private:
+	string textureKey;
+	GameObject* myObject;
+	
+};
 
 class Pallete
 {
@@ -24,6 +38,23 @@ public:
 
 	void ReleasePallete();
 
+	void LoadObjects();
+
+	template<typename T>
+	void Load(string Key, ObjectType objType, RenderManager::Layer renderType)
+	{
+		string namePal = "Tool";
+		GameObject* temp;
+		temp = _ObjectPool->CreateObject<T>(namePal + Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+		_RenderPool->Remove(temp, renderType);
+		AddObject(objType, temp);
+
+		wstring tempString;
+		tempString.assign(temp->Name().begin(), temp->Name().end());
+
+		_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/" + tempString + L".png");
+	}
+
 
 	vector<GameObject*> GetArrayByType(ObjectType inputType)
 	{
@@ -35,8 +66,8 @@ public:
 	}
 
 private:
-	vector<TileNode*> palleteMap;
-	vector<TileNode*>::iterator palleteIter;
+	vector<palleteNode*> palleteMap;
+	vector<palleteNode*>::iterator palleteIter;
 
 	int separateSize;
 	D3DXVECTOR2 pivotPos;

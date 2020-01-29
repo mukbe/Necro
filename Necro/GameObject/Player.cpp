@@ -186,7 +186,7 @@ void PlayerIdle::BeatExcute()
 			if (leftTilePos->GetAttribute() == ObjDestructable)
 			{
 				// 해당 오브젝트 찾아서 조지는듯 
-				vector<GameObject*> tempArr = leftTilePos->GetObjects();
+				vector<GameObject*> tempArr = leftTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -225,7 +225,7 @@ void PlayerIdle::BeatExcute()
 			}
 			if (rightTilePos->GetAttribute() == ObjDestructable)
 			{
-				vector<GameObject*> tempArr = rightTilePos->GetObjects();
+				vector<GameObject*> tempArr = rightTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -257,8 +257,8 @@ void PlayerIdle::BeatExcute()
 
 			if (upTilePos->GetAttribute() == ObjDestructable)
 			{
-\
-				vector<GameObject*> tempArr = upTilePos->GetObjects();
+
+				vector<GameObject*> tempArr = upTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -292,7 +292,7 @@ void PlayerIdle::BeatExcute()
 
 			if (downTilePos->GetAttribute() == ObjDestructable)
 			{
-				vector<GameObject*> tempArr = downTilePos->GetObjects();
+				vector<GameObject*> tempArr = downTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");

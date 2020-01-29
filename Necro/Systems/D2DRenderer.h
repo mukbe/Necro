@@ -52,29 +52,13 @@ private:
 	bool bCamera;
 	
 public:
-	//Ä«¸Þ¶ó¿Í Æ®·£½ºÆû ¿µÇâ ¾È¹ÞÀ½=====
-	void DrawText2D(int x, int y, wstring text, int size, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
-	void DrawText2D(int x, int y, wstring text, COLORREF rgb, float alpha, int size, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
-	void DrawTextField(int x, int y, wstring text, int size, int width, int height, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
-	void DrawTextField(int x, int y, wstring text, COLORREF rgb, int size, int width, int height, float alpha = 1.0f, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
-	//==============================================================
-
-
-	//¾²Áö¸¶=================================
-	void DrawLine(D2D1::ColorF::Enum color, float alpha, D3DXVECTOR2 start, D3DXVECTOR2 end,  float strokeWidth = 1);
-	void DrawRectangle(RECT rc, D2D1::ColorF::Enum color, float alpha,float strokeWidth = 1);
-	void DrawRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black,float strokeWidth = 1);
-	void DrawEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha,  float strokeWidth = 1);
-	void DrawEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);
-	void FillRectangle(RECT rc, D2D1::ColorF::Enum color, float alpha);
-	void FillRectangle(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
-	void FillEllipse(RECT rc, D2D1::ColorF::Enum color, float alpha);
-	void FillEllipse(RECT rc, DefaultBrush::Enum defaultBrush = DefaultBrush::black);
-	//========================================
 
 	void DrawText2D(D3DXVECTOR2 pos, wstring text, float size, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
 	void DrawText2D(D3DXVECTOR2 pos, wstring text, float size, D3DXCOLOR color, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
-	void DrawTextField(D3DXVECTOR2 pos, wstring text, D3DXVECTOR2 size, int width, int height, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+	void DrawText2D(FloatRect rc, wstring text, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+	void DrawText2D(FloatRect rc, wstring text, D3DXCOLOR color, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
+
+	//void DrawTextField(D3DXVECTOR2 pos, wstring text, D3DXVECTOR2 size, int width, int height, DefaultBrush::Enum defaultBrush = DefaultBrush::black, DWRITE_TEXT_ALIGNMENT align = DWRITE_TEXT_ALIGNMENT_CENTER, wstring font = L"¸¼Àº°íµñ");
 
 
 	void DrawLine(D3DXVECTOR2 start, D3DXVECTOR2 end, Matrix2D* transform, DefaultBrush::Enum defaultBrush = DefaultBrush::black, float strokeWidth = 1);

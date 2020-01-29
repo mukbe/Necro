@@ -11,6 +11,14 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	isSelected = false;
 	haveIDrawHighlight = false;
 	isUI = false;
+
+	for (int i = ObjectTypeBegin; i != ObjectTypeEnd; ++i)
+	{
+		if (i == ObjectTypeBegin || i == ObjectAll || i == ObjectTypeEnd) continue;
+
+		typeVector tempVector;
+		objectStorage.insert(make_pair((ObjectType)i, tempVector));
+	}
 }
 
 TileNode::~TileNode()

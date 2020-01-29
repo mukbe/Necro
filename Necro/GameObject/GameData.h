@@ -3,9 +3,7 @@
 struct PlayerState
 {
 	int Hp;				// 체력
-	int AttackPower;	// 공격력
-	//int PlayerVision;	// 시야 
-
+	//조금씩 추가할 예정
 };
 
 
@@ -29,6 +27,37 @@ public:
 			Type = Weapon::Dagger;
 		}
 	};
+	// 아이템 광부 모자 
+	struct ItemHeadInfo
+	{
+		UINT Range;
+		UINT life;  // 타일 벽  라이프 깍기위해서 
+		//ItemHeadInfo()
+		// Range(4), life(1)
+		//{
+		//
+		//}
+	};
+
+	//삽 . 곡괭이 
+	enum ItemShovel
+	{
+		Shovel, Pickaxe
+	};
+
+	struct ShovelInfo
+	{
+		ItemShovel Type;
+		UINT life;  // 벽 까기위한
+		string Imagekey;
+		ShovelInfo()
+			: life(1)
+		{
+			Imagekey = "";
+			Type = ItemShovel::Shovel;
+		}
+	};
+
 
 public:
 	GameData(string name = "GameData");
@@ -46,13 +75,21 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 
-	void AddCoin(UINT val);
-	void MinusCoin(UINT val);
-	UINT GetCoin() { return playerCoin; }
+	void AddDia(UINT val);						// 다이아
+	void AddCoin(UINT val);						// 코인 
+	void MinusCoin(UINT val);					// 코인 사용 할 때
+	void MinusDia(UINT val);					// 다이아 사용 할 때
+	UINT GetCoin() { return playerCoin; }		// 얻을 때 
+	UINT GetDia() { return playerDia; }			// 얻을 때
 
 private:
-	UINT playerCoin;
-	WeaponInfo weaponData;
 
+	UINT playerCoin;
+	UINT playerBomb;
+	UINT playerDia;
+
+	WeaponInfo weaponData;
+	ShovelInfo shovelDate;
+	ItemHeadInfo HeadDate;
 };
 
