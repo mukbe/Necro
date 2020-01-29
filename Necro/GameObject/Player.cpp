@@ -29,6 +29,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		CAMERA->Shake();
 		// 이팩트가 뜨고. > 나중에 추가해 준대
 		// 피를 깍아준다. > 아직 구현 안되있음. 
+		// 피격음 튼다. 
 
 	});
 	// 피를 업데이트에서 계속 확인해 주고 피가 0이 되면 캐릭터 죽인다음에 죽었다고 씬메니져? 같은곳에 넘겨야 할듯 
@@ -112,8 +113,7 @@ void Player::ImguiRender()
 
 		POINT XY = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 		ImGui::Text("Index : %d, %d", XY.x, XY.y);
-		ImGui::Text("Index-1 : %d, %d", XY.x - 1, XY.y - 1);
-		ImGui::Text("MapSize : %d, %d", _GameWorld->GetTileManager()->GetMapSize().x, _GameWorld->GetTileManager()->GetMapSize().y);
+		ImGui::Text("playerDirection : %d", playerDirection);
 
 	}
 	ImGui::End();
@@ -123,7 +123,6 @@ void Player::ImguiRender()
 void Player::ChangeState(string str)
 {
 	// 업데이트 하던 상태를 끝내고 입력한 상태를 실행한다.
-
 	if (currentState)
 		currentState->Exit();
 
@@ -172,15 +171,15 @@ void PlayerIdle::BeatExcute()
 			TileNode* leftTilePos;
 			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y);
 
-			if (leftTilePos->GetAttribute() == ObjDestructable)leftTilePos->SendCallbackMessage("ShovelHit");
-
 			if (leftTilePos->GetAttribute() == ObjNone) // 지나갈수있는 타일이면 
 			{
 				// 여기서 타일 검사 해서 에너민지 봐야할거같은데
 				// ObjectMonster
-				if (tempArr == leftTilePos->GetObjects(ObjectMonster)) // 만약에 저 타일에 있는 오브젝트가 몬스터가 맞으면
+				tempArr = leftTilePos->GetObjects(ObjectMonster);
+				if (tempArr.size() > 0)
 				{
 					me->ChangeState("Attack");
+					return;
 				}
 
 				me->startTime = 0; // 시작 시간 초기화
@@ -224,6 +223,13 @@ void PlayerIdle::BeatExcute()
 
 			if (rightTilePos->GetAttribute() == ObjNone)
 			{
+				tempArr = rightTilePos->GetObjects(ObjectMonster);
+				if (tempArr.size() > 0)
+				{
+					me->ChangeState("Attack");
+					return;
+				}
+
 				me->startTime = 0;
 				me->startPos = me->position;
 
@@ -250,6 +256,7 @@ void PlayerIdle::BeatExcute()
 	else if (KeyCode->Down(VK_UP))
 	{
 		me->playerDirection = PlayerUp;
+
 		if (me->myIndex.y - 1 >= 0)
 		{
 			TileNode* upTilePos;
@@ -257,6 +264,13 @@ void PlayerIdle::BeatExcute()
 
 			if (upTilePos->GetAttribute() == ObjNone)
 			{
+				tempArr = upTilePos->GetObjects(ObjectMonster);
+			if (tempArr.size() > 0) 
+			{
+				me->ChangeState("Attack");
+				return;
+			}
+
 				me->startTime = 0;
 				me->startPos = me->position;
 
@@ -283,15 +297,22 @@ void PlayerIdle::BeatExcute()
 	else if (KeyCode->Down(VK_DOWN))
 	{
 		me->playerDirection = PlayerDown;
+
 		if (me->myIndex.y + 1 < TileManager::mapSize.y)
 		{
 			TileNode* downTilePos;
 			downTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1);
 
-			if (downTilePos->GetAttribute() == ObjDestructable)downTilePos->SendCallbackMessage("ShovelHit");
 
 			if (downTilePos->GetAttribute() == ObjNone)
 			{
+				tempArr = downTilePos->GetObjects(ObjectMonster);
+				if (tempArr.size() > 0) 
+				{
+					me->ChangeState("Attack");
+					return;
+				}
+
 				me->startTime = 0;
 				me->startPos = me->position;
 
@@ -375,6 +396,7 @@ void PlayerAttack::BeatExcute()
 
 void PlayerAttack::Excute()
 {
+
 
 	// 아이템 범위 받으면 좀더 예쁘게 만들 수 있지 않을까??
 	if (me->playerDirection == PlayerLeft)
