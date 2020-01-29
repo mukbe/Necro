@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "RenderManager.h"
-
+#include "./Systems/Manage/TileManager.h"
+#include "./GameObject/Map/TileNode.h"
 
 
 void RenderManager::Request(GameObject * const obj, const Layer & layer)
@@ -83,18 +84,40 @@ void RenderManager::ObjectRender()
 			obj->Render();
 	}
 
-	arr = renderList[Layer::Terrain];
-	Iter = arr.begin();
+	//arr = renderList[Layer::Terrain];
+	//Iter = arr.begin();
 	FloatRect render = CAMERA->GetRenderRect();
 
-	for (GameObject* obj : arr)
+	POINT startIndex = PosToIndex(D3DXVECTOR2(render.left, render.top), TileManager::tileSize, TileManager::pivotPos);
+	POINT endIndex = PosToIndex(D3DXVECTOR2(render.right, render.bottom), TileManager::tileSize, TileManager::pivotPos);
+
+	startIndex.x = Math::Clamp(startIndex.x - 1, -1, TileManager::mapSize.x);
+	startIndex.y = Math::Clamp(startIndex.y - 1, -1, TileManager::mapSize.y);
+	endIndex.x = Math::Clamp(endIndex.x + 1, -1, TileManager::mapSize.x);
+	endIndex.y = Math::Clamp(endIndex.y + 1, -1, TileManager::mapSize.y);
+
+	POINT deltaIndex = { endIndex.x - startIndex.x, endIndex.y - endIndex.x };
+
+	for (LONG y = startIndex.y; y <= endIndex.y; y++)
 	{
-		if (obj->IsActive())
+		for (LONG x = startIndex.x; x <= endIndex.x; x++)
 		{
-			if (Math::IsAABBInAABB(render, obj->GetRect()))
-				obj->Render();
+			TileNode* tile = _TileMap->Tile((int)x, (int)y);
+			if (tile != nullptr)
+				tile->Render();
 		}
 	}
+
+
+
+	//for (GameObject* obj : arr)
+	//{
+	//	if (obj->IsActive())
+	//	{
+	//		if (Math::IsAABBInAABB(render, obj->GetRect()))
+	//			obj->Render();
+	//	}
+	//}
 
 
 	//TODO Äü¼ÒÆ®·Î ¹Ù²ã¶ó

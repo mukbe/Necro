@@ -5,7 +5,7 @@
 TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Terrain);
+	moveType = MoveType_Control;
 
 	tileSize = size;
 	isSelected = false;
@@ -19,6 +19,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		typeVector tempVector;
 		objectStorage.insert(make_pair((ObjectType)i, tempVector));
 	}
+
 }
 
 TileNode::~TileNode()
@@ -26,21 +27,28 @@ TileNode::~TileNode()
 
 }
 
-void TileNode::Init(string textureStringKey, POINT textureFrameIndex, AttributeType type)
+void TileNode::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::Terrain);
+}
+
+void TileNode::SetData(string textureStringKey, POINT textureFrameIndex, AttributeType type)
 {
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
+	texture = _ImageManager->FindTexture(textureKey);
 	ReleaseObjects();
 }
 
-void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)
+void TileNode::SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)
 {
 	this->Transform().SetPos(pos);
 	this->Transform().SetScale(size);
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
+	texture = _ImageManager->FindTexture(textureKey);
 	ReleaseObjects();
 }
 
@@ -56,24 +64,25 @@ void TileNode::ControllUpdate()
 
 void TileNode::Update(float tick)
 {
-	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
-	{
-		if (Keyboard::Get()->Down(VK_LBUTTON))
-		{
-			isSelected = true;
-		}
-	}
+	//if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	//{
+	//	if (Keyboard::Get()->Down(VK_LBUTTON))
+	//	{
+	//		isSelected = true;
+	//	}
+	//}
 
-	if (Keyboard::Get()->Up(VK_LBUTTON))
-	{
-		isSelected = false;
-	}
+	//if (Keyboard::Get()->Up(VK_LBUTTON))
+	//{
+	//	isSelected = false;
+	//}
 }
 
 void TileNode::Render()
 {
 	p2DRenderer->SetCamera(!isUI);
-	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
+	
+	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
 	
 	if(!isUI)
 	{
