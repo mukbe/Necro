@@ -5,11 +5,12 @@ ItemWeapon::ItemWeapon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;
-
+	
 }
 
 ItemWeapon::~ItemWeapon()
 {
+
 }
 
 void ItemWeapon::Init()
@@ -24,15 +25,18 @@ void ItemWeapon::Release()
 
 void ItemWeapon::ControlUpdate()
 {
+	// 단검 / 창던질 때 커맨드 해야하니까  이 함수 남겨놔야하나 
 }
 
 void ItemWeapon::Update()
 {
+
 }
 
 void ItemWeapon::Render()
 {
-	Log_ErrorAssert(info.Imagekey == "")
+	Log_ErrorAssert(info.Imagekey == "");
+	if (info.Imagekey == "") return;
 	_ImageManager->FindTexture(info.Imagekey)->FrameRender(rc, nullptr, 0, (UINT)bShow);
 }
 

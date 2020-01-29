@@ -6,10 +6,7 @@ ItemHead::ItemHead(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;
-	AddCallback("SendHeadDate", [&](TagMessage msg)
-	{
-
-	});
+	
 }
 
 ItemHead::~ItemHead()
@@ -38,4 +35,8 @@ void ItemHead::Render()
 void ItemHead::Init(POINT tileIndex)
 {
 	ItemBase::Init(tileIndex);
+}
+
+void ItemHead::EatItem()
+{
 }
