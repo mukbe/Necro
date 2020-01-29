@@ -7,7 +7,9 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
 	TileManager::SetMapInfo(defaultMapSize, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
-	map = new TileManager;
+	//map = new TileManager;
+	map = _GameWorld->GetTileManager();
+	map->CreateMap();
 
 	pallete = new Pallete(D3DXVECTOR2(defaultMapSize.x * defaultTileSize.x, 0.f));
 

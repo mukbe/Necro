@@ -72,11 +72,21 @@ void TileManager::ReleaseMap()
 
 TileNode* TileManager::Tile(POINT index)
 {
+	if (index.x < 0 || index.y < 0 || index.x > mapSize.x || index.y > mapSize.y)
+	{
+		return nullptr;
+	}
+
 	return mapTiles[index.y * mapSize.x + index.x];
 }
 
 TileNode * TileManager::Tile(int x, int y)
 {
+	if (x < 0 || y < 0 || x > mapSize.x || y > mapSize.y)
+	{
+		return nullptr;
+	}
+
 	return mapTiles[y * mapSize.x + x];
 }
 

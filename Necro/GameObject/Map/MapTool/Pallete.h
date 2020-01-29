@@ -4,16 +4,69 @@ class palleteNode : public GameObject
 {
 public:
 	palleteNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-		: GameObject(name,pos,size)
+		: GameObject(name, pos, size), IsSelected(false)
 	{
 		_RenderPool->Request(this, RenderManager::Layer::UI);
 	}
-	~palleteNode(){}
+	~palleteNode() {}
+
+	virtual void Init()
+	{
+
+	}
+
+	virtual void SetData(string TextureKey, GameObject* Object)
+	{
+		textureKey = TextureKey;
+		myObject = Object;
+	}
+
+	virtual void Release()
+	{
+		_RenderPool->Remove(this, RenderManager::Layer::UI);
+	}
+
+	virtual void Update(float tick)
+	{
+		int a = 0;
+		if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
+		{
+			HighlightRender(255, 255, 255);
+			if (Keyboard::Get()->Down(VK_LBUTTON))
+			{
+				IsSelected = true;
+			}
+		}
+	}
+
+	virtual void Render()
+	{
+		if (IsSelected)
+		{
+			HighlightRender(200, 50, 50);
+		}
+
+		_ImageManager->Render(textureKey, rc, NULL);
+		int a = 0;
+	}
+
+	void HighlightRender(BYTE r, BYTE g, BYTE b)
+	{
+		p2DRenderer->SetCamera(false);
+		p2DRenderer->DrawLine(D3DXVECTOR2(rc.left, rc.top), D3DXVECTOR2(rc.right, rc.top), nullptr,
+			D3DXCOLOR(r, g, b, 1), 2);
+		p2DRenderer->DrawLine(D3DXVECTOR2(rc.right, rc.top), D3DXVECTOR2(rc.right, rc.bottom), nullptr,
+			D3DXCOLOR(r, g, b, 1), 2);
+		p2DRenderer->DrawLine(D3DXVECTOR2(rc.right, rc.bottom), D3DXVECTOR2(rc.left, rc.bottom), nullptr,
+			D3DXCOLOR(r, g, b, 1), 2);
+		p2DRenderer->DrawLine(D3DXVECTOR2(rc.left, rc.bottom), D3DXVECTOR2(rc.left, rc.top), nullptr,
+			D3DXCOLOR(r, g, b, 1), 2);
+	}
 
 private:
 	string textureKey;
 	GameObject* myObject;
-	
+	bool IsSelected;
 };
 
 class Pallete
@@ -68,8 +121,8 @@ public:
 	}
 
 private:
-	vector<palleteNode*> palleteMap;
-	vector<palleteNode*>::iterator palleteIter;
+	vector<palleteNode*> vecPallete;
+	typedef vector<palleteNode*>::iterator PalleteIter;
 
 	int separateSize;
 	D3DXVECTOR2 pivotPos;
@@ -80,8 +133,5 @@ private:
 	typedef unordered_map<ObjectType, vector<GameObject*>>::iterator MapIter;
 	typedef vector<GameObject*> VecStorage;
 	typedef vector<GameObject*>::iterator VecIter;
-
-	vector<TileNode*> palleteTiles;
-	typedef vector<TileNode*>::iterator PalleteIter;
 };
 
