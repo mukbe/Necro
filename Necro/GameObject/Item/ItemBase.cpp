@@ -12,9 +12,11 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	});													
 	AddCallback("Hide", [&](TagMessage msg) {			// 시야가 멀어져 안보일때 
 		bShow = false;									
-	});													
+	});										
+
+	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {
-		//게임데이터한테 코인증가량을 전달
+		
 		if (!IsActive())
 		{
 			LOG->Print("This Object is inactive");
@@ -54,5 +56,6 @@ void ItemBase::Init(POINT tileIndex)
 
 void ItemBase::EatItem()
 {
-	LOG->Warning(__FILE__, __LINE__, "씨발 아이템 먹을때 함수 재정의 하라고");
+	// 오류 떴을 때 
+	LOG->Warning(__FILE__, __LINE__, "아이템 먹었는데 재정의 안해서 뜨는 오류 ");
 }

@@ -58,9 +58,10 @@ void WallBase::Update(float tick)
 	{
 		IconLifeTime += Time::Tick();
 
-		if (IconLifeTime >= 5.f)
+		if (IconLifeTime >= 0.3f)
 		{
 			haveIShowIcon = false;
+			IconLifeTime = 0.f;
 		}
 	}
 }

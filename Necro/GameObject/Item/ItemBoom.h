@@ -11,8 +11,12 @@ public:
 	virtual void ControlUpdate();
 	virtual void Update(float tick);
 	virtual void Render();
+	void Init(POINT tileIndex);
+
+	virtual void EatItem();
 
 private:
 	//ÆøÅº 
+	UINT hasbomb;
 };
 
