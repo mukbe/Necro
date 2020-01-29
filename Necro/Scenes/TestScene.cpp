@@ -70,7 +70,7 @@ void TestScene::Init()
 	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<BoomSlot>("UI_BoomSlot", D3DXVECTOR2(70, 350), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
-
+	//_ObjectPool->CreateObject<ItemShovel>("Shadow", D3DXVECTOR2(), D3DXVECTOR2(20.f, 5.f));
 	
 	//필드 아이템 관련 
 	ItemCoin* Coin =  _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
@@ -133,6 +133,7 @@ void TestScene::Init()
 // 이미지 
 void TestScene::ImageLoad()
 {
+	
 	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
@@ -156,6 +157,7 @@ void TestScene::ImageLoad()
 	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot.png");
 	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
 	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
+	_ImageManager->AddTexture("Shadow", ResourcePath + L"Item/Shadow.png");
 
 	_ImageManager->AddFrameTexture("Field_Coin", ResourcePath + L"Item/Field_Coin.png", 1, 2);
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);

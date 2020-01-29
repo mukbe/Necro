@@ -31,6 +31,7 @@ void ItemShovel::Update(float tick)
 void ItemShovel::Render()
 {
 	//_ImageManager->FindTexture("Pickaxe")->FrameRender(rc, nullptr, 0, (UINT)bShow);
+	//_ImageManager->FindTexture("Shovel")->FrameRender(rc.Update(D3DXVECTOR2(52.f,42.f),TileManager::tileSize * 0.85f,Pivot::CENTER), nullptr, 0, (UINT)bShow);
 	_ImageManager->FindTexture("Shovel")->FrameRender(rc, nullptr, 0, (UINT)bShow);
 }
 
