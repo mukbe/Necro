@@ -14,6 +14,7 @@
 #include "./Systems/Manage/ObjectManager.h"
 #include "./Systems/Manage/RenderManager.h"
 #include "./Systems/Manage/TileManager.h"
+//#include "./Systems/Manage/TextManager.h"
 #include "./Utilities/Matrix2D.h"
 #include "./Utilities/Matrix2x2.h"
 

@@ -12,7 +12,14 @@ TextManager::~TextManager()
 {
 }
 
-void TextManager::TextGame(Text2D::TextDesc desc)
+void TextManager::TextGame(wstring str, TextManager::TextDesc desc)
 {
-	
+	if (freeList.empty() != false)
+	{
+
+	}
+	else
+	{
+
+	}
 }

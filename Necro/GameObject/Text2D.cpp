@@ -47,7 +47,7 @@ void Text2D::Render()
 		p2DRenderer->GetRenderTarget()->DrawTextLayout(D2D1::Point2F(position.x, position.y), dwLayout, brush);
 }
 
-void Text2D::Setting(wstring str, TextDesc desc)
+void Text2D::Setting(wstring str, TextManager::TextDesc desc)
 {
 	text = str;
 
