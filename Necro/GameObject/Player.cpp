@@ -6,23 +6,32 @@
 Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	 moveType = MoveType_Control;
+	moveType = MoveType_Control;
 
 	frameX = frameY = 0;
 	this->size = size;
 	position = pos;
 	imagePos = pos;
 	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(ObjectPlayer,this); // 타일에 등록
+	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(ObjectPlayer, this); // 타일에 등록
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
-
+	playerDirection = PlayerRight;
 	jumpPower = 0;
-	gravity = 0 ;
+	gravity = 0;
 	startTime = 0;
+
+	AddCallback("PlayerHit", [&](TagMessage msg) {
+
+		CAMERA->Shake();
+		// 이팩트가 뜨고. > 나중에 추가해 준대
+		// 피를 깍아준다. > 아직 구현 안되있음. 
+
+	});
+	// 피를 업데이트에서 계속 확인해 주고 피가 0이 되면 캐릭터 죽인다음에 죽었다고 씬메니져? 같은곳에 넘겨야 할듯 
 
 	currentState = nullptr;
 	stateList.insert(make_pair("Idle", new PlayerIdle(this)));
@@ -85,11 +94,9 @@ void Player::Update(float tick)
 
 void Player::Render()
 {
-	
-	
 	// 이미지 위치 보정 (-20);
 	// 이미지만 점프 시킬꺼면 변수를 _포즈 말고 다른거 써야됨 . >> 포즈는 인덱스 검출하고 그래서 그냥 중점에 박혀있는게 좋기 때문.. 
-	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(position.x, position.y+5), D3DXVECTOR2(size.x, size.y / 4), Pivot::CENTER), nullptr);
+	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(position.x, position.y + 5), D3DXVECTOR2(size.x, size.y / 4), Pivot::CENTER), nullptr);
 	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
 	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
 }
@@ -136,14 +143,6 @@ void PlayerIdle::BeatExcute()
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-
-
-	if (KeyCode->Down(VK_LEFT))
-	{
-		me->head = "PlayerHeadLeft";
-		me->body = "PlayerBodyLeft";
-
 		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 내일 할거 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 		//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
 		//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.  >> 완료
@@ -151,31 +150,44 @@ void PlayerIdle::BeatExcute()
 		// 3. 몬스터 죽이기 
 		// 4. 2,3 되는 동안 방향(디렉션) 이넘 하나 만들어 주고, 피격 시 어떻게 할건지 , 피다달면 어떻게 할건지 (-> 이거는 씬메니져에 메세지도 보내야할듯)
 
- 		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 		// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
-
 
 		// 아이템은 아이템 베이스에서 기초를 확인 할수있고, 게임 데이터에 플레이어 hp등 저장됩니당 알아두세요
 
-	
-		// 왠진 모르겠지만 이 이프문 두개를 &&로 묶어서 같이 놓으면 인덱스에 오류생겨서 터짐 
+	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	vector<GameObject*> tempArr; 
+
+	if (KeyCode->Down(VK_LEFT))
+	{
+		me->head = "PlayerHeadLeft";
+		me->body = "PlayerBodyLeft";
+		me->playerDirection = PlayerLeft;
+
+
 		// 갈 곳의 인덱스가 맵밖이 아니고 , 장애물이 아닌경우 > > > 움직여라!
 		if (me->myIndex.x - 1 >= 0) {
 			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
 			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
 			TileNode* leftTilePos;
-			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x -1, me->myIndex.y);
-			
+			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y);
+
 			if (leftTilePos->GetAttribute() == ObjDestructable)leftTilePos->SendCallbackMessage("ShovelHit");
-			
-			// 지금은 그냥 벽같은게 아니면 움직이게 되있지만, 나중에는 걸을수 있을때 로 범위를 좁혀 줘야 함.
-			if (leftTilePos->GetAttribute() != ObjDestructable)
+
+			if (leftTilePos->GetAttribute() == ObjNone) // 지나갈수있는 타일이면 
 			{
+				// 여기서 타일 검사 해서 에너민지 봐야할거같은데
+				// ObjectMonster
+				if (tempArr == leftTilePos->GetObjects(ObjectMonster)) // 만약에 저 타일에 있는 오브젝트가 몬스터가 맞으면
+				{
+					me->ChangeState("Attack");
+				}
+
 				me->startTime = 0; // 시작 시간 초기화
 				me->startPos = me->position; // 시작 위치 
-				
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me); // 원래 있던 타일 삭제하고
-				leftTilePos->AddObject(ObjectPlayer,me); // 플레이어를 타일에 등록한다.
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me); // 원래 있던 타일 삭제하고
+				leftTilePos->AddObject(ObjectPlayer, me); // 플레이어를 타일에 등록한다.
 
 				me->destination.x = leftTilePos->GetPos().x; // 목적지
 
@@ -184,11 +196,12 @@ void PlayerIdle::BeatExcute()
 
 				me->ChangeState("Move");
 			}
+
 			// 이게 이동 위에 있으면 부순뒤 - 이동이 됨으로 전진하면서 부숨 ( 창 )
 			if (leftTilePos->GetAttribute() == ObjDestructable)
 			{
 				// 해당 오브젝트 찾아서 조지는듯 
-				vector<GameObject*> tempArr = leftTilePos->GetObjects(ObjectWall);
+				tempArr = leftTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -201,22 +214,21 @@ void PlayerIdle::BeatExcute()
 	{
 		me->head = "PlayerHeadRight";
 		me->body = "PlayerBodyRight";
+		me->playerDirection = PlayerRight;
 
-		
 		if (me->myIndex.x + 1 < TileManager::mapSize.x)
 		{
 			TileNode* rightTilePos;
-			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x+1 , me->myIndex.y);
+			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y);
 
-			if (rightTilePos->GetAttribute() == ObjDestructable)rightTilePos->SendCallbackMessage("ShovelHit");
-			
-			if (rightTilePos->GetAttribute() != ObjDestructable)
+
+			if (rightTilePos->GetAttribute() == ObjNone)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
-				rightTilePos->AddObject(ObjectPlayer,me);
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
+				rightTilePos->AddObject(ObjectPlayer, me);
 
 				me->destination.x = rightTilePos->GetPos().x;
 
@@ -227,7 +239,7 @@ void PlayerIdle::BeatExcute()
 			}
 			if (rightTilePos->GetAttribute() == ObjDestructable)
 			{
-				vector<GameObject*> tempArr = rightTilePos->GetObjects(ObjectWall);
+				tempArr = rightTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -237,18 +249,19 @@ void PlayerIdle::BeatExcute()
 	}
 	else if (KeyCode->Down(VK_UP))
 	{
+		me->playerDirection = PlayerUp;
 		if (me->myIndex.y - 1 >= 0)
 		{
 			TileNode* upTilePos;
-			upTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y-1);
-			
-			if (upTilePos->GetAttribute() != ObjDestructable)
+			upTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1);
+
+			if (upTilePos->GetAttribute() == ObjNone)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
-				upTilePos->AddObject(ObjectPlayer,me);
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
+				upTilePos->AddObject(ObjectPlayer, me);
 
 				me->destination.y = upTilePos->GetPos().y;
 
@@ -259,8 +272,7 @@ void PlayerIdle::BeatExcute()
 
 			if (upTilePos->GetAttribute() == ObjDestructable)
 			{
-
-				vector<GameObject*> tempArr = upTilePos->GetObjects(ObjectWall);
+				 tempArr = upTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -270,6 +282,7 @@ void PlayerIdle::BeatExcute()
 	}
 	else if (KeyCode->Down(VK_DOWN))
 	{
+		me->playerDirection = PlayerDown;
 		if (me->myIndex.y + 1 < TileManager::mapSize.y)
 		{
 			TileNode* downTilePos;
@@ -277,13 +290,13 @@ void PlayerIdle::BeatExcute()
 
 			if (downTilePos->GetAttribute() == ObjDestructable)downTilePos->SendCallbackMessage("ShovelHit");
 
-			if (downTilePos->GetAttribute() != ObjDestructable)
+			if (downTilePos->GetAttribute() == ObjNone)
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
-				downTilePos->AddObject(ObjectPlayer,me);
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
+				downTilePos->AddObject(ObjectPlayer, me);
 
 				me->destination.y = downTilePos->GetPos().y;
 
@@ -294,7 +307,7 @@ void PlayerIdle::BeatExcute()
 
 			if (downTilePos->GetAttribute() == ObjDestructable)
 			{
-				vector<GameObject*> tempArr = downTilePos->GetObjects(ObjectWall);
+				 tempArr = downTilePos->GetObjects(ObjectWall);
 				for (int i = 0; i < tempArr.size(); ++i)
 				{
 					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
@@ -332,7 +345,7 @@ void PlayerMove::Excute()
 	me->position = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
 
 	// 점프 
-	if (factor <= 1.0f)												
+	if (factor <= 1.0f)
 	{
 		me->imagePos.y -= me->jumpPower;
 		me->jumpPower -= me->gravity;
@@ -357,10 +370,50 @@ void PlayerAttack::Enter()
 
 void PlayerAttack::BeatExcute()
 {
+	
 }
 
 void PlayerAttack::Excute()
 {
+
+	// 아이템 범위 받으면 좀더 예쁘게 만들 수 있지 않을까??
+	if (me->playerDirection == PlayerLeft)
+	{
+		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
+		for (int i = 0; i < tempArr.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
+		}
+	}
+	if (me->playerDirection == PlayerRight)
+	{
+		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetObjects(ObjectMonster);
+		for (int i = 0; i < tempArr.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
+		}
+	}
+	if (me->playerDirection == PlayerUp)
+	{
+		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y-1)->GetObjects(ObjectMonster);
+
+		for (int i = 0; i < tempArr.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
+		}
+	}
+	if (me->playerDirection == PlayerDown)
+	{
+		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y+1)->GetObjects(ObjectMonster);
+
+		for (int i = 0; i < tempArr.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
+		}
+	}
+
+	CAMERA->Shake(); // 몬스터 피격시가 아니라 여기서 해주는게 나을거같대 
+	me->ChangeState("Idle");
 }
 
 void PlayerAttack::Exit()
