@@ -4,7 +4,7 @@ class palleteNode : public GameObject
 {
 public:
 	palleteNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-		: GameObject(name, pos, size), IsSelected(false)
+		: GameObject(name, pos, size), isSelected(false)
 	{
 		_RenderPool->Request(this, RenderManager::Layer::UI);
 	}
@@ -31,17 +31,25 @@ public:
 		int a = 0;
 		if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
 		{
-			HighlightRender(255, 255, 255);
+			isMouseOnMe = true;
 			if (Keyboard::Get()->Down(VK_LBUTTON))
 			{
-				IsSelected = true;
+				isSelected = true;
 			}
+		}
+		else
+		{
+			isMouseOnMe = false;
 		}
 	}
 
 	virtual void Render()
 	{
-		if (IsSelected)
+		if (isMouseOnMe)
+		{
+			HighlightRender(255, 255, 255);
+		}
+		if (isSelected)
 		{
 			HighlightRender(200, 50, 50);
 		}
@@ -66,7 +74,8 @@ public:
 private:
 	string textureKey;
 	GameObject* myObject;
-	bool IsSelected;
+	bool isSelected;
+	bool isMouseOnMe;
 };
 
 class Pallete

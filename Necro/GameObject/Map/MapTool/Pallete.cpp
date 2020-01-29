@@ -29,10 +29,7 @@ Pallete::Pallete(D3DXVECTOR2 pivot)
 		VecStorage tempStorage;
 		objectStorage.insert(make_pair((ObjectType)i, tempStorage));
 	}
-
 	LoadObjects();
-
-	
 }
 
 Pallete::~Pallete()

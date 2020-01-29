@@ -3,8 +3,7 @@
 
 MapToolScene::MapToolScene()
 	: SceneBase()
-{
-	
+{	
 }
 
 MapToolScene::~MapToolScene()
