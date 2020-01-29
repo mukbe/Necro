@@ -38,12 +38,13 @@ private:
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
 	D3DXVECTOR2 destination;	// 목적지
-	D3DXVECTOR2 jumpPos;		// 점프지 최고점 (방향 마다 다름)
 	float startTime;			// 시작 시간 
 	D3DXVECTOR2 startPos;		// 시작 위치 저장용
 
 	POINT myIndex;				// 이동할때마다 확인하기용 현제 내위치 인덱스 
 
+	float jumpPower;			// 점프 힘
+	float gravity;				// 중력
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);

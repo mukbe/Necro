@@ -1,0 +1,8 @@
+diff a/Necro/GameObject/Monster/Bat.cpp b/Necro/GameObject/Monster/Bat.cpp	(rejected hunks)
+@@ -1,6 +1,5 @@
+ #include "stdafx.h"
+ #include "Bat.h"
+-#include "TileManager.h"
+ //#include "TileManager.h"
+ //#include "TileNode.h"
+ 

@@ -83,17 +83,42 @@ void RenderManager::ObjectRender()
 			obj->Render();
 	}
 
-	arr = renderList[Layer::Object];
+	arr = renderList[Layer::Terrain];
+	Iter = arr.begin();
 	FloatRect render = CAMERA->GetRenderRect();
+
 	for (GameObject* obj : arr)
 	{
 		if (obj->IsActive())
 		{
-			if(Math::IsAABBInAABB(render,obj->GetRect()))
+			if (Math::IsAABBInAABB(render, obj->GetRect()))
 				obj->Render();
 		}
 	}
 
+
+	//TODO Äü¼ÒÆ®·Î ¹Ù²ã¶ó
+	multimap<float, GameObject*> sorted;
+	multimap<float, GameObject*>::iterator sortedIter;
+
+	arr = renderList[Layer::Object];
+	for (GameObject* obj : arr)
+	{
+		if (obj->IsActive())
+		{
+			if (Math::IsAABBInAABB(render, obj->GetRect()))
+			{
+				sorted.insert(make_pair(obj->GetRect().bottom, obj));
+			}
+				//obj->Render();
+		}
+	}
+
+	sortedIter = sorted.begin();
+	for (; sortedIter != sorted.end(); ++sortedIter)
+	{
+		sortedIter->second->Render();
+	}
 
 }
 

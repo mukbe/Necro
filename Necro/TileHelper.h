@@ -54,8 +54,8 @@ static D3DXVECTOR2 IndexToPos(const POINT index, const D3DXVECTOR2 tileSize, con
 
 static POINT PosToIndex(const D3DXVECTOR2 pos, const D3DXVECTOR2 tileSize, const D3DXVECTOR2 pivotPos)
 {
-	float x = ((pos.x - pivotPos.x) / tileSize.x) * 2.f;
-	float y = ((pos.y - pivotPos.y) / tileSize.y) * 2.f;
+	float x = ((pos.x - pivotPos.x) / tileSize.x);
+	float y = ((pos.y - pivotPos.y) / tileSize.y);
 
 	return {(int)x, (int)y};
 }

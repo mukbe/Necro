@@ -12,29 +12,20 @@ public:
 
 	virtual void Init();
 	virtual void Release();
-	virtual void PreUpdate();
 	virtual void Update(float tick);
 	virtual void ControlUpdate();
 
 	virtual void Render();
 	virtual void ImguiRender();
-	virtual void SettingCenterXY(float tilesize);
-	virtual void MoveAndCheck();
 	void ChangeState(string key);
 	
-	//void setMapMemoryAddressLink(TileManager* tm) { tilemanger = tm; }
+	
 
 protected :
 
 	int FrameCount;
 	int frameX;
 	int frameY;
-	float tilesize;
-	float x;
-	float y;
-	D3DXVECTOR2 speed;
-	int tileX, tileY;
-	//TileManager *tilemanger;
 	unordered_map<string, class MonsterStateBase*> states;
 	MonsterStateBase* currentState;
 	D3DXVECTOR2 startPos;
@@ -42,12 +33,13 @@ protected :
 
 	float batX;
 	float batY;
-
+	int monsterBeat;
 private:
+	POINT myIndex;
+	POINT mynextIndex;
 	bool firstmove;
 	float startTime;
 	float realtime;
-	
 	
 };
 

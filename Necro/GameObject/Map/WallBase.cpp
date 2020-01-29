@@ -12,6 +12,7 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		haveIShowIcon = true;
 		if (type == WallDestructableShovel)
 		{
+			CAMERA->Shake();
 			ProcessDestroy();
 		}
 		
@@ -20,6 +21,7 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		haveIShowIcon = true;
 		if (type == WallDestructablePick || type == WallDestructableShovel)
 		{
+			CAMERA->Shake();
 			ProcessDestroy();
 		}
 	});
