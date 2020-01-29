@@ -5,7 +5,7 @@
 TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
 {
-	_RenderPool->Request(this, RenderManager::Layer::Terrain);
+	moveType = MoveType_Control;
 
 	tileSize = size;
 	isSelected = false;
@@ -19,11 +19,17 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		typeVector tempVector;
 		objectStorage.insert(make_pair((ObjectType)i, tempVector));
 	}
+
 }
 
 TileNode::~TileNode()
 {
 
+}
+
+void TileNode::Init()
+{
+	_RenderPool->Request(this, RenderManager::Layer::Terrain);
 }
 
 void TileNode::Init(string textureStringKey, POINT textureFrameIndex, AttributeType type)
@@ -56,18 +62,18 @@ void TileNode::ControllUpdate()
 
 void TileNode::Update(float tick)
 {
-	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
-	{
-		if (Keyboard::Get()->Down(VK_LBUTTON))
-		{
-			isSelected = true;
-		}
-	}
+	//if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	//{
+	//	if (Keyboard::Get()->Down(VK_LBUTTON))
+	//	{
+	//		isSelected = true;
+	//	}
+	//}
 
-	if (Keyboard::Get()->Up(VK_LBUTTON))
-	{
-		isSelected = false;
-	}
+	//if (Keyboard::Get()->Up(VK_LBUTTON))
+	//{
+	//	isSelected = false;
+	//}
 }
 
 void TileNode::Render()

@@ -10,6 +10,7 @@ public:
 	TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~TileNode();
 
+	virtual void Init();
 	virtual void Init(string textureStringKey = "DefaultMap", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	virtual void Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	
@@ -48,7 +49,21 @@ public:
 	RECT GetCollision() { return rc.GetRect(); }
 
 	vector<GameObject*> GetObjects(ObjectType type) { return objectStorage[type]; }
-	void AddObject(ObjectType type, GameObject* input) { objectStorage[type].push_back(input); }
+	GameObject* AddObject(ObjectType type, GameObject* input) 
+	{ 
+		OnIter iter = objectStorage[type].begin(), end = objectStorage[type].end();
+
+		for (; iter != end; ++iter)
+		{
+			if ((*iter) == input)
+			{
+				return nullptr;
+			}
+		}
+		objectStorage[type].push_back(input);
+
+		return input;
+	}
 	void DeleteObject(ObjectType type, GameObject* input)
 	{
 		for (int i = 0; i < objectStorage[type].size(); ++i)
