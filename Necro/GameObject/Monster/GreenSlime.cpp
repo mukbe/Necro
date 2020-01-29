@@ -16,6 +16,8 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	frameY=0;
 	position = pos;
 	this->size = size;
+	startPos = pos;
+	endPos = pos;
 	
 }
 
