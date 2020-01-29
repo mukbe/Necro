@@ -12,14 +12,18 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	this->size = size;
 	position = pos;
 	imagePos = pos;
+	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(this); // 타일에 등록
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
 	head = "PlayerHeadRight";
 	body = "PlayerBodyRight";
+
 	jumpPower = 0;
 	gravity = 0 ;
 	startTime = 0;
+
 	currentState = nullptr;
 	stateList.insert(make_pair("Idle", new PlayerIdle(this)));
 	stateList.insert(make_pair("Move", new PlayerMove(this)));
@@ -38,7 +42,7 @@ void Player::Init()
 	GameObject::Init();
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
-	
+
 }
 
 void Player::Release()
@@ -146,6 +150,7 @@ void PlayerIdle::BeatExcute()
 		// 2. 무기 범위 받기
 		// 3. 몬스터 죽이기 
 		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+		// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
 
 
 		// 아이템은 아이템 베이스에서 기초를 확인 할수있고, 게임 데이터에 플레이어 hp등 저장됩니당 알아두세요
@@ -161,14 +166,16 @@ void PlayerIdle::BeatExcute()
 			
 			if (leftTilePos->GetAttribute() == ObjDestructable)leftTilePos->SendCallbackMessage("ShovelHit");
 			
+			// 지금은 그냥 벽같은게 아니면 움직이게 되있지만, 나중에는 걸을수 있을때 로 범위를 좁혀 줘야 함.
 			if (leftTilePos->GetAttribute() != ObjDestructable)
 			{
-				me->startTime = 0;																					  // 시작 시간 초기화
-				me->startPos = me->position;																			  // 시작 위치 
-				//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
-				//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
-				me->destination.x = leftTilePos->GetPos().x; // 목적지
+				me->startTime = 0; // 시작 시간 초기화
+				me->startPos = me->position; // 시작 위치 
+				
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me); // 원래 있던 타일 삭제하고
+				leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
 
+				me->destination.x = leftTilePos->GetPos().x; // 목적지
 
 				me->jumpPower = 4.5f;
 				me->gravity = 0.6f;
@@ -193,7 +200,7 @@ void PlayerIdle::BeatExcute()
 		me->head = "PlayerHeadRight";
 		me->body = "PlayerBodyRight";
 
-		// mapSize 멀리 돌아갈 필요 없이 바로 소환할수있으면 소환해서 하는게 좋다 . 
+		
 		if (me->myIndex.x + 1 < TileManager::mapSize.x)
 		{
 			TileNode* rightTilePos;
@@ -205,6 +212,10 @@ void PlayerIdle::BeatExcute()
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
+				rightTilePos->AddObject(me); 
+
 				me->destination.x = rightTilePos->GetPos().x;
 
 				me->jumpPower = 4.5f;
@@ -233,6 +244,10 @@ void PlayerIdle::BeatExcute()
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
+				upTilePos->AddObject(me); 
+
 				me->destination.y = upTilePos->GetPos().y;
 
 				me->jumpPower = 9.5f;
@@ -264,6 +279,10 @@ void PlayerIdle::BeatExcute()
 			{
 				me->startTime = 0;
 				me->startPos = me->position;
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
+				downTilePos->AddObject(me); 
+
 				me->destination.y = downTilePos->GetPos().y;
 
 				me->jumpPower = 0.6f;
@@ -307,12 +326,6 @@ void PlayerMove::Excute()
 
 	me->startTime += Time::Tick()*1.5f;									// 0으로 초기화한 startTime에 tick을 더해라 
 	float factor = me->startTime / 0.25f;							// lerp 함수 안에 넣을 factor , 전체 시간분에 목표시간
-
-	//if (factor >= 0.5f)
-	//{
-	//	me->startTime +=   2.0f*Time::Tick();
-	//	factor = me->startTime / 0.25f;
-	//}
 
 	me->position = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동
 

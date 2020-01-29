@@ -44,7 +44,7 @@ void RedDragon::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 6)
+		if (frameX > 8)
 		{
 
 			frameX = 0;
