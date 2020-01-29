@@ -35,6 +35,8 @@ protected :
 	float batX;
 	float batY;
 	int monsterBeat;
+	int life;
+
 private:
 	POINT myIndex;
 	POINT mynextIndex;

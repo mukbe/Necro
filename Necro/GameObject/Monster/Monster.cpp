@@ -127,6 +127,7 @@ void MonsterStateOneStep::Enter()
 	
 	me->startTime = 0.f;
 	//me->realtime = 0.f;
+	
 
 }
 
@@ -142,6 +143,11 @@ void MonsterStateOneStep::Update()
 	//½ºÄÌ·¹Åæ ¿òÁ÷ÀÓ
 	if (me->name == "Skeleton")
 	{
+
+		//for(int i=)
+		//vector<GameObject*> tempArr = upTilePos->GetObjects(ObjectPlayer);
+
+
 				//batX¶û batY´Â ¹ÚÁãÁÂÇ¥ÀÎµ¥ ÀÏ´Ü µû¶ó°¡°Ô ÇØ³õÀº°ÅÀÓ
 				if (me->startPos.x < batX) 
 				{
