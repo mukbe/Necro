@@ -1,9 +1,5 @@
 #include "stdafx.h"
 #include "GreenSlime.h"
-#include "./Systems/Manage/TileManager.h""
-#include "./GameObject/Map/TileNode.h"
-#include "Bat.h"
-//#include "Monster.h"
 
 GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name, pos, size)

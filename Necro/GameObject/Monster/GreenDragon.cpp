@@ -44,7 +44,7 @@ void GreenDragon::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 1)
+		if (frameX > 3)
 		{
 
 			frameX = 0;
