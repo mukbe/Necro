@@ -1694,3 +1694,5 @@ Code: shared_ptr<Testure> use count != 1
  2020.1.28	21:56:44	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
+===================================================
+ 2020.1.29	15:04:53	 'Directx11 2D' Start Succeeded
