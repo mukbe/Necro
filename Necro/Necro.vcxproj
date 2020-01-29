@@ -197,6 +197,7 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
+    <ClCompile Include="Systems\Manage\TextManager.cpp" />
     <ClCompile Include="Scenes\Loading.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
+    <ClInclude Include="Systems\Manage\TextManager.h" />
     <ClInclude Include="Scenes\Loading.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
