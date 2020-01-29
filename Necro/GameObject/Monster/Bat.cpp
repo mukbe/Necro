@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "Bat.h"
 
-
-
+#include "./GameObject/Map/TileNode.h"
 
 Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
@@ -27,8 +26,8 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		
 		
 		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
+		//_ObjectPool->DeletaObject(this);
+		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
 	});
 
 

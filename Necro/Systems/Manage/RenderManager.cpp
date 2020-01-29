@@ -84,10 +84,7 @@ void RenderManager::ObjectRender()
 			obj->Render();
 	}
 
-	//arr = renderList[Layer::Terrain];
-	//Iter = arr.begin();
 	FloatRect render = CAMERA->GetRenderRect();
-
 	POINT startIndex = PosToIndex(D3DXVECTOR2(render.left, render.top), TileManager::tileSize, TileManager::pivotPos);
 	POINT endIndex = PosToIndex(D3DXVECTOR2(render.right, render.bottom), TileManager::tileSize, TileManager::pivotPos);
 
@@ -107,17 +104,6 @@ void RenderManager::ObjectRender()
 				tile->Render();
 		}
 	}
-
-
-
-	//for (GameObject* obj : arr)
-	//{
-	//	if (obj->IsActive())
-	//	{
-	//		if (Math::IsAABBInAABB(render, obj->GetRect()))
-	//			obj->Render();
-	//	}
-	//}
 
 
 	//TODO Äü¼ÒÆ®·Î ¹Ù²ã¶ó

@@ -216,7 +216,6 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UI\UIBase.cpp" />
-    <ClCompile Include="GameObject\Text2D.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -304,7 +303,6 @@
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UI\UIBase.h" />
-    <ClInclude Include="GameObject\Text2D.h" />
     <ClInclude Include="TileHelper.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />

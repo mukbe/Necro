@@ -3,6 +3,8 @@
 #include "./GameObject/TestPlayer.h"
 #include "./GameObject/UI/Note.h"
 #include"./GameObject/Player.h"
+#include "./GameObject/Map/MapTool/MapTool.h"
+#include "./GameObject/Map/TileNode.h"
 
 float BeatManager::currentDelta = 0.f;
 
@@ -37,6 +39,7 @@ bool BeatManager::CheckInputForUpdate()
 		{
 			if (check.second)
 			{
+				//플레이어 컨트롤에 의해서 움직여질 오브젝트
 				vector<GameObject*> objects = _ObjectPool->objects;
 				for (GameObject* obj : objects)
 				{
@@ -45,12 +48,39 @@ bool BeatManager::CheckInputForUpdate()
 						_MessagePool->ReserveMessage(obj, "OnBeat");
 					}
 				}
+
+
+				//타일들
+				FloatRect render = CAMERA->GetRenderRect();
+				POINT startIndex = PosToIndex(D3DXVECTOR2(render.left, render.top), TileManager::tileSize, TileManager::pivotPos);
+				POINT endIndex = PosToIndex(D3DXVECTOR2(render.right, render.bottom), TileManager::tileSize, TileManager::pivotPos);
+
+				startIndex.x = Math::Clamp(startIndex.x - 1, -1, TileManager::mapSize.x);
+				startIndex.y = Math::Clamp(startIndex.y - 1, -1, TileManager::mapSize.y);
+				endIndex.x = Math::Clamp(endIndex.x + 1, -1, TileManager::mapSize.x);
+				endIndex.y = Math::Clamp(endIndex.y + 1, -1, TileManager::mapSize.y);
+				
+				POINT deltaIndex = { endIndex.x - startIndex.x, endIndex.y - endIndex.x };
+
+				for (LONG y = startIndex.y; y <= endIndex.y; y++)
+				{
+					for (LONG x = startIndex.x; x <= endIndex.x; x++)
+					{
+
+						GameObject* tile = _TileMap->Tile((int)x, (int)y);
+						if(tile != nullptr)
+							_MessagePool->ReserveMessage(tile, "OnBeat");
+
+						//생길 수 있는 문제점 
+						//타일의 움직일 수 있는 찬스가 0에서 고정되는 현상
+						//해결방안 ControlUpdate를 타일에서 거친 후 마지막에 찬스를 하나 증가
+						//위에 방식이 맞는것 같다 업데이트 도중 화면 밖으로 넘어가게되면 해줄 수 없다 =>  메세지는 가능하지만 전체를 탐색할 수 없다
+					}
+				}
+
 				//노트에 사용자가 맞춰서 입력 받았을 때 행돌할 오브젝트들
 				//Player, Tile, Item 등  이것들 외에는 모두 업데이트에서 박자에 맞춤
 
-				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<TestPlayer>("Player"), "OnBeat");
-
-				//_MessagePool->ReserveMessage(_ObjectPool->FindObject<Player>("Player"), "OnBeat");
 				_MessagePool->ReserveMessage(target, "EnterBeat");
 
 				checkInfos.front().second = false;
@@ -60,7 +90,7 @@ bool BeatManager::CheckInputForUpdate()
 		else
 		{
 			//너무 빨리 눌렀다면
-
+			checkInfos.front().second = false;
 		}
 	}
 
@@ -204,6 +234,7 @@ void BeatManager::Update(float tick)
 			}
 			_MessagePool->ReserveMessage(obj, "AddChance");
 
+			//필요하면 타일들도 해줌
 		}
 
 	}

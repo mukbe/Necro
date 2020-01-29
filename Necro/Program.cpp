@@ -16,11 +16,11 @@ Program::Program()
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	SceneBase* scene = new MapToolScene;
-	_SceneManager->AddScene(scene);
-	
-	//SceneBase* scene = new TileTestScene;
+	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
+	
+	SceneBase* scene = new TestScene;
+	_SceneManager->AddScene(scene);
 
 
 	//SceneBase* scene = new TileTestScene;
