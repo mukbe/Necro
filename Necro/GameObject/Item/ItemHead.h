@@ -13,12 +13,14 @@ public:
 	virtual void Update(float tick);
 	virtual void Render();
 
-	virtual void Init(POINT tileIndex);
+	void Init(POINT tileIndex);
+	virtual void EatItem();
 
 private:
 
 	//광부 모자 
-	// 크기 , 위치는 똑같므 / 플레이어 기준 십자가 방향으로 벽들을 부숨  / 현재가지고 있는 삽보다 한단계 더 높은 오브젝트 까지 파괴 가능 
-
+	
+	GameData::ItemHeadInfo info; // 사이즈, 타일 벽 라이프 가지고 있음. 
+	UINT hasHead;
 };
 

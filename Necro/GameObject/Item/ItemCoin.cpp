@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ItemCoin.h"
 
+//코인 같은 경우에는 몬스터한테 랜덤으로 나옴 . 
 
 ItemCoin::ItemCoin(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
@@ -30,6 +31,7 @@ void ItemCoin::Update(float tick)
 
 void ItemCoin::Render()
 {
+
 	_ImageManager->FindTexture("Field_Coin")->FrameRender(rc, nullptr, 0, (UINT)bShow);
 }
 

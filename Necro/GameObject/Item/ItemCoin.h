@@ -12,7 +12,7 @@ public:
 	virtual void Update(float tick);
 	virtual void Render();
 
-	virtual void Init(POINT tileIndex);
+	void Init(POINT tileIndex);
 
 	virtual void EatItem();
 
