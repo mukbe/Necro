@@ -18,6 +18,18 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x ,position.y };
 	
 	monsterBeat = 2;
+
+	life = 1;
+
+	AddCallback("SkeletonHit", [&](TagMessage msg)
+	{
+
+
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
 	
 }
 

@@ -94,7 +94,7 @@ void Monster::Render()
 void Monster::ImguiRender()
 {
 
-	/*ImGui::Begin("mon");
+	ImGui::Begin("mon");
 	{
 		if (name == "Bat")
 		{
@@ -105,7 +105,7 @@ void Monster::ImguiRender()
 
 	}
 	ImGui::End();
-*/
+
 
 
 }
@@ -119,6 +119,18 @@ void Monster::ChangeState(string key)
 	MonsterStateBase* state = states[key];
 	state->Enter();
 	currentState = state;
+}
+
+void Monster::ProcessDestroy()
+{
+	life--;
+	if (life <= 0)
+	{
+		//이펙트 추가 필요.
+
+
+		this->SetActive(false);
+	}
 }
 
 //움직임 클래쓰

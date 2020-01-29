@@ -19,7 +19,7 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 	void ChangeState(string key);
-	
+	virtual void ProcessDestroy();
 	
 
 protected :

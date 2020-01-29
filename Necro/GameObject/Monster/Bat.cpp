@@ -24,9 +24,10 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("BatHit", [&](TagMessage msg)
 	{
 
-
+		
 		
 		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
 
 	});
 
@@ -88,15 +89,4 @@ void Bat::ImguiRender()
 {
 }
 
-void Bat::ProcessDestroy()
-{
-	life--;
-	if (life <= 0)
-	{
-		//이펙트 추가 필요.
-
-		
-		this->SetActive(false);
-	}
-}
 

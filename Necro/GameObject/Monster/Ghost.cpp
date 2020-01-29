@@ -14,6 +14,18 @@ Ghost::Ghost(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	startPos = pos;
 	endPos = { position.x + 52.f, position.y + 52.f };
 	monsterBeat = 2;
+
+	life = 1;
+
+	AddCallback("GhostHit", [&](TagMessage msg)
+	{
+
+
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
 }
 
 
