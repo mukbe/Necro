@@ -13,7 +13,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	position = pos;
 	imagePos = pos;
 	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(this); // 타일에 등록
+	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(ObjectPlayer,this); // 타일에 등록
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
@@ -146,10 +146,12 @@ void PlayerIdle::BeatExcute()
 
 		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 내일 할거 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 		//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
-		//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
+		//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.  >> 완료
 		// 2. 무기 범위 받기
 		// 3. 몬스터 죽이기 
-		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+		// 4. 2,3 되는 동안 방향(디렉션) 이넘 하나 만들어 주고, 피격 시 어떻게 할건지 , 피다달면 어떻게 할건지 (-> 이거는 씬메니져에 메세지도 보내야할듯)
+
+ 		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 		// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
 
 
@@ -172,8 +174,8 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0; // 시작 시간 초기화
 				me->startPos = me->position; // 시작 위치 
 				
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me); // 원래 있던 타일 삭제하고
-				leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me); // 원래 있던 타일 삭제하고
+				leftTilePos->AddObject(ObjectPlayer,me); // 플레이어를 타일에 등록한다.
 
 				me->destination.x = leftTilePos->GetPos().x; // 목적지
 
@@ -213,8 +215,8 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
-				rightTilePos->AddObject(me); 
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
+				rightTilePos->AddObject(ObjectPlayer,me);
 
 				me->destination.x = rightTilePos->GetPos().x;
 
@@ -245,8 +247,8 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
-				upTilePos->AddObject(me); 
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
+				upTilePos->AddObject(ObjectPlayer,me);
 
 				me->destination.y = upTilePos->GetPos().y;
 
@@ -280,8 +282,8 @@ void PlayerIdle::BeatExcute()
 				me->startTime = 0;
 				me->startPos = me->position;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);
-				downTilePos->AddObject(me); 
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer,me);
+				downTilePos->AddObject(ObjectPlayer,me);
 
 				me->destination.y = downTilePos->GetPos().y;
 
@@ -324,7 +326,7 @@ void PlayerMove::Excute()
 {
 	// 작동 시작 시간 / 목표 시간 ==1 이 될때 마다 (= 목표 시간마다) 작동해라
 
-	me->startTime += Time::Tick()*1.5f;									// 0으로 초기화한 startTime에 tick을 더해라 
+	me->startTime += Time::Tick()*1.5f;								// 0으로 초기화한 startTime에 tick을 더해라 
 	float factor = me->startTime / 0.25f;							// lerp 함수 안에 넣을 factor , 전체 시간분에 목표시간
 
 	me->position = Math::Lerp(me->startPos, me->destination, factor);	// Lerp함수를 이용하여 목표 거리를(destination-startPos)  일정 비율(factor)로 이동

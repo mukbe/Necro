@@ -87,8 +87,8 @@ public:
 	//키입력받아서 해동할 어떠한 것들 
 	virtual void BeatExcute() = 0;	
 
-	virtual void Excute() = 0;		// 박자에 맞추지 않아도 될 어떠한 업데이트
-	virtual void Exit() {}			// 
+	virtual void Excute() = 0;	// 박자에 맞추지 않아도 될 어떠한 업데이트
+	virtual void Exit() {}		// 
 protected:
 	Player* me;
 };
