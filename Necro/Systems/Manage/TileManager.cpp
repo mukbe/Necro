@@ -43,7 +43,7 @@ void TileManager::CreateMap()
 
 		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
 
-		newTile->Init("DefaultMap");
+		newTile->SetData("DefaultMap");
 
 		newTile->SetPivotPos(pivotPos);
 

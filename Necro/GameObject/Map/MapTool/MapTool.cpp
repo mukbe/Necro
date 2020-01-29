@@ -237,7 +237,7 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 	case Brush:
 		break;
 	case Eraser:
-		targetNode->Init();
+		//targetNode->Init();
 		break;
 	default:
 		break;

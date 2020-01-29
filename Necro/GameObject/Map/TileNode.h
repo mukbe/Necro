@@ -11,8 +11,8 @@ public:
 	virtual ~TileNode();
 
 	virtual void Init();
-	virtual void Init(string textureStringKey = "DefaultMap", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
-	virtual void Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
+	virtual void SetData(string textureStringKey = "DefaultMap", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
+	virtual void SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	
 	virtual void Release();
 	virtual void ControllUpdate();
@@ -103,6 +103,7 @@ public:
 
 protected:
 	string textureKey;
+	shared_ptr<Texture> texture;
 	POINT textureFrame;
 	AttributeType attribute;
 	

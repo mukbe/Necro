@@ -32,21 +32,23 @@ void TileNode::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Terrain);
 }
 
-void TileNode::Init(string textureStringKey, POINT textureFrameIndex, AttributeType type)
+void TileNode::SetData(string textureStringKey, POINT textureFrameIndex, AttributeType type)
 {
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
+	texture = _ImageManager->FindTexture(textureKey);
 	ReleaseObjects();
 }
 
-void TileNode::Init(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)
+void TileNode::SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey, POINT textureFrameIndex, AttributeType type)
 {
 	this->Transform().SetPos(pos);
 	this->Transform().SetScale(size);
 	textureKey = textureStringKey;
 	textureFrame = textureFrameIndex;
 	attribute = type;
+	texture = _ImageManager->FindTexture(textureKey);
 	ReleaseObjects();
 }
 
@@ -79,7 +81,8 @@ void TileNode::Update(float tick)
 void TileNode::Render()
 {
 	p2DRenderer->SetCamera(!isUI);
-	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
+	
+	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
 	
 	if(!isUI)
 	{
