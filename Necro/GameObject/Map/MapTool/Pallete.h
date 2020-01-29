@@ -41,7 +41,7 @@ public:
 	void LoadObjects();
 
 	template<typename T>
-	void Load(string Key, ObjectType objType, RenderManager::Layer renderType)
+	GameObject* Load(string Key, ObjectType objType, RenderManager::Layer renderType)
 	{
 		string namePal = "Tool";
 		GameObject* temp;
@@ -53,6 +53,8 @@ public:
 		tempString.assign(temp->Name().begin(), temp->Name().end());
 
 		_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/" + tempString + L".png");
+
+		return temp;
 	}
 
 

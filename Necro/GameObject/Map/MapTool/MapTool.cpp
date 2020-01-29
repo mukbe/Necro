@@ -142,7 +142,17 @@ void MapTool::ImguiRender()
 	{
 		//ImGui::SetWindowPos(ImVec2(WinSizeX - 520.f, 10.f));
 		//ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
+		ImGui::Text("Save / Load");
+		if (ImGui::Button("Save", ImVec2(100, 50)))
+		{
 
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Load", ImVec2(100, 50)))
+		{
+
+		}
+		ImGui::Separator();
 		ImGui::Text("Brush Mode");
 		ImGui::Separator();
 		ImGui::Text("Current Mode = %s", currentBrushMode);
@@ -164,6 +174,10 @@ void MapTool::ImguiRender()
 		{
 			palleteType = ObjectAll;
 		}
+		if (ImGui::Button("Wall", ImVec2(100, 50)))
+		{
+			palleteType = ObjectWall;
+		}
 		ImGui::SameLine();
 		if (ImGui::Button("Terrain", ImVec2(100, 50)))
 		{
@@ -178,21 +192,18 @@ void MapTool::ImguiRender()
 		{
 			palleteType = ObjectMonster;
 		}
-		ImGui::SameLine();
 		if (ImGui::Button("Item", ImVec2(100, 50)))
 		{
 			ImGui::SameLine();
 			palleteType = ObjectItem;
 		}
+		ImGui::SameLine();
 		if (ImGui::Button("NPC", ImVec2(100, 50)))
 		{
 			palleteType = ObjectNPC;
 		}
-		ImGui::SameLine();
-		if (ImGui::Button("Wall", ImVec2(100, 50)))
-		{
-			palleteType = ObjectWall;
-		}
+		
+
 		ImGui::Separator();
 		
 		//ImGui::SliderInt2("Map Size", MapSize, 5, 100);

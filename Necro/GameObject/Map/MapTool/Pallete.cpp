@@ -2,23 +2,21 @@
 #include "Pallete.h"
 #include "./GameObject/Map/TileNode.h"
 
-/*
-	Player
-*/
+/*Player*/
 #include "./GameObject/Player.h"
-/*
-	Monster
-*/
+
+/*Monster*/
 #include "./GameObject/Monster/Monster.h"
+
 #include "./GameObject/Monster/Bat.h"
+#include "./GameObject/Monster/Skeleton.h"
 #include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/GreenSlime.h"
+//¼Ò
 
-/*
-	Wall
-*/
-
+/*Wall*/
 #include "./GameObject/Map/WallBase.h"
+#include "./GameObject/Map/StoneWall.h"
 
 
 Pallete::Pallete(D3DXVECTOR2 pivot)
@@ -100,13 +98,16 @@ void Pallete::ReleasePallete()
 
 void Pallete::LoadObjects()
 {
-	Load<Player>("Player", ObjectPlayer, RenderManager::Layer::Object);
+	GameObject* temp = Load<Player>("Player", ObjectPlayer, RenderManager::Layer::Object);
+	_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
 	
 	Load<Bat>("Bat", ObjectMonster, RenderManager::Layer::Object);
 	Load<BlueSlime>("BlueSlime", ObjectMonster, RenderManager::Layer::Object);
 	Load<GreenSlime>("GreenSlime", ObjectMonster, RenderManager::Layer::Object);
+	Load<Skeleton>("Skeleton", ObjectMonster, RenderManager::Layer::Object);
 
 	Load<WallBase>("WallBase", ObjectWall, RenderManager::Layer::Object);
+	Load<WallBase>("StoneWall", ObjectWall, RenderManager::Layer::Object);
 	Load<TileNode>("TileNode", ObjectTerrain, RenderManager::Layer::Terrain);
 
 
