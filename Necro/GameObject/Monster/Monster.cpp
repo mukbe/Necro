@@ -22,6 +22,7 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	//startPos = { 0,0 };
 	//mynextIndex = { 0,0 };
 	ChangeState("Idle");
+	
 }
 
 Monster::~Monster()
@@ -30,11 +31,16 @@ Monster::~Monster()
 
 void Monster::Init()
 {
-	
+	GameObject::Init();
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 void Monster::Release()
 {
+	GameObject::Release();
+	_RenderPool->Remove(this, RenderManager::Layer::Object);
+	_RenderPool->Remove(this, RenderManager::Layer::Imgui);
 }
 
 void Monster::Update(float tick)
@@ -87,6 +93,21 @@ void Monster::Render()
 
 void Monster::ImguiRender()
 {
+
+	ImGui::Begin("mon");
+	{
+		if (name == "Bat")
+		{
+			ImGui::Text("PosX : %.2f, PosY : %.2f", myIndex.x, myIndex.y);
+		}
+
+		
+
+	}
+	ImGui::End();
+
+
+
 }
 
 
@@ -100,12 +121,25 @@ void Monster::ChangeState(string key)
 	currentState = state;
 }
 
+void Monster::ProcessDestroy()
+{
+	life--;
+	if (life <= 0)
+	{
+		//이펙트 추가 필요.
+
+
+		this->SetActive(false);
+	}
+}
+
 //움직임 클래쓰
 void MonsterStateOneStep::Enter()
 {
 	
 	me->startTime = 0.f;
 	//me->realtime = 0.f;
+	
 
 }
 
@@ -121,6 +155,11 @@ void MonsterStateOneStep::Update()
 	//스켈레톤 움직임
 	if (me->name == "Skeleton")
 	{
+
+		//for(int i=)
+		//vector<GameObject*> tempArr = upTilePos->GetObjects(ObjectPlayer);
+
+
 				//batX랑 batY는 박쥐좌표인데 일단 따라가게 해놓은거임
 				if (me->startPos.x < batX) 
 				{
@@ -138,6 +177,9 @@ void MonsterStateOneStep::Update()
 				{
 					me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 				}
+
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 
@@ -149,12 +191,18 @@ void MonsterStateOneStep::Update()
 
 				me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 				me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 	//파란 슬라임 움직임
 	if (me->name == "BlueSlime") 
 	{
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);	
+
+
+			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 
@@ -173,6 +221,8 @@ void MonsterStateOneStep::Update()
 		else if (me->startPos.y < batY) {
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		}
+
+		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 
@@ -232,7 +282,18 @@ void MonsterStateIdle::Enter()
 				me->startPos.y = me->endPos.y;
 
 				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-			
+				
+
+
+				if (me->myIndex.x <= 0) me->myIndex.x = 1;
+
+				if (me->myIndex.y <= 0) me->myIndex.y = 1;
+
+				if (me->myIndex.x > TileManager::mapSize.x) me->myIndex.y = TileManager::mapSize.x;
+
+				if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
+
+				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 				//짭스타 위치비교후 추적
 			if (me->startPos.x < batX)
 			{
@@ -276,6 +337,8 @@ void MonsterStateIdle::Enter()
 			//박쥐 현재 좌표 타일 인덱스 구해옴
 			me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 
+			
+
 			//내 인덱스가 타일범위를 벗어나 터질수도있으니 예외처리
 			if (me->myIndex.x <= 0 ) me->myIndex.x = 1; 
 				
@@ -285,6 +348,7 @@ void MonsterStateIdle::Enter()
 
 			if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
 
+			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 
 			//0~3중에 하나 뽑는다
 			switch (batmove) {
@@ -352,6 +416,20 @@ void MonsterStateIdle::Enter()
 	if (me->name == "BlueSlime") 
 	{
 
+
+		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		
+		
+		if (me->myIndex.x <= 0) me->myIndex.x = 1;
+
+		if (me->myIndex.y <= 0) me->myIndex.y = 1;
+
+		if (me->myIndex.x > TileManager::mapSize.x) me->myIndex.y = TileManager::mapSize.x;
+
+		if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
+
+
+		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 		//갔던 좌표와 다시갈 좌표를 바꿔줌(위아래 반복)
 			D3DXVECTOR2 temp;
 			temp.y = me->endPos.y;
@@ -369,7 +447,18 @@ void MonsterStateIdle::Enter()
 		me->startPos.y = me->endPos.y;
 
 
+		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		
 
+		if (me->myIndex.x <= 0) me->myIndex.x = 1;
+
+		if (me->myIndex.y <= 0) me->myIndex.y = 1;
+
+		if (me->myIndex.x > TileManager::mapSize.x) me->myIndex.y = TileManager::mapSize.x;
+
+		if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
+
+		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 		//짭스타 위치비교후 추적
 		if (me->startPos.x < batX)
 		{

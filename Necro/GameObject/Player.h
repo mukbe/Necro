@@ -18,6 +18,14 @@ class PlayerMove;
 class PlayerIdle;
 class PlayerAttack;
 
+enum PlayerDirection
+{
+	PlayerLeft,
+	PlayerRight,
+	PlayerUp,
+	PlayerDown
+};
+
 class Player : public GameObject
 {
 private:
@@ -45,6 +53,11 @@ private:
 
 	float jumpPower;			// 점프 힘
 	float gravity;				// 중력
+
+	PlayerDirection playerDirection;		// 방향
+
+	POINT attackrRange;						// 공격 범위
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -87,8 +100,8 @@ public:
 	//키입력받아서 해동할 어떠한 것들 
 	virtual void BeatExcute() = 0;	
 
-	virtual void Excute() = 0;		// 박자에 맞추지 않아도 될 어떠한 업데이트
-	virtual void Exit() {}			// 
+	virtual void Excute() = 0;	// 박자에 맞추지 않아도 될 어떠한 업데이트
+	virtual void Exit() {}		// 
 protected:
 	Player* me;
 };

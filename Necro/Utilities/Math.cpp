@@ -61,6 +61,14 @@ float Math::Clamp(float value, float min, float max)
 	return value;
 }
 
+int Math::Clamp(int value, int min, int max)
+{
+	value = value > max ? max : value;
+	value = value < min ? min : value;
+
+	return value;
+}
+
 
 float Math::Modulo(float val1, float val2)
 {

@@ -15,6 +15,18 @@ RedDragon::RedDragon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x + 52.f, position.y + 52.f };
 	
 	monsterBeat = 2;
+
+	life = 6;
+
+	AddCallback("RedDragon", [&](TagMessage msg)
+	{
+
+
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
 }
 
 

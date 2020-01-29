@@ -17,6 +17,22 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x + 52.f, position.y };
 	
 	monsterBeat = 2;
+	
+	
+	life = 1;
+
+	AddCallback("BatHit", [&](TagMessage msg)
+	{
+
+		
+		
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
+
+
+
 }
 
 
@@ -72,4 +88,5 @@ void Bat::Render()
 void Bat::ImguiRender()
 {
 }
+
 

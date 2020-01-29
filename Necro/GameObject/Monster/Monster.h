@@ -19,7 +19,7 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 	void ChangeState(string key);
-	
+	virtual void ProcessDestroy();
 	
 
 protected :
@@ -35,6 +35,8 @@ protected :
 	float batX;
 	float batY;
 	int monsterBeat;
+	int life;
+
 private:
 	POINT myIndex;
 	POINT mynextIndex;
