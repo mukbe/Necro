@@ -84,17 +84,17 @@ void RenderManager::ObjectRender()
 			obj->Render();
 	}
 
-	arr = renderList[Layer::Terrain];
-	Iter = arr.begin();
+	//arr = renderList[Layer::Terrain];
+	//Iter = arr.begin();
 	FloatRect render = CAMERA->GetRenderRect();
 
 	POINT startIndex = PosToIndex(D3DXVECTOR2(render.left, render.top), TileManager::tileSize, TileManager::pivotPos);
 	POINT endIndex = PosToIndex(D3DXVECTOR2(render.right, render.bottom), TileManager::tileSize, TileManager::pivotPos);
 
-	startIndex.x = Math::Clamp(startIndex.x, 0, TileManager::mapSize.x);
-	startIndex.y = Math::Clamp(startIndex.x, 0, TileManager::mapSize.y);
-	endIndex.x = Math::Clamp(endIndex.x, 0, TileManager::mapSize.x);
-	endIndex.y = Math::Clamp(endIndex.y, 0, TileManager::mapSize.y);
+	startIndex.x = Math::Clamp(startIndex.x - 1, -1, TileManager::mapSize.x);
+	startIndex.y = Math::Clamp(startIndex.y - 1, -1, TileManager::mapSize.y);
+	endIndex.x = Math::Clamp(endIndex.x + 1, -1, TileManager::mapSize.x);
+	endIndex.y = Math::Clamp(endIndex.y + 1, -1, TileManager::mapSize.y);
 
 	POINT deltaIndex = { endIndex.x - startIndex.x, endIndex.y - endIndex.x };
 
@@ -102,7 +102,9 @@ void RenderManager::ObjectRender()
 	{
 		for (LONG x = startIndex.x; x <= endIndex.x; x++)
 		{
-			_TileMap->Tile((int)x, (int)y)->Render();
+			TileNode* tile = _TileMap->Tile((int)x, (int)y);
+			if (tile != nullptr)
+				tile->Render();
 		}
 	}
 

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ObjectManager.h"
-
-
+#include "./GameObject/Map/TileNode.h"
 
 ObjectManager::ObjectManager()
 {
@@ -23,6 +22,17 @@ ObjectManager::~ObjectManager()
 		}
 
 	}
+	if (tiles.empty() == false)
+	{
+		VecIter Iter = tiles.begin();
+		for (; Iter != tiles.end();)
+		{
+			(*Iter)->Release();
+			SafeDelete(*Iter);
+			Iter = tiles.erase(Iter);
+		}
+	}
+
 
 	if (deleteList.empty() == false)
 	{

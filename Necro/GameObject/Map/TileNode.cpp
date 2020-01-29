@@ -56,18 +56,18 @@ void TileNode::ControllUpdate()
 
 void TileNode::Update(float tick)
 {
-	if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
-	{
-		if (Keyboard::Get()->Down(VK_LBUTTON))
-		{
-			isSelected = true;
-		}
-	}
+	//if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
+	//{
+	//	if (Keyboard::Get()->Down(VK_LBUTTON))
+	//	{
+	//		isSelected = true;
+	//	}
+	//}
 
-	if (Keyboard::Get()->Up(VK_LBUTTON))
-	{
-		isSelected = false;
-	}
+	//if (Keyboard::Get()->Up(VK_LBUTTON))
+	//{
+	//	isSelected = false;
+	//}
 }
 
 void TileNode::Render()

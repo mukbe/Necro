@@ -41,7 +41,7 @@ void TileManager::CreateMap()
 		float x = (i % mapSize.x) * (tileSize.x ) + pivotPos.x;
 		float y = (i / mapSize.x) * (tileSize.y ) + pivotPos.y;
 
-		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
+		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("TileNode", D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x, tileSize.y));
 
 		newTile->Init("DefaultMap");
 
@@ -72,7 +72,7 @@ void TileManager::ReleaseMap()
 
 TileNode* TileManager::Tile(POINT index)
 {
-	if (index.x < 0 || index.y < 0 || index.x > mapSize.x || index.y > mapSize.y)
+	if (index.x < 0 || index.y < 0 || index.x >= mapSize.x || index.y >= mapSize.y)
 	{
 		return nullptr;
 	}
@@ -82,7 +82,7 @@ TileNode* TileManager::Tile(POINT index)
 
 TileNode * TileManager::Tile(int x, int y)
 {
-	if (x < 0 || y < 0 || x > mapSize.x || y > mapSize.y)
+	if (x < 0 || y < 0 || x >= mapSize.x || y >= mapSize.y)
 	{
 		return nullptr;
 	}
