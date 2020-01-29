@@ -23,8 +23,6 @@ BlueSlime::BlueSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("BlueSlimeHit", [&](TagMessage msg)
 	{
 
-
-
 		ProcessDestroy();
 		_ObjectPool->DeletaObject(this);
 
