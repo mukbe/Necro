@@ -4,6 +4,7 @@ class Monster : public GameObject
 {
 	friend class MonsterStateBase;
 	friend class MonsterStateOneStep;
+	friend class MonsterStateAtk;
 	friend class MonsterStateIdle;
 public:
 	
@@ -64,8 +65,20 @@ public:
 	virtual void Enter();
 	virtual void Update();
 private:
-	float time;
+	
 };
+
+class MonsterStateAtk : public MonsterStateBase
+{
+public:
+	MonsterStateAtk(Monster* p) : MonsterStateBase(p) {}
+	virtual void Enter();
+	virtual void Update();
+private:
+
+};
+
+
 class MonsterStateIdle : public MonsterStateBase
 {
 public:

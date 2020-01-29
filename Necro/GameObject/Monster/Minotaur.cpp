@@ -12,9 +12,9 @@ Minotaur::Minotaur(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	position = pos;
 	this->size = size;
 	startPos = pos;
-	endPos = { position.x + 52.f, position.y + 52.f };
+	endPos = { position.x + 52.f, position.y };
 	
-	monsterBeat = 2;
+	monsterBeat = 1;
 }
 
 
