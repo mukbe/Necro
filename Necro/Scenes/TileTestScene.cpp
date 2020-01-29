@@ -88,22 +88,22 @@ void TileTestScene::Init()
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(0, i);
-		_TileMap->Tile(0, i)->AddObject(testWall);
+		_TileMap->Tile(0, i)->AddObject(ObjectWall, testWall);
 
 		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(9, i);
-		_TileMap->Tile(9, i)->AddObject(testWall);
+		_TileMap->Tile(9, i)->AddObject(ObjectWall, testWall);
 	}
 
 	for (int i = 0; i < 8; ++i)
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 0);
-		_TileMap->Tile(i+1, 0)->AddObject(testWall);
+		_TileMap->Tile(i+1, 0)->AddObject(ObjectWall, testWall);
 
 		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 9);
-		_TileMap->Tile(i+1, 9)->AddObject(testWall);
+		_TileMap->Tile(i+1, 9)->AddObject(ObjectWall, testWall);
 	}
 
 
@@ -111,7 +111,7 @@ void TileTestScene::Init()
 	{
 		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(5, i + 1);
-		_TileMap->Tile(5, i+1)->AddObject(testWall);
+		_TileMap->Tile(5, i+1)->AddObject(ObjectWall, testWall);
 	}
 	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
 	//Shovel->Init({ 2,6 });

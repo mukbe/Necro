@@ -47,32 +47,38 @@ public:
 
 	RECT GetCollision() { return rc.GetRect(); }
 
-	vector<GameObject*> GetObjects() { return onMyHead; }
-	void AddObject(GameObject* input) { onMyHead.push_back(input); }
-	void DeleteObject(GameObject* input) 
+	vector<GameObject*> GetObjects(ObjectType type) { return objectStorage[type]; }
+	void AddObject(ObjectType type, GameObject* input) { objectStorage[type].push_back(input); }
+	void DeleteObject(ObjectType type, GameObject* input)
 	{
-		for (int i = 0; i < onMyHead.size(); ++i)
+		for (int i = 0; i < objectStorage[type].size(); ++i)
 		{
-			if (onMyHead[i] == input)
+			if (objectStorage[type][i] == input)
 			{
-				OnIter pointIter = onMyHead.begin() + i;
-				onMyHead.erase(pointIter);
+				OnIter pointIter = objectStorage[type].begin() + i;
+				objectStorage[type].erase(pointIter);
 				return;
 			}
 		}
 	}
 	void ReleaseObjects()
 	{
-		if (onMyHead.size() > 0)
+		StorageIter iter = objectStorage.begin(), end = objectStorage.end();
+
+		for (; iter != end; ++iter)
 		{
-			for (int i = 0; i < onMyHead.size(); ++i)
+			if ((*iter).second.size() > 0)
 			{
-				OnIter pointIter = onMyHead.begin() + i;
-				onMyHead.erase(pointIter);
-				--i;
+				for (int i = 0; i < (*iter).second.size(); ++i)
+				{
+					OnIter pointIter = (*iter).second.begin() + i;
+					(*iter).second.erase(pointIter);
+					--i;
+				}
 			}
+			(*iter).second.clear();
 		}
-		onMyHead.clear();
+		objectStorage.clear();
 	}
 
 	bool GetSelected() { return isSelected; }
@@ -85,7 +91,10 @@ protected:
 	POINT textureFrame;
 	AttributeType attribute;
 	
-	vector<GameObject*> onMyHead;
+	unordered_map<ObjectType, vector<GameObject*>> objectStorage;
+	typedef unordered_map<ObjectType, vector<GameObject*>>::iterator StorageIter;
+
+	typedef vector<GameObject*> typeVector;
 	typedef vector<GameObject*>::iterator OnIter;
 
 	D3DXVECTOR2 tileSize;

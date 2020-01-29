@@ -32,30 +32,7 @@ Pallete::Pallete(D3DXVECTOR2 pivot)
 		objectStorage.insert(make_pair((ObjectType)i, tempStorage));
 	}
 
-	string namePal = "Pallete_";
-	GameObject* temp;
-	/*temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp,RenderManager::Layer::Object);
-	_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
-	_RenderPool->Request(temp, RenderManager::Layer::UI);
-	AddObject(ObjectPlayer, temp);
-	temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp, RenderManager::Layer::Object);
-	_RenderPool->Request(temp, RenderManager::Layer::UI);
-	AddObject(ObjectMonster, temp);
-	temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp, RenderManager::Layer::Object);
-	_RenderPool->Request(temp, RenderManager::Layer::UI);
-	AddObject(ObjectMonster, temp);
-	temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	_RenderPool->Remove(temp, RenderManager::Layer::Object);
-	_RenderPool->Request(temp, RenderManager::Layer::UI);
-	AddObject(ObjectMonster, temp);*/
-
-	temp = _ObjectPool->CreateObject<WallBase>(namePal + "WallBase", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-	//_RenderPool->Remove(temp, RenderManager::Layer::Object);
-	//_RenderPool->Request(temp, RenderManager::Layer::UI);
-	AddObject(ObjectWall, temp);
+	LoadObjects();
 }
 
 Pallete::~Pallete()
@@ -87,15 +64,6 @@ void Pallete::AddObject(ObjectType type, GameObject * object)
 
 void Pallete::DeleteObject(ObjectType type, GameObject * object)
 {
-	VecIter iter = objectStorage[type].begin(), end = objectStorage[type].end();
-	for (; iter != end; ++iter)
-	{
-		if (*iter == object)
-		{
-			objectStorage[type].erase(iter);
-			--iter;
-		}
-	}
 }
 
 void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
@@ -104,23 +72,13 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 	{
 		float x = inputPivotPos.x + (i % separateSize) * defaultTileSize.x;
 		float y = inputPivotPos.y + (i / separateSize) * defaultTileSize.y;
-		TileNode* newTile = _ObjectPool->CreateObject<TileNode>("", D3DXVECTOR2(x,y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
-		newTile->Init("DefaultMap");
-		newTile->SetPivotPos(inputPivotPos);
-		newTile->AddObject(objectStorage[inputType][i]);
-		newTile->SetHighlight(true);
-		newTile->SetUIMode(true);
-		
-		newTile->AddObject(objectStorage[inputType][i]);
+		palleteNode* newTile = _ObjectPool->CreateObject<palleteNode>(
+			"Pallete" + to_string(i) , D3DXVECTOR2(x, y), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
+	
+		/*newTile->AddObject(objectStorage[inputType][i]);
 
-		palleteTiles.push_back(newTile);
-
-		//objectStorage[inputType][i]->Transform().SetPos(x, y);
-		//_RenderPool->Remove(objectStorage[inputType][i], RenderManager::Layer::Object);
-		//_RenderPool->Request(objectStorage[inputType][i], RenderManager::Layer::UI);
+		palleteTiles.push_back(newTile);*/
 	}
-
-	int b = 20;
 }
 
 void Pallete::ReleasePallete()
@@ -138,4 +96,57 @@ void Pallete::ReleasePallete()
 			--i;
 		}
 	}
+}
+
+void Pallete::LoadObjects()
+{
+	Load<Player>("Player", ObjectPlayer, RenderManager::Layer::Object);
+	
+	Load<Bat>("Bat", ObjectMonster, RenderManager::Layer::Object);
+	Load<BlueSlime>("BlueSlime", ObjectMonster, RenderManager::Layer::Object);
+	Load<GreenSlime>("GreenSlime", ObjectMonster, RenderManager::Layer::Object);
+
+	Load<WallBase>("WallBase", ObjectWall, RenderManager::Layer::Object);
+	Load<TileNode>("TileNode", ObjectTerrain, RenderManager::Layer::Terrain);
+
+
+	/*tring namePal = "Tool";
+	GameObject* temp;
+	temp = _ObjectPool->CreateObject<Player>(namePal + "Player", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	AddObject(ObjectPlayer, temp);
+	AddImage(temp);
+
+	
+
+
+	temp = _ObjectPool->CreateObject<Bat>(namePal + "Bat", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	AddObject(ObjectMonster, temp);
+	AddImage(temp);
+
+	temp = _ObjectPool->CreateObject<BlueSlime>(namePal + "BlueSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	AddObject(ObjectMonster, temp);
+	AddImage(temp);
+
+	temp = _ObjectPool->CreateObject<GreenSlime>(namePal + "GreenSlime", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	AddObject(ObjectMonster, temp);
+	AddImage(temp);
+
+
+
+
+	temp = _ObjectPool->CreateObject<WallBase>(namePal + "WallBase", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Object);
+	AddObject(ObjectWall, temp);
+	AddImage(temp);
+
+	temp = _ObjectPool->CreateObject<TileNode>(namePal + "TileNode", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+	_RenderPool->Remove(temp, RenderManager::Layer::Terrain);
+	AddObject(ObjectTerrain, temp);
+	AddImage(temp);
+*/
+	
 }
