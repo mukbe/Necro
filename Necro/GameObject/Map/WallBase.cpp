@@ -3,8 +3,6 @@
 #include "./GameObject/Map/TileNode.h"
 
 
-
-
 WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size), haveIShowIcon(false), IconLifeTime(0.f)
 {

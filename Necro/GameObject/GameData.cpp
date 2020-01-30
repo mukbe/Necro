@@ -6,7 +6,8 @@ GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	moveType = MoveType_Beat;
 
-
+	
+	playerHp = 10;
 	playerCoin = 0;
 	playerDia = 0;
 	comboCount = 0;
@@ -46,20 +47,7 @@ void GameData::MissControlUpdate()
 
 void GameData::Update(float tick)
 {
-	switch (weaponinfo)
-	{
-	case GameData::Dagger:
-		// 단검 속성 
-		break;
-	case GameData::Spear:
-		// 창 
-		break;
-	case GameData::Broadsword:
-		// 대검 
-		break;
-	default:
-		break;
-	}
+
 }
 
 
@@ -91,7 +79,7 @@ void GameData::MinusCoin(UINT val)
 	//상점 관련 
 	if (playerCoin < val)
 	{
-		//못 사는데 왜 넘겨줌?
+		//코인 상점 못 삼 
 	}
 	playerCoin -= (int)val;
 }
@@ -100,9 +88,14 @@ void GameData::MinusDia(UINT val)
 {
 	if (playerDia < val)
 	{
-		// 역시 못 산다 . 
+		// 다이아 상점 
 	}
 	playerDia -= (int)val;
+}
+
+void GameData::PosRedefinition(POINT pos)
+{
+	playerIndex = pos;
 }
 
 void GameData::Combo()

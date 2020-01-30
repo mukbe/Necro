@@ -4,6 +4,8 @@
 // 아이템 공통으로 사용하는 함수 / 변수  등  다 여기서 선언! 
 // 모든 메세지 키 값은 통일로 해서 플레이어 / 맵툴도 사용가능 할 수 있게 
 
+class TileNode;
+
 class ItemBase : public GameObject
 {
 public:
@@ -25,5 +27,8 @@ public:
 
 protected:
 	
+	bool bShow;  // 아이템 시야에 들었을때 보이게 혹은 안보이게 하는거
+	bool bDrop;  // 아이템 교체시 밑에 떨구고 다시 주울 때 이미지가 바뀌는지 !
+
 };
 

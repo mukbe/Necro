@@ -23,6 +23,9 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	gravity = 0;
 	startTime = 0;
 
+	proveX[0] = { 0 }; proveX[1] = { 0 }; proveX[2] = { -1 }; proveX[3] = { 1 };
+	proveY[0] = { -1 }; proveY[1] = { 1 }; proveY[2] = { 0 }; proveY[3] = { 0 };
+
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
@@ -119,6 +122,7 @@ void Player::ImguiRender()
 
 }
 
+
 void Player::ChangeState(string str)
 {
 	// 업데이트 하던 상태를 끝내고 입력한 상태를 실행한다.
@@ -131,6 +135,43 @@ void Player::ChangeState(string str)
 		currentState->Enter();
 }
 
+void Player::FloodFill(POINT index, int sight)
+{
+	// index에 플레이어의 인덱스가 들어와야 함.  
+	vector<GameObject*> temp;
+
+	if (sight <= 0) return;
+
+	for (int i = 0; i < 4; i++)
+	{
+		POINT tempIndex;
+		tempIndex.x = index.x + proveX[i];
+		tempIndex.y = index.y + proveY[i];
+
+		//sight 에 5 주고 sight에 따라 밝기를 다르게 준다. 
+		if (_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetAttribute() == ObjNone)
+		{
+			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
+			// 땅이면 불 켜주고 
+		}
+		temp = _GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetObjects(ObjectMonster);
+		
+		if (temp.size() > 0)
+		{
+			// 애너미 있으면 메세지 보내 불 키라고 
+			// 처음 시야 범위에 들어온거면 소환? 하라고 해야함.
+		}
+		if (_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetAttribute() == ObjDestructable)
+		{
+			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
+			FloodFill(tempIndex, sight-1);
+			// 벽이면 불 켜주고 
+			// 그방향으로는 더이상 못가게 해야하는뎁 
+		}
+	}
+}
+
+
 void PlayerIdle::Enter()
 {
 
@@ -141,20 +182,15 @@ void PlayerIdle::BeatExcute()
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 내일 할거 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-		//_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(me);// 원래 있던 타일 삭제하고
-		//leftTilePos->AddObject(me); // 플레이어를 타일에 등록한다.  >> 완료
-		// 2. 무기 범위 받기
-		// 3. 몬스터 죽이기 
-		// 4. 2,3 되는 동안 방향(디렉션) 이넘 하나 만들어 주고, 피격 시 어떻게 할건지 , 피다달면 어떻게 할건지 (-> 이거는 씬메니져에 메세지도 보내야할듯)
+	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 내일 할거 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-		// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-		// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
+	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+	// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
 
-		// 아이템은 아이템 베이스에서 기초를 확인 할수있고, 게임 데이터에 플레이어 hp등 저장됩니당 알아두세요
 
 	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	vector<GameObject*> tempArr; 
+	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 	if (KeyCode->Down(VK_LEFT))
 	{

@@ -1,57 +1,47 @@
 #pragma once
 
+enum Weapon
+{
+	Baredhand, Dagger, Spear, Broadsword
+};
+
+enum ShovelType
+{
+	Hand, Shovel, Pickaxe
+};
+
 class GameData : public GameObject
 {
 public:
-	enum Weapon
-	{
-		Dagger, Spear, Broadsword
-	};
+	
 	struct WeaponInfo
 	{
 		Weapon Type;
-		UINT Range;
+		POINT Range;
 		UINT Damage;
 		string Imagekey;
 		WeaponInfo()
-			: Range(1), Damage(1)
+			: Range({ 0,0 }), Damage(0)
 		{
 			Imagekey = "";
-			Type = Weapon::Dagger;
+			Type = Weapon::Baredhand;
 		}
 	};
-
-	// 아이템 광부 모자 
-	struct ItemHeadInfo
-	{
-		UINT Range;
-		UINT life;  // 타일 벽  라이프 깍기위해서 
-		//ItemHeadInfo()
-		// Range(4), life(1)
-		//{
-		//
-		//}
-	};
-
 	//삽 . 곡괭이 
-	enum ItemShovel
-	{
-		Shovel, Pickaxe
-	};
 
 	struct ShovelInfo
 	{
-		ItemShovel Type;
+		ShovelType Type;
 		UINT life;  // 벽 까기위한
 		string Imagekey;
 		ShovelInfo()
 			: life(1)
 		{
 			Imagekey = "";
-			Type = ItemShovel::Shovel;
+			Type = ShovelType::Shovel;
 		}
 	};
-
+	
 
 public:
 	GameData(string name ,D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -75,15 +65,22 @@ public:
 	void AddCoin(UINT val);						// 코인 
 	void MinusCoin(UINT val);					// 코인 사용 할 때
 	void MinusDia(UINT val);					// 다이아 사용 할 때
+	void PosRedefinition(POINT pos);					// 플레이어 위치 재정의
+
 	UINT GetCoin() { return playerCoin; }		
-	UINT GetDia() { return playerDia; }			
+	UINT GetDia() { return playerDia; }	
+	POINT GetIndex() {return playerIndex;}
 
-	WeaponInfo getWeaponDate() { return weaponData; }
 
+
+	WeaponInfo getWeaponData() { return weaponData; }
+
+	void setWeaponData(Weapon Type, UINT Range, UINT Damage, string Imagekey) {}
+	 
 
 	//몬스터를 죽였을때 한번 호출(몬스터가 호출할지 플레이어가 호출할지 정해야됨)
 	void Combo();
-
+	
 	
 	//타일만 사용할것
 	bool BeatForTile() { return bBeat; }
@@ -92,10 +89,13 @@ private:
 	UINT playerCoin;
 	UINT playerBomb;
 	UINT playerDia;
-	Weapon weaponinfo;
+	UINT playerHp;
+
+	POINT playerIndex;	// 플레이어 위치 인덱스 
+
 	WeaponInfo weaponData;
 	ShovelInfo shovelDate;
-	ItemHeadInfo HeadDate;
+	//ItemHeadInfo HeadDate;
 
 	bool bCombo;
 	UINT comboCount;
@@ -103,4 +103,3 @@ private:
 	//타일노드만 사용할듯
 	bool bBeat;
 };
-
