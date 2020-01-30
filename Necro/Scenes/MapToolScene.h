@@ -2,6 +2,8 @@
 #include "./Scenes/SceneBase.h"
 #include "./GameObject/Map/MapTool/MapTool.h"
 
+static MapTool* tool;
+
 class MapToolScene : public SceneBase
 {
 public:
@@ -9,8 +11,6 @@ public:
 	~MapToolScene();
 
 	virtual void Init();
-
-	MapTool* tool;
 
 	void LoadResource();
 };

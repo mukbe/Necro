@@ -36,9 +36,9 @@ protected :
 	float batY;
 	int monsterBeat;
 	int life;
-
-private:
 	POINT myIndex;
+private:
+	
 	POINT mynextIndex;
 	bool firstmove;
 	float startTime;
