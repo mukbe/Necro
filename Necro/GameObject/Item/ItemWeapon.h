@@ -16,10 +16,11 @@ public:
 
 	void Init(POINT tileIndex);
 
+
+
 private: 
 	
 	GameData::WeaponInfo info;
 	 
-	UINT hasWeapon;
 };
 

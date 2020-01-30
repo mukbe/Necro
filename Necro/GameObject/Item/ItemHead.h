@@ -19,7 +19,7 @@ public:
 private:
 
 	//광부 모자 
-	
+
 	GameData::ItemHeadInfo info; // 사이즈, 타일 벽 라이프 가지고 있음. 
 	UINT hasHead;
 };

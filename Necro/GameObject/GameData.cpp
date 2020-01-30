@@ -5,6 +5,8 @@ GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name,pos,size)
 {
 	moveType = MoveType_Control;
+
+
 	playerCoin = 0;
 	playerDia = 0;
 	bBeat = false;
@@ -37,6 +39,20 @@ void GameData::MissControlUpdate()
 
 void GameData::Update(float tick)
 {
+	switch (weaponinfo)
+	{
+	case GameData::Dagger:
+		// 단검 속성 
+		break;
+	case GameData::Spear:
+		// 창 
+		break;
+	case GameData::Broadsword:
+		// 대검 
+		break;
+	default:
+		break;
+	}
 }
 
 
