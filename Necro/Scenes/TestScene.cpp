@@ -154,6 +154,8 @@ void TestScene::ImageLoad()
 	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
 	_ImageManager->AddTexture("Shadow", ResourcePath + L"Item/Shadow.png");
 
+
+
 	_ImageManager->AddFrameTexture("Field_Coin", ResourcePath + L"Item/Field_Coin.png", 2, 2);
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
@@ -173,4 +175,6 @@ void TestScene::ImageLoad()
 	_ImageManager->AddTexture("F_Hp", ResourcePath + L"UI/Heart.png");  //Ã¼·Â 
 	
 	
+	_ImageManager->AddFrameTexture("NumberFontUI", ResourcePath + L"Font/NumberFontUI.png", 10, 1);
+	_ImageManager->AddTexture("UI_x", ResourcePath + L"Font/UI_x.png");
 }
