@@ -21,7 +21,7 @@ public:
 		UINT Damage;
 		string Imagekey;
 		WeaponInfo()
-			: Range(0), Damage(0)
+			: Range({ 0,0 }), Damage(0)
 		{
 			Imagekey = "";
 			Type = Weapon::Baredhand;
