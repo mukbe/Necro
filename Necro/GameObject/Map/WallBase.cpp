@@ -71,7 +71,7 @@ void WallBase::Update(float tick)
 void WallBase::Render()
 {
 	
-	_ImageManager->FindTexture(textureKey)->Render(FloatRect(D3DXVECTOR2(this->Transform().GetPos().x, this->Transform().GetPos().y - 14.f) , D3DXVECTOR2(52.f, 80.f), Pivot::CENTER), NULL);
+	_ImageManager->FindTexture(textureKey)->Render(FloatRect(D3DXVECTOR2(this->Transform().GetPos().x, this->Transform().GetPos().y +defaultTileSize.y/2) , D3DXVECTOR2(52.f, 80.f), Pivot::BOTTOM), NULL);
 
 	if(haveIShowIcon)
 	{

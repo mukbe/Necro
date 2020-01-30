@@ -1,18 +1,14 @@
 #include "stdafx.h"
 #include "Skeleton.h"
 
-//#include "TileManager.h"
-//#include "TileNode.h"
 
-#include "./Systems/Manage/TileManager.h""
-#include "./GameObject/Map/TileNode.h"
 
 
 
 Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
 {
-	//_RenderPool->Request(this, RenderManager::Layer::Object);
+	
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -22,6 +18,18 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x ,position.y };
 	
 	monsterBeat = 2;
+
+	life = 1;
+
+	AddCallback("SkeletonHit", [&](TagMessage msg)
+	{
+
+
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
 	
 }
 
@@ -54,7 +62,7 @@ void Skeleton::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 7)
+		if (frameX > 15)
 		{
 
 			frameX = 0;

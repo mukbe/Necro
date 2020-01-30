@@ -1,16 +1,12 @@
 #include "stdafx.h"
 #include "Bat.h"
-//#include "TileNode.h"
-//#include "TileManager.h"
-//#include "TileNode.h"
 
-
-
+#include "./GameObject/Map/TileNode.h"
 
 Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:Monster(name,pos,size)
 {
-	//_RenderPool->Request(this, RenderManager::Layer::Object);
+	
 	FrameCount = 0;
 	frameX = 0;
 	frameY = 0;
@@ -20,6 +16,22 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x + 52.f, position.y };
 	
 	monsterBeat = 2;
+	
+	
+	life = 1;
+
+	AddCallback("BatHit", [&](TagMessage msg)
+	{
+
+		
+		
+		ProcessDestroy();
+		//_ObjectPool->DeletaObject(this);
+		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
+	});
+
+
+
 }
 
 
@@ -75,4 +87,5 @@ void Bat::Render()
 void Bat::ImguiRender()
 {
 }
+
 

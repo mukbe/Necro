@@ -26,6 +26,9 @@ public:
 
 	void ProcessSetMap(TileNode* targetNode);
 
+	void Select(GameObject* input) { selectedObject = input; }
+	void DeSelect() { selectedObject = nullptr; }
+
 private:
 	TileManager* map;
 	Pallete* pallete;
@@ -39,5 +42,7 @@ private:
 
 	int MapSize[2];
 	int oldMapSize[2];
+
+	GameObject* selectedObject;
 };
 

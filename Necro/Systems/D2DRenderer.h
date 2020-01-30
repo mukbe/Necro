@@ -27,6 +27,7 @@ public:
 
 	ID2D1RenderTarget* GetRenderTarget() { return d2dRenderTarget; }
 	ID2D1DeviceContext* GetDeviceContext() { return d2dDeviceContext; }
+	IDWriteFactory* GetDWriteFactory() { return dwFactory; }
 private:
 	typedef unordered_map<wstring, IDWriteTextFormat*> mapTextList;
 	typedef unordered_map<wstring, IDWriteTextFormat*>::iterator mapTextIter;

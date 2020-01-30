@@ -4,6 +4,7 @@ class Monster : public GameObject
 {
 	friend class MonsterStateBase;
 	friend class MonsterStateOneStep;
+	friend class MonsterStateAtk;
 	friend class MonsterStateIdle;
 public:
 	
@@ -18,7 +19,7 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 	void ChangeState(string key);
-	
+	virtual void ProcessDestroy();
 	
 
 protected :
@@ -34,8 +35,10 @@ protected :
 	float batX;
 	float batY;
 	int monsterBeat;
-private:
+	int life;
 	POINT myIndex;
+private:
+	
 	POINT mynextIndex;
 	bool firstmove;
 	float startTime;
@@ -64,8 +67,20 @@ public:
 	virtual void Enter();
 	virtual void Update();
 private:
-	float time;
+	
 };
+
+class MonsterStateAtk : public MonsterStateBase
+{
+public:
+	MonsterStateAtk(Monster* p) : MonsterStateBase(p) {}
+	virtual void Enter();
+	virtual void Update();
+private:
+
+};
+
+
 class MonsterStateIdle : public MonsterStateBase
 {
 public:

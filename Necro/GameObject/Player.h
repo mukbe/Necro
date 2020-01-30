@@ -18,6 +18,14 @@ class PlayerMove;
 class PlayerIdle;
 class PlayerAttack;
 
+enum PlayerDirection
+{
+	PlayerLeft,
+	PlayerRight,
+	PlayerUp,
+	PlayerDown
+};
+
 class Player : public GameObject
 {
 private:
@@ -32,8 +40,8 @@ private:
 	unordered_map<string, StateBase*> stateList;
 
 	int frameX, frameY;			// 프레임 렌더용
-	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
+	string imageName;			// 이미지 이름 
 
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
@@ -45,6 +53,11 @@ private:
 
 	float jumpPower;			// 점프 힘
 	float gravity;				// 중력
+
+	PlayerDirection playerDirection;		// 방향
+
+	POINT attackrRange;						// 공격 범위
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -87,8 +100,8 @@ public:
 	//키입력받아서 해동할 어떠한 것들 
 	virtual void BeatExcute() = 0;	
 
-	virtual void Excute() = 0;		// 박자에 맞추지 않아도 될 어떠한 업데이트
-	virtual void Exit() {}			// 
+	virtual void Excute() = 0;	// 박자에 맞추지 않아도 될 어떠한 업데이트
+	virtual void Exit() {}		// 
 protected:
 	Player* me;
 };

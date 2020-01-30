@@ -1,7 +1,7 @@
 #pragma once
 #include "Monster.h"
 
-class TileManager;
+
 class Monster;
 
 class Ghost : public Monster

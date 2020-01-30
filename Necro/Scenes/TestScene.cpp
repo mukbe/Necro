@@ -45,7 +45,7 @@ void TestScene::Init()
 
 	//ÇÊµå 
 
-	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
+	_TileMap->SetMapInfo({ 100, 100 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
 
 	_TileMap->CreateMap();
 

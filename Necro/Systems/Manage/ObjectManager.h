@@ -1,6 +1,6 @@
 #pragma once
 
-
+class TileNode;
 class ObjectManager
 {
 	friend class SceneBase;		//씬에서 생성함
@@ -23,11 +23,14 @@ private:
 	vector<class GameObject*> objects;
 	vector<class GameObject*> deleteList;
 
+	vector<class GameObject*> tiles;
 
 	ObjectManager();
 	~ObjectManager();
 
+	//이 함수는 안쓸거임 아마도
 	void ControlUpdate();
+
 	void Update(float tick);
 
 };
@@ -35,10 +38,19 @@ private:
 IS_INHERITED_THAN_RETURN(class GameObject) ObjectManager::CreateObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	Derived* temp = new Derived(name, pos, size);
-	objects.push_back(temp);
 
 	//virtual void GameObject::Init
 	temp->Init();
+	
+	//타일은 Update안함
+	if (temp->Name() == "TileNode")
+	{
+		tiles.push_back(temp);
+	}
+	else
+	{
+		objects.push_back(temp);
+	}
 
 	return temp;
 }

@@ -15,6 +15,18 @@ GreenDragon::GreenDragon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	endPos = { position.x + 52.f, position.y + 52.f };
 	
 	monsterBeat = 2;
+
+	life = 4;
+
+	AddCallback("GreenDragonHit", [&](TagMessage msg)
+	{
+
+
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
 }
 
 
@@ -44,7 +56,7 @@ void GreenDragon::Update(float tick)
 	{
 		frameX++;
 		FrameCount = 0;
-		if (frameX > 1)
+		if (frameX > 3)
 		{
 
 			frameX = 0;
