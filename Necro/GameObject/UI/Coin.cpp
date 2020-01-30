@@ -43,9 +43,9 @@ void Coin::Render()
 {
 	_ImageManager->Render("UI_Coin", rc, nullptr);
 	
-	D3DXVECTOR2 start = position + D3DXVECTOR2(30, 0);
+	D3DXVECTOR2 start = position + D3DXVECTOR2(35, 0);
 
-	axe->Render(FloatRect(start, 9, Pivot::CENTER),nullptr);
+	axe->Render(FloatRect(start, 15, Pivot::TOP), nullptr, 0.8f);
 
 	start = position + D3DXVECTOR2(50, 0);
 	D3DXVECTOR2 offset = D3DXVECTOR2(font->GetFrameSize().x * 3.f, 0);
