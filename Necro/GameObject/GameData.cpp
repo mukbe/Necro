@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "GameData.h"
 
-GameData::GameData(string name)
-	:GameObject(name)
+GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+	:GameObject(name,pos,size)
 {
-	moveType = MoveType_Custom;
+	moveType = MoveType_Control;
 
-	weaponinfo = Dagger;
 
 	playerCoin = 0;
 	playerDia = 0;
+	bBeat = false;
 }
 GameData::~GameData()
 {
@@ -27,10 +27,14 @@ void GameData::Release()
 
 void GameData::ControlUpdate()
 {
+	bBeat = !bBeat;
 }
 
 void GameData::MissControlUpdate()
 {
+	bCombo = false;
+	ratioCoin = 1.f;
+	comboCount = 0;
 }
 
 void GameData::Update(float tick)
@@ -89,4 +93,15 @@ void GameData::MinusDia(UINT val)
 		// 역시 못 산다 . 
 	}
 	playerDia -= (int)val;
+}
+
+void GameData::Combo()
+{
+	//이미 콤보값이 있었을 경우
+	if (bCombo)
+	{
+		comboCount++;
+		ratioCoin = 2 + (int)(comboCount / 3);
+	}
+	bCombo = true;
 }

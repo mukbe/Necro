@@ -84,8 +84,8 @@ void TestScene::Init()
 	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("ItemWeapon", D3DXVECTOR2(), D3DXVECTOR2());
 	Weapon->Init({ 2, 5 });
 
-	ItemBody* Body = _ObjectPool->CreateObject<ItemBody>("ItemBody", D3DXVECTOR2(), D3DXVECTOR2());
-	Body->Init({ 5, 5 });
+	//ItemBody* Body = _ObjectPool->CreateObject<ItemBody>("ItemBody", D3DXVECTOR2(), D3DXVECTOR2());
+	//Body->Init({ 5, 5 });
 
 	ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
 	Head->Init({ 5,6 });
@@ -140,7 +140,8 @@ void TestScene::ImageLoad()
 
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
-
+	_ImageManager->AddTexture("NoteBeatRed", ResourcePath + L"UI/redbeat.png");
+	
 	_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/UI_ThrowSlot.png");
 	_ImageManager->AddTexture("UI_Coin", ResourcePath + L"UI/UI_Coin.png");
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");

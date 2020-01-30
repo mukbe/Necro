@@ -3,11 +3,12 @@
 
 SceneBase::SceneBase()
 	: messageManager(new MessageManager), objectManager(new ObjectManager), renderManager(new RenderManager),
-	  beatManager(new BeatManager), tileManager(nullptr), gameData(new GameData)
+	  beatManager(new BeatManager), tileManager(nullptr)
 {
 	float tile = 52.f;
 	TileManager::SetMapInfo({ 1,1 }, { tile,tile }, { tile * 0.5f,tile * 0.5f });
 	tileManager = new TileManager;
+	
 }
 
 SceneBase::~SceneBase()
@@ -23,6 +24,7 @@ SceneBase::~SceneBase()
 void SceneBase::Init()
 {
 	tileManager->CreateMap();
+	gameData = _ObjectPool->CreateObject<GameData>("GameData", D3DXVECTOR2(), D3DXVECTOR2());
 }
 
 void SceneBase::Release()

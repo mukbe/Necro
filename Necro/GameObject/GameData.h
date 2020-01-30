@@ -54,7 +54,7 @@ public:
 
 
 public:
-	GameData(string name = "GameData");
+	GameData(string name ,D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual~GameData();
 
 	virtual void Init();
@@ -75,8 +75,11 @@ public:
 	void AddCoin(UINT val);						// 코인 
 	void MinusCoin(UINT val);					// 코인 사용 할 때
 	void MinusDia(UINT val);					// 다이아 사용 할 때
-	UINT GetCoin() { return playerCoin; }		// 얻을 때 
-	UINT GetDia() { return playerDia; }			// 얻을 때
+	UINT GetCoin() { return playerCoin; }		
+	UINT GetDia() { return playerDia; }			
+
+
+	void Combo();
 
 	WeaponInfo getWeaponDate() { return weaponData; }
 
@@ -89,5 +92,11 @@ private:
 	WeaponInfo weaponData;
 	ShovelInfo shovelDate;
 	ItemHeadInfo HeadDate;
+
+	bool bCombo;
+	UINT comboCount;
+	int ratioCoin;
+	//타일노드만 사용할듯
+	bool bBeat;
 };
 

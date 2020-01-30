@@ -33,8 +33,8 @@ private:
 	vector<Text2D*> textGame;
 	vector<Text2D*> textUI;
 
-	TextManager() {}
-	~TextManager() {}
+	TextManager();
+	~TextManager();
 
 };
 

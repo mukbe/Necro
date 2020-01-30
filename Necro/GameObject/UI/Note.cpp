@@ -123,3 +123,8 @@ void Note::OnBeatEnter()
 	_BeatManager->ReturnNote();
 
 }
+
+void Note::SetRedNote()
+{
+	tex = _ImageManager->FindTexture("NoteBeatRed");
+}
