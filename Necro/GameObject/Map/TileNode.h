@@ -15,13 +15,20 @@ public:
 	virtual void SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	
 	virtual void Release();
+	
 	virtual void ControllUpdate();
+	virtual void MissControlUpdate();
 	virtual void Update(float tick);
 
 	virtual void Render();
 	virtual void ImguiRender();
 
-	virtual void HighlightRender();
+	virtual void Show();
+	virtual void Hide();
+
+	virtual void Active();
+
+	void HighlightRender();
 
 	string GetTextureKey() { return textureKey; }
 	POINT GetFrame() { return textureFrame; }
@@ -101,23 +108,6 @@ public:
 	void SetHighlight(bool input) { haveIDrawHighlight = input; }
 	void SetUIMode(bool input) { isUI = input; }
 
-	//AlphaRate
-	float GetAlpha() 
-	{ 
-		return (float)alpha / 100.f;
-	}
-
-	//0 ~ 100
-	void SetAlpha(unsigned char input) 
-	{
-		if (input > 100)
-		{
-			alpha = 100;
-			return;
-		}
-		alpha = input;
-	}
-
 protected:
 	string textureKey;
 	shared_ptr<Texture> texture;
@@ -137,5 +127,5 @@ protected:
 	bool haveIDrawHighlight;
 	bool isUI;
 
-	unsigned char alpha;
+	bool temp;
 };
