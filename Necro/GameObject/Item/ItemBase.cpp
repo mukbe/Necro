@@ -11,12 +11,6 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
-	AddCallback("Show", [&](TagMessage msg) {			// 플레이어 시야에 따라 아이템이 보여질 때 
-		bShow = true;									
-	});													
-	AddCallback("Hide", [&](TagMessage msg) {			// 시야가 멀어져 안보일때를 설정해야함. 
-		bShow = false;									
-	});										
 
 	AddCallback("Drop", [&](TagMessage msg) {			// 아이템 교체 했을 때 떨굴지 안 떨굴지 
 		bDrop = true;
@@ -71,4 +65,19 @@ void ItemBase::EatItem()
 {
 	// 오류 떴을 때 
 	LOG->Warning(__FILE__, __LINE__, "아이템 먹었는데 재정의 안해서 뜨는 오류 ");
+}
+
+void ItemBase::Show()
+{
+	bShow = true;
+}
+
+void ItemBase::Hide()
+{
+	bShow = false;
+}
+
+void ItemBase::Active()
+{
+	bActive = true;
 }

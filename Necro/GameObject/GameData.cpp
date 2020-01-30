@@ -1,17 +1,23 @@
 #include "stdafx.h"
 #include "GameData.h"
 
-// 체력이나 공격력 등 저장 하는 곳
-
-GameData::GameData(string name)
-	:GameObject(name)
+GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+	:GameObject(name,pos,size)
 {
-	moveType = MoveType_Custom;
+	moveType = MoveType_Beat;
 
 	
 	playerHp = 10;
 	playerCoin = 0;
 	playerDia = 0;
+	comboCount = 0;
+	ratioCoin = 1.f;
+	bCombo = false;
+	bBeat = false;
+
+	AddCallback("Miss", [&](TagMessage msg) {
+		MissControlUpdate();
+	});
 }
 GameData::~GameData()
 {
@@ -29,10 +35,14 @@ void GameData::Release()
 
 void GameData::ControlUpdate()
 {
+	bBeat = !bBeat;
 }
 
 void GameData::MissControlUpdate()
 {
+	bCombo = false;
+	ratioCoin = 1.f;
+	comboCount = 0;
 }
 
 void GameData::Update(float tick)
@@ -48,6 +58,9 @@ void GameData::Render()
 
 void GameData::ImguiRender()
 {
+	ImGui::Begin("GameData");
+	ImGui::Text("bBeat %d", (int)bBeat);
+	ImGui::End();
 }
 
 void GameData::AddDia(UINT val)
@@ -57,7 +70,7 @@ void GameData::AddDia(UINT val)
 
 void GameData::AddCoin(UINT val)
 {
-	playerCoin += val;
+	playerCoin += val * ratioCoin;
 }
 
 //Minus 는 상점 관련 
@@ -78,4 +91,15 @@ void GameData::MinusDia(UINT val)
 		// 다이아 상점 
 	}
 	playerDia -= (int)val;
+}
+
+void GameData::Combo()
+{
+	//이미 콤보값이 있었을 경우
+	if (bCombo)
+	{
+		comboCount++;
+		ratioCoin = 2 + (int)(comboCount / 3);
+	}
+	bCombo = true;
 }
