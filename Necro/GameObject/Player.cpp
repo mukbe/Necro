@@ -148,16 +148,11 @@ void Player::FloodFill(POINT index, int sight)
 		tempIndex.x = index.x + proveX[i];
 		tempIndex.y = index.y + proveY[i];
 
+		//sight 에 5 주고 sight에 따라 밝기를 다르게 준다. 
 		if (_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetAttribute() == ObjNone)
 		{
+			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
 			// 땅이면 불 켜주고 
-			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
-		}
-		if (_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetAttribute() == ObjDestructable)
-		{
-			// 벽이면 불 켜주고 
-			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
-			// 그방향으로는 더이상 못가게 해야하는뎁 
 		}
 		temp = _GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetObjects(ObjectMonster);
 		
@@ -166,7 +161,13 @@ void Player::FloodFill(POINT index, int sight)
 			// 애너미 있으면 메세지 보내 불 키라고 
 			// 처음 시야 범위에 들어온거면 소환? 하라고 해야함.
 		}
-		FloodFill(tempIndex, sight-1);
+		if (_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->GetAttribute() == ObjDestructable)
+		{
+			// 얘도 아마 처음 시야 범위에 들어온거면 소환 하라고 해야함 
+			FloodFill(tempIndex, sight-1);
+			// 벽이면 불 켜주고 
+			// 그방향으로는 더이상 못가게 해야하는뎁 
+		}
 	}
 }
 
@@ -189,6 +190,7 @@ void PlayerIdle::BeatExcute()
 
 	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	vector<GameObject*> tempArr; 
+	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 	if (KeyCode->Down(VK_LEFT))
 	{

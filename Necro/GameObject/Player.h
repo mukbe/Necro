@@ -87,8 +87,7 @@ public:
 	// 상태를 변경하는데 쓰일 함수 
 	void ChangeState(string str);
 
-	void FloodFill(POINT index);
-
+	void FloodFill(POINT index , int sight);
 
 };
 
