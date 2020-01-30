@@ -1,12 +1,5 @@
 #pragma once
 
-struct PlayerState
-{
-	int Hp;				// 체력
-	//조금씩 추가할 예정
-};
-
-
 class GameData : public GameObject
 {
 public:
@@ -27,6 +20,7 @@ public:
 			Type = Weapon::Dagger;
 		}
 	};
+
 	// 아이템 광부 모자 
 	struct ItemHeadInfo
 	{
@@ -75,6 +69,8 @@ public:
 	virtual void Render();
 	virtual void ImguiRender();
 
+	
+
 	void AddDia(UINT val);						// 다이아
 	void AddCoin(UINT val);						// 코인 
 	void MinusCoin(UINT val);					// 코인 사용 할 때
@@ -82,12 +78,14 @@ public:
 	UINT GetCoin() { return playerCoin; }		// 얻을 때 
 	UINT GetDia() { return playerDia; }			// 얻을 때
 
+	WeaponInfo getWeaponDate() { return weaponData; }
+
 private:
 
 	UINT playerCoin;
 	UINT playerBomb;
 	UINT playerDia;
-
+	Weapon weaponinfo;
 	WeaponInfo weaponData;
 	ShovelInfo shovelDate;
 	ItemHeadInfo HeadDate;

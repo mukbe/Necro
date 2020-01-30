@@ -11,9 +11,11 @@
 
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
+#include "./GameObject/UI/AttackSlot.h"
 
 #include "./GameObject/Item/ItemBase.h"
 #include "./GameObject/Item/ItemShovel.h"
+#include "./GameObject/Item/ItemWeapon.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -39,7 +41,8 @@ void TileTestScene::Init()
 	}
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
-	
+	// UI
+	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 
 	// TileManager(POINT mapSize, tileSize, ±âÁØÁÂÇ¥)
 	// mapSize´Â {°¡·ÎÄ­¼ö, ¼¼·ÎÄ­¼ö}
@@ -113,17 +116,20 @@ void TileTestScene::Init()
 		testWall->SetTransformInfo(5, i + 1);
 		_TileMap->Tile(5, i+1)->AddObject(ObjectWall, testWall);
 	}
-	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
-	//Shovel->Init({ 2,6 });
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
-	Shovel->Init({ 2,6 });
-
+	Shovel->Init({ 3,5 });
+	
+	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("ItemWeapon", D3DXVECTOR2(), D3DXVECTOR2());
+	Weapon->Init({ 3,6 });
+	
 }
 
 void TileTestScene::ImageLoad()
 {
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
+
+	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 
 	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
 
@@ -139,4 +145,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
 
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
+	//_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
+	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
+
 }
