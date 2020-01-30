@@ -17,11 +17,12 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	io.Fonts->AddFontFromFileTTF("..//_Resources//TTF//Maplestory Light.ttf", 16.f, nullptr, io.Fonts->GetGlyphRangesKorean());
 
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
-
+	palleteType = (ObjectType)0;
 	MapSize[0] = 1;
 	MapSize[1] = 1;
 	oldMapSize[0] = 1;
 	oldMapSize[1] = 1;
+	selectedObject = selectedPallete = nullptr;
 
 	map->CreateMap();
 }
@@ -58,6 +59,33 @@ void MapTool::Update(float tick)
 		}
 	}
 
+
+	vector<palleteNode*> tempArr = pallete->GetPalleteArray();
+	for (int i = 0; i < tempArr.size(); ++i)
+	{
+		palleteNode* temp = tempArr[i];
+		if (Math::IsPointInAABB(tempArr[i]->GetRect(), CAMERA->GetMousePos()/*(D3DXVECTOR2)Mouse::Get()->GetPosition()*/))
+		{
+			temp->SetIsMouseOver(true);
+			if (Keyboard::Get()->Down(VK_LBUTTON))
+			{
+				if (selectedPallete != nullptr) 
+				{
+					selectedPallete->SetIsSelected(false);
+				}
+				temp->SetIsSelected(true);
+				selectedPallete = temp;
+			}
+		}
+		else
+		{
+			if(temp->GetIsMouseOver())temp->SetIsMouseOver(false);
+		}
+	}
+
+
+
+
 	switch (palleteType)
 	{
 	case ObjectAll:
@@ -87,7 +115,7 @@ void MapTool::Update(float tick)
 		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
 		break;
 	default:
-		pallete->ReleasePallete();
+		//pallete->ReleasePallete();
 		break;
 	}
 }

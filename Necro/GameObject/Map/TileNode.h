@@ -101,6 +101,23 @@ public:
 	void SetHighlight(bool input) { haveIDrawHighlight = input; }
 	void SetUIMode(bool input) { isUI = input; }
 
+	//AlphaRate
+	float GetAlpha() 
+	{ 
+		return (float)alpha / 100.f;
+	}
+
+	//0 ~ 100
+	void SetAlpha(unsigned char input) 
+	{
+		if (input > 100)
+		{
+			alpha = 100;
+			return;
+		}
+		alpha = input;
+	}
+
 protected:
 	string textureKey;
 	shared_ptr<Texture> texture;
@@ -119,4 +136,6 @@ protected:
 	bool isSelected;
 	bool haveIDrawHighlight;
 	bool isUI;
+
+	unsigned char alpha;
 };

@@ -11,6 +11,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	isSelected = false;
 	haveIDrawHighlight = false;
 	isUI = false;
+	alpha = 100;
 
 	for (int i = ObjectTypeBegin; i != ObjectTypeEnd; ++i)
 	{
@@ -82,7 +83,7 @@ void TileNode::Render()
 {
 	p2DRenderer->SetCamera(!isUI);
 	
-	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
+	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y, GetAlpha());
 	
 	if(!isUI)
 	{

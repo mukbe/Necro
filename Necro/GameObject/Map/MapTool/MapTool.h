@@ -4,6 +4,7 @@
 class TileManager;
 class TileNode;
 class Pallete;
+class palleteNode;
 
 class MapTool : public GameObject
 {
@@ -42,5 +43,6 @@ private:
 	int oldMapSize[2];
 
 	GameObject* selectedObject;
+	palleteNode* selectedPallete;
 };
 
