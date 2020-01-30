@@ -15,9 +15,8 @@ public:
 	virtual void EatItem();
 private:
 
-	GameData::ItemShovel info;
+	GameData::ShovelInfo info;
 
-	UINT hasShovel;
 
 };
 

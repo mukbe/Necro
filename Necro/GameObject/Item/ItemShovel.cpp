@@ -32,7 +32,12 @@ void ItemShovel::Render()
 {
 	//_ImageManager->FindTexture("Pickaxe")->FrameRender(rc, nullptr, 0, (UINT)bShow);
 	//_ImageManager->FindTexture("Shovel")->FrameRender(rc.Update(D3DXVECTOR2(52.f,42.f),TileManager::tileSize * 0.85f,Pivot::CENTER), nullptr, 0, (UINT)bShow);
+	// _ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
 	_ImageManager->FindTexture("Shovel")->FrameRender(rc, nullptr, 0, (UINT)bShow);
+
+
+
+	//_ImageManager->FindTexture("Shovel")->FrameRender(FloatRectr (this->Transform, 60.f, Pivot::CENTER), NULL);
 }
 
 void ItemShovel::Init(POINT tileIndex)
@@ -42,4 +47,5 @@ void ItemShovel::Init(POINT tileIndex)
 
 void ItemShovel::EatItem()
 {
+	//아이템 속성 
 }

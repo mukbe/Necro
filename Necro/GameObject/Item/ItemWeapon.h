@@ -16,10 +16,24 @@ public:
 
 	void Init(POINT tileIndex);
 
+	void SetItemData(Weapon weaponType, POINT weaponRange, UINT weaponDamage, string weaponEffectImageKey, string iconImageKey)
+	{
+		info.Type = weaponType;
+		info.Range = weaponRange;
+		info.Damage = weaponDamage;
+		info.Imagekey = weaponEffectImageKey;
+		textureKey = iconImageKey;
+	}
+
+
+
 private: 
 	
 	GameData::WeaponInfo info;
+
+	Weapon myType;
+
+	string textureKey;
 	 
-	UINT hasWeapon;
 };
 

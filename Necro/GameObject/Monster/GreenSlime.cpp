@@ -22,8 +22,6 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("GreenSlimeHit", [&](TagMessage msg)
 	{
 
-
-
 		ProcessDestroy();
 		_ObjectPool->DeletaObject(this);
 

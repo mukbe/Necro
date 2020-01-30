@@ -201,6 +201,7 @@
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
     <ClCompile Include="GameObject\Map\StoneWall.cpp" />
+    <ClCompile Include="GameObject\ShopKeeper.cpp" />
     <ClCompile Include="Systems\Manage\RenderManager.cpp" />
     <ClCompile Include="Systems\Manage\ObjectManager.cpp" />
     <ClCompile Include="Systems\Manage\BeatManager.cpp" />
@@ -216,7 +217,6 @@
     <ClCompile Include="Systems\Manage\SoundManager.cpp" />
     <ClCompile Include="Systems\Object\GameObject.cpp" />
     <ClCompile Include="GameObject\UI\UIBase.cpp" />
-    <ClCompile Include="GameObject\Text2D.cpp" />
     <ClCompile Include="Utilities\Line.cpp" />
     <ClCompile Include="Utilities\Matrix2D.cpp" />
     <ClCompile Include="Utilities\FloatRect.cpp" />
@@ -288,6 +288,7 @@
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
     <ClInclude Include="GameObject\Map\StoneWall.h" />
+    <ClInclude Include="GameObject\ShopKeeper.h" />
     <ClInclude Include="Systems\Manage\RenderManager.h" />
     <ClInclude Include="Systems\Manage\ObjectManager.h" />
     <ClInclude Include="Systems\Manage\BeatManager.h" />
@@ -304,7 +305,6 @@
     <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="Systems\Object\GameObject.h" />
     <ClInclude Include="GameObject\UI\UIBase.h" />
-    <ClInclude Include="GameObject\Text2D.h" />
     <ClInclude Include="TileHelper.h" />
     <ClInclude Include="Utilities\Line.h" />
     <ClInclude Include="Utilities\Matrix2D.h" />

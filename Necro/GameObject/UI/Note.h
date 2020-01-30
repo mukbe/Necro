@@ -27,6 +27,7 @@ public:
 	void OnBeatEnter();
 
 	NoteState GetState() { return state; }
+	void SetRedNote();
 
 private:
 	float ratio;

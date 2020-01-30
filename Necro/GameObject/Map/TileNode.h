@@ -15,13 +15,20 @@ public:
 	virtual void SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKey = "NoneTexture", POINT textureFrameIndex = { 0,0 }, AttributeType type = ObjNone);
 	
 	virtual void Release();
+	
 	virtual void ControllUpdate();
+	virtual void MissControlUpdate();
 	virtual void Update(float tick);
 
 	virtual void Render();
 	virtual void ImguiRender();
 
-	virtual void HighlightRender();
+	virtual void Show();
+	virtual void Hide();
+
+	virtual void Active();
+
+	void HighlightRender();
 
 	string GetTextureKey() { return textureKey; }
 	POINT GetFrame() { return textureFrame; }
@@ -119,4 +126,6 @@ protected:
 	bool isSelected;
 	bool haveIDrawHighlight;
 	bool isUI;
+
+	bool temp;
 };

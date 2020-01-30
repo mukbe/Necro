@@ -60,7 +60,7 @@ void Note::ControlUpdate()
 
 void Note::Update(float tick)
 {	
-
+	// 상태 스위치 
 	switch (state)
 	{
 		case Note::Note_None:
@@ -83,7 +83,6 @@ void Note::Update(float tick)
 			saveTime += tick;
 			rc.Update(position, size, Pivot::CENTER);
 			reflect.Update(D3DXVECTOR2(WinSizeX - position.x, position.y), size, Pivot::CENTER);
-
 		}
 		break;
 		case Note::Note_Grace:
@@ -123,4 +122,9 @@ void Note::OnBeatEnter()
 	state = Note_Grace;
 	_BeatManager->ReturnNote();
 
+}
+
+void Note::SetRedNote()
+{
+	tex = _ImageManager->FindTexture("NoteBeatRed");
 }

@@ -40,8 +40,8 @@ private:
 	unordered_map<string, StateBase*> stateList;
 
 	int frameX, frameY;			// 프레임 렌더용
-	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
+	string imageName;			// 이미지 이름 
 
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
@@ -57,6 +57,7 @@ private:
 	PlayerDirection playerDirection;		// 방향
 
 	POINT attackrRange;						// 공격 범위
+
 
 
 public:
@@ -83,6 +84,8 @@ public:
 
 	// 상태를 변경하는데 쓰일 함수 
 	void ChangeState(string str);
+
+	void FloodFill(POINT index , int sight);
 
 };
 

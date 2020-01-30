@@ -35,7 +35,7 @@ void WallBase::Init()
 {
 	life = 1;
 	type = WallDestructableShovel;
-	textureKey = "DefaultWall";
+	textureKey = "DefaultWall";//?
 }
 
 void WallBase::Release()
@@ -75,6 +75,21 @@ void WallBase::Render()
 	{
 		_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
 	}
+}
+
+void WallBase::Show()
+{
+	alpha = 1.0f;
+}
+
+void WallBase::Hide()
+{
+	alpha = 0.5f;
+}
+
+void WallBase::Active()
+{
+	GameObject::Active();
 }
 
 void WallBase::SetTileAttribute()

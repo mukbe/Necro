@@ -36,10 +36,22 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("AddChance", [&](TagMessage msg) {
 		if (bBeatChance > 0)
 		{
+			if (_BeatManager->GetMode() == BeatManager::MoveMode::MOVE_FREE) return;
+
 			MissControlUpdate();
 			return;
 		}
 		bBeatChance++;
+	});
+	AddCallback("Show", [&](TagMessage msg) {
+		Show();
+	});
+	AddCallback("Hide", [&](TagMessage msg) {
+		Hide();
+	});
+
+	AddCallback("Active", [&](TagMessage msg) {
+		Active();
 	});
 }
 
@@ -81,6 +93,18 @@ void GameObject::Update(float tick)
 void GameObject::Render()
 {
 	
+}
+
+void GameObject::Show()
+{
+}
+
+void GameObject::Hide()
+{
+}
+
+void GameObject::Active()
+{
 }
 
 //void GameObject::PostRender()

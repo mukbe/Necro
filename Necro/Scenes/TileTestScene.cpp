@@ -2,7 +2,7 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "./GameObject/Map/TileNode.h"
-
+#include "./GameObject/ShopKeeper.h"
 #include "./GameObject/Player.h"
 //일반몹
 #include "./GameObject/Monster/GreenSlime.h"
@@ -15,12 +15,13 @@
 #include "./GameObject/Monster/Minotaur.h"
 #include "./GameObject/Monster/RedDragon.h"
 #include "./GameObject/Monster/GreenDragon.h"
-
+// Item / Ui 
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
-
+#include "./GameObject/UI/AttackSlot.h"
 #include "./GameObject/Item/ItemBase.h"
 #include "./GameObject/Item/ItemShovel.h"
+#include "./GameObject/Item/ItemWeapon.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -70,6 +71,17 @@ void TileTestScene::Init()
 	
 	_TileMap->CreateMap();
 
+	_TileMap->Tile(0, 6)->SetAlpha(0);
+	_TileMap->Tile(1, 6)->SetAlpha(10);
+	_TileMap->Tile(2, 6)->SetAlpha(20);
+	_TileMap->Tile(3, 6)->SetAlpha(30);
+	_TileMap->Tile(4, 6)->SetAlpha(40);
+	_TileMap->Tile(5, 6)->SetAlpha(50);
+	_TileMap->Tile(6, 6)->SetAlpha(60);
+	_TileMap->Tile(7, 6)->SetAlpha(70);
+	_TileMap->Tile(8, 6)->SetAlpha(80);
+	_TileMap->Tile(9, 6)->SetAlpha(90);
+
 	
 	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	
@@ -84,12 +96,19 @@ void TileTestScene::Init()
 	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
 	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
 	//
-	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78, 78), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78.f, 78.f), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<ShopKeeper>("ShopKeeper", D3DXVECTOR2(338.f, 78.f), D3DXVECTOR2(80.f, 80.f));
 	MonsterLoad();
 
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+
+
+
+
+
+
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -120,12 +139,25 @@ void TileTestScene::Init()
 		testWall->SetTransformInfo(5, i + 1);
 		_TileMap->Tile(5, i+1)->AddObject(ObjectWall, testWall);
 	}
-	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
-	//Shovel->Init({ 2,6 });
+	
+	// Item
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });
+	_TileMap->Tile(2, 6)->AddObject(ObjectItem, Shovel);
 
+	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
+	_TileMap->Tile(2, 8)->AddObject(ObjectItem, Weapon);
+	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
+	
+
+	// UI 
+	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
+
+	_GameWorld->GetGameData()->setWeaponData(Baredhand, 0, 0, "");  // 무기 
+	_GameWorld->GetGameData()->setWeaponData(Dagger, 1, 1, "Dagger");
+	_GameWorld->GetGameData()->setWeaponData(Spear, 2, 1, "Spear");
+	_GameWorld->GetGameData()->setWeaponData(Broadsword, 3, 1, "Broadsword");
 }
 
 void TileTestScene::ImageLoad()
@@ -133,19 +165,33 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 
 	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
-
-	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
-	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
+	// 플레이어
+	_ImageManager->AddFrameTexture("NormalPlayer", ResourcePath + L"Player/NormalPlayer.png", 4, 2);
+	_ImageManager->AddFrameTexture("LeatherPlayer", ResourcePath + L"Player/LeatherPlayer.png", 4, 2);
 	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
+	// NPC
+	_ImageManager->AddFrameTexture("ShopKeeper", ResourcePath + L"NPC/ShopKeeper.png", 8, 2);
+	_ImageManager->AddTexture("Music", ResourcePath + L"NPC/Music.png");
+
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	
+	// Effect
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
-
+	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
+	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
+	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
+	
+	//Item
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
+	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
+	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
+	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
+
+	//UI
+	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 
 	//몬스터
 	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"Monster/slime_green.png", 4, 4);
