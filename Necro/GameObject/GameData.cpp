@@ -93,6 +93,11 @@ void GameData::MinusDia(UINT val)
 	playerDia -= (int)val;
 }
 
+void GameData::PosRedefinition(POINT pos)
+{
+	playerIndex = pos;
+}
+
 void GameData::Combo()
 {
 	//이미 콤보값이 있었을 경우
