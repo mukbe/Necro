@@ -58,8 +58,6 @@ private:
 
 	POINT attackrRange;						// 공격 범위
 
-	int proveX[4]; 
-	int proveY[4];
 
 
 public:
