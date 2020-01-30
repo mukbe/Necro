@@ -58,6 +58,9 @@ private:
 
 	POINT attackrRange;						// 공격 범위
 
+	int proveX[4]; 
+	int proveY[4];
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -83,6 +86,9 @@ public:
 
 	// 상태를 변경하는데 쓰일 함수 
 	void ChangeState(string str);
+
+	void FloodFill(POINT index);
+
 
 };
 
