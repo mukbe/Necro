@@ -95,7 +95,6 @@ private:
 
 	WeaponInfo weaponData;
 	ShovelInfo shovelDate;
-	//ItemHeadInfo HeadDate;
 
 	bool bCombo;
 	UINT comboCount;

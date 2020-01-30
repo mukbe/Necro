@@ -20,7 +20,10 @@ public:
 
 	virtual void Render();
 
+	void PushCoin(UINT val);
 private:
-	
+	vector<UINT> coin;
+	shared_ptr<Texture> font;
+	shared_ptr<Texture> axe;
 };
 
