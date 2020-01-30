@@ -1,12 +1,19 @@
 #pragma once
 
+enum Weapon
+{
+	Baredhand, Dagger, Spear, Broadsword
+};
+
+enum ShovelType
+{
+	Hand, Shovel, Pickaxe
+};
+
 class GameData : public GameObject
 {
 public:
-	enum Weapon
-	{
-		Dagger, Spear, Broadsword
-	};
+	
 	struct WeaponInfo
 	{
 		Weapon Type;
@@ -14,44 +21,27 @@ public:
 		UINT Damage;
 		string Imagekey;
 		WeaponInfo()
-			: Range(1), Damage(1)
+			: Range(0), Damage(0)
 		{
 			Imagekey = "";
-			Type = Weapon::Dagger;
+			Type = Weapon::Baredhand;
 		}
 	};
-
-	// 아이템 광부 모자 
-	struct ItemHeadInfo
-	{
-		UINT Range;
-		UINT life;  // 타일 벽  라이프 깍기위해서 
-		//ItemHeadInfo()
-		// Range(4), life(1)
-		//{
-		//
-		//}
-	};
-
 	//삽 . 곡괭이 
-	enum ItemShovel
-	{
-		Shovel, Pickaxe
-	};
 
 	struct ShovelInfo
 	{
-		ItemShovel Type;
+		ShovelType Type;
 		UINT life;  // 벽 까기위한
 		string Imagekey;
 		ShovelInfo()
 			: life(1)
 		{
 			Imagekey = "";
-			Type = ItemShovel::Shovel;
+			Type = ShovelType::Shovel;
 		}
 	};
-
+	
 
 public:
 	GameData(string name = "GameData");
@@ -78,16 +68,18 @@ public:
 	UINT GetCoin() { return playerCoin; }		// 얻을 때 
 	UINT GetDia() { return playerDia; }			// 얻을 때
 
-	WeaponInfo getWeaponDate() { return weaponData; }
+	WeaponInfo getWeaponData() { return weaponData; }
 
+	void setWeaponData(Weapon Type, UINT Range, UINT Damage, string Imagekey) {}
+	 
 private:
 
 	UINT playerCoin;
 	UINT playerBomb;
 	UINT playerDia;
-	Weapon weaponinfo;
+	UINT playerHp;
+
+
 	WeaponInfo weaponData;
 	ShovelInfo shovelDate;
-	ItemHeadInfo HeadDate;
 };
-

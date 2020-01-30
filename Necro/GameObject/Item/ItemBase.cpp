@@ -6,7 +6,7 @@
 // 월 베이스 확인하면 서 키값이랑 어떻게 줬는지 
 // 부딪혔을 때 없애지게 만들어주는거
 
-
+ 
 ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 
@@ -17,6 +17,15 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("Hide", [&](TagMessage msg) {			// 시야가 멀어져 안보일때를 설정해야함. 
 		bShow = false;									
 	});										
+
+	AddCallback("Drop", [&](TagMessage msg) {			// 아이템 교체 했을 때 떨굴지 안 떨굴지 
+		bDrop = true;
+	});
+
+	AddCallback("Grap", [&](TagMessage msg) {			// 아이템 교체 없을 때  가지고 있어야지 떨구면 큰일나니께. 
+		bDrop = false;
+	});
+
 
 	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {

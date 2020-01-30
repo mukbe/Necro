@@ -15,12 +15,13 @@
 #include "./GameObject/Monster/Minotaur.h"
 #include "./GameObject/Monster/RedDragon.h"
 #include "./GameObject/Monster/GreenDragon.h"
-
+// Item / Ui 
 #include "./GameObject/UI/Heart.h"
 #include "./GameObject/UI/Note.h"
-
+#include "./GameObject/UI/AttackSlot.h"
 #include "./GameObject/Item/ItemBase.h"
 #include "./GameObject/Item/ItemShovel.h"
+#include "./GameObject/Item/ItemWeapon.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -127,12 +128,24 @@ void TileTestScene::Init()
 		testWall->SetTransformInfo(5, i + 1);
 		_TileMap->Tile(5, i+1)->AddObject(ObjectWall, testWall);
 	}
-	//ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(0,0), D3DXVECTOR2(52.f,52.f));
-	//Shovel->Init({ 2,6 });
+	
+	// Item
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });
+	_TileMap->Tile(2, 6)->AddObject(ObjectItem, Shovel);
 
+	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("ItemWeapon", D3DXVECTOR2(), D3DXVECTOR2());
+	_TileMap->Tile(2, 8)->AddObject(ObjectItem, Weapon);
+	Weapon->SetItemData(Dagger, 0, 1, "DaggerEffect", "Dagger");
+
+	// UI 
+	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
+
+	_GameWorld->GetGameData()->setWeaponData(Baredhand, 0, 0, "");  // 무기 
+	_GameWorld->GetGameData()->setWeaponData(Dagger, 1, 1, "Dagger");
+	_GameWorld->GetGameData()->setWeaponData(Spear, 2, 1, "Spear");
+	_GameWorld->GetGameData()->setWeaponData(Broadsword, 3, 1, "Broadsword");
 }
 
 void TileTestScene::ImageLoad()
@@ -154,7 +167,15 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
 
+
+	//Item
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
+	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
+	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
+	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
+
+	//UI
+	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 
 	//몬스터
 	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"Monster/slime_green.png", 4, 4);
