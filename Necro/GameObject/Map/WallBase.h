@@ -27,8 +27,12 @@ public:
 	virtual void Update(float tick);
 
 	virtual void Render();
-	
 	virtual void ImguiRender() {}
+
+	virtual void Show();
+	virtual void Hide();
+
+	virtual void Active();
 
 	virtual void SetTransformInfo()
 	{

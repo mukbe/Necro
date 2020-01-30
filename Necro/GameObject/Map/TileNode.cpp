@@ -11,6 +11,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	isSelected = false;
 	haveIDrawHighlight = false;
 	isUI = false;
+	alpha = 100;
 
 	for (int i = ObjectTypeBegin; i != ObjectTypeEnd; ++i)
 	{
@@ -19,7 +20,7 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		typeVector tempVector;
 		objectStorage.insert(make_pair((ObjectType)i, tempVector));
 	}
-
+	
 }
 
 TileNode::~TileNode()
@@ -62,6 +63,10 @@ void TileNode::ControllUpdate()
 {
 }
 
+void TileNode::MissControlUpdate()
+{
+}
+
 void TileNode::Update(float tick)
 {
 	//if (Math::IsPointInAABB(rc, CAMERA->GetMousePos()))
@@ -81,8 +86,34 @@ void TileNode::Update(float tick)
 void TileNode::Render()
 {
 	p2DRenderer->SetCamera(!isUI);
+
+	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
+
+	for (; sIter != sEnd; ++sIter)
+	{
+		OnIter vIter = (*sIter).second.begin(), vEnd = (*sIter).second.end();
+
+		for (; vIter != vEnd; ++vIter)
+		{
+			(*vIter)->SetAlpha(alpha);
+		}
+	}
 	
-	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y);
+	if (temp)
+	{
+		if (alpha < 1.f)
+		{
+			alpha += 0.05f;
+		}
+		else
+		{
+			alpha = 1.0f;
+			temp = false;
+		}
+
+	}
+
+	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y, alpha);
 	
 	if(!isUI)
 	{
@@ -109,6 +140,57 @@ void TileNode::Render()
 
 void TileNode::ImguiRender()
 {
+}
+
+void TileNode::Show()
+{
+	//alpha = 1.0f;
+	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
+
+	for (; sIter != sEnd; ++sIter)
+	{
+		OnIter vIter = (*sIter).second.begin(), vEnd = (*sIter).second.end();
+
+		for (; vIter != vEnd; ++vIter)
+		{
+			_MessagePool->ReserveMessage((*vIter), "Show");
+		}
+	}
+}
+
+void TileNode::Hide()
+{
+	//alpha = 0.5f;
+	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
+
+	for (; sIter != sEnd; ++sIter)
+	{
+		OnIter vIter = (*sIter).second.begin(), vEnd = (*sIter).second.end();
+
+		for (; vIter != vEnd; ++vIter)
+		{
+			_MessagePool->ReserveMessage((*vIter), "Hide");
+		}
+	}
+}
+
+void TileNode::Active()
+{
+	temp = true;
+	bActive = true;
+	alpha = 0.f;
+
+	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
+
+	for (; sIter != sEnd; ++sIter)
+	{
+		OnIter vIter = (*sIter).second.begin(), vEnd = (*sIter).second.end();
+		
+		for (; vIter != vEnd; ++vIter)
+		{
+			_MessagePool->ReserveMessage((*vIter), "Active");
+		}
+	}
 }
 
 void TileNode::HighlightRender()

@@ -71,6 +71,17 @@ void TileTestScene::Init()
 	
 	_TileMap->CreateMap();
 
+	_TileMap->Tile(0, 6)->SetAlpha(0);
+	_TileMap->Tile(1, 6)->SetAlpha(10);
+	_TileMap->Tile(2, 6)->SetAlpha(20);
+	_TileMap->Tile(3, 6)->SetAlpha(30);
+	_TileMap->Tile(4, 6)->SetAlpha(40);
+	_TileMap->Tile(5, 6)->SetAlpha(50);
+	_TileMap->Tile(6, 6)->SetAlpha(60);
+	_TileMap->Tile(7, 6)->SetAlpha(70);
+	_TileMap->Tile(8, 6)->SetAlpha(80);
+	_TileMap->Tile(9, 6)->SetAlpha(90);
+
 	
 	//_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(26.f, 26.f), D3DXVECTOR2(52, 52));
 	

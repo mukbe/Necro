@@ -77,6 +77,21 @@ void WallBase::Render()
 	}
 }
 
+void WallBase::Show()
+{
+	alpha = 1.0f;
+}
+
+void WallBase::Hide()
+{
+	alpha = 0.5f;
+}
+
+void WallBase::Active()
+{
+	GameObject::Active();
+}
+
 void WallBase::SetTileAttribute()
 {
 	switch (type)

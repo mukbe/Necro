@@ -4,9 +4,11 @@ class palleteNode : public GameObject
 {
 public:
 	palleteNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-		: GameObject(name, pos, size), IsSelected(false)
+		: GameObject(name, pos, size), isSelected(false)
 	{
 		_RenderPool->Request(this, RenderManager::Layer::UI);
+		isSelected = false;
+		isMouseOver = false;
 	}
 	~palleteNode() {}
 
@@ -28,26 +30,34 @@ public:
 
 	virtual void Update(float tick)
 	{
-		int a = 0;
-		if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
-		{
-			HighlightRender(255, 255, 255);
-			if (Keyboard::Get()->Down(VK_LBUTTON))
-			{
-				IsSelected = true;
-			}
-		}
+		//int a = 0;
+		//if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
+		//{
+		//	isMouseOnMe = true;
+		//	if (Keyboard::Get()->Down(VK_LBUTTON))
+		//	{
+		//		isSelected = true;
+		//	}
+		//}
+		//else
+		//{
+		//	isMouseOnMe = false;
+		//}
 	}
 
 	virtual void Render()
 	{
-		if (IsSelected)
+		_ImageManager->Render(textureKey, rc, NULL);
+		
+
+		if (isMouseOver)
+		{
+			HighlightRender(255, 255, 255);
+		}
+		if (isSelected)
 		{
 			HighlightRender(200, 50, 50);
 		}
-
-		_ImageManager->Render(textureKey, rc, NULL);
-		int a = 0;
 	}
 
 	void HighlightRender(BYTE r, BYTE g, BYTE b)
@@ -63,11 +73,27 @@ public:
 			D3DXCOLOR(r, g, b, 1), 2);
 	}
 
+	bool GetIsMouseOver() { return isMouseOver; }
+	void SetIsMouseOver(bool input) { isMouseOver = input; }
+
+	bool GetIsSelected() { return isSelected; }
+	void SetIsSelected(bool input) { isSelected = input; }
+
 private:
 	string textureKey;
 	GameObject* myObject;
-	bool IsSelected;
+	bool isSelected;
+	bool isMouseOver;
 };
+
+
+
+
+/*       /////////////////////////             */
+
+
+
+
 
 class Pallete
 {
@@ -118,6 +144,11 @@ public:
 	unordered_map<ObjectType, vector<GameObject*>> GetStorage()
 	{
 		return objectStorage;
+	}
+
+	vector<palleteNode*> GetPalleteArray()
+	{
+		return vecPallete;
 	}
 
 private:
