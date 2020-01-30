@@ -64,7 +64,7 @@ void MapTool::Update(float tick)
 	for (int i = 0; i < tempArr.size(); ++i)
 	{
 		palleteNode* temp = tempArr[i];
-		if (Math::IsPointInAABB(tempArr[i]->GetRect(), CAMERA->GetMousePos()/*(D3DXVECTOR2)Mouse::Get()->GetPosition()*/))
+		if (Math::IsPointInAABB(tempArr[i]->GetRect(), /*CAMERA->GetMousePos()*/(D3DXVECTOR2)Mouse::Get()->GetPosition()))
 		{
 			temp->SetIsMouseOver(true);
 			if (Keyboard::Get()->Down(VK_LBUTTON))
