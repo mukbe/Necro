@@ -40,8 +40,8 @@ private:
 	unordered_map<string, StateBase*> stateList;
 
 	int frameX, frameY;			// 프레임 렌더용
-	string head,body;			// 프레임 이름 
 	float interver;				// 프레임 인터벌
+	string imageName;			// 이미지 이름 
 
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
