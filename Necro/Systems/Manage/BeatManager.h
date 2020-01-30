@@ -12,24 +12,26 @@ class BeatManager
 {
 	friend class SceneBase;
 public:
+	enum class MoveMode
+	{
+		MOVE_MUSIC,
+		MOVE_FREE
+	};
+
 	static float currentDelta;
 	void LoadText(wstring filePath);
 
 	void Update(float tick);
 	void ReturnNote();
 
+	MoveMode GetMode() { return moveMode; }
 private:
 //===== 정보만 받고 사용안함
 	using Beat = pair<float, UINT>;
 	deque<Beat> beats;
 //=====================================
 
-	enum class MoveMode
-	{
-		MOVE_MUSIC,
-		MOVE_FREE
-	}moveMode;
-
+	MoveMode moveMode;
 	using Shown = pair<float, float>;
 	deque<Shown> shownInfos;
 	using Check = pair<float, bool>;

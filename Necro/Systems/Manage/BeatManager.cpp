@@ -5,6 +5,7 @@
 #include"./GameObject/Player.h"
 #include "./GameObject/Map/MapTool/MapTool.h"
 #include "./GameObject/Map/TileNode.h"
+#include "./GameObject/UI/Heart.h"
 
 float BeatManager::currentDelta = 0.f;
 
@@ -35,7 +36,7 @@ bool BeatManager::CheckInputForUpdate()
 
 		Check check = checkInfos.front();
 
-		if (Math::Abs(check.first - saveTime) <= 0.25f)
+		if (Math::Abs(check.first - saveTime) <= 0.2f)
 		{
 			if (check.second)
 			{
@@ -87,10 +88,17 @@ bool BeatManager::CheckInputForUpdate()
 
 			}
 		}
-		else
+		else if (Math::Abs(check.first - saveTime) > 0.2f && Math::Abs(check.first - saveTime) < 0.505f)
 		{
-			//너무 빨리 눌렀다면
-			checkInfos.front().second = false;
+
+			if (checkInfos.front().second == true)
+			{
+				_MessagePool->ReserveMessage(target, "EnterBeat");
+				//너무 빨리 눌렀다면
+				checkInfos.front().second = false;
+			}
+			_MessagePool->ReserveMessage(_ObjectPool->FindObject<Heart>("Heart"), "Miss");
+
 		}
 	}
 
@@ -171,6 +179,11 @@ void BeatManager::MakeNote(float inputTime, float shownTime)
 	_MessagePool->ReserveMessage(note, "Shown", 0, float(shownTime));
 	notes.push_back(note);
 
+	if (shownInfos.size() < 30)
+	{
+		note->SetRedNote();
+	}
+
 	//처음엔 타겟이 없기때문에 맨 처음 타겟을 정해주기 위함
 	if (target == nullptr)
 		target = note;
@@ -231,8 +244,8 @@ void BeatManager::Update(float tick)
 			if (obj->GetMoveType() == MoveType_Control)
 			{
 				_MessagePool->ReserveMessage(obj, "OnBeat");
+				_MessagePool->ReserveMessage(obj, "AddChance");
 			}
-			_MessagePool->ReserveMessage(obj, "AddChance");
 
 			//필요하면 타일들도 해줌
 		}

@@ -17,7 +17,6 @@ public:
 	//커스텀으로 상속성검사 <베이스,받아올 포인터형> UI의 포인터를 가져올때 UI의 베이스를 두는지 검사 가능
 	IS_INHERITED_THAN_RETURN_VECTOR_ARRAY_WITH_CUSTOM FindObjectInheritedMid(string name);
 
-
 private:
 	using VecIter = vector<class GameObject*>::iterator;
 	vector<class GameObject*> objects;
