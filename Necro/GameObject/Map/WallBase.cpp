@@ -35,7 +35,7 @@ void WallBase::Init()
 {
 	life = 1;
 	type = WallDestructableShovel;
-	textureKey = "DefaultWall";
+	textureKey = "DefaultWall";//?
 }
 
 void WallBase::Release()
