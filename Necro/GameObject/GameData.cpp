@@ -4,12 +4,19 @@
 GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name,pos,size)
 {
-	moveType = MoveType_Control;
+	moveType = MoveType_Beat;
 
 
 	playerCoin = 0;
 	playerDia = 0;
+	comboCount = 0;
+	ratioCoin = 1.f;
+	bCombo = false;
 	bBeat = false;
+
+	AddCallback("Miss", [&](TagMessage msg) {
+		MissControlUpdate();
+	});
 }
 GameData::~GameData()
 {
@@ -63,6 +70,9 @@ void GameData::Render()
 
 void GameData::ImguiRender()
 {
+	ImGui::Begin("GameData");
+	ImGui::Text("bBeat %d", (int)bBeat);
+	ImGui::End();
 }
 
 void GameData::AddDia(UINT val)
@@ -72,7 +82,7 @@ void GameData::AddDia(UINT val)
 
 void GameData::AddCoin(UINT val)
 {
-	playerCoin += val;
+	playerCoin += val * ratioCoin;
 }
 
 //Minus 는 상점 관련 
