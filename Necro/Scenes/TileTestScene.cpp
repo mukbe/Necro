@@ -135,9 +135,10 @@ void TileTestScene::Init()
 	Shovel->Init({ 2,6 });
 	_TileMap->Tile(2, 6)->AddObject(ObjectItem, Shovel);
 
-	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("ItemWeapon", D3DXVECTOR2(), D3DXVECTOR2());
+	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
 	_TileMap->Tile(2, 8)->AddObject(ObjectItem, Weapon);
-	Weapon->SetItemData(Dagger, 0, 1, "DaggerEffect", "Dagger");
+	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
+	
 
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
@@ -165,9 +166,13 @@ void TileTestScene::ImageLoad()
 
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	
+	// Effect
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
-
-
+	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
+	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
+	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
+	
 	//Item
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);

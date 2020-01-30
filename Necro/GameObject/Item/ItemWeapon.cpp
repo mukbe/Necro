@@ -59,7 +59,7 @@ void ItemWeapon::EatItem()
 		_GameWorld->GetGameData()->setWeaponData(myType, 0, 0, "BroadswordEffect");	
 		break;
 	}
-
+	//										 타일 매니저
 	D3DXVECTOR2 tempTileSize = _GameWorld->GetTileManager()->GetTileSize();
 	D3DXVECTOR2 tempPivotPos = _GameWorld->GetTileManager()->GetPivotPos();
 	POINT myIndex = PosToIndex(position, tempTileSize, tempPivotPos);
@@ -67,8 +67,8 @@ void ItemWeapon::EatItem()
 	TileNode* tempTile = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y);
 	tempTile->DeleteObject(ObjectItem, this);
 
-	_RenderPool->Remove(this, RenderManager::Layer::Object);
-	_RenderPool->Request(this, RenderManager::Layer::UI);
+	_RenderPool->Remove(this, RenderManager::Layer::Object);	// 플레이어가 닿은 이미지는 먹은 걸로 설정을 하고  그 설정했던걸 지움
+	_RenderPool->Request(this, RenderManager::Layer::UI);		// 아이템을 먹었을때 따로 지우지는않고 덮어 씌우는걸로 ! 
 	//ui로 이동시켜주는 코드 넣어
 
 }

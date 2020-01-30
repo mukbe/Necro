@@ -16,7 +16,7 @@ public:
 
 	void Init(POINT tileIndex);
 
-	void SetItemData(Weapon weaponType, UINT weaponRange, UINT weaponDamage, string weaponEffectImageKey, string iconImageKey)
+	void SetItemData(Weapon weaponType, POINT weaponRange, UINT weaponDamage, string weaponEffectImageKey, string iconImageKey)
 	{
 		info.Type = weaponType;
 		info.Range = weaponRange;
