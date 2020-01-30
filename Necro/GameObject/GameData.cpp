@@ -5,6 +5,9 @@ GameData::GameData(string name)
 	:GameObject(name)
 {
 	moveType = MoveType_Custom;
+
+	weaponinfo = Dagger;
+
 	playerCoin = 0;
 	playerDia = 0;
 }
@@ -32,6 +35,20 @@ void GameData::MissControlUpdate()
 
 void GameData::Update(float tick)
 {
+	switch (weaponinfo)
+	{
+	case GameData::Dagger:
+		// 단검 속성 
+		break;
+	case GameData::Spear:
+		// 창 
+		break;
+	case GameData::Broadsword:
+		// 대검 
+		break;
+	default:
+		break;
+	}
 }
 
 

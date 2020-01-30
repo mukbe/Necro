@@ -2,6 +2,10 @@
 #include "ItemBase.h"
 #include "./GameObject/Map/TileNode.h" // 타일위에 아이템을 올리기 위해서 
 
+// 플레이어 보고 그림자랑 이미지 확인 하기 
+// 월 베이스 확인하면 서 키값이랑 어떻게 줬는지 
+// 부딪혔을 때 없애지게 만들어주는거
+
 
 ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
@@ -10,7 +14,7 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("Show", [&](TagMessage msg) {			// 플레이어 시야에 따라 아이템이 보여질 때 
 		bShow = true;									
 	});													
-	AddCallback("Hide", [&](TagMessage msg) {			// 시야가 멀어져 안보일때 
+	AddCallback("Hide", [&](TagMessage msg) {			// 시야가 멀어져 안보일때를 설정해야함. 
 		bShow = false;									
 	});										
 
@@ -50,8 +54,8 @@ void ItemBase::Render()
 void ItemBase::Init(POINT tileIndex)
 {
 	position = _TileMap->Tile(tileIndex)->GetPos();							// 타일위치 검출!  
-	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 
-	
+	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 	
+
 }
 
 void ItemBase::EatItem()

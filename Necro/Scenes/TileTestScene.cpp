@@ -2,7 +2,7 @@
 #include "TileTestScene.h"
 #include "TileHelper.h"
 #include "./GameObject/Map/TileNode.h"
-
+#include "./GameObject/ShopKeeper.h"
 #include "./GameObject/Player.h"
 //일반몹
 #include "./GameObject/Monster/GreenSlime.h"
@@ -84,12 +84,19 @@ void TileTestScene::Init()
 	//BlueSlime* blueslime2 = _ObjectPool->CreateObject<BlueSlime>("BlueSlime", D3DXVECTOR2(130.f, 78.f), D3DXVECTOR2(52.f, 52.f));
 	//Bat* bat = _ObjectPool->CreateObject<Bat>("Bat", D3DXVECTOR2(FIRSTCENTERXY + TILESIZE*8, FIRSTCENTERXY + TILESIZE * 8), D3DXVECTOR2(52.f, 52.f));
 	//
-	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78, 78), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<Player>("Player", D3DXVECTOR2(78.f, 78.f), D3DXVECTOR2(52.f, 52.f));
+	_ObjectPool->CreateObject<ShopKeeper>("ShopKeeper", D3DXVECTOR2(338.f, 78.f), D3DXVECTOR2(80.f, 80.f));
 	MonsterLoad();
 
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+
+
+
+
+
+
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -133,12 +140,14 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("HeartTemp", ResourcePath + L"UI/TempHeart.png", 2, 1);
 
 	_ImageManager->AddFrameTexture("DefaultMap", ResourcePath + L"DefaultTileMap.png", 2, 2);
-
-	_ImageManager->AddFrameTexture("PlayerHeadRight", ResourcePath + L"Player/PlayerHeadRight.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyRight", ResourcePath + L"Player/PlayerBodyRight.png", 4, 10);
-	_ImageManager->AddFrameTexture("PlayerHeadLeft", ResourcePath + L"Player/PlayerHeadLeft.png", 4, 2);
-	_ImageManager->AddFrameTexture("PlayerBodyLeft", ResourcePath + L"Player/PlayerBodyLeft.png", 4, 10);
+	// 플레이어
+	_ImageManager->AddFrameTexture("NormalPlayer", ResourcePath + L"Player/NormalPlayer.png", 4, 2);
+	_ImageManager->AddFrameTexture("LeatherPlayer", ResourcePath + L"Player/LeatherPlayer.png", 4, 2);
 	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
+	// NPC
+	_ImageManager->AddFrameTexture("ShopKeeper", ResourcePath + L"NPC/ShopKeeper.png", 8, 2);
+	_ImageManager->AddTexture("Music", ResourcePath + L"NPC/Music.png");
+
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");

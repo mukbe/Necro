@@ -17,8 +17,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
-	head = "PlayerHeadRight";
-	body = "PlayerBodyRight";
+	imageName = "NormalPlayer";
 	playerDirection = PlayerRight;
 	jumpPower = 0;
 	gravity = 0;
@@ -98,8 +97,8 @@ void Player::Render()
 	// 이미지 위치 보정 (-20);
 	// 이미지만 점프 시킬꺼면 변수를 _포즈 말고 다른거 써야됨 . >> 포즈는 인덱스 검출하고 그래서 그냥 중점에 박혀있는게 좋기 때문.. 
 	_ImageManager->FindTexture("PlayerShadow")->Render(FloatRect(D3DXVECTOR2(position.x, position.y + 5), D3DXVECTOR2(size.x, size.y / 4), Pivot::CENTER), nullptr);
-	_ImageManager->FindTexture(body)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
-	_ImageManager->FindTexture(head)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture(imageName)->FrameRender(FloatRect(D3DXVECTOR2(position.x, imagePos.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
+
 }
 
 void Player::ImguiRender()
@@ -159,8 +158,7 @@ void PlayerIdle::BeatExcute()
 
 	if (KeyCode->Down(VK_LEFT))
 	{
-		me->head = "PlayerHeadLeft";
-		me->body = "PlayerBodyLeft";
+		me->frameY = 1;
 		me->playerDirection = PlayerLeft;
 
 
@@ -211,8 +209,7 @@ void PlayerIdle::BeatExcute()
 	}
 	else if (KeyCode->Down(VK_RIGHT))
 	{
-		me->head = "PlayerHeadRight";
-		me->body = "PlayerBodyRight";
+		me->frameY = 0;
 		me->playerDirection = PlayerRight;
 
 		if (me->myIndex.x + 1 < TileManager::mapSize.x)
