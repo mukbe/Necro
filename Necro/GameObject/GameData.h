@@ -78,11 +78,15 @@ public:
 	UINT GetCoin() { return playerCoin; }		
 	UINT GetDia() { return playerDia; }			
 
-
-	void Combo();
-
 	WeaponInfo getWeaponDate() { return weaponData; }
 
+
+	//몬스터를 죽였을때 한번 호출(몬스터가 호출할지 플레이어가 호출할지 정해야됨)
+	void Combo();
+
+	
+	//타일만 사용할것
+	bool BeatForTile() { return bBeat; }
 private:
 
 	UINT playerCoin;
