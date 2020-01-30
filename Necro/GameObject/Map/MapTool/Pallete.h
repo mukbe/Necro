@@ -1,5 +1,11 @@
 #pragma once
 
+// 팔레트 띄우는거 다시. (게임오브젝트 대신 스트링 키 팔레트 노드에 저장시키기)
+// 타일매니저에 스포너 넣기
+// 페인트 하면 오브젝트 생성 / 배치
+// 세이브 로드(타일매니저)
+
+
 class palleteNode : public GameObject
 {
 public:
@@ -30,19 +36,7 @@ public:
 
 	virtual void Update(float tick)
 	{
-		//int a = 0;
-		//if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
-		//{
-		//	isMouseOnMe = true;
-		//	if (Keyboard::Get()->Down(VK_LBUTTON))
-		//	{
-		//		isSelected = true;
-		//	}
-		//}
-		//else
-		//{
-		//	isMouseOnMe = false;
-		//}
+
 	}
 
 	virtual void Render()
@@ -119,22 +113,20 @@ public:
 
 	void LoadObjects();
 
-	template<typename T>
-	GameObject* Load(string Key, ObjectType objType, RenderManager::Layer renderType)
-	{
-		string namePal = "Tool";
-		GameObject* temp;
-		temp = _ObjectPool->CreateObject<T>(namePal + Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-		_RenderPool->Remove(temp, renderType);
-		AddObject(objType, temp);
+	//template<typename T>
+	//GameObject* Load(string Key, ObjectType objType)
+	//{
+	//	GameObject* newObject;
 
-		wstring tempString;
-		tempString.assign(temp->Name().begin(), temp->Name().end());
+	//
+	//	
+	//	AddObject(objType, newObject);
 
-		_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/" + tempString + L".png");
+	//	_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/Tool" + Key + L".png");
+	//	
 
-		return temp;
-	}
+	//	return newObject;
+	//}
 
 
 	vector<GameObject*> GetArrayByType(ObjectType inputType)
@@ -151,6 +143,11 @@ public:
 		return vecPallete;
 	}
 
+	void MakeObject(string Key)
+	{
+		
+	}
+
 private:
 	vector<palleteNode*> vecPallete;
 	typedef vector<palleteNode*>::iterator PalleteIter;
@@ -158,7 +155,7 @@ private:
 	int separateSize;
 	D3DXVECTOR2 pivotPos;
 
-	
+
 
 	unordered_map<ObjectType, vector<GameObject*>> objectStorage;
 	typedef unordered_map<ObjectType, vector<GameObject*>>::iterator MapIter;

@@ -17,6 +17,7 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	io.Fonts->AddFontFromFileTTF("..//_Resources//TTF//Maplestory Light.ttf", 16.f, nullptr, io.Fonts->GetGlyphRangesKorean());
 
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
+	oldPalleteType = (ObjectType)0;
 	palleteType = (ObjectType)0;
 	MapSize[0] = 1;
 	MapSize[1] = 1;
@@ -49,7 +50,7 @@ void MapTool::Update(float tick)
 		oldMapSize[1] = MapSize[1];
 	}
 
-	if (Keyboard::Get()->Down(VK_LBUTTON))
+	if (Keyboard::Get()->Down(VK_RBUTTON))
 	{
 		TileNode* tempNode = isInCollision();
 
@@ -85,38 +86,41 @@ void MapTool::Update(float tick)
 
 
 
-
-	switch (palleteType)
+	if(oldPalleteType != palleteType)
 	{
-	case ObjectAll:
-		break;
-	case ObjectTerrain:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectPlayer:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectMonster:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectItem:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectNPC:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectWall:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
-		break;
-	default:
-		//pallete->ReleasePallete();
-		break;
+		switch (palleteType)
+		{
+		case ObjectAll:
+			break;
+		case ObjectTerrain:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectPlayer:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectMonster:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectItem:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectNPC:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectWall:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
+			break;
+		default:
+			//pallete->ReleasePallete();
+			break;
+		}
+	oldPalleteType = palleteType;
 	}
 }
 

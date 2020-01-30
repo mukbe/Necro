@@ -257,6 +257,7 @@
     <ClInclude Include="GameObject\Item\ItemHP.h" />
     <ClInclude Include="GameObject\Item\ItemShovel.h" />
     <ClInclude Include="GameObject\Item\ItemWeapon.h" />
+    <ClInclude Include="GameObject\Map\MapTool\MapHelper.h" />
     <ClInclude Include="GameObject\Map\MapTool\MapTool.h" />
     <ClInclude Include="GameObject\Map\MapTool\Pallete.h" />
     <ClInclude Include="GameObject\Map\TileNode.h" />

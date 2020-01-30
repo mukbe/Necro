@@ -33,6 +33,7 @@ private:
 	Pallete* pallete;
 
 	ObjectType palleteType;
+	ObjectType oldPalleteType;
 	BrushType brushType;
 
 	TileNode* selectedNode;

@@ -97,17 +97,10 @@ void Pallete::ReleasePallete()
 	}
 }
 
-void Pallete::LoadObjects()
-{
-	GameObject* temp = Load<Player>("Player", ObjectPlayer, RenderManager::Layer::Object);
-	_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
-	
-	Load<Bat>("Bat", ObjectMonster, RenderManager::Layer::Object);
-	Load<BlueSlime>("BlueSlime", ObjectMonster, RenderManager::Layer::Object);
-	Load<GreenSlime>("GreenSlime", ObjectMonster, RenderManager::Layer::Object);
-	Load<Skeleton>("Skeleton", ObjectMonster, RenderManager::Layer::Object);
-
-	Load<WallBase>("WallBase", ObjectWall, RenderManager::Layer::Object);
-	Load<WallBase>("StoneWall", ObjectWall, RenderManager::Layer::Object);
-	Load<TileNode>("TileNode", ObjectTerrain, RenderManager::Layer::Terrain);
-}
+//void Pallete::LoadObjects()
+//{
+//	//GameObject* temp = Load<Player>("Player", ObjectPlayer, RenderManager::Layer::Object);
+//	//_RenderPool->Remove(temp, RenderManager::Layer::Imgui);
+//
+//
+//}
