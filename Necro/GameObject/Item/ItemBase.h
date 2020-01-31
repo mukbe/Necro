@@ -25,12 +25,15 @@ public:
 	virtual void Hide();
 	virtual void Active();
 
-	virtual void ItemProcessDestroy();
+	void SetCost(UINT val);
+	bool CanBuyItem();
 
 protected:
 	
 	bool bShow;  // 아이템 시야에 들었을때 보이게 혹은 안보이게 하는거
-	bool bDrop;  // 아이템 교체시 밑에 떨구고 다시 주울 때 이미지가 바뀌는지 !
+	UINT cost;
+	vector<UINT> text;
 
+	void PushCount(UINT val);
 };
 

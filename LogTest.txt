@@ -2186,3 +2186,19 @@ Code: can't find object
  2020.1.31	12:19:16	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
+===================================================
+ 2020.1.31	14:13:52	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	14:14:42	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	14:19:54	 'Directx11 2D' Start Succeeded
+14:19:56	Fatal Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\gameobject\item\itembase.cpp
+Line: 27
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+			 End
+===================================================
