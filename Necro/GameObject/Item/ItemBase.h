@@ -24,11 +24,15 @@ public:
 	virtual void Show();
 	virtual void Hide();
 	virtual void Active();
-
+	void SetCost(UINT val);
+	bool CanBuyItem();
 
 protected:
 	
 	bool bShow;  // 아이템 시야에 들었을때 보이게 혹은 안보이게 하는거
+	UINT cost;
+	vector<UINT> text;
 
+	void PushCount(UINT val);
 };
 

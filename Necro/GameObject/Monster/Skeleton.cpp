@@ -21,15 +21,7 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	life = 1;
 
-	AddCallback("SkeletonHit", [&](TagMessage msg)
-	{
-
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
+	
 	
 }
 

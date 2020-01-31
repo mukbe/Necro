@@ -58,7 +58,7 @@ private:
 
 	POINT attackrRange;						// 공격 범위
 
-
+	vector<GameObject*> shownTiles;
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -86,6 +86,7 @@ public:
 	void ChangeState(string str);
 
 	void FloodFill(POINT index , int sight);
+	void Sight();
 
 };
 
