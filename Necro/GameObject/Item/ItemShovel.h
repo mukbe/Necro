@@ -8,15 +8,27 @@ public:
 
 	virtual void Init();
 	virtual void Release();
-
 	virtual void Update(float tick);
 	virtual void Render();
-	void Init(POINT tileIndex);
 	virtual void EatItem();
+
+	void Init(POINT tileIndex);
+
+	void SetItemData(ShovelType shovelType, UINT Damge,  string IamgeKey)
+	{
+		info.Type = shovelType;
+		info.Damge = Damge;
+		info.Imagekey = IamgeKey;
+	}
+	void SetItemDate(GameData::ShovelInfo info) { this->info = info; }
+
+	GameData::ShovelInfo GetInfo() { return info; }
+
 private:
 
 	GameData::ShovelInfo info;
 
+	ShovelType MyType;
 
 };
 

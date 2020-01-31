@@ -9,7 +9,7 @@ ItemWeapon::ItemWeapon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;  // 아이템 보여지는거 
-	bDrop = false;	// 아이템 주웠을 때 
+
 
 }
 

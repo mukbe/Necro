@@ -13,15 +13,6 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
 
-	AddCallback("Drop", [&](TagMessage msg) {			// 아이템 교체 했을 때 떨굴지 안 떨굴지 
-		bDrop = true;
-	});
-
-	AddCallback("Grap", [&](TagMessage msg) {			// 아이템 교체 없을 때  가지고 있어야지 떨구면 큰일나니께. 
-		bDrop = false;
-	});
-
-
 	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {
 		
@@ -81,15 +72,4 @@ void ItemBase::Hide()
 void ItemBase::Active()
 {
 	bActive = true;
-}
-
-void ItemBase::ItemProcessDestroy()
-{
-	// 플레이어 타일이 아이템 있는 타일에 왔을 때 
-
-	// 타일에 있을 때 무기를 가지고 있는데 새로운 아이템 있는 타일에 왔을 때 무기가 바꿔져야하는 
-
-	
-
-
 }
