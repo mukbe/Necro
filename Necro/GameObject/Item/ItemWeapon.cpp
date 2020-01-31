@@ -9,8 +9,7 @@ ItemWeapon::ItemWeapon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name, pos, size)
 {
 	bShow = false;  // 아이템 보여지는거 
-	bDrop = false;	// 아이템 주웠을 때 
-
+	SetCost(145);
 }
 
 ItemWeapon::~ItemWeapon()
@@ -35,12 +34,15 @@ void ItemWeapon::ControlUpdate()
 void ItemWeapon::Update(float tick)
 {
 	if (Keyboard::Get()->Down('G'))
-		EatItem();
+	{
+		_MessagePool->ReserveMessage(this, "EatItem");
+	}
 }
 
 void ItemWeapon::Render()
 {
-	
+	ItemBase::Render();
+
 	if (info.Imagekey == "") return;
 	_ImageManager->FindTexture(info.Imagekey)->FrameRender(rc, nullptr, 0, (UINT)bShow);
 
