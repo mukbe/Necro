@@ -36,6 +36,7 @@ public:
 
 	const string& Name() { return name; }
 	Matrix2D& Transform() { return transform; }
+	void SetPosition(const D3DXVECTOR2& val);
 
 	const bool& IsActive() { return bActive; }
 	void SetActive(const bool& b) { bActive = b; }

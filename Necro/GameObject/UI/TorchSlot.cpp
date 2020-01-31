@@ -14,28 +14,3 @@ TorchSlot::~TorchSlot()
 	
 }
 
-void TorchSlot::Init()
-{
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	
-
-}
-
-void TorchSlot::Release()
-{
-	_RenderPool->Remove(this, RenderManager::Layer::UI);
-}
-
-void TorchSlot::ControlUpdate()
-{
-}
-
-void TorchSlot::Update(float tick)
-{
-}
-
-void TorchSlot::Render()
-{
-	_ImageManager->Render("UI_TorchSlot", rc, nullptr);
-	
-}
