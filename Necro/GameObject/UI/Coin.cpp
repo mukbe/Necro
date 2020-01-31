@@ -18,8 +18,13 @@ Coin::~Coin()
 void Coin::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
-	//PushCoin(_GameData->GetCoin());
+
+#ifdef DEBUGMODE
 	PushCoin(1234567890);
+#else
+	PushCoin(_GameData->GetCoin());
+#endif // DEBUGMODE
+
 	font = _ImageManager->FindTexture("NumberFontUI");
 	axe = _ImageManager->FindTexture("UI_x");
 }

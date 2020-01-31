@@ -80,17 +80,19 @@ public:
 	}
 
 	template<typename T>
-	static T LerpSmoothArrival(const T& a, const T& b, const float& t, int& amount)
+	static T LerpSmoothArrival(const T& a, const T& b, const float& t, int amount)
 	{
+		int temp = amount;
 		float ratio = 1 - t;
-		amount = Clamp(amount, 3, 7);
-		return a + (b - a) * (1 - ratio ^ amount);
+		temp = Clamp(amount, 3, 7);
+		return a + (b - a) * (1 - powf(ratio, temp));
 	}
 	template<typename T>
-	static T LerpSmoothStart(const T& a, const T& b, const float& t, int& amount)
+	static T LerpSmoothStart(const T& a, const T& b, const float& t, int amount)
 	{
-		amount = Clamp(amount, 3, 7);
-		return a + (b - a) * t ^ amount;
+		int temp = amount;
+		temp = Clamp(amount, 3, 7);
+		return a + (b - a) * powf(t, temp);
 	}
 
 	template<typename T>

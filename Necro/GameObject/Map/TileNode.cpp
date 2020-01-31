@@ -144,7 +144,8 @@ void TileNode::ImguiRender()
 
 void TileNode::Show()
 {
-	//alpha = 1.0f;
+	bShow = true;
+	alpha = 1.0f;
 	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
 
 	for (; sIter != sEnd; ++sIter)
@@ -160,7 +161,8 @@ void TileNode::Show()
 
 void TileNode::Hide()
 {
-	//alpha = 0.5f;
+	bShow = false;
+	alpha = 0.5f;
 	StorageIter sIter = objectStorage.begin(), sEnd = objectStorage.end();
 
 	for (; sIter != sEnd; ++sIter)

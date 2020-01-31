@@ -79,7 +79,9 @@ void GameData::MinusCoin(UINT val)
 	//상점 관련 
 	if (playerCoin < val)
 	{
+		Log_ErrorAssert(playerCoin < val);
 		//코인 상점 못 삼 
+		return;
 	}
 	playerCoin -= (int)val;
 }
@@ -89,6 +91,7 @@ void GameData::MinusDia(UINT val)
 	if (playerDia < val)
 	{
 		// 다이아 상점 
+		return;
 	}
 	playerDia -= (int)val;
 }
@@ -96,6 +99,11 @@ void GameData::MinusDia(UINT val)
 void GameData::PosRedefinition(POINT pos)
 {
 	playerIndex = pos;
+}
+
+void GameData::SetWeaponData(WeaponInfo weaponInfo)
+{
+	weaponData = weaponInfo;
 }
 
 void GameData::Combo()

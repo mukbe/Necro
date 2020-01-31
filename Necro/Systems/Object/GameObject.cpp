@@ -107,6 +107,15 @@ void GameObject::Active()
 {
 }
 
+void GameObject::SetPosition(const D3DXVECTOR2 & val)
+{
+	transform = Matrix2D(val);
+
+	position = val;
+	rc = FloatRect(val, size, Pivot::CENTER);
+
+}
+
 //void GameObject::PostRender()
 //{
 //	if (bActive == false)return;

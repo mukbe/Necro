@@ -12,26 +12,4 @@ BoomSlot::~BoomSlot()
 {
 }
 
-void BoomSlot::Init()
-{
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	
-}
 
-void BoomSlot::Release()
-{
-	_RenderPool->Remove(this, RenderManager::Layer::UI);
-}
-
-void BoomSlot::ControlUpdate()
-{
-}
-
-void BoomSlot::Update(float tick)
-{
-}
-
-void BoomSlot::Render()
-{
-	_ImageManager->Render("UI_BoomSlot", rc, nullptr);
-}
