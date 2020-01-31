@@ -16,15 +16,7 @@ Minotaur::Minotaur(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	monsterBeat = 1;
 	life = 3;
-	AddCallback("MinotaurHit", [&](TagMessage msg)
-	{
 
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
 }
 
 

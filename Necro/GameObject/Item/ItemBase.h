@@ -24,7 +24,6 @@ public:
 	virtual void Show();
 	virtual void Hide();
 	virtual void Active();
-
 	void SetCost(UINT val);
 	bool CanBuyItem();
 

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "./GameObject/Map/TileNode.h"
+#include "./GameObject/Item/ItemBase.h"
+
 
 
 Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -180,7 +182,7 @@ void Player::FloodFill(POINT index, int sight)
 	int proveX[4] = { 0,-1,0,1 };
 	int proveY[4] = { -1,0,1,0 };
 	
-
+	
 	shownTiles.push_back(tile);
 
 	if (!tile->IsActive())
@@ -241,7 +243,6 @@ void PlayerIdle::BeatExcute()
 	vector<GameObject*> tempArr; 
 	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
-	
 
 	if (KeyCode->Down(VK_LEFT))
 	{
@@ -266,7 +267,18 @@ void PlayerIdle::BeatExcute()
 					me->ChangeState("Attack");
 					return;
 				}
-
+				
+				tempArr = leftTilePos->GetObjects(ObjectItem);
+				if (tempArr.size() > 0)
+				{
+					//static_cast<ItemBase*>
+					ItemBase* item;
+					//item = static_cast<ItemBase*>;
+					// 살수 있으면 (트루) -> 먹고(잇 아이템)-> 이동 
+					// 살수 없으면 (펄스) -> 리턴 
+					//me->ChangeState("Attack");
+					return;
+				}
 				me->startTime = 0; // 시작 시간 초기화
 				me->startPos = me->position; // 시작 위치 
 

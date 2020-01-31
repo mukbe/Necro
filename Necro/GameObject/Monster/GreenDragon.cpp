@@ -18,15 +18,7 @@ GreenDragon::GreenDragon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	life = 4;
 
-	AddCallback("GreenDragonHit", [&](TagMessage msg)
-	{
 
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
 }
 
 

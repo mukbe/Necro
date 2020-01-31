@@ -18,15 +18,6 @@ RedDragon::RedDragon(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	life = 6;
 
-	AddCallback("RedDragon", [&](TagMessage msg)
-	{
-
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
 }
 
 

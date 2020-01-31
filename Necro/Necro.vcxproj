@@ -171,6 +171,8 @@
     <ClCompile Include="GameObject\Item\ItemHP.cpp" />
     <ClCompile Include="GameObject\Item\ItemShovel.cpp" />
     <ClCompile Include="GameObject\Item\ItemWeapon.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponBroadSword.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponSpear.cpp" />
     <ClCompile Include="GameObject\Map\MapTool\MapTool.cpp" />
     <ClCompile Include="GameObject\Map\MapTool\Pallete.cpp" />
     <ClCompile Include="GameObject\Map\TileNode.cpp" />
@@ -198,6 +200,7 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponDagger.cpp" />
     <ClCompile Include="Scenes\Loading.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
@@ -259,6 +262,8 @@
     <ClInclude Include="GameObject\Item\ItemHP.h" />
     <ClInclude Include="GameObject\Item\ItemShovel.h" />
     <ClInclude Include="GameObject\Item\ItemWeapon.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponBroadSword.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponSpear.h" />
     <ClInclude Include="GameObject\Map\MapTool\MapTool.h" />
     <ClInclude Include="GameObject\Map\MapTool\Pallete.h" />
     <ClInclude Include="GameObject\Map\TileNode.h" />
@@ -286,6 +291,7 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponDagger.h" />
     <ClInclude Include="Scenes\Loading.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />
