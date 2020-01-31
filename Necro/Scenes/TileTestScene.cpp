@@ -22,6 +22,8 @@
 #include "./GameObject/Item/ItemBase.h"
 #include "./GameObject/Item/ItemShovel.h"
 #include "./GameObject/Item/ItemWeapon.h"
+#include "./GameObject/Item/ItemDiamond.h"
+#include "./GameObject/UI/Diamond.h"
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -105,7 +107,10 @@ void TileTestScene::Init()
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
 
 
+	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 
+	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
+	Dia->Init({ 5,5 });
 
 
 
@@ -150,16 +155,12 @@ void TileTestScene::Init()
 	Weapon->Init({ 3,6 });
 	_TileMap->Tile(3, 6)->AddObject(ObjectItem, Weapon);
 	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
-	
+	_GameData->SetWeaponData(Weapon->GetInfo());
 
 
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 
-	_GameWorld->GetGameData()->setWeaponData(Baredhand, { 0 , 0}, 0, "");  // 무기 
-	_GameWorld->GetGameData()->setWeaponData(Dagger, { 0,1 }, 1, "Dagger");
-	_GameWorld->GetGameData()->setWeaponData(Spear, { 0, 2 }, 1, "Spear");
-	_GameWorld->GetGameData()->setWeaponData(Broadsword, { 3, 1 }, 1, "Broadsword");
 }
 
 void TileTestScene::ImageLoad()
@@ -191,9 +192,12 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
 	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
+	_ImageManager->AddFrameTexture("Dia1", ResourcePath + L"Item/Field_Dia.png", 1, 2);
+	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 
 	//UI
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
+	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
 
 	//몬스터
 	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"Monster/slime_green.png", 4, 4);
@@ -205,6 +209,11 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("minotaur", ResourcePath + L"Monster/minotaur.png", 9, 4);
 	_ImageManager->AddFrameTexture("reddragon", ResourcePath + L"Monster/dragon_red.png", 9, 4);
 	_ImageManager->AddFrameTexture("greendragon", ResourcePath + L"Monster/dragon_green.png", 4, 4);
+	
+	//Font
+	_ImageManager->AddFrameTexture("NumberFontUI", ResourcePath + L"Font/NumberFontUI.png", 10, 1);
+	_ImageManager->AddTexture("UI_x", ResourcePath + L"Font/UI_x.png");
+
 }
 
 void TileTestScene::MonsterLoad()

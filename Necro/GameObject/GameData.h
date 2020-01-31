@@ -19,11 +19,13 @@ public:
 		Weapon Type;
 		POINT Range;
 		UINT Damage;
+		string EffactImagekey;
 		string Imagekey;
 		WeaponInfo()
 			: Range({ 0,0 }), Damage(0)
 		{
 			Imagekey = "";
+			EffactImagekey = "";
 			Type = Weapon::Baredhand;
 		}
 	};
@@ -73,10 +75,10 @@ public:
 
 
 
-	WeaponInfo getWeaponData() { return weaponData; }
+	WeaponInfo GetWeaponData() { return weaponData; }
 
-	void setWeaponData(Weapon Type, POINT Range, UINT Damage, string Imagekey) {}
-	 
+	void SetWeaponData(WeaponInfo weaponInfo);
+
 
 	//몬스터를 죽였을때 한번 호출(몬스터가 호출할지 플레이어가 호출할지 정해야됨)
 	void Combo();

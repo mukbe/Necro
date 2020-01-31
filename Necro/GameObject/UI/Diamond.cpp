@@ -33,14 +33,23 @@ void Diamond::Release()
 
 void Diamond::ControlUpdate()
 {
+	PushCount(_GameData->GetDia());
 }
 
 void Diamond::Update(float tick)
 {
+	UIBase::Update(tick);
+	if (bMove == false)
+	{
+		itemTex.reset();
+	}
+
 }
 
 void Diamond::Render()
 {
+	UIBase::Render();
+
 	_ImageManager->Render("UI_Diamond", rc, nullptr);
 
 	D3DXVECTOR2 start = position + D3DXVECTOR2(35, 0);

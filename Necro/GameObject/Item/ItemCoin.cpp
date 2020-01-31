@@ -42,5 +42,6 @@ void ItemCoin::Init(POINT tileIndex)
 void ItemCoin::EatItem()
 {
 	_GameData->AddCoin(hasCoin);
+	_ObjectPool->DeletaObject(this);
 }
 

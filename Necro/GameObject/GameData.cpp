@@ -98,6 +98,11 @@ void GameData::PosRedefinition(POINT pos)
 	playerIndex = pos;
 }
 
+void GameData::SetWeaponData(WeaponInfo weaponInfo)
+{
+	weaponData = weaponInfo;
+}
+
 void GameData::Combo()
 {
 	//이미 콤보값이 있었을 경우
