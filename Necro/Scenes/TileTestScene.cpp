@@ -25,6 +25,7 @@
 #include "./GameObject/Item/ItemDiamond.h"
 #include "./GameObject/UI/Diamond.h"
 
+// Wall
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
 

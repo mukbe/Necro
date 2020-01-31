@@ -40,6 +40,9 @@ public:
 
 	void HighLightOn();
 
+	void SaveMap();
+	void LoadMap();
+
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;

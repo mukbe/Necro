@@ -6,19 +6,26 @@
 #include "./GameObject/Player.h"
 
 /*Monster*/
-#include "./GameObject/Monster/Monster.h"
-
+#include "./GameObject/Monster/GreenSlime.h"
+#include "./GameObject/Monster/BlueSlime.h"
 #include "./GameObject/Monster/Bat.h"
 #include "./GameObject/Monster/Skeleton.h"
-#include "./GameObject/Monster/BlueSlime.h"
-#include "./GameObject/Monster/GreenSlime.h"
-//¼Ò
+#include "./GameObject/Monster/Ghost.h"
+#include "./GameObject/Monster/Monkey.h"
+
+#include "./GameObject/Monster/Minotaur.h"
+#include "./GameObject/Monster/RedDragon.h"
+#include "./GameObject/Monster/GreenDragon.h"
+
+/* Item */
+#include "./GameObject/Item/ItemBase.h"
+#include "./GameObject/Item/ItemShovel.h"
+#include "./GameObject/Item/ItemWeapon.h"
+#include "./GameObject/Item/ItemDiamond.h"
 
 /*Wall*/
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
-
-/*Item*/
 
 
 class Spawner
@@ -29,15 +36,25 @@ public:
 
 	void LoadObjects()
 	{
-		Load<Bat>("M_Bat");
-		Load<BlueSlime>("M_BlueSlime");
+		//Load<Player>("P_Player");
+
 		Load<GreenSlime>("M_GreenSlime");
+		Load<BlueSlime>("M_BlueSlime");
+		Load<Bat>("M_Bat");
 		Load<Skeleton>("M_Skeleton");
+		//Load<Ghost>("M_Ghost");
+		//Load<Monkey>("M_Monkey");
 
+		//Load<Minotaur>("M_Minotaur");
+		//Load<RedDragon>("M_RedDragon");
+		//Load<GreenDragon>("M_GreenDragon");
+
+		//Load<ItemShovel>("I_ItemShovel");
+		//Load<ItemWeapon>("I_ItemWeapon");
+		//Load<ItemDiamond>("I_Diamond");
+		
 		Load<WallBase>("W_WallBase");
-		Load<WallBase>("W_StoneWall");
-
-		//Load<TileNode>("T_TileNode");
+		Load<StoneWall>("W_StoneWall");
 	}
 
 	GameObject* Spawn(string Key)

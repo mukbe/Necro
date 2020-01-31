@@ -63,6 +63,14 @@ void TileManager::HighLightOn()
 	}
 }
 
+void TileManager::SaveMap()
+{
+}
+
+void TileManager::LoadMap()
+{
+}
+
 void TileManager::ReleaseMap()
 {
 	if (mapTiles.size() > 0)

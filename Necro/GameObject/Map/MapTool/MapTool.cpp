@@ -20,10 +20,10 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 	oldPalleteType = (ObjectType)0;
 	palleteType = (ObjectType)0;
-	MapSize[0] = 1;
-	MapSize[1] = 1;
-	oldMapSize[0] = 1;
-	oldMapSize[1] = 1;
+	MapSize[0] = defaultMapSize.x;
+	MapSize[1] = defaultMapSize.y;
+	oldMapSize[0] = defaultMapSize.x;
+	oldMapSize[1] = defaultMapSize.y;
 	selectedObject = selectedPallete = nullptr;
 
 	map->CreateMap();
@@ -53,7 +53,7 @@ void MapTool::Update(float tick)
 		oldMapSize[1] = MapSize[1];
 	}
 
-	if (Keyboard::Get()->Down(VK_RBUTTON))
+	if (Keyboard::Get()->Press(VK_RBUTTON))
 	{
 		TileNode* tempNode = isInCollision();
 
@@ -79,6 +79,10 @@ void MapTool::Update(float tick)
 				}
 				temp->SetIsSelected(true);
 				selectedPallete = temp;
+				if (brushType != Brush)
+				{
+					brushType = Brush;
+				}
 			}
 		}
 		else
@@ -177,8 +181,9 @@ void MapTool::ImguiRender()
 
 	ImGui::Begin(u8"Map Tool");
 	{
-		//ImGui::SetWindowPos(ImVec2(WinSizeX - 520.f, 10.f));
-		//ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
+		ImGui::SetWindowPos(ImVec2(WinSizeX - 520.f, 10.f));
+		ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
+		ImGui::SetWindowCollapsed(false);
 		ImGui::Text("Save / Load");
 		if (ImGui::Button("Save", ImVec2(100, 50)))
 		{
@@ -268,18 +273,20 @@ TileNode* MapTool::isInCollision()
 void MapTool::ProcessSetMap(TileNode* targetNode)
 {
 	GameObject* newObject;
+	vector<GameObject*> tempTileObjects;
 	switch (brushType)
 	{
 	case Brush:
-		newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
-		targetNode->AddObject(palleteType, newObject);
-		newObject->SetPosition(targetNode->Transform().GetPos());
-		//newObject->Init();
-		//newObject->Active();
+		tempTileObjects = targetNode->GetObjects(palleteType);
+		if (tempTileObjects.size() <= 0)
+		{
+			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
+			targetNode->AddObject(palleteType, newObject);
+			newObject->SetPosition(targetNode->Transform().GetPos());
+		}
 		break;
 	case Eraser:
 		targetNode->ReleaseObjects();
-		//targetNode->Init();
 		break;
 	}
 }

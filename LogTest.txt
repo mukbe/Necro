@@ -2260,3 +2260,183 @@ Line: 27
 Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
 			 End
 ===================================================
+===================================================
+ 2020.1.31	15:26:10	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	15:38:18	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	15:40:47	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	15:56:57	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:02:10	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:05:59	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:09:49	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:10:15	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:10:38	 'Directx11 2D' Start Succeeded
+16:10:42	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:45	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:46	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:47	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:47	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:50	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:50	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:10:50	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	16:11:44	 'Directx11 2D' Start Succeeded
+16:11:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:11:54	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	16:12:36	 'Directx11 2D' Start Succeeded
+16:12:40	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:12:44	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	16:13:20	 'Directx11 2D' Start Succeeded
+16:13:25	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:13:27	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	16:13:50	 'Directx11 2D' Start Succeeded
+16:13:54	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:13:55	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	16:15:36	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:17:31	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:18:50	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:19:43	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:20:50	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:22:24	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:23:03	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:26:54	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:27:19	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:27:40	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	16:28:15	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:00:50	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:02:01	 'Directx11 2D' Start Succeeded
+			 End
+===================================================

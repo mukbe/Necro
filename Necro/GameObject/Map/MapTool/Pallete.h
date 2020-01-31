@@ -41,7 +41,7 @@ public:
 	virtual void Render()
 	{
 		_ImageManager->Render(textureKey, rc, NULL);
-		
+
 
 		if (isMouseOver)
 		{
