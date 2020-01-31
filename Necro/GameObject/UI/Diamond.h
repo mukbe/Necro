@@ -16,15 +16,13 @@ public:
 	virtual void Update(float tick);
 
 	virtual void Render();
+
+private:
+	shared_ptr<Texture> font;
+	shared_ptr<Texture> axe;
+	vector<UINT> count;
+
+	void PushCount(UINT val);
+
 };
 
-//
-//class DiamondCount : public Diamond
-//{
-//	DiamondCount(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-//	~DiamondCount();
-//	virtual void Init();
-//	virtual void Release();
-//	virtual void Update();
-//	virtual void Render();
-//};

@@ -15,6 +15,15 @@ void Diamond::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::UI);
 	
+#ifdef DEBUGMODE
+	PushCount(1234567890);
+#else
+	PushCount(_GameData->GetDia());
+#endif // DEBUGMODE
+
+	font = _ImageManager->FindTexture("NumberFontUI");
+	axe = _ImageManager->FindTexture("UI_x");
+
 }
 
 void Diamond::Release()
@@ -33,36 +42,35 @@ void Diamond::Update(float tick)
 void Diamond::Render()
 {
 	_ImageManager->Render("UI_Diamond", rc, nullptr);
-	
+
+	D3DXVECTOR2 start = position + D3DXVECTOR2(35, 0);
+
+	axe->Render(FloatRect(start, 15, Pivot::TOP), nullptr, 0.8f);
+
+	start = position + D3DXVECTOR2(50, 0);
+	D3DXVECTOR2 offset = D3DXVECTOR2(font->GetFrameSize().x * 3.f, 0);
+	for (int t = 0; t < count.size(); t++)
+	{
+		FloatRect rc(start + offset * (count.size() - 1 - t), font->GetFrameSize() * 3.f, Pivot::CENTER);
+		font->FrameRender(rc, nullptr, count[t], 0);
+	}
+
+}
+
+void Diamond::PushCount(UINT val)
+{
+	count.clear();
+
+	UINT temp = val;
+	while (temp != 0)
+	{
+		UINT rest = temp % 10;
+		count.push_back(rest);
+		temp *= 0.1f;
+	}
+	if (count.empty())
+		count.push_back(0);
+
 }
 
 
-//
-//DiamondCount::DiamondCount(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
-//	:Diamond(name, pos, size)
-//{
-//}
-//
-//DiamondCount::~DiamondCount()
-//{
-//}
-//
-//void DiamondCount::Init()
-//{
-//	_RenderPool->Request(this, RenderManager::Layer::UI);
-//}
-//
-//void DiamondCount::Release()
-//{
-//	_RenderPool->Remove(this, RenderManager::Layer::UI);
-//}
-//
-//void DiamondCount::Update()
-//{
-//}
-//
-//void DiamondCount::Render()
-//{
-//	p2DRenderer->SetCamera(false);
-//	//_ImageManager->Render("UI_DiaX", rc, nullptr);
-//}
