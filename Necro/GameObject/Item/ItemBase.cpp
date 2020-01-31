@@ -12,15 +12,7 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
-
-	AddCallback("Drop", [&](TagMessage msg) {			// 아이템 교체 했을 때 떨굴지 안 떨굴지 
-		bDrop = true;
-	});
-
-	AddCallback("Grap", [&](TagMessage msg) {			// 아이템 교체 없을 때  가지고 있어야지 떨구면 큰일나니께. 
-		bDrop = false;
-	});
-
+	SetCost(0);
 
 	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {
@@ -30,9 +22,14 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 			LOG->Print("This Object is inactive");
 			return;
 		}
+		if (!CanBuyItem())
+		{
+			LOG->Error(__FILE__, __LINE__, "Not Enough Money, Plz Check 'CanBuyItem' on Player");
+			return;
+		}
 		EatItem();
 	});
-
+	
 }
 
 ItemBase::~ItemBase()
@@ -53,6 +50,22 @@ void ItemBase::Update(float tick)
 
 void ItemBase::Render()
 {
+	if (cost != 0)
+	{
+		shared_ptr<Texture> font = _ImageManager->FindTexture("NumberFontUI");
+		D3DXVECTOR2 offset = D3DXVECTOR2(font->GetFrameSize().x * 1.75f, 0);
+
+		D3DXVECTOR2 start = position - (int)(text.size() / 2) * offset;
+
+
+		for (int t = 0; t < text.size(); t++)
+		{
+			FloatRect rc(start + offset * (text.size() - 1 - t) + D3DXVECTOR2(0,30.f), font->GetFrameSize() * 1.75f, Pivot::CENTER);
+			font->FrameRender(rc, nullptr, text[t], 0);
+		}
+	}
+
+		
 }
 
 void ItemBase::Init(POINT tileIndex)
@@ -83,13 +96,30 @@ void ItemBase::Active()
 	bActive = true;
 }
 
-void ItemBase::ItemProcessDestroy()
+void ItemBase::SetCost(UINT val)
 {
-	// 플레이어 타일이 아이템 있는 타일에 왔을 때 
+	cost = val;
+	PushCount(cost);
+}
 
-	// 타일에 있을 때 무기를 가지고 있는데 새로운 아이템 있는 타일에 왔을 때 무기가 바꿔져야하는 
+bool ItemBase::CanBuyItem()
+{
+	return	(cost <= _GameData->GetCoin());
+}
 
-	
+void ItemBase::PushCount(UINT val)
+{
+	text.clear();
 
+	UINT temp = val;
+	while (temp != 0)
+	{
+		UINT rest = temp % 10;
+		text.push_back(rest);
+		temp *= 0.1f;
+	}
+	if (text.empty())
+		text.push_back(0);
 
 }
+

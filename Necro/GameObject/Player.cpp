@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "./GameObject/Map/TileNode.h"
+#include "./GameObject/Item/ItemBase.h"
+
 
 
 Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -64,6 +66,7 @@ void Player::Release()
 void Player::ControlUpdate()
 {
 	currentState->BeatExcute();
+	Sight();
 }
 
 void Player::MissControlUpdate()
@@ -119,6 +122,41 @@ void Player::ImguiRender()
 
 }
 
+vector<vector<int> > GetDistance(int x, int y, vector<vector<int> > cells)
+{
+	const int INF = 0x7FFFFF;
+	vector<vector<int> > distance(cells.size());
+
+	for (int i = 0; i < distance.size(); i++)
+		distance[i].assign(cells[i].size(), INF);  // size만큼 INF 를 할당한다
+	
+	queue<pair<int, int> > q;
+
+	q.push(make_pair(x, y));
+	distance[x][y] = 0;
+
+	while (!q.empty())
+	{
+		pair<int, int> curPoint = q.front();
+		q.pop();
+		int curDistance = distance[curPoint.first][curPoint.second];
+		for (int i = -1; i <= 1; i++)
+			for (int j = -1; j <= 1; j++)
+			{
+				if ((i + j) % 2 == 0) continue;
+				pair<int, int> nextPoint(curPoint.first + i, curPoint.second + j);
+				if (nextPoint.first >= 0 && nextPoint.first < cells.size()
+					&& nextPoint.second >= 0 && nextPoint.second < cells[nextPoint.first].size()
+					//&& cells[nextPoint.first][nextPoint.second] != BARRIER
+					&& distance[nextPoint.first][nextPoint.second] > curDistance + 1)
+				{
+					distance[nextPoint.first][nextPoint.second] = curDistance + 1;
+					q.push(nextPoint);
+				}
+			}
+	}
+	return distance;
+}
 
 void Player::ChangeState(string str)
 {
@@ -136,25 +174,58 @@ void Player::FloodFill(POINT index, int sight)
 {
 	// index에 플레이어의 인덱스가 들어와야 함.  
 	vector<GameObject*> temp;
+	TileNode* tile = _TileMap->Tile(index.x, index.y);
 
+	if (tile == nullptr)return;
 	if (sight <= 0) return;
-	int proveX[4] = { 0,0,-1,1 };
-	int proveY[4] = { -1,1,0,0 };
+
+	int proveX[4] = { 0,-1,0,1 };
+	int proveY[4] = { -1,0,1,0 };
+	
+	
+	shownTiles.push_back(tile);
+
+	if (!tile->IsActive())
+	{
+		_MessagePool->ReserveMessage(tile, "Active");
+	}
+	else
+	{
+			if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
+			{
+				return;
+			}
+		_MessagePool->ReserveMessage(tile, "Show");
+	}
 
 	// 바닥인 경우
-	if (_GameWorld->GetTileManager()->Tile(index.x, index.y)->GetAttribute() == ObjNone)
+	if (tile->GetAttribute() == ObjNone)
 	{
-		_MessagePool->ReserveMessage(_GameWorld->GetTileManager()->Tile(index.x, index.y), "Active");
-
 		for (int i = 0; i < 4; i++)
 		{
 			POINT tempIndex;
 			tempIndex.x = index.x + proveX[i];
 			tempIndex.y = index.y + proveY[i];
+			// 중복 처리 해야함 방향? 조절 할수있다던데 
+			
 			FloodFill(tempIndex, sight - 1);
 		}
 
 	}
+	if (_GameWorld->GetTileManager()->Tile(index.x, index.y)->GetAttribute() == ObjDestructable)
+	{
+		
+	}
+
+}
+
+void Player::Sight()
+{
+	for (size_t t = 0; t < shownTiles.size(); t++)
+		_MessagePool->ReserveMessage(shownTiles[t], "Hide");
+	shownTiles.clear();
+
+	FloodFill(myIndex, 10);
 }
 
 
@@ -168,17 +239,10 @@ void PlayerIdle::BeatExcute()
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 내일 할거 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-
-	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-	// 시작할때 init으로 위치 등록 > 플레이어가 이동할수있을때 등록된거(현제) 삭제 > 이동 지역 등록 하면 될듯. 
-
-
 	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	vector<GameObject*> tempArr; 
 	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
-	me->FloodFill(me->myIndex, 5);
 
 	if (KeyCode->Down(VK_LEFT))
 	{
@@ -203,7 +267,18 @@ void PlayerIdle::BeatExcute()
 					me->ChangeState("Attack");
 					return;
 				}
-
+				
+				tempArr = leftTilePos->GetObjects(ObjectItem);
+				if (tempArr.size() > 0)
+				{
+					//static_cast<ItemBase*>
+					ItemBase* item;
+					//item = static_cast<ItemBase*>;
+					// 살수 있으면 (트루) -> 먹고(잇 아이템)-> 이동 
+					// 살수 없으면 (펄스) -> 리턴 
+					//me->ChangeState("Attack");
+					return;
+				}
 				me->startTime = 0; // 시작 시간 초기화
 				me->startPos = me->position; // 시작 위치 
 
