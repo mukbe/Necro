@@ -18,15 +18,7 @@ Monkey::Monkey(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	life = 1;
 
-	AddCallback("MonkeyHit", [&](TagMessage msg)
-	{
 
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
 }
 
 

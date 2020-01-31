@@ -106,6 +106,11 @@ void GameData::SetWeaponData(WeaponInfo weaponInfo)
 	weaponData = weaponInfo;
 }
 
+void GameData::SetShovelData(ShovelInfo shovelInfo)
+{
+	shovelData = shovelInfo;
+}
+
 void GameData::Combo()
 {
 	//이미 콤보값이 있었을 경우

@@ -20,17 +20,6 @@ Bat::Bat(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	life = 1;
 
-	AddCallback("BatHit", [&](TagMessage msg)
-	{
-
-		
-		
-		ProcessDestroy();
-		//_ObjectPool->DeletaObject(this);
-		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
-	});
-
-
 
 }
 

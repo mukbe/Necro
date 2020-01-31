@@ -13,7 +13,6 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	states.insert(make_pair("Idle", new MonsterStateIdle(this)));
 	states.insert(make_pair("Move", new MonsterStateOneStep(this)));
-	states.insert(make_pair("Idle", new MonsterStateIdle(this)));
 	states.insert(make_pair("Atk", new MonsterStateAtk(this)));
 	startTime = 0.f;
 	realtime = 0.f;
@@ -25,6 +24,16 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	//mynextIndex = { 0,0 };
 	ChangeState("Idle");
 	
+	
+	AddCallback("MonsterHit", [&](TagMessage msg)
+	{
+
+		ProcessDestroy();
+		_ObjectPool->DeletaObject(this);
+
+	});
+
+
 }
 
 Monster::~Monster()
@@ -61,8 +70,19 @@ void Monster::ControlUpdate()
 	
 	if (monsterBeat == 0) 
 	{
-		ChangeState("Move");
 		
+		tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y )->GetObjects(ObjectPlayer);
+
+		if (tempArr.size() > 0)
+		{
+			ChangeState("Atk");
+		}
+		else
+		{
+			ChangeState("Move");
+		}
+			//ChangeState("Idle");
+
 		if (name == "Skeleton") 
 		{
 			monsterBeat = 2;
@@ -121,6 +141,7 @@ void Monster::ChangeState(string key)
 	MonsterStateBase* state = states[key];
 	state->Enter();
 	currentState = state;
+	//aaa = key;
 }
 
 void Monster::ProcessDestroy()
@@ -146,7 +167,11 @@ void MonsterStateOneStep::Enter()
 void MonsterStateOneStep::Update()
 {
 
-	
+	/*MonsterStateBase* state = me->states["Atk"];
+			if (me->currentState == state)
+			{
+				return;
+			}*/
 	//시간 연산
 	me->startTime += Time::Tick()*4;
 	
@@ -196,8 +221,10 @@ void MonsterStateOneStep::Update()
 	//파란 슬라임 움직임
 	if (me->name == "BlueSlime") 
 	{
-			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);	
 
+		
+			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+		
 
 			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
 	}
@@ -241,32 +268,36 @@ void MonsterStateOneStep::Update()
 
 void MonsterStateAtk::Enter()
 {
-	vector<GameObject*> tempArr;
+
 
 	if (me->name == "BlueSlime")
 	{
 
-		tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetObjects(ObjectPlayer);
+		me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y )->GetObjects(ObjectPlayer);
 
-		for (int i = 0; i < tempArr.size(); ++i)
+		for (int i = 0; i < me->tempArr.size(); ++i)
 		{
-			_MessagePool->ReserveMessage(tempArr[i], "PlayerHit");
+			_MessagePool->ReserveMessage(me->tempArr[i], "PlayerHit");
 		}
 
-		tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
+	/*	me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
 
-		for (int i = 0; i < tempArr.size(); ++i)
+		for (int i = 0; i < me->tempArr.size(); ++i)
 		{
-			_MessagePool->ReserveMessage(tempArr[i], "PlayerHit");
+			_MessagePool->ReserveMessage(me->tempArr[i], "PlayerHit");
 		}
+*/
+
+		//me->ChangeState("Idle");
 
 	}
+	
+
 
 }
 
 void MonsterStateAtk::Update()
 {
-
 	
 
 }
@@ -277,7 +308,7 @@ void MonsterStateAtk::Update()
 
 void MonsterStateIdle::Enter()
 {
-	vector<GameObject*> tempArr;
+	me->startTime = 0.f;
 	//내위치 등록
 	//_GameWorld->GetTileManager()->Tile(2, 2)->AddObject(me);
 	//내위치 삭제
@@ -466,21 +497,21 @@ void MonsterStateIdle::Enter()
 		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 
 
-		tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetObjects(ObjectPlayer);
+		/*me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetObjects(ObjectPlayer);
 
-		if (tempArr.size() > 0)
+		if (me->tempArr.size() > 0)
 		{
 			me->ChangeState("Atk");
-		}
+		}*/
 		
 
-		tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
+		/*me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
 
-		if (tempArr.size() > 0)
+		if (me->tempArr.size() > 0)
 		{
 			me->ChangeState("Atk");
 		}
-
+*/
 		
 		
 
@@ -488,6 +519,10 @@ void MonsterStateIdle::Enter()
 		
 		
 		//갔던 좌표와 다시갈 좌표를 바꿔줌(위아래 반복)
+
+
+
+
 			D3DXVECTOR2 temp;
 			temp.y = me->endPos.y;
 			me->endPos.y = me->startPos.y;
@@ -501,6 +536,7 @@ void MonsterStateIdle::Enter()
 			
 			*/
 			
+		
 	
 
 	}
@@ -546,7 +582,7 @@ void MonsterStateIdle::Enter()
 
 
 	}
-
+	
 
 
 }
@@ -554,7 +590,14 @@ void MonsterStateIdle::Enter()
 void MonsterStateIdle::Update()
 {
 	
+//	me->startTime += Time::Tick() * 4;
+//if (me->startTime > 1.f)
+//{
+//	if (me->currentState != me->states["Atk"] )
+//	{
+//		me->ChangeState("Move");
+//	}
+//}
 	
-		//me->ChangeState("Move");
-	
+
 }
