@@ -147,17 +147,19 @@ void TileTestScene::Init()
 	_TileMap->Tile(2, 6)->AddObject(ObjectItem, Shovel);
 
 	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
-	_TileMap->Tile(2, 8)->AddObject(ObjectItem, Weapon);
+	Weapon->Init({ 3,6 });
+	_TileMap->Tile(3, 6)->AddObject(ObjectItem, Weapon);
 	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
 	
+
 
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 
-	_GameWorld->GetGameData()->setWeaponData(Baredhand, 0, 0, "");  // 무기 
-	_GameWorld->GetGameData()->setWeaponData(Dagger, 1, 1, "Dagger");
-	_GameWorld->GetGameData()->setWeaponData(Spear, 2, 1, "Spear");
-	_GameWorld->GetGameData()->setWeaponData(Broadsword, 3, 1, "Broadsword");
+	_GameWorld->GetGameData()->setWeaponData(Baredhand, { 0 , 0}, 0, "");  // 무기 
+	_GameWorld->GetGameData()->setWeaponData(Dagger, { 0,1 }, 1, "Dagger");
+	_GameWorld->GetGameData()->setWeaponData(Spear, { 0, 2 }, 1, "Spear");
+	_GameWorld->GetGameData()->setWeaponData(Broadsword, { 3, 1 }, 1, "Broadsword");
 }
 
 void TileTestScene::ImageLoad()
@@ -217,4 +219,5 @@ void TileTestScene::MonsterLoad()
 	_ObjectPool->CreateObject<Minotaur>("Minotaur", D3DXVECTOR2(26 + 52 * 5, 26 + 52 * 6), D3DXVECTOR2(100.f, 100.f));
 	_ObjectPool->CreateObject<RedDragon>("RedDragon", D3DXVECTOR2(26 + 52 * 3, 26 + 52 * 4), D3DXVECTOR2(100.f, 100.f));
 	_ObjectPool->CreateObject<GreenDragon>("GreenDragon", D3DXVECTOR2(26 + 52 * 3, 26 + 52 * 5), D3DXVECTOR2(100.f, 100.f));*/
+
 }
