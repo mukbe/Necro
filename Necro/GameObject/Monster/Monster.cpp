@@ -492,14 +492,14 @@ void MonsterStateIdle::Enter()
 			temp.y = me->endPos.y;
 			me->endPos.y = me->startPos.y;
 			me->startPos.y = temp.y;
-
-			MonsterStateBase* state = me->states["Atk"];
+ 
+		/*MonsterStateBase* state = me->states["Atk"];
 			if (me->currentState == state)
 			{
-				me->startPos.y = me->endPos.y;
+				me->monsterBeat = -1;
 		    }
 			
-			
+			*/
 			
 	
 
