@@ -8,6 +8,7 @@
 
  
 ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
+	: GameObject(name, pos, size)
 {
 
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
@@ -80,4 +81,15 @@ void ItemBase::Hide()
 void ItemBase::Active()
 {
 	bActive = true;
+}
+
+void ItemBase::ItemProcessDestroy()
+{
+	// 플레이어 타일이 아이템 있는 타일에 왔을 때 
+
+	// 타일에 있을 때 무기를 가지고 있는데 새로운 아이템 있는 타일에 왔을 때 무기가 바꿔져야하는 
+
+	
+
+
 }

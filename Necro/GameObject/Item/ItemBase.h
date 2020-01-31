@@ -25,6 +25,8 @@ public:
 	virtual void Hide();
 	virtual void Active();
 
+	virtual void ItemProcessDestroy();
+
 protected:
 	
 	bool bShow;  // 아이템 시야에 들었을때 보이게 혹은 안보이게 하는거

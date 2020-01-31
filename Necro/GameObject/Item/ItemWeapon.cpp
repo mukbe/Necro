@@ -41,6 +41,8 @@ void ItemWeapon::Render()
 	if (textureKey == "")return;
 	_ImageManager->FindTexture(textureKey)->FrameRender(rc, nullptr, 0, (UINT)bShow);
 
+	_ImageManager->FindTexture("Dagger")->FrameRender(rc, nullptr, 0, (UINT)bShow);
+
 	//Log_ErrorAssert(info.Imagekey == "");
 }
 
@@ -50,13 +52,13 @@ void ItemWeapon::EatItem()
 	switch (myType)
 	{
 	case Dagger:
-		_GameWorld->GetGameData()->setWeaponData(myType, 0, 0, "DaggerEffect");
+		_GameWorld->GetGameData()->setWeaponData(Dagger, { 0,1 }, 0, "DaggerEffect");
 		break;
 	case Spear:
-		_GameWorld->GetGameData()->setWeaponData(myType, 0, 0, "SpearEffect");
+		_GameWorld->GetGameData()->setWeaponData(Spear, { 0, 2 }, 0, "SpearEffect");
 		break;
 	case Broadsword:
-		_GameWorld->GetGameData()->setWeaponData(myType, 0, 0, "BroadswordEffect");	
+		_GameWorld->GetGameData()->setWeaponData(Broadsword, { 3, 1 }, 0, "BroadswordEffect");
 		break;
 	}
 	//										 타일 매니저
@@ -69,7 +71,7 @@ void ItemWeapon::EatItem()
 
 	_RenderPool->Remove(this, RenderManager::Layer::Object);	// 플레이어가 닿은 이미지는 먹은 걸로 설정을 하고  그 설정했던걸 지움
 	_RenderPool->Request(this, RenderManager::Layer::UI);		// 아이템을 먹었을때 따로 지우지는않고 덮어 씌우는걸로 ! 
-	//ui로 이동시켜주는 코드 넣어
+	//ui로 이동시켜주는 코드 넣어 
 
 }
 
