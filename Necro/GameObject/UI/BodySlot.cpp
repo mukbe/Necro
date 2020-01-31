@@ -15,27 +15,3 @@ BodySlot::~BodySlot()
 {
 }
 
-void BodySlot::Init()
-{
-	
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-}
-
-void BodySlot::Release()
-{
-	_RenderPool->Remove(this, RenderManager::Layer::UI);
-}
-
-void BodySlot::ControlUpdate()
-{
-}
-
-void BodySlot::Update(float tick)
-{
-}
-
-void BodySlot::Render()
-{
-	_ImageManager->Render("UI_BodySlot", rc, nullptr);
-	
-}

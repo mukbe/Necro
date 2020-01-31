@@ -12,27 +12,3 @@ AttackSlot::~AttackSlot()
 {
 }
 
-void AttackSlot::Init()
-{
-	_RenderPool->Request(this, RenderManager::Layer::UI);
-	
-}
-
-void AttackSlot::Release()
-{
-	_RenderPool->Remove(this, RenderManager::Layer::UI);
-}
-
-void AttackSlot::ControlUpdate()
-{
-}
-
-void AttackSlot::Update(float tick)
-{
-}
-
-void AttackSlot::Render()
-{
-	_ImageManager->Render("UI_AttackSlot", rc, nullptr);
-	
-}
