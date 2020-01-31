@@ -2,6 +2,7 @@
 #include "./Systems/Manage/TileManager.h""
 #include "./GameObject/Map/TileNode.h"
 #include "Pallete.h"
+#include "./GameObject/Map/MapTool/MapHelper.h"
 
 MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
@@ -267,8 +268,12 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 	switch (brushType)
 	{
 	case Brush:
+		GameObject* newObject =_GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey);
+		targetNode->AddObject(palleteType, newObject);
+		newObject->SetPosition(targetNode->GetPosition());
 		break;
 	case Eraser:
+		targetNode->ReleaseObjects();
 		//targetNode->Init();
 		break;
 	default:

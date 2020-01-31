@@ -2032,3 +2032,85 @@ Code: shared_ptr<Testure> use count != 1
 ===================================================
 ===================================================
  2020.1.31	04:54:12	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:06:29	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	11:11:48	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	11:23:25	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:24:54	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:28:14	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:37:49	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:39:21	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:40:32	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:42:36	 'Directx11 2D' Start Succeeded
+11:42:39	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:46	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:46	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:46	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:47	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:47	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:48	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:49	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+11:42:52	Assertion Failure!
+File: c:\users\hy_raptop\onedrive\desktop\github\necrodancer\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.1.31	11:46:47	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	11:49:31	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:50:11	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	11:50:22	 'Directx11 2D' Start Succeeded
+			 End
+===================================================

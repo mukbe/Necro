@@ -5,6 +5,7 @@ class TileManager;
 class TileNode;
 class Pallete;
 class palleteNode;
+class Spawner;
 
 class MapTool : public GameObject
 {

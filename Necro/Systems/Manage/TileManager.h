@@ -3,7 +3,7 @@
 
 
 class TileNode;
-
+class Spawner;
 
 class TileManager
 {
@@ -18,6 +18,7 @@ private:
 	friend class SceneBase;
 	friend class MapTool;
 	friend class Pallete;
+	
 
 public:
 	TileManager();
@@ -33,12 +34,15 @@ public:
 	D3DXVECTOR2 GetTileSize() { return tileSize; }
 	D3DXVECTOR2 GetPivotPos() { return pivotPos; }
 
+	Spawner* GetSpawner() { return spawner; }
 
 	void CreateMap();
 
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;
+
+	Spawner* spawner;
 
 	string textureName;
 

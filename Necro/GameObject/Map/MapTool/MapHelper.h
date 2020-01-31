@@ -1,8 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
-#include "Pallete.h"
-#include "./GameObject/Map/TileNode.h"
+#include "TileHelper.h"
 
 /*Player*/
 #include "./GameObject/Player.h"
@@ -20,6 +18,9 @@
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
 
+/*Item*/
+
+
 class Spawner
 {
 public:
@@ -28,27 +29,37 @@ public:
 
 	void LoadObjects()
 	{
-		Load<Bat>("Bat");
-		Load<BlueSlime>("BlueSlime");
-		Load<GreenSlime>("GreenSlime");
-		Load<Skeleton>("Skeleton");
+		Load<Bat>("M_Bat");
+		Load<BlueSlime>("M_BlueSlime");
+		Load<GreenSlime>("M_GreenSlime");
+		Load<Skeleton>("M_Skeleton");
 
-		Load<WallBase>("WallBase");
-		Load<WallBase>("StoneWall");
-		Load<TileNode>("TileNode");
+		Load<WallBase>("W_WallBase");
+		Load<WallBase>("W_StoneWall");
+
+		//Load<TileNode>("T_TileNode");
 	}
 
 	GameObject* Spawn(string Key)
 	{
 		 return spawnFuncStorage[Key]();
 	}
-private:
-	template<typename T>
-	GameObject* Load(string Key)
+
+	unordered_map<string, function<GameObject*(void)>> GetFuncStorage()
 	{
-		GameObject* newObject;
+		return spawnFuncStorage;
+	}
+
+	int GetStorageSize()
+	{
+		return spawnFuncStorage.size();
+	}
+private:
+	IS_INHERITED_THAN_RETURN(class GameObject) Load(string Key)
+	{
+		Derived* newObject;
 		spawnFuncStorage.insert(make_pair(Key, [&](void) {
-			newObject = _ObjectPool->CreateObject<T>(Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+			newObject = _ObjectPool->CreateObject<Derived>(Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
 			return newObject;
 		}));
 

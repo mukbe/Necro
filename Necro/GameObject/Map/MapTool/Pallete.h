@@ -1,9 +1,8 @@
 #pragma once
 
-// 팔레트 띄우는거 다시. (게임오브젝트 대신 스트링 키 팔레트 노드에 저장시키기)
-// 타일매니저에 스포너 넣기
-// 페인트 하면 오브젝트 생성 / 배치
-// 세이브 로드(타일매니저)
+
+
+class Spawner;
 
 
 class palleteNode : public GameObject
@@ -23,10 +22,10 @@ public:
 
 	}
 
-	virtual void SetData(string TextureKey, GameObject* Object)
+	virtual void SetData(string textureStringKey, string objectStringKey)
 	{
-		textureKey = TextureKey;
-		myObject = Object;
+		textureKey = textureStringKey;
+		objectKey = objectStringKey;
 	}
 
 	virtual void Release()
@@ -73,9 +72,12 @@ public:
 	bool GetIsSelected() { return isSelected; }
 	void SetIsSelected(bool input) { isSelected = input; }
 
+	string GetTextureKey() { return textureKey; }
+	string GetObjectKey() { return objectKey; }
+
 private:
 	string textureKey;
-	GameObject* myObject;
+	string objectKey;
 	bool isSelected;
 	bool isMouseOver;
 };
@@ -111,24 +113,6 @@ public:
 
 	void ReleasePallete();
 
-	void LoadObjects();
-
-	//template<typename T>
-	//GameObject* Load(string Key, ObjectType objType)
-	//{
-	//	GameObject* newObject;
-
-	//
-	//	
-	//	AddObject(objType, newObject);
-
-	//	_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/Tool" + Key + L".png");
-	//	
-
-	//	return newObject;
-	//}
-
-
 	vector<GameObject*> GetArrayByType(ObjectType inputType)
 	{
 		return objectStorage[inputType];
@@ -142,20 +126,12 @@ public:
 	{
 		return vecPallete;
 	}
-
-	void MakeObject(string Key)
-	{
-		
-	}
-
 private:
 	vector<palleteNode*> vecPallete;
 	typedef vector<palleteNode*>::iterator PalleteIter;
 
 	int separateSize;
 	D3DXVECTOR2 pivotPos;
-
-
 
 	unordered_map<ObjectType, vector<GameObject*>> objectStorage;
 	typedef unordered_map<ObjectType, vector<GameObject*>>::iterator MapIter;

@@ -1,5 +1,6 @@
 #include "TileManager.h"
 #include "./GameObject/Map/TileNode.h"
+#include "./GameObject/Map/MapTool/MapHelper.h"
 
 POINT TileManager::mapSize = defaultMapSize;
 D3DXVECTOR2 TileManager::tileSize = { 0.f,0.f };
@@ -12,10 +13,10 @@ void TileManager::SetMapInfo(POINT tileMax, D3DXVECTOR2 size, D3DXVECTOR2 mapPiv
 	pivotPos = mapPivot;
 }
 
-
-
 TileManager::TileManager()
 {
+	spawner = new Spawner();
+	spawner->LoadObjects();
 }
 
 TileManager::~TileManager()
