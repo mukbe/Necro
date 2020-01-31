@@ -27,6 +27,7 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	selectedObject = selectedPallete = nullptr;
 
 	map->CreateMap();
+	map->HighLightOn();
 }
 
 MapTool::~MapTool()
@@ -47,6 +48,7 @@ void MapTool::Update(float tick)
 	if (oldMapSize[0] != MapSize[0] || oldMapSize[1] != MapSize[1])
 	{
 		map->SetMapSize({ MapSize[0], MapSize[1] });
+		map->HighLightOn();
 		oldMapSize[0] = MapSize[0];
 		oldMapSize[1] = MapSize[1];
 	}
@@ -265,18 +267,19 @@ TileNode* MapTool::isInCollision()
 
 void MapTool::ProcessSetMap(TileNode* targetNode)
 {
+	GameObject* newObject;
 	switch (brushType)
 	{
 	case Brush:
-		GameObject* newObject =_GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey);
+		newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
 		targetNode->AddObject(palleteType, newObject);
-		newObject->SetPosition(targetNode->GetPosition());
+		newObject->SetPosition(targetNode->Transform().GetPos());
+		//newObject->Init();
+		//newObject->Active();
 		break;
 	case Eraser:
 		targetNode->ReleaseObjects();
 		//targetNode->Init();
-		break;
-	default:
 		break;
 	}
 }

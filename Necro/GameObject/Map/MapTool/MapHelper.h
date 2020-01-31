@@ -57,13 +57,12 @@ public:
 private:
 	IS_INHERITED_THAN_RETURN(class GameObject) Load(string Key)
 	{
-		Derived* newObject;
 		spawnFuncStorage.insert(make_pair(Key, [&](void) {
-			newObject = _ObjectPool->CreateObject<Derived>(Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
+			Derived* newObject;
+			newObject = _ObjectPool->CreateObject<Derived>("", D3DXVECTOR2(0, 0), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
 			return newObject;
 		}));
-
-		return newObject;
+		return nullptr;
 	}
 
 	unordered_map<string, function<GameObject*(void)>> spawnFuncStorage;

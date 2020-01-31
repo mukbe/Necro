@@ -52,6 +52,17 @@ void TileManager::CreateMap()
 	}
 }
 
+void TileManager::HighLightOn()
+{
+	if (mapTiles.size() > 0)
+	{
+		for (int i = 0; i < mapTiles.size(); ++i)
+		{
+			mapTiles[i]->SetHighlight(true);
+		}
+	}
+}
+
 void TileManager::ReleaseMap()
 {
 	if (mapTiles.size() > 0)

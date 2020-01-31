@@ -26,6 +26,7 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		_ObjectPool->DeletaObject(this);
 
 	});
+	tex = _ImageManager->FindTexture("greenslime");
 }
 
 
@@ -114,7 +115,7 @@ void GreenSlime::PostUpdate()
 void GreenSlime::Render()
 {
 	
-	_ImageManager->FindTexture("greenslime")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	tex->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
 	//_ImageManager->FindTexture("greenslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

@@ -38,6 +38,8 @@ public:
 
 	void CreateMap();
 
+	void HighLightOn();
+
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;
