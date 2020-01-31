@@ -38,7 +38,11 @@ public:
 	Matrix2D& Transform() { return transform; }
 
 	const bool& IsActive() { return bActive; }
+	//박아본거
+	const bool& IsShow() { return bShow; }
+
 	void SetActive(const bool& b) { bActive = b; }
+	
 
 	void SetAlpha(const float& a)
 	{

@@ -44,17 +44,22 @@ void ShopKeeper::Update(float tick)
 		SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
 		// 4-5초? 먼저 시작함 조정 요망
 	}
-
-	// 플레이어 위치에 접근하질 못함. 
-	//Player* player;
-	//distance = D3DXVECTOR2(player->Transform().GetPos().x - position.x, player->Transform().GetPos().y - position.y);
-	//float factor;
-	//factor = Math::Abs(D3DXVec2Length(&distance)) / 200;
-	//
-	//if (factor > 1)
-	//{
-	//	loudness = 0;
-	//}
+		//int time =SOUNDMANAGER->Getposition("stage1");
+		//SOUNDMANAGER->Setposition("ShopKeeper", time);
+	
+	D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52,52), D3DXVECTOR2(26,26));
+	
+	distance = D3DXVECTOR2(playerPos.x - position.x, playerPos.y - position.y);
+	float factor;
+	factor = Math::Abs(D3DXVec2Length(&distance)) / 350;
+	if (factor <= 1)
+	{
+		loudness = 1 - factor;
+	}
+	if (factor > 1)
+	{
+		loudness = 0;
+	}
 
 	// 볼륨을 계속 갱신 해준다 .
 	SOUNDMANAGER->SetVolume("ShopKeeper", loudness);

@@ -67,7 +67,7 @@ void TileTestScene::Init()
 	//testTile->GetAttribute(); //이건 오브젝트 타입 따오는거. 타입 이넘은 TileHelper.h 참조
 
 
-	_TileMap->SetMapInfo({ 10, 10 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
+	_TileMap->SetMapInfo({ 20, 20 }, defaultTileSize, D3DXVECTOR2(defaultTileSize.x / 2.f, defaultTileSize.y / 2.f));
 	
 	_TileMap->CreateMap();
 
@@ -119,9 +119,10 @@ void TileTestScene::Init()
 		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(9, i);
 		_TileMap->Tile(9, i)->AddObject(ObjectWall, testWall);
+
 	}
 
-	for (int i = 0; i < 8; ++i)
+	for (int i = 0; i < 7; ++i)
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 0);
