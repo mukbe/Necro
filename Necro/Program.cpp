@@ -27,7 +27,7 @@ Program::Program()
 	//_SceneManager->AddScene(scene);
 
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
-	EFFECTS->AddEffact("Test", "Test");
+	EFFECTS->AddEffect("Test", "Test");
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
@@ -52,7 +52,7 @@ void Program::PreUpdate()
 	if (Keyboard::Get()->Down(VK_F2))
 		CAMERA->Shake();
 	if (Keyboard::Get()->Down(VK_F6))
-		EFFECTS->Fire("Test", D3DXVECTOR2(WinSizeX*0.5f, WinSizeY * 0.5f), D3DXVECTOR2(100, 100));
+		EFFECTS->Fire("Test", D3DXVECTOR2(WinSizeX*0.5f, WinSizeY * 0.5f), D3DXVECTOR2(100, 100),Math::Random(0.f, Math::PI * 2.f));
 
 }
 

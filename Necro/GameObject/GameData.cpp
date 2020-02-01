@@ -8,7 +8,7 @@ GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	
 	playerHp = 10;
-	playerCoin = 0;
+	playerCoin = 999;
 	playerDia = 0;
 	comboCount = 0;
 	ratioCoin = 1.f;
