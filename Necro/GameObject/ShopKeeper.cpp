@@ -69,6 +69,8 @@ void ShopKeeper::Update(float tick)
 			SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
 		}
 	}
+
+
 		//int time =SOUNDMANAGER->Getposition("stage1");
 		//SOUNDMANAGER->Setposition("ShopKeeper", time);
 	

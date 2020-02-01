@@ -28,9 +28,13 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
-		// 이팩트가 뜨고. > 나중에 추가해 준대
-		// 피를 깍아준다. > 아직 구현 안되있음. 
+		// 이팩트가 뜨고 > 애너미 방향에 따라 출력해 주면 됩니다. 
+		// 피를 깍아준다. >> 애너미에서 게임 데이터로 쏴야 하지않나? 
+
 		// 피격음 튼다. 
+		SOUNDMANAGER->Play("playerHurt", 0.6f);
+
+		// 다하고 함수로 빼주기 
 
 	});
 	// 피를 업데이트에서 계속 확인해 주고 피가 0이 되면 캐릭터 죽인다음에 죽었다고 씬메니져? 같은곳에 넘겨야 할듯 
@@ -54,6 +58,8 @@ void Player::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 
+	wstring path = ResourcePath + L"Sound/playerHurt.ogg";
+	SOUNDMANAGER->AddSound("playerHurt", String::WStringToString(path), true, false);
 }
 
 void Player::Release()
@@ -121,7 +127,7 @@ void Player::ImguiRender()
 	ImGui::End();
 
 }
-//
+
 //vector<vector<int> > GetDistance(int x, int y, vector<vector<int> > cells)
 //{
 //	const int INF = 0x7FFFFF;
@@ -231,7 +237,6 @@ void Player::Sight()
 
 void Player::Shovel(TileNode* TilePos, vector<GameObject*> temp)
 {
-	// 이게 이동 위에 있으면 부순뒤 - 이동이 됨으로 전진하면서 부숨 ( 창 )
 	if (TilePos->GetAttribute() == ObjDestructable)
 	{
 		// 해당 오브젝트 찾아서 조지는듯 
@@ -249,9 +254,7 @@ void Player::InitToMove(TileNode * TilePos, float JumpPower, float Gravity)
 	startPos = position; // 시작 위치 
 	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectPlayer, this); // 원래 있던 타일 삭제하고
 	TilePos->AddObject(ObjectPlayer, this); // 플레이어를 타일에 등록한다.
-
 	destination = TilePos->GetPos(); // 목적지
-
 	jumpPower = JumpPower;
 	gravity = Gravity;
 }
@@ -268,6 +271,7 @@ void PlayerIdle::BeatExcute()
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
 	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	ItemBase* item;
 	vector<GameObject*> tempArr;
 	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
@@ -286,6 +290,19 @@ void PlayerIdle::BeatExcute()
 
 			if (leftTilePos->GetAttribute() == ObjNone) // 지나갈수있는 타일이면 
 			{
+
+				//	int proveX[4] = { 0,-1,0,1 };
+				//  int proveY[4] = { -1,0,1,0 };  이런식으로 x y 넣어서 네방향 검사 하면 어케든 될듯  
+				
+
+				// 범위 받고, 이팩트 키고, 어텍 전에 각도 하나 받아서 어텍 전에 함 될듯 
+				// 아이템 이펙트 키랑 범위는 거기 다 있음 . 
+				// 대검 공격이 문제넹...  
+				// 공격 볌위는 어택으로 넘겨주면 어택에서 함수 하나로 처리 가능  
+				
+
+				//AttackPos = ;
+				
 				// 몬스터 확인
 				tempArr.clear();
 				tempArr = leftTilePos->GetObjects(ObjectMonster);
@@ -295,13 +312,22 @@ void PlayerIdle::BeatExcute()
 					return;
 				}
 
+				int proveX[4] = { 0,-1,0,1 };
+				int proveY[4] = { -1,0,1,0 };
+				me->EffactName = _GameWorld->GetGameData()->GetWeaponData().EffactImagekey;
+				me->attackrRange = _GameWorld->GetGameData()->GetWeaponData().Range;
+
+				me->AttackPos;
+
+
+
+
 				// 아이템 확인 
 				tempArr.clear();
 				tempArr = leftTilePos->GetObjects(ObjectItem);
+				item = static_cast<ItemBase *>(tempArr[0]);
 				if (tempArr.size() > 0)
 				{
-					ItemBase* item;
-					item = static_cast<ItemBase *>(tempArr[0]);
 
 					if (item->CanBuyItem())
 					{
@@ -314,7 +340,7 @@ void PlayerIdle::BeatExcute()
 					}
 					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
-
+				
 
 				me->InitToMove(leftTilePos, 4.5f, 0.6f);
 
@@ -351,7 +377,7 @@ void PlayerIdle::BeatExcute()
 				tempArr = rightTilePos->GetObjects(ObjectItem);
 				if (tempArr.size() > 0)
 				{
-					ItemBase* item;
+					
 					item = static_cast<ItemBase *>(tempArr[0]);
 
 					if (item->CanBuyItem())
@@ -398,7 +424,7 @@ void PlayerIdle::BeatExcute()
 				tempArr = upTilePos->GetObjects(ObjectItem);
 				if (tempArr.size() > 0)
 				{
-					ItemBase* item;
+					
 					item = static_cast<ItemBase *>(tempArr[0]);
 
 					if (item->CanBuyItem())
@@ -445,7 +471,7 @@ void PlayerIdle::BeatExcute()
 				tempArr = downTilePos->GetObjects(ObjectItem);
 				if (tempArr.size() > 0)
 				{
-					ItemBase* item;
+					
 					item = static_cast<ItemBase *>(tempArr[0]);
 
 					if (item->CanBuyItem())
@@ -530,9 +556,10 @@ void PlayerAttack::BeatExcute()
 
 void PlayerAttack::Excute()
 {
+	// 여기는 어택만 하셔야 하구욘 
 
 
-	// 아이템 범위 받으면 좀더 예쁘게 만들 수 있지 않을까??
+	
 	if (me->playerDirection == PlayerLeft)
 	{
 		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
