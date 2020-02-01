@@ -187,12 +187,30 @@ void MapTool::ImguiRender()
 		ImGui::Text("Save / Load");
 		if (ImGui::Button("Save", ImVec2(100, 50)))
 		{
+			if (ImGui::BeginPopupContextWindow())
+			{
+				if (ImGui::Selectable("Clear"))
+				{
+				}
+				ImGui::EndPopup();
+			}
+			//ImGui::BeginChild(u8"Input File Name");
+			//ImGui::SetWindowSize(ImVec2(100.f, 100.f));
+			//ImGui::SetWindowSize(ImVec2(100.f, 100.f));
+			//if (ImGui::Button("Exit", ImVec2(100, 50)))
+			//{
+			//	ImGui::EndChild();
+
+			//}
+			_GameWorld->GetTileManager()->SaveMap(L"ABC");
+			//ImGui::EndChild();
 
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
-
+			
+			
 		}
 		ImGui::Separator();
 		ImGui::Text("Brush Mode");

@@ -40,6 +40,8 @@ public:
 
 	void HighLightOn();
 
+	void SetAllActive();
+
 	void SaveMap(wstring mapName);
 	void LoadMap(wstring mapName);
 

@@ -79,17 +79,20 @@ void WallBase::Render()
 
 void WallBase::Show()
 {
+	bShow = true;
 	alpha = 1.0f;
 }
 
 void WallBase::Hide()
 {
+	bShow = false;
 	alpha = 0.5f;
 }
 
 void WallBase::Active()
 {
-	GameObject::Active();
+	bActive = true;
+	alpha = 0.f;
 }
 
 void WallBase::SetTileAttribute()

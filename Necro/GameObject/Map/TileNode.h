@@ -108,6 +108,8 @@ public:
 	void SetHighlight(bool input) { haveIDrawHighlight = input; }
 	void SetUIMode(bool input) { isUI = input; }
 
+	unordered_map<ObjectType, vector<GameObject*>> GetStorage() { return objectStorage; }
+
 protected:
 	string textureKey;
 	shared_ptr<Texture> texture;

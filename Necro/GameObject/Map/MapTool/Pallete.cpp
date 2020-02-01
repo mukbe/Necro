@@ -77,8 +77,8 @@ void Pallete::CreatePallete(ObjectType inputType, D3DXVECTOR2 inputPivotPos)
 	}
 
 	Spawner* tempSpawner = _GameWorld->GetTileManager()->GetSpawner();
-	unordered_map<string, function<GameObject*(void)>> tempStorage = tempSpawner->GetFuncStorage();
-	unordered_map<string, function<GameObject*(void)>>::iterator 
+	unordered_map<string, function<GameObject*(string)>> tempStorage = tempSpawner->GetFuncStorage();
+	unordered_map<string, function<GameObject*(string)>>::iterator
 		iter = tempStorage.begin(),
 		end = tempStorage.end();
 

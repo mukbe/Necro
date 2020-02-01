@@ -63,10 +63,56 @@ void TileManager::HighLightOn()
 	}
 }
 
+void TileManager::SetAllActive()
+{
+	if (mapTiles.size() > 0)
+	{
+		for (int i = 0; i < mapTiles.size(); ++i)
+		{
+			mapTiles[i]->Active();
+			mapTiles[i]->Show();
+		}
+	}
+}
+
 void TileManager::SaveMap(wstring mapName)
 {
 	ofstream saveOut;
-	saveOut.open(ResourcePath + L"/MapData/" + mapName + L".txt");
+	saveOut.open(ResourcePath + L"/MapData/" + mapName + L".map");
+	
+	saveOut << "[MapSize]" << endl;
+	saveOut << to_string(mapSize.x) + "," + to_string(mapSize.y) << endl;
+	saveOut << "[TileSize]" << endl;
+	saveOut << to_string(tileSize.x) + "," + to_string(tileSize.y) << endl;
+	saveOut << "[PivotPosition]" << endl;
+	saveOut << to_string(pivotPos.x) + "," + to_string(pivotPos.y) << endl << endl;
+
+	for (int i = 0; i < mapTiles.size(); ++i)
+	{
+		TileNode* tempTile = mapTiles[i];
+		string interpolation = "";
+		if (i < 1000) interpolation = "0";
+		if (i < 100) interpolation = "00";
+		if (i < 10) interpolation = "000";
+		saveOut << "[TileNode" + interpolation + to_string(i) + "]" << endl;
+		saveOut << "TextureKey:" + tempTile->GetTextureKey() << endl;
+		saveOut << "Attribute:" + to_string(tempTile->GetAttribute()) << endl;
+		saveOut << "ObjectContainer:";
+
+		unordered_map<ObjectType, vector<GameObject*>> tempStorage = mapTiles[i]->GetStorage();
+		unordered_map<ObjectType, vector<GameObject*>>::iterator tempIter = tempStorage.begin(), tempEnd = tempStorage.end();
+		for (; tempIter != tempEnd; ++tempIter)
+		{
+			vector<GameObject*> tempVector = (*tempIter).second;
+			vector<GameObject*>::iterator vectorIter = tempVector.begin(), vectorEnd = tempVector.end();
+
+			for (; vectorIter != vectorEnd; ++vectorIter)
+			{
+				saveOut << (*vectorIter)->Name() + ",";
+			}
+		}
+		saveOut << endl << endl;
+	}
 }
 
 void TileManager::LoadMap(wstring mapName)

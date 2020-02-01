@@ -59,10 +59,10 @@ public:
 
 	GameObject* Spawn(string Key)
 	{
-		 return spawnFuncStorage[Key]();
+		 return spawnFuncStorage[Key](Key);
 	}
 
-	unordered_map<string, function<GameObject*(void)>> GetFuncStorage()
+	unordered_map<string, function<GameObject*(string)>> GetFuncStorage()
 	{
 		return spawnFuncStorage;
 	}
@@ -74,16 +74,31 @@ public:
 private:
 	IS_INHERITED_THAN_RETURN(class GameObject) Load(string Key)
 	{
-		spawnFuncStorage.insert(make_pair(Key, [&](void) {
+		spawnFuncStorage.insert(make_pair(Key, [&](string funcKey) {
+			int temp = (*spawnCounter.find(funcKey)).second;
+			temp++;
+			(*spawnCounter.find(funcKey)).second = temp;
+			string interpolation = "";
+			if (temp < 1000) interpolation = "0";
+			if (temp < 100) interpolation = "00";
+			if (temp < 10) interpolation = "000";
 			Derived* newObject;
-			newObject = _ObjectPool->CreateObject<Derived>("", D3DXVECTOR2(0, 0), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
+			newObject = _ObjectPool->CreateObject<Derived>(funcKey + interpolation+ to_string(temp), D3DXVECTOR2(0, 0), D3DXVECTOR2(defaultTileSize.x, defaultTileSize.y));
+
 			return newObject;
 		}));
+
+		if (spawnCounter.end() == spawnCounter.find(Key))
+		{
+			spawnCounter.insert(make_pair(Key, 0));
+		}
 		return nullptr;
 	}
 
-	unordered_map<string, function<GameObject*(void)>> spawnFuncStorage;
-	typedef unordered_map<string, function<GameObject*(void)>>::iterator FuncIter;
+	unordered_map<string, function<GameObject*(string)>> spawnFuncStorage;
+	typedef unordered_map<string, function<GameObject*(string)>>::iterator FuncIter;
+
+	unordered_map<string, int> spawnCounter;
 };
 
 

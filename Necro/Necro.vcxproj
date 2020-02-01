@@ -251,6 +251,7 @@
     <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Map\MapTool\MapHelper.h" />
     <ClInclude Include="Systems\Manage\EffectManager.h" />
     <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />
