@@ -191,10 +191,10 @@ void Player::FloodFill(POINT index, int sight)
 	}
 	else
 	{
-		if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
-		{
-			return;
-		}
+		//if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
+		//{
+		//	return;
+		//}
 		_MessagePool->ReserveMessage(tile, "Show");
 	}
 
@@ -225,7 +225,7 @@ void Player::Sight()
 		_MessagePool->ReserveMessage(shownTiles[t], "Hide");
 	shownTiles.clear();
 
-	FloodFill(myIndex, 10);
+	FloodFill(myIndex, 5);
 }
 
 
@@ -469,6 +469,7 @@ void PlayerIdle::BeatExcute()
 
 		}
 	}
+
 }
 
 void PlayerIdle::Excute()
