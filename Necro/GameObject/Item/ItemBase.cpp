@@ -61,9 +61,12 @@ void ItemBase::Render()
 
 		for (int t = 0; t < text.size(); t++)
 		{
-			FloatRect rc(start + offset * (text.size() - 1 - t) + D3DXVECTOR2(0,30.f), font->GetFrameSize() * 1.75f, Pivot::CENTER);
+			FloatRect rc(start + offset * (text.size() - 1 - t) + D3DXVECTOR2(0,50.f), font->GetFrameSize() * 1.75f, Pivot::CENTER);
 			font->FrameRender(rc, nullptr, text[t], 0);
 		}
+
+		//그림자 이미지 
+
 	}
 
 		
@@ -72,8 +75,7 @@ void ItemBase::Render()
 void ItemBase::Init(POINT tileIndex)
 {
 	position = _TileMap->Tile(tileIndex)->GetPos();							// 타일위치 검출!  
-	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 	
-
+	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 
 }
 
 void ItemBase::EatItem()
@@ -84,12 +86,12 @@ void ItemBase::EatItem()
 
 void ItemBase::Show()
 {
-	bShow = false;
+	bShow = true;
 }
 
 void ItemBase::Hide()
 {
-	bShow = true;
+	bShow = false;
 }
 
 void ItemBase::Active()

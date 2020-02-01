@@ -12,7 +12,6 @@ UIBase::UIBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		SetLocalPosition(msg.Data->GetValue<D3DXVECTOR2>());
 	});
 
-
 	bMove = false;
 	saveTime = 0.f;
 	SetSlotImage(name);
@@ -64,7 +63,7 @@ void UIBase::Render()
 	}
 	if (itemTex != false)
 	{
-		FloatRect itemRc(screenPos, itemTex->GetFrameSize() * 3, Pivot::CENTER);
+		FloatRect itemRc(screenPos, itemTex->GetFrameSize() * 2, Pivot::CENTER);
 		itemTex->FrameRender(itemRc, nullptr, 0, 0);
 	}
 }
