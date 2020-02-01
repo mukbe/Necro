@@ -249,7 +249,7 @@ void Window::CreateManagers()
 	BufferManager::Create();
 	ShaderManager::Create();
 
-
+	EffectManager::Create();
 	SceneManager::Create();
 
 	{//Imgui Init
@@ -270,6 +270,7 @@ void Window::DeletaManagers()
 	ImGui_ImplDX11_Shutdown();
 
 	SceneManager::Delete();
+	EffectManager::Delete();
 
 	ShaderManager::Delete();
 	BufferManager::Delete();

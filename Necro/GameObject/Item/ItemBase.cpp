@@ -14,6 +14,7 @@ ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
 	SetCost(0);
 
+
 	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {
 		
@@ -95,7 +96,6 @@ void ItemBase::Active()
 {
 	bActive = true;
 }
-
 void ItemBase::SetCost(UINT val)
 {
 	cost = val;
@@ -122,4 +122,3 @@ void ItemBase::PushCount(UINT val)
 		text.push_back(0);
 
 }
-

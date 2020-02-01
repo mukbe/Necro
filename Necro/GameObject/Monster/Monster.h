@@ -1,5 +1,5 @@
 #pragma once
-
+static const char aaa[100];
 class Monster : public GameObject
 {
 	friend class MonsterStateBase;
@@ -43,7 +43,7 @@ private:
 	bool firstmove;
 	float startTime;
 	float realtime;
-	
+	vector<GameObject*> tempArr;
 };
 
 

@@ -17,15 +17,7 @@ Ghost::Ghost(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	life = 1;
 
-	AddCallback("GhostHit", [&](TagMessage msg)
-	{
-
-
-
-		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
-
-	});
+	
 }
 
 
