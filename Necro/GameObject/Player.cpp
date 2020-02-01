@@ -312,10 +312,17 @@ void PlayerIdle::BeatExcute()
 					return;
 				}
 
-				int proveX[4] = { 0,-1,0,1 };
-				int proveY[4] = { -1,0,1,0 };
 				me->EffactName = _GameWorld->GetGameData()->GetWeaponData().EffactImagekey;
 				me->attackrRange = _GameWorld->GetGameData()->GetWeaponData().Range;
+
+				int proveX[4] = { - me->attackrRange.x , me->attackrRange.x , me->attackrRange.y , me->attackrRange.y };
+				int proveY[4] = { me->attackrRange.y , me->attackrRange.y, - me->attackrRange.x , me->attackrRange.x };
+
+				for (int i = 0; i < 4; i++)
+				{
+					_GameWorld->GetTileManager()->Tile(proveX[i], proveX[i]);
+				}
+
 
 				me->AttackPos;
 
@@ -566,6 +573,7 @@ void PlayerAttack::Excute()
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+			
 		}
 	}
 	if (me->playerDirection == PlayerRight)

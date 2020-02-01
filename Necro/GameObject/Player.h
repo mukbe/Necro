@@ -52,7 +52,7 @@ private:
 
 	vector<GameObject*> shownTiles;
 
-	string attackName;			// 공격 이팩트 이름 
+	string EffactName;			// 공격 이팩트 이름 
 	POINT attackrRange;			// 공격 범위
 	TileNode* AttackPos;		// 공격 위치 
 	
