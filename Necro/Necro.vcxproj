@@ -200,6 +200,9 @@
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
     <ClCompile Include="GameObject\Item\ItemWeaponDagger.cpp" />
+    <ClCompile Include="GameObject\Item\ItemShovelShovel.cpp" />
+    <ClCompile Include="GameObject\Item\ItemShovelPickaxe.cpp" />
+    <ClCompile Include="GameObject\Item\ItemTorch.cpp" />
     <ClCompile Include="Scenes\Loading.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
@@ -290,6 +293,9 @@
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
     <ClInclude Include="GameObject\Item\ItemWeaponDagger.h" />
+    <ClInclude Include="GameObject\Item\ItemShovelShovel.h" />
+    <ClInclude Include="GameObject\Item\ItemShovelPickaxe.h" />
+    <ClInclude Include="GameObject\Item\ItemTorch.h" />
     <ClInclude Include="Scenes\Loading.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />

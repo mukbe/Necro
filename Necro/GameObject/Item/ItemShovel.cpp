@@ -29,7 +29,9 @@ void ItemShovel::Release()
 void ItemShovel::Update(float tick)
 {
 	if (Keyboard::Get()->Down('G'))
-		EatItem();
+	{
+		_MessagePool->ReserveMessage(this, "EatItem");
+	}
 }
 
 void ItemShovel::Render()
@@ -51,7 +53,7 @@ void ItemShovel::EatItem()
 
 	GameObject* UI = _ObjectPool->FindObject<UIBase>("UI_ShovelSlot");
 	_MessagePool->ReserveMessage(UI, "EatItem", 0.f, info.Imagekey);
-	_MessagePool->ReserveMessage(UI, "CurrentPos", 0.f, position);
+	_MessagePool->ReserveMessage(UI, "CurrentPosition", 0.f, position);
 
 
 }

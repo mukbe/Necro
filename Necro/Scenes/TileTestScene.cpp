@@ -42,6 +42,9 @@
 #include "./GameObject/Item/ItemWeaponDagger.h"
 #include "./GameObject/Item/ItemWeaponBroadSword.h"
 #include "./GameObject/Item/ItemWeaponSpear.h"
+#include "./GameObject/Item/ItemShovelShovel.h"
+#include "./GameObject/Item/ItemShovelPickaxe.h"
+
 
 
 #include "./GameObject/Map/WallBase.h"
@@ -179,18 +182,19 @@ void TileTestScene::Init()
 
 	// Item
 
-	ItemShovel* IShovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
+	ItemShovelShovel* IShovel = _ObjectPool->CreateObject<ItemShovelShovel>("Shovel", D3DXVECTOR2(), D3DXVECTOR2());
 	IShovel->Init({ 2,6 });
 	_TileMap->Tile(2, 6)->AddObject(ObjectItem, IShovel);
-	IShovel->SetItemData(Shovel, 1, "Shovel");
+	IShovel->SetItemData(WShovel, 1, "Shovel");
 	_GameData->SetShovelData(IShovel->GetInfo());
 
-	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
-	Weapon->Init({ 3,6 });
-	_TileMap->Tile(3, 6)->AddObject(ObjectItem, Weapon);
-	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
-	_GameData->SetWeaponData(Weapon->GetInfo());
-	
+	ItemShovelPickaxe* IPickaxe = _ObjectPool->CreateObject<ItemShovelPickaxe>("Pickaxe", D3DXVECTOR2(), D3DXVECTOR2());
+	IPickaxe->Init({ 2,5 });
+	_TileMap->Tile(2, 5)->AddObject(ObjectItem, IPickaxe);
+	IPickaxe->SetItemData(WPickaxe, 1, "Pickaxe");
+	_GameData->SetShovelData(IPickaxe->GetInfo());
+
+
 	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 5,5 });
 
@@ -202,11 +206,21 @@ void TileTestScene::Init()
 
 	ItemWeaponDagger* Dagger = _ObjectPool->CreateObject<ItemWeaponDagger>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
 	Dagger->Init({ 1,3 });
+	_TileMap->Tile(1, 3)->AddObject(ObjectItem, Dagger);
+	Dagger->SetItemData(WDagger, { 1,1 }, 1, "Swipe_Dagger", "Dagger");
+	_GameData->SetWeaponData(Dagger->GetInfo());
+
 	ItemWeaponBroadSword* BroadSword = _ObjectPool->CreateObject<ItemWeaponBroadSword>("Broadsword", D3DXVECTOR2(), D3DXVECTOR2());
 	BroadSword->Init({ 2,3 });
+	_TileMap->Tile(2, 3)->AddObject(ObjectItem, BroadSword);
+	BroadSword->SetItemData(WBroadsword, { 3,1 }, 1, "Swipe_Broadsword", "Broadsword");
+	_GameData->SetWeaponData(BroadSword->GetInfo());
+
 	ItemWeaponSpear* Spear = _ObjectPool->CreateObject<ItemWeaponSpear>("Spear", D3DXVECTOR2(), D3DXVECTOR2());
 	Spear->Init({ 3,3 });
-
+	_TileMap->Tile(3, 3)->AddObject(ObjectItem, Spear);
+	Spear->SetItemData(WSpear, { 1,2 }, 1, "Swipe_Spear", "Spear");
+	_GameData->SetWeaponData(Spear->GetInfo());
 
 }
 
@@ -240,9 +254,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
 	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia1", ResourcePath + L"Item/Field_Dia.png", 1, 2);
 	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
-	_ImageManager->AddFrameTexture("Apple", ResourcePath + L"Item/Apple.png", 1, 2);
 	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
 	_ImageManager->AddFrameTexture("Leather_Armor", ResourcePath + L"Item/Leather_Armor.png", 1, 2);
 	_ImageManager->AddFrameTexture("Head_Cap", ResourcePath + L"Item/Head_Cap.png", 1, 2);
@@ -265,8 +277,6 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("E_Hp", ResourcePath + L"UI/Heart_Empty.png");
 	_ImageManager->AddTexture("H_Hp", ResourcePath + L"UI/Heart_half .png");
 	_ImageManager->AddTexture("F_Hp", ResourcePath + L"UI/Heart.png");  //체력 
-	_ImageManager->AddFrameTexture("NumberFontUI", ResourcePath + L"Font/NumberFontUI.png", 10, 1);	// 폰트 
-	_ImageManager->AddTexture("UI_x", ResourcePath + L"Font/UI_x.png");								// 폰트 
 
 
 	//몬스터
