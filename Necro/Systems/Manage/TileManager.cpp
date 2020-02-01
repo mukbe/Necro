@@ -111,7 +111,7 @@ void TileManager::SaveMap(wstring mapName)
 				saveOut << (*vectorIter)->Name() + ",";
 			}
 		}
-		saveOut << endl << endl;
+		saveOut << endl;
 	}
 	saveOut.close();
 }
@@ -119,7 +119,7 @@ void TileManager::SaveMap(wstring mapName)
 void TileManager::LoadMap(wstring mapName)
 {
 	ifstream loadIn;
-	loadIn.open(ResourcePath + L"/MapData." + mapName + L".map"); 
+	loadIn.open(ResourcePath + L"/MapData/" + mapName + L".map", ios_base::in);
 
 	vector<string> tempLines;
 	
@@ -137,20 +137,28 @@ void TileManager::LoadMap(wstring mapName)
 	int cnt = LoadMapData(tempLines);
 	CreateMap();
 	
-	char abc[3];
+	char abc[15];
 	int target = 0;
+
 	while (cnt < tempLines.size())
 	{
-		tempLines[cnt].copy(abc, 0, 1);
-		if (abc == "[") 
+		if (tempLines[cnt] == "")
+		{
+			++cnt;
+			continue;
+		}
+		tempLines[cnt].copy(abc, 1, 0);
+		if (abc[0] == '[') 
 		{
 			tempLines[cnt].copy(abc,9, 12);
 			target = atoi(abc);
 			++cnt;
-			mapTiles[target]->SetTextureKey(tempLines[cnt].substr(0,10));
+			mapTiles[target]->SetTextureKey(tempLines[cnt].substr(11,tempLines[cnt].size()-11));
 			++cnt;
-			mapTiles[target]->SetAttribute((AttributeType)stoi(tempLines[cnt].substr(0,9)));
+			mapTiles[target]->SetAttribute((AttributeType)stoi(tempLines[cnt].substr(10,1)));
 			cnt = cnt + 2;
+			
+			//if (tempLines[i] == "")continue;
 
 			vector<int> vecPoint;
 
@@ -167,10 +175,11 @@ void TileManager::LoadMap(wstring mapName)
 				for (int i = 0; i < vecPoint.size(); ++i)
 				{
 					int begin = 0;
-					if (i != 0) begin = i - 1;
+					if (i != 0) begin = i-1;
 
 					char tempKey[20];
-					tempLines[cnt].copy(tempKey, begin, vecPoint[i]-1);
+					//tempLines[cnt].substr(begin,);
+					// 여까지 했고.. substr 제대로 되게 고쳐야 댐.
 
 					ObjectType tempType;
 					
@@ -216,7 +225,7 @@ int TileManager::LoadMapData(vector<string> input)
 	if (input[i] == "[MapSize]")
 	{
 		++i;
-		int point = input[i].find(',');
+		int point = input[i].find(',') + 1;
 		mapSize.x = stoi(input[i].substr(point, input[i].size()));
 		mapSize.y = stoi(input[i].substr(0, point));
 	}
@@ -224,7 +233,7 @@ int TileManager::LoadMapData(vector<string> input)
 	if (input[i] == "[TileSize]")
 	{
 		++i;
-		int point = input[i].find(',');
+		int point = input[i].find(',') + 1;
 		tileSize.x = stoi(input[i].substr(point, input[i].size()));
 		tileSize.y = stoi(input[i].substr(0, point));
 	}
@@ -232,7 +241,7 @@ int TileManager::LoadMapData(vector<string> input)
 	if (input[i] == "[PivotPosition]")
 	{
 		++i;
-		int point = input[i].find(',');
+		int point = input[i].find(',') + 1;
 		pivotPos.x = stoi(input[i].substr(point, input[i].size()));
 		pivotPos.y = stoi(input[i].substr(0, point));
 	}

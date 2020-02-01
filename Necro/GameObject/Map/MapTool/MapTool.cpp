@@ -209,7 +209,7 @@ void MapTool::ImguiRender()
 		ImGui::SameLine();
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
-			
+			_GameWorld->GetTileManager()->LoadMap(L"ABC");
 			
 		}
 		ImGui::Separator();
