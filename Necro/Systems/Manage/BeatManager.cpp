@@ -142,6 +142,8 @@ void BeatManager::LoadText(wstring filePath)
 		freeNoteList.push(note);
 	}
 	notes.clear();
+
+	currentMusicName = Path::GetFileNameWithoutExtension(String::WStringToString( filePath));
 }
 
 void BeatManager::ConvertArrayToCount(vector<UINT>& input, deque<pair<float, UINT>>& output)

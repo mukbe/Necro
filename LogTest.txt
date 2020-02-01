@@ -2266,3 +2266,83 @@ Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
  2020.1.31	17:45:30	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
+===================================================
+ 2020.2.1	12:31:23	 'Directx11 2D' Start Succeeded
+12:31:24	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:31:25	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	12:47:04	 'Directx11 2D' Start Succeeded
+12:47:05	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:47:06	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:48:58	 'Directx11 2D' Start Succeeded
+12:48:59	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:49:00	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:52:16	 'Directx11 2D' Start Succeeded
+12:52:16	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:52:17	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:54:33	 'Directx11 2D' Start Succeeded
+12:54:33	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:54:34	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+12:55:38	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:55:48	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:55:49	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+===================================================
+ 2020.2.1	12:57:10	 'Directx11 2D' Start Succeeded
+12:57:23	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:57:29	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:57:32	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+			 End
+===================================================
