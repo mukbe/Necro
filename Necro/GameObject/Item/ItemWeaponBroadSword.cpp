@@ -8,7 +8,7 @@ ItemWeaponBroadSword::ItemWeaponBroadSword(string name, D3DXVECTOR2 pos, D3DXVEC
 	GameData::WeaponInfo temp;
 	temp.Damage = 1;
 	temp.Range = { 3,1 };
-	temp.Type = Broadsword;
+	temp.Type = WBroadsword;
 	temp.Imagekey = "Broadsword";
 	temp.EffactImagekey = "Swipe_Broadsword";
 	SetItemData(temp);

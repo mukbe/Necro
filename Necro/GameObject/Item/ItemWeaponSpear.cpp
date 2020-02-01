@@ -7,8 +7,8 @@ ItemWeaponSpear::ItemWeaponSpear(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	GameData::WeaponInfo temp;
 	temp.Damage = 1;
-	temp.Range = { 2,1 };
-	temp.Type = Spear;
+	temp.Range = { 1,2 };
+	temp.Type = WSpear;
 	temp.Imagekey = "Spear";
 	temp.EffactImagekey = "Swipe_Spear";
 	SetItemData(temp);

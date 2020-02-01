@@ -2,12 +2,12 @@
 
 enum Weapon
 {
-	Baredhand, Dagger, Spear, Broadsword
+	Baredhand, WDagger, WSpear, WBroadsword
 };
 
 enum ShovelType
 {
-	Hand, Shovel, Pickaxe
+	Hand, WShovel, WPickaxe
 };
 
 class GameData : public GameObject
@@ -26,7 +26,7 @@ public:
 		{
 			Imagekey = "";
 			EffactImagekey = "";
-			Type = Weapon::Dagger;
+			Type = Weapon::WDagger;
 		}
 	};
 
@@ -40,7 +40,7 @@ public:
 			: Damge(1)
 		{
 			Imagekey = "";
-			Type = ShovelType::Shovel;
+			Type = ShovelType::WShovel;
 		}
 	};
 	

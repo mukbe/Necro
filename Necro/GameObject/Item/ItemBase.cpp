@@ -84,12 +84,12 @@ void ItemBase::EatItem()
 
 void ItemBase::Show()
 {
-	bShow = true;
+	bShow = false;
 }
 
 void ItemBase::Hide()
 {
-	bShow = false;
+	bShow = true;
 }
 
 void ItemBase::Active()

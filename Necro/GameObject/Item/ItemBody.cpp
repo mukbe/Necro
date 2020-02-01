@@ -41,3 +41,7 @@ void ItemBody::Init(POINT tileIndex)
 	ItemBase::Init(tileIndex);
 	
 }
+
+void ItemBody::EatItem()
+{
+}
