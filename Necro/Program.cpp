@@ -26,7 +26,8 @@ Program::Program()
 	//SceneBase* scene = new TileTestScene;
 	//_SceneManager->AddScene(scene);
 
-
+	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
+	EFFECTS->AddEffact("Test", "Test");
 
 	//IMGUI FONT SETUP
 	//텍스트에 한 글자라고 한글이 들어간 경우 Imgui::Text(u8"테스트 TEST"); 
@@ -50,12 +51,15 @@ void Program::PreUpdate()
 		bGrid = !bGrid;
 	if (Keyboard::Get()->Down(VK_F2))
 		CAMERA->Shake();
+	if (Keyboard::Get()->Down(VK_F6))
+		EFFECTS->Fire("Test", D3DXVECTOR2(WinSizeX*0.5f, WinSizeY * 0.5f), D3DXVECTOR2(100, 100));
+
 }
 
 void Program::Update(float tick)
 {
 	_GameWorld->Update(tick);
-
+	EFFECTS->Update(tick);
 
 }
 
@@ -74,7 +78,7 @@ void Program::Render()
 
 	_GameWorld->ObjectRender();
 	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
-
+	EFFECTS->Render();
 
 	wstring str;
 	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);

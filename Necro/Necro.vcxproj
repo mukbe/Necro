@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Systems\Manage\EffectManager.cpp" />
     <ClCompile Include="GameObject\GameData.cpp" />
     <ClCompile Include="GameObject\Item\ItemBase.cpp" />
     <ClCompile Include="GameObject\Item\ItemBody.cpp" />
@@ -250,6 +251,7 @@
     <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Systems\Manage\EffectManager.h" />
     <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />
     <ClInclude Include="GameObject\Item\ItemBody.h" />

@@ -28,6 +28,8 @@
 #include "./Render/Texture.h"
 #include "./Render/ImageManager.h"
 
+#include "./Systems/Manage/EffectManager.h"
+
 #include "./View/CameraManager.h"
 
 #include "./Utilities/Line.h"
