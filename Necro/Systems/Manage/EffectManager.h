@@ -2,8 +2,8 @@
 
 struct EffectDesc
 {
-	D3DXVECTOR2 Position;
-	D3DXVECTOR2 Size;
+	Matrix2D Transform;
+	FloatRect Rect;
 	UINT Frame;
 	UINT MaxFrame;
 	float InvFps;
@@ -20,14 +20,16 @@ public:
 	void Update(float tick);
 	void Render();
 
-	void Fire(string key, D3DXVECTOR2 pos, D3DXVECTOR2 size, float fps = 60.f);
-	void AddEffact(string key, string imageKey);
-	EffectDesc Find(string key);
+	void Fire(string key, D3DXVECTOR2 pos, D3DXVECTOR2 size, float radian = 0.f , float fps = 60.f);
+	void AddEffect(string key, string imageKey);
 private:
 	using MapIter = unordered_map < string, EffectDesc>::iterator;
 	using VecIter = vector < EffectDesc>::iterator;
 	unordered_map<string, EffectDesc> effectList;
 	vector<EffectDesc> playList;
+
+	EffectDesc Find(string key);
+
 };
 
 #define EFFECTS EffectManager::Get()
