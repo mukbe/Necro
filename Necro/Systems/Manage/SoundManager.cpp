@@ -57,7 +57,6 @@ void SoundManager::Release()
 void SoundManager::Update()
 {
 	_system->update();
-
 }
 
 void SoundManager::AddSound(string keyName, string soundName, bool bgm, bool loop)
@@ -264,3 +263,4 @@ void SoundManager::SetVolume(string keyName, float volume)
 	}
 
 }
+

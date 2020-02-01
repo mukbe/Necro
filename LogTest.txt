@@ -2202,3 +2202,325 @@ Line: 27
 Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
 			 End
 ===================================================
+===================================================
+ 2020.1.31	16:03:17	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:05:19	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:07:40	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:08:34	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	16:11:39	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	16:16:05	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:16:27	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	16:20:00	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	16:21:37	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	17:12:41	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	17:13:16	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	17:13:50	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	17:14:48	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.1.31	17:15:40	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:34:10	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:36:38	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:39:27	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:43:31	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:45:13	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.1.31	17:45:30	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.1	12:31:23	 'Directx11 2D' Start Succeeded
+12:31:24	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:31:25	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	12:47:04	 'Directx11 2D' Start Succeeded
+12:47:05	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:47:06	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:48:58	 'Directx11 2D' Start Succeeded
+12:48:59	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:49:00	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:52:16	 'Directx11 2D' Start Succeeded
+12:52:16	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:52:17	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	12:54:33	 'Directx11 2D' Start Succeeded
+12:54:33	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+12:54:34	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+12:55:38	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:55:48	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:55:49	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+===================================================
+ 2020.2.1	12:57:10	 'Directx11 2D' Start Succeeded
+12:57:23	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:57:29	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+12:57:32	Fatal Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\gameobject\item\itembase.cpp
+Line: 28
+Code: Not Enough Money, Plz Check 'CanBuyItem' on Player
+			 End
+===================================================
+===================================================
+ 2020.2.1	13:39:45	 'Directx11 2D' Start Succeeded
+13:39:45	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+13:39:46	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:03:24	 'Directx11 2D' Start Succeeded
+14:03:25	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:03:26	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:03:54	 'Directx11 2D' Start Succeeded
+14:03:54	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:03:55	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:04:09	 'Directx11 2D' Start Succeeded
+14:04:09	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:04:10	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:11:34	 'Directx11 2D' Start Succeeded
+14:11:34	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:11:36	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:14:59	 'Directx11 2D' Start Succeeded
+14:15:00	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:15:01	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:16:07	 'Directx11 2D' Start Succeeded
+14:16:07	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:16:08	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:31:46	 'Directx11 2D' Start Succeeded
+14:31:46	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:31:47	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:34:17	 'Directx11 2D' Start Succeeded
+14:34:18	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:34:19	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:34:43	 'Directx11 2D' Start Succeeded
+14:34:43	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:34:44	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:35:18	 'Directx11 2D' Start Succeeded
+14:35:19	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:35:19	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:40:01	 'Directx11 2D' Start Succeeded
+14:40:01	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:40:03	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:42:25	 'Directx11 2D' Start Succeeded
+14:42:25	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:42:26	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:44:59	 'Directx11 2D' Start Succeeded
+14:45:00	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:45:00	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.1	14:45:22	 'Directx11 2D' Start Succeeded
+14:45:22	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:45:23	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.1	14:46:19	 'Directx11 2D' Start Succeeded
+14:46:19	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 37
+Code: Already Init this key
+14:46:20	Assertion Failure!
+File: c:\users\kga-23\desktop\_necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================

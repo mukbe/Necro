@@ -15,6 +15,7 @@ public:
 	//메모리 해제
 	virtual void Release();
 
+	virtual void ControlUpdate();
 	//메인 루틴 -> 기타 업데이트 넣기 
 	virtual void Update(float tick);
 

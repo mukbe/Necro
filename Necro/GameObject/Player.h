@@ -86,7 +86,12 @@ public:
 	void ChangeState(string str);
 
 	void FloodFill(POINT index , int sight);
+	// 시야 
 	void Sight();
+	// 삽질
+	void Shovel(TileNode* TilePos, vector<GameObject*> temp);
+	// 이동하기 위해 초기화 하는것들 
+	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
 
 };
 
@@ -143,7 +148,5 @@ public:
 	virtual void BeatExcute();
 	virtual void Excute();
 	virtual void Exit();
-private:
-
-
 };
+
