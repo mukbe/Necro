@@ -111,6 +111,11 @@ void GameData::SetShovelData(ShovelInfo shovelInfo)
 	shovelData = shovelInfo;
 }
 
+void GameData::SetTorchData(TorchInfo torchInfo)
+{
+	torchData = torchInfo;
+}
+
 void GameData::Combo()
 {
 	//이미 콤보값이 있었을 경우

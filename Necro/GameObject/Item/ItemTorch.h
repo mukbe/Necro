@@ -10,16 +10,24 @@ public:
 
 	virtual void Init();
 	virtual void Release();
-
 	virtual void Update(float tick);
 	virtual void Render();
+	virtual void EatItem();
 	void Init(POINT tileIndex);
 
-	virtual void EatItem();
+
+	void SetItemData(string IamgeKey)
+	{
+		info.ImageKey = IamgeKey;
+	}
+
+	void SetItemData(GameData::TorchInfo info) { this->info = info; }
+
+	GameData::TorchInfo GetInfo() { return info; }
 
 private:
 
-
+	GameData::TorchInfo info;
 
 };
 

@@ -39,6 +39,7 @@
 #include "./GameObject/Item/ItemHead.h"			// 뚝배기
 #include "./GameObject/Item/ItemHP.h"			// 체력하트 
 #include "./GameObject/Item/ItemCoin.h"			// 동전
+#include "./GameObject/Item/ItemTorch.h"
 #include "./GameObject/Item/ItemWeaponDagger.h"
 #include "./GameObject/Item/ItemWeaponBroadSword.h"
 #include "./GameObject/Item/ItemWeaponSpear.h"
@@ -194,12 +195,21 @@ void TileTestScene::Init()
 
 	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 5,5 });
-
-	ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	Head->Init({ 5,6 });
+	
+	//보류
+	//ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
+	//Head->Init({ 5,6 });
+	//Head->Init({ 5,6 });
+	//_TileMap->Tile(5, 6)->AddObject(ObjectItem, Head);
 
 	ItemCoin* Coin = _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
 	Coin->Init({ 8,1 }); 
+
+	ItemTorch* Torch = _ObjectPool->CreateObject<ItemTorch>("Torch", D3DXVECTOR2(), D3DXVECTOR2());
+	Torch->Init({ 3,2 });
+	_TileMap->Tile(3, 2)->AddObject(ObjectItem, Torch);
+	Torch->SetItemData("Torch");
+	_GameData->SetTorchData(Torch->GetInfo());
 
 	ItemWeaponDagger* Dagger = _ObjectPool->CreateObject<ItemWeaponDagger>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
 	Dagger->Init({ 1,3 });
@@ -259,7 +269,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Torch", ResourcePath + L"Item/Torch.png", 1, 2);
 	_ImageManager->AddFrameTexture("Pickaxe", ResourcePath + L"Item/Pickaxe.png", 1, 2);
 	_ImageManager->AddFrameTexture("Field_Coin", ResourcePath + L"Item/Field_Coin.png", 2, 2);
-
+	_ImageManager->AddTexture("Shadow", ResourcePath + L"Shadow.png");
 
 	//UI
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
