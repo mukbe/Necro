@@ -90,7 +90,7 @@ public:
 	// 이동하기 위해 초기화 하는것들 
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
 	// 플레이어 공격
-	void PlayerAttack();
+	//void PlayerAttack();
 };
 
 

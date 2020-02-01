@@ -42,9 +42,9 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	currentState = nullptr;
 	stateList.insert(make_pair("Idle", new PlayerIdle(this)));
 	stateList.insert(make_pair("Move", new PlayerMove(this)));
-	stateList.insert(make_pair("Attack", new PlayerAttack(this)));
+	//stateList.insert(make_pair("Attack", new PlayerAttack(this)));
+	
 	ChangeState("Idle");
-
 }
 
 
@@ -332,10 +332,10 @@ void PlayerIdle::BeatExcute()
 				// 아이템 확인 
 				tempArr.clear();
 				tempArr = leftTilePos->GetObjects(ObjectItem);
-				item = static_cast<ItemBase *>(tempArr[0]);
+
 				if (tempArr.size() > 0)
 				{
-
+					item = static_cast<ItemBase *>(tempArr[0]);
 					if (item->CanBuyItem())
 					{
 
@@ -610,4 +610,3 @@ void PlayerAttack::Excute()
 void PlayerAttack::Exit()
 {
 }
-
