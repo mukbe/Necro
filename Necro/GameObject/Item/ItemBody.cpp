@@ -8,7 +8,7 @@ ItemBody::ItemBody(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	bShow = false;
 	AddCallback("SendBodyDate", [&](TagMessage msg)
 	{
-		//게임데이터한테 코인증가량을 전달
+		
 	});
 }
 

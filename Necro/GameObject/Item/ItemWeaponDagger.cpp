@@ -7,7 +7,7 @@ ItemWeaponDagger::ItemWeaponDagger(string name, D3DXVECTOR2 pos, D3DXVECTOR2 siz
 {
 	GameData::WeaponInfo temp;
 	temp.Damage = 1;
-	temp.Range = { 1,1 };
+	temp.Range = { 1,0};
 	temp.Type = WDagger;
 	temp.Imagekey = "Dagger";
 	temp.EffactImagekey = "Swipe_Dagger";
