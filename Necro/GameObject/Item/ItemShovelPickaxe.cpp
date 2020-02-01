@@ -18,4 +18,4 @@ ItemShovelPickaxe::ItemShovelPickaxe(string name, D3DXVECTOR2 pos, D3DXVECTOR2 s
 
 ItemShovelPickaxe::~ItemShovelPickaxe()
 {
-}
+} 

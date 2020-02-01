@@ -30,7 +30,7 @@ void ItemWeapon::Release()
 void ItemWeapon::ControlUpdate()
 {
 }
-// 횃불아이템 메세지로 보내는거 부터 시작 하는겅.ㅁ 
+
 void ItemWeapon::Update(float tick)
 {
 	if (Keyboard::Get()->Down('G'))

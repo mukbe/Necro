@@ -2,12 +2,12 @@
 
 enum Weapon
 {
-	Baredhand, WDagger, WSpear, WBroadsword
+	WDagger, WSpear, WBroadsword
 };
 
 enum ShovelType
 {
-	Hand, WShovel, WPickaxe
+	WShovel, WPickaxe
 };
 
 class GameData : public GameObject
@@ -44,6 +44,15 @@ public:
 		}
 	};
 	
+	struct TorchInfo
+	{
+		string ImageKey;
+		TorchInfo()
+		{
+			ImageKey = "";
+		}
+	};
+
 
 public:
 	GameData(string name ,D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -78,6 +87,8 @@ public:
 	WeaponInfo GetWeaponData() { return weaponData; }
 	void SetWeaponData(WeaponInfo weaponInfo);
 	void SetShovelData(ShovelInfo shovelInfo);
+	TorchInfo GetTorchDate() { return torchData; }
+	void SetTorchData(TorchInfo torchInfo);
 
 	//몬스터를 죽였을때 한번 호출(몬스터가 호출할지 플레이어가 호출할지 정해야됨)
 	void Combo();
@@ -99,6 +110,7 @@ private:
 
 	WeaponInfo weaponData;
 	ShovelInfo shovelData;
+	TorchInfo torchData;
 
 	bool bCombo;
 	UINT comboCount;
