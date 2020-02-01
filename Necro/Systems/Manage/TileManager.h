@@ -44,6 +44,8 @@ public:
 
 	void SaveMap(wstring mapName);
 	void LoadMap(wstring mapName);
+	int LoadMapData(vector<string> input);
+	void LoadTileData();
 
 private:
 	typedef vector<TileNode*>::iterator VecIter;
