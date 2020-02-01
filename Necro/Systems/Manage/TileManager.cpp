@@ -63,12 +63,15 @@ void TileManager::HighLightOn()
 	}
 }
 
-void TileManager::SaveMap()
+void TileManager::SaveMap(wstring mapName)
 {
+	ofstream saveOut;
+	saveOut.open(ResourcePath + L"/MapData/" + mapName + L".txt");
 }
 
-void TileManager::LoadMap()
+void TileManager::LoadMap(wstring mapName)
 {
+
 }
 
 void TileManager::ReleaseMap()
