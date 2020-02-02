@@ -18,6 +18,7 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	this->size = size;
 	startPos = pos;
 	endPos = pos;
+	monsterBeat = 1;
 	life = 1;
 	
 }
