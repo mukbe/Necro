@@ -147,6 +147,7 @@ void TileManager::LoadMap(wstring mapName)
 	CreateMap();
 	GameObject* newPlayer = spawner->Spawn("P_Player");
 	newPlayer->SetPosition(playerSpawn);
+	static_cast<Player*>(newPlayer)->setSight(true);
 	char abc[15];
 	string temp;
 	int target = 0;
