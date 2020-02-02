@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ItemWeaponDagger.h"
+#include "./GameObject/Map/TileNode.h"
+#include "./GameObject/UI/AttackSlot.h"
 
 
 ItemWeaponDagger::ItemWeaponDagger(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)

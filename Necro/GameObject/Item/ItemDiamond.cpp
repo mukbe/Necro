@@ -60,6 +60,6 @@ void ItemDiamond::EatItem()
 	_MessagePool->ReserveMessage(ui, "CurrentPosition", 0.f, position);
 
 	_ObjectPool->DeletaObject(this);
-
+	_GameData->AddDia(hasDia);
 
 }
