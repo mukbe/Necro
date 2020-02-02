@@ -8,7 +8,7 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	AddCallback("ShovelHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
-		if (type == WallDestructableShovel)
+		if (type == WallDestructibleShovel)
 		{
 			CAMERA->Shake();
 			ProcessDestroy();
@@ -17,7 +17,7 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	});
 	AddCallback("PickHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
-		if (type == WallDestructablePick || type == WallDestructableShovel)
+		if (type == WallDestructiblePick || type == WallDestructibleShovel)
 		{
 			CAMERA->Shake();
 			ProcessDestroy();
@@ -34,7 +34,7 @@ void WallBase::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 
 	life = 1;
-	type = WallDestructableShovel;
+	type = WallDestructibleShovel;
 	textureKey = "DefaultWall";//?
 }
 
@@ -99,13 +99,13 @@ void WallBase::SetTileAttribute()
 {
 	switch (type)
 	{
-	case WallDestructableShovel:
+	case WallDestructibleShovel:
 		myTile->SetAttribute(ObjDestructable);
 		break;
-	case WallDestructablePick:
+	case WallDestructiblePick:
 		myTile->SetAttribute(ObjDestructable);
 		break;
-	case WallUndestructable:
+	case WallIndestructible:
 		myTile->SetAttribute(ObjStatic);
 		break;
 	default:
@@ -119,8 +119,13 @@ void WallBase::ProcessDestroy()
 	if (life <= 0) 
 	{
 		//이펙트 추가 필요.
-
+		
 		myTile->SetAttribute(ObjNone);
 		this->SetActive(false);
 	}
+}
+
+void WallBase::ProcessFail()
+{
+
 }

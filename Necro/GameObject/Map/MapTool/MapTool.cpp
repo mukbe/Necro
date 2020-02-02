@@ -294,6 +294,10 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
 			targetNode->AddObject(palleteType, newObject);
 			newObject->SetPosition(targetNode->Transform().GetPos());
+			if (palleteType == ObjectWall)
+			{
+				static_cast<WallBase*>(newObject)->SetTileAttribute();
+			}
 		}
 		break;
 	case Eraser:

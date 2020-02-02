@@ -15,7 +15,7 @@ void StoneWall::Init()
 {
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	life = 1;
-	type = WallDestructablePick;
+	type = WallIndestructible;
 	textureKey = "StoneWall";
 }
 
