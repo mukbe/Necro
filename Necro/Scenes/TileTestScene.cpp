@@ -187,15 +187,11 @@ void TileTestScene::Init()
 
 	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 5,5 });
-	
-	//º¸·ù
-	//ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	//Head->Init({ 5,6 });
-	//Head->Init({ 5,6 });
-	//_TileMap->Tile(5, 6)->AddObject(ObjectItem, Head);
+	_TileMap->Tile(5, 5)->AddObject(ObjectItem, Dia);
 
 	ItemCoin* Coin = _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
 	Coin->Init({ 8,1 }); 
+	_TileMap->Tile(8, 1)->AddObject(ObjectItem, Coin);
 
 	ItemTorch* Torch = _ObjectPool->CreateObject<ItemTorch>("Torch", D3DXVECTOR2(), D3DXVECTOR2());
 	Torch->Init({ 3,2 });

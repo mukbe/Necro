@@ -2,12 +2,12 @@
 
 enum Weapon
 {
-	WDagger, WSpear, WBroadsword
+	Baredhand, WDagger, WSpear, WBroadsword
 };
 
 enum ShovelType
 {
-	WShovel, WPickaxe
+	Hend, WShovel, WPickaxe
 };
 
 class GameData : public GameObject

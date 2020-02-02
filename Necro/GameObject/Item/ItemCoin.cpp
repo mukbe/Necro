@@ -31,7 +31,9 @@ void ItemCoin::Update(float tick)
 
 void ItemCoin::Render()
 {
-	_ImageManager->FindTexture("Field_Coin")->FrameRender(rc, nullptr, hasCoin > 3 ? 0 : 1, (UINT)bShow);
+	if (Keyboard::Get()->Down('G'))
+		EatItem();
+	//_ImageManager->FindTexture("Field_Coin")->FrameRender(rc, nullptr, hasCoin > 3 ? 0 : 1, (UINT)bShow);
 }
 
 void ItemCoin::Init(POINT tileIndex)
