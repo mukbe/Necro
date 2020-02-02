@@ -59,6 +59,9 @@ private:
 	bool isSight;
 	bool isAttack;
 
+	POINT attackIndex;
+	int attackX, attackY;
+
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
 	virtual ~Player();
@@ -91,10 +94,7 @@ public:
 	void Shovel(TileNode* TilePos, vector<GameObject*> temp);
 	// 이동하기 위해 초기화 하는것들 
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
-	// 공격/ 이동전 위치 확인 
-	void PosIdentify(int direction, bool canAttack);
 
-	
 	void setSight(bool sight) { isSight = sight; }
 };
 
