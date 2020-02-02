@@ -63,7 +63,8 @@ void Door::Hide()
 
 void Door::Active()
 {
-	WallBase::Active();
+	bActive = true;
+	alpha = 0.f;
 }
 
 void Door::ProcessDestroy()

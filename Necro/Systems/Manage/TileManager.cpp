@@ -17,6 +17,7 @@ TileManager::TileManager()
 {
 	spawner = new Spawner();
 	spawner->LoadObjects();
+	playerSpawn = { -100,-100 };
 }
 
 TileManager::~TileManager()
@@ -141,10 +142,10 @@ void TileManager::LoadMap(wstring mapName)
 
 	int cnt = LoadMapData(tempLines);
 	CreateMap();
-	
+	/*
 	GameObject* newPlayer = spawner->Spawn("P_Player");
 	newPlayer->SetPosition(playerSpawn);
-
+*/
 	char abc[15];
 	string temp;
 	int target = 0;
@@ -203,6 +204,10 @@ void TileManager::LoadMap(wstring mapName)
 					GameObject* newObject = spawner->Spawn(tempLines[cnt].substr(0, tempLines[cnt].size() - 4));
 					mapTiles[target]->AddObject(tempType, newObject);
 					newObject->SetPosition(mapTiles[target]->Transform().GetPos());
+					if (tempType == ObjectPlayer)
+					{
+						
+					}
 				}
 				else break;
 
@@ -276,12 +281,9 @@ void TileManager::ReleaseMap()
 	{
 		for (int i = 0; i < mapTiles.size(); ++i)
 		{
+			mapTiles[i]->ReleaseObjects();
 			_ObjectPool->DeletaObject(mapTiles[i]);
-
-			//VecIter iter = mapTiles.begin() + i;
-			//(*iter)->Release();
-			//mapTiles.erase(iter);
-			//--i;
+			
 		}
 		mapTiles.clear();
 	}

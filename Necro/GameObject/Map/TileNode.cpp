@@ -55,8 +55,9 @@ void TileNode::SetData(D3DXVECTOR2 pos, D3DXVECTOR2 size, string textureStringKe
 
 void TileNode::Release()
 {
+	ReleaseObjects();
 	_RenderPool->Remove(this, RenderManager::Layer::Terrain);
-	//_ObjectPool->DeletaObject(this);
+	_ObjectPool->DeletaObject(this);
 }
 
 void TileNode::ControllUpdate()

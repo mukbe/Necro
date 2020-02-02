@@ -47,7 +47,7 @@ void WallBase::Init()
 void WallBase::Release()
 {
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
-
+	//_ObjectPool->DeletaObject(this);
 }
 
 void WallBase::ControlUpdate()

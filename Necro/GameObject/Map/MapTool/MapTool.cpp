@@ -64,6 +64,10 @@ void MapTool::Update(float tick)
 		{
 			ProcessSetMap(tempNode);
 		}
+		else
+		{
+			int a = 0;
+		}
 	}
 
 
@@ -203,8 +207,8 @@ void MapTool::ImguiRender()
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
 			_GameWorld->GetTileManager()->LoadMap(wstring(mapFileNameConvert));
-			MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
-			MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
+			oldMapSize[0] = MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
+			oldMapSize[1] = MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
 
 			map->ActiveAll();
 		}

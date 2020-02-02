@@ -19,7 +19,7 @@ Program::Program()
 	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
 	
-	SceneBase* scene = new TileTestScene;
+	SceneBase* scene = new MapToolScene;
 	_SceneManager->AddScene(scene);
 
 
