@@ -16,7 +16,7 @@ BlueSlime::BlueSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	startPos = pos;
 	endPos = { position.x , position.y - 52.f };
 	monsterBeat = 2;
-
+	isDeath = true;
 
 	life = 2;
 

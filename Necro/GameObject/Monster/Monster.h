@@ -37,9 +37,11 @@ protected :
 	int monsterBeat;
 	int life;
 	POINT myIndex;
+	POINT mynextIndex;
+	bool isDeath;
 private:
 	
-	POINT mynextIndex;
+	
 	bool firstmove;
 	float startTime;
 	float realtime;

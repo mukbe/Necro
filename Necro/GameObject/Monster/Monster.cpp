@@ -3,8 +3,6 @@
 #include "./Systems/Manage/TileManager.h""
 #include "./GameObject/Map/TileNode.h"
 
-static float batX;
-static float batY;
 
 Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: GameObject(name, pos, size)
@@ -29,7 +27,7 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	{
 
 		ProcessDestroy();
-		_ObjectPool->DeletaObject(this);
+		
 
 	});
 
@@ -71,17 +69,25 @@ void Monster::ControlUpdate()
 	if (monsterBeat == 0) 
 	{
 		
-		tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y )->GetObjects(ObjectPlayer);
-
-		if (tempArr.size() > 0)
-		{
-			ChangeState("Atk");
-		}
-		else
-		{
-			ChangeState("Move");
-		}
+		
 			//ChangeState("Idle");
+
+		if (name == "GreenSlime")
+		{
+			tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->GetObjects(ObjectPlayer);
+
+			if (tempArr.size() > 0)
+			{
+				ChangeState("Atk");
+			}
+			else
+			{
+				ChangeState("Move");
+			}
+
+
+			monsterBeat = 1;
+		}
 
 		if (name == "Skeleton") 
 		{
@@ -89,10 +95,33 @@ void Monster::ControlUpdate()
 		}
 		if (name == "Bat")
 		{
-			monsterBeat = 1;
+			tempArr = _GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->GetObjects(ObjectPlayer);
+			
+
+			if (tempArr.size() > 0)
+			{
+				ChangeState("Atk");
+			}
+			else
+			{
+				ChangeState("Move");
+			}
+			monsterBeat = 2;
 		}
+
+
 		if (name == "BlueSlime")
 		{
+			tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->GetObjects(ObjectPlayer);
+
+			if (tempArr.size() > 0)
+			{
+				ChangeState("Atk");
+			}
+			else
+			{
+				ChangeState("Move");
+			}
 			monsterBeat = 2;
 		}
 		if (name == "Minotaur")
@@ -153,6 +182,10 @@ void Monster::ProcessDestroy()
 
 
 		this->SetActive(false);
+		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
+		_GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->DeleteObject(ObjectMonster, this);
+		_GameWorld->GetObjectPool()->DeletaObject(this);
+		
 	}
 }
 
@@ -174,34 +207,72 @@ void MonsterStateOneStep::Update()
 			}*/
 	//시간 연산
 	me->startTime += Time::Tick()*4;
-	
-	
+
+	//_TileSize로 타일사이즈 쓸고얌
+	float _TileSize = _GameWorld->GetTileManager()->GetTileSize().x;
+	//플레이어 위치 가져오기
+	D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52, 52), D3DXVECTOR2(26, 26));
+
+
+	if (me->name == "GreenSlime")
+	{
+		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
+	}
 
 	//스켈레톤 움직임
 	if (me->name == "Skeleton")
 	{
 
-		
-				//batX랑 batY는 박쥐좌표인데 일단 따라가게 해놓은거임
-				if (me->startPos.x < batX) 
+	
+				if (me->startPos.x < playerPos.x)
 				{
-					me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+					if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetAttribute() != ObjDestructable)
+					{
+						me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+					}
+					else
+					{
+						me->position.x = Math::Lerp(me->startPos.x, me->startPos.x, me->startTime);
+					}
 				}
-			    else if (me->startPos.x > batX) 
+				if (me->startPos.y > playerPos.y)
 				{
-					me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
-				}
-				else if (me->startPos.y > batY) 
-				{
-					me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
-				}
-				else if (me->startPos.y < batY) 
-				{
-					me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+					if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetAttribute() != ObjDestructable)
+					{
+						me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+					}
+					else
+					{
+						me->position.y = Math::Lerp(me->startPos.y, me->startPos.y, me->startTime);
+					}
 				}
 
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
+			   if (me->startPos.x > playerPos.x)
+				{
+					if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetAttribute() != ObjDestructable)
+					{
+						me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
+					}
+					else
+					{
+						me->position.x = Math::Lerp(me->startPos.x, me->startPos.x, me->startTime);
+					}
+				}
+				if (me->startPos.y < playerPos.y)
+				{
+					if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y +1)->GetAttribute() != ObjDestructable)
+					{
+						me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
+					}
+					else
+					{
+						me->position.y = Math::Lerp(me->startPos.y, me->startPos.y, me->startTime);
+					}
+				}
+
+
+				_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 
@@ -210,12 +281,12 @@ void MonsterStateOneStep::Update()
 	if (me->name == "Bat") 
 	{
 		
-
+	
 				me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 				me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
+				_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 	//파란 슬라임 움직임
@@ -225,24 +296,25 @@ void MonsterStateOneStep::Update()
 		
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		
-
-			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectMonster, me);
+			
+				_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
+			
 	}
 
 
 	//미노 타우루스 움직임
 	if (me->name == "Minotaur")
 	{
-		if (me->startPos.x < batX) {
+		if (me->startPos.x < playerPos.x) {
 			me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 		}
-		else if (me->startPos.x > batX) {
+		else if (me->startPos.x > playerPos.x) {
 			me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
 		}
-		else if (me->startPos.y > batY) {
+		else if (me->startPos.y > playerPos.y) {
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		}
-		else if (me->startPos.y < batY) {
+		else if (me->startPos.y < playerPos.y) {
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		}
 
@@ -270,6 +342,21 @@ void MonsterStateAtk::Enter()
 {
 
 
+	if (me->name == "Skeleton")
+	{
+
+		me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->GetObjects(ObjectPlayer);
+
+		for (int i = 0; i < me->tempArr.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(me->tempArr[i], "PlayerHit");
+		}
+
+		
+		
+	
+	}
+
 	if (me->name == "BlueSlime")
 	{
 
@@ -280,18 +367,20 @@ void MonsterStateAtk::Enter()
 			_MessagePool->ReserveMessage(me->tempArr[i], "PlayerHit");
 		}
 
-	/*	me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
+	}
+	
+
+	if (me->name == "Bat")
+	{
+
+		me->tempArr = _GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->GetObjects(ObjectPlayer);
 
 		for (int i = 0; i < me->tempArr.size(); ++i)
 		{
 			_MessagePool->ReserveMessage(me->tempArr[i], "PlayerHit");
 		}
-*/
-
-		//me->ChangeState("Idle");
 
 	}
-	
 
 
 }
@@ -309,33 +398,56 @@ void MonsterStateAtk::Update()
 void MonsterStateIdle::Enter()
 {
 	me->startTime = 0.f;
-	//내위치 등록
-	//_GameWorld->GetTileManager()->Tile(2, 2)->AddObject(me);
-	//내위치 삭제
-	//_GameWorld->GetTileManager()->Tile(2, 2)->DeleteObject(me);
+	
 	
 	//_TileSize로 타일사이즈 쓸고얌
 	float _TileSize = _GameWorld->GetTileManager()->GetTileSize().x;
 	
 	//me->startTime = 0.f;
 	
+	//초록 슬라임 아이덜 
+
+	if (me->name == "GreenSlime")
+	{
+
+		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+
+		if (me->myIndex.x <= 0) me->myIndex.x = 1;
+
+		if (me->myIndex.y <= 0) me->myIndex.y = 1;
+
+		if (me->myIndex.x > TileManager::mapSize.x) me->myIndex.y = TileManager::mapSize.x;
+
+		if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
+
+		if (me->mynextIndex.x <= 0) me->mynextIndex.x = 1;
+
+		if (me->mynextIndex.y <= 0) me->mynextIndex.y = 1;
+
+		if (me->mynextIndex.x > TileManager::mapSize.x) me->mynextIndex.y = TileManager::mapSize.x;
+
+		if (me->mynextIndex.y > TileManager::mapSize.y) me->mynextIndex.y = TileManager::mapSize.y;
+
+		
+		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
+
+	}
 
 	//스켈레톤 아이덜
 	if (me->name == "Skeleton")
 	{
+
+		
+
 	
 		//끝난 좌표를 다시 시작 좌표로 바꿈
 				me->startPos.x = me->endPos.x;
 				me->startPos.y = me->endPos.y;
 
-				
-				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-				
 
-				
-
-
-
+				//me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				//me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 
 
 				if (me->myIndex.x <= 0) me->myIndex.x = 1;
@@ -345,41 +457,59 @@ void MonsterStateIdle::Enter()
 				if (me->myIndex.x > TileManager::mapSize.x) me->myIndex.y = TileManager::mapSize.x;
 
 				if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
+				if (me->mynextIndex.x <= 0) me->mynextIndex.x = 1;
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
+				if (me->mynextIndex.y <= 0) me->mynextIndex.y = 1;
 
+				if (me->mynextIndex.x > TileManager::mapSize.x) me->mynextIndex.y = TileManager::mapSize.x;
 
-
-				/*if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y))
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y))
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1))
-				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1))
-*/
+				if (me->mynextIndex.y > TileManager::mapSize.y) me->mynextIndex.y = TileManager::mapSize.y;
 								
 				
-
+				D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52, 52), D3DXVECTOR2(26, 26));
 
 				//짭스타 위치비교후 추적
-			if (me->startPos.x < batX)
+			if (me->startPos.x < playerPos.x )
 			{
-				me->endPos.x = me->startPos.x + _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.x = me->startPos.x + _TileSize;
+				}
+				
 			}
-			else if (me->startPos.y > batY)
+			else if (me->startPos.y > playerPos.y )
 			{
-				me->endPos.y = me->startPos.y - _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y-1)->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.y = me->startPos.y - _TileSize;
+				}
+			
 			}
-			else if (me->startPos.x > batX)
+			else if (me->startPos.x > playerPos.x )
 			{
-				me->endPos.x = me->startPos.x - _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x-1, me->myIndex.y )->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.x = me->startPos.x - _TileSize;
+				}
+				
 			}
-			else if (me->startPos.y < batY)
+			else if (me->startPos.y < playerPos.y )
 			{
-				me->endPos.y = me->startPos.y + _TileSize;
+				if (_GameWorld->GetTileManager()->Tile(me->myIndex.x , me->myIndex.y+1)->GetAttribute() != ObjDestructable)
+				{
+					me->endPos.y = me->startPos.y + _TileSize;
+				}
+				
 			}
 
+			if (me->startPos.x > 0)
+			{
 
-
-		
+				//me->myIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+			}
+			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 	
 	}
 
@@ -396,12 +526,11 @@ void MonsterStateIdle::Enter()
 		//끝난 좌표를 다시 시작 좌표로 바꿈
 			me->startPos.x = me->endPos.x;
 			me->startPos.y = me->endPos.y;
-			//임시로 박쥐 좌표저장(플레이어대신해서 추적할 곳)
-			batX = me->startPos.x;
-			batY = me->startPos.y;
+			
 			//박쥐 현재 좌표 타일 인덱스 구해옴
 			me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-
+			me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+			//_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
 			
 
 			//내 인덱스가 타일범위를 벗어나 터질수도있으니 예외처리
@@ -413,7 +542,15 @@ void MonsterStateIdle::Enter()
 
 			if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
 
-			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
+			if (me->mynextIndex.x <= 0) me->mynextIndex.x = 1;
+
+			if (me->mynextIndex.y <= 0) me->mynextIndex.y = 1;
+
+			if (me->mynextIndex.x > TileManager::mapSize.x) me->mynextIndex.y = TileManager::mapSize.x;
+
+			if (me->mynextIndex.y > TileManager::mapSize.y) me->mynextIndex.y = TileManager::mapSize.y;
+
+			
 
 			//0~3중에 하나 뽑는다
 			switch (batmove) {
@@ -473,7 +610,10 @@ void MonsterStateIdle::Enter()
 
 
 				}
-		
+
+			_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
+			//_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
+			
 	}
 
 
@@ -481,10 +621,13 @@ void MonsterStateIdle::Enter()
 	if (me->name == "BlueSlime") 
 	{
 
-
 		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		//me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		//me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+		me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+
 		
-		
+
 		if (me->myIndex.x <= 0) me->myIndex.x = 1;
 
 		if (me->myIndex.y <= 0) me->myIndex.y = 1;
@@ -493,26 +636,18 @@ void MonsterStateIdle::Enter()
 
 		if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
 
+		if (me->mynextIndex.x <= 0) me->mynextIndex.x = 1;
 
-		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
+		if (me->mynextIndex.y <= 0) me->mynextIndex.y = 1;
+
+		if (me->mynextIndex.x > TileManager::mapSize.x) me->mynextIndex.y = TileManager::mapSize.x;
+
+		if (me->mynextIndex.y > TileManager::mapSize.y) me->mynextIndex.y = TileManager::mapSize.y;
 
 
-		/*me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetObjects(ObjectPlayer);
-
-		if (me->tempArr.size() > 0)
-		{
-			me->ChangeState("Atk");
-		}*/
 		
 
-		/*me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectPlayer);
 
-		if (me->tempArr.size() > 0)
-		{
-			me->ChangeState("Atk");
-		}
-*/
-		
 		
 
 
@@ -528,15 +663,16 @@ void MonsterStateIdle::Enter()
 			me->endPos.y = me->startPos.y;
 			me->startPos.y = temp.y;
  
-		/*MonsterStateBase* state = me->states["Atk"];
-			if (me->currentState == state)
+			if (me->startPos.x > 0)
 			{
-				me->monsterBeat = -1;
-		    }
+
+				//me->myIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				
+				//me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+			}
 			
-			*/
 			
-		
+			_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
 	
 
 	}
@@ -561,21 +697,22 @@ void MonsterStateIdle::Enter()
 
 		if (me->myIndex.y > TileManager::mapSize.y) me->myIndex.y = TileManager::mapSize.y;
 
-		_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
+		D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52, 52), D3DXVECTOR2(26, 26));
+		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->AddObject(ObjectMonster, me);
 		//짭스타 위치비교후 추적
-		if (me->startPos.x < batX)
+		if (me->startPos.x < playerPos.x)
 		{
 			me->endPos.x = me->startPos.x + _TileSize;
 		}
-		else if (me->startPos.y > batY)
+		else if (me->startPos.y > playerPos.y)
 		{
 			me->endPos.y = me->startPos.y - _TileSize;
 		}
-		else if (me->startPos.x > batX)
+		else if (me->startPos.x > playerPos.x)
 		{
 			me->endPos.x = me->startPos.x - _TileSize;
 		}
-		else if (me->startPos.y < batY)
+		else if (me->startPos.y < playerPos.y)
 		{
 			me->endPos.y = me->startPos.y + _TileSize;
 		}
@@ -590,14 +727,14 @@ void MonsterStateIdle::Enter()
 void MonsterStateIdle::Update()
 {
 	
-//	me->startTime += Time::Tick() * 4;
-//if (me->startTime > 1.f)
-//{
-//	if (me->currentState != me->states["Atk"] )
-//	{
-//		me->ChangeState("Move");
-//	}
-//}
-	
+	//me->startTime += Time::Tick() * 4;
+	//if (me->startTime > 1.f)
+	//{
+		//	if (me->currentState != me->states["Atk"] )
+		//	{
+		//		me->ChangeState("Move");
+		//	}
 
+	//	me->ChangeState("Move");
+	//}
 }

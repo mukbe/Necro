@@ -25,15 +25,14 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	gravity = 0;
 	startTime = 0;
 	isSight = false;
+
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
-		// 이팩트가 뜨고 > 애너미 방향에 따라 출력해 주면 됩니다. 
-		// 피를 깍아준다. >> 애너미에서 게임 데이터로 쏴야 하지않나? 
-
-		// 피격음 튼다. 
+		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y-20) , D3DXVECTOR2(52,52));
 		SOUNDMANAGER->Play("playerHurt", 0.6f);
 
+		// 피를 깍아준다. >> 애너미에서 게임 데이터로 쏴야 하지않나? 
 		// 다하고 함수로 빼주기 
 
 	});
@@ -60,6 +59,11 @@ void Player::Init()
 
 	wstring path = ResourcePath + L"Sound/playerHurt.ogg";
 	SOUNDMANAGER->AddSound("playerHurt", String::WStringToString(path), true, false);
+	attackRange = _GameWorld->GetGameData()->GetWeaponData().Range;
+	EFFECTS->AddEffect("Playerhit", "Playerhit");
+
+
+
 }
 
 void Player::Release()
@@ -243,7 +247,8 @@ void Player::PosIdentify(int direction, bool IsAttack)
 {
 	vector<GameObject*> tempArr;
 	attackRange = _GameWorld->GetGameData()->GetWeaponData().Range;
-
+	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	
 	vAttackRange.clear();
 
 	if (attackRange.y == 0)
@@ -254,8 +259,8 @@ void Player::PosIdentify(int direction, bool IsAttack)
 			int proveY[4] = { 0,0,-1, 1 };
 			// proveX proveY변수는 대입해서 넣게 
 			POINT sour;
-			sour.x = i * proveX[direction];
-			sour.y = i * proveY[direction];
+			sour.x = myIndex.x +i * proveX[direction];
+			sour.y = myIndex.y +i * proveY[direction];
 			tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 			// 여기서 백터에 넣어 
 			vAttackRange.push_back(sour);
@@ -277,10 +282,10 @@ void Player::PosIdentify(int direction, bool IsAttack)
 			int proveX[4] = { -1,1,0,0 };
 			int proveY[4] = { 0,0,-1, 1 };
 		
-			if (direction = 0)
+			if (direction == 0)
 			{
-				sour.x = -1;
-				sour.y = i;
+				sour.x = myIndex.x -1;
+				sour.y = myIndex.x + i;
 				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 				// 여기서 백터에 넣어 
 				vAttackRange.push_back(sour);
@@ -292,10 +297,12 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				}
 
 			}
-			if (direction = 1)
+			if (direction == 1)
 			{
-				sour.x = 1;
-				sour.y = i;
+				
+				sour.x = myIndex.x +1;
+				sour.y = myIndex.y +i;
+
 				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 				// 여기서 백터에 넣어 
 				vAttackRange.push_back(sour);
@@ -307,10 +314,10 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				}
 
 			}
-			if (direction = 2)
+			if (direction == 2)
 			{
-				sour.x = i;
-				sour.y = -1;
+				sour.x = myIndex.x + i;
+				sour.y = myIndex.y -1;
 				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 				// 여기서 백터에 넣어 
 				vAttackRange.push_back(sour);
@@ -322,10 +329,10 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				}
 
 			}
-			if (direction = 3)
+			if (direction == 3)
 			{
-				sour.x = i;
-				sour.y = 1;
+				sour.x = myIndex.x+ i;
+				sour.y = myIndex.y + 1;
 				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 				// 여기서 백터에 넣어 
 				vAttackRange.push_back(sour);
@@ -338,7 +345,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 
 			}
 
-			tempArr = _GameWorld->GetTileManager()->Tile(i + i * proveX[1], i + i * proveY[1])->GetObjects(ObjectMonster);
+			tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
 
 		}
 	}
@@ -383,17 +390,17 @@ void PlayerIdle::BeatExcute()
 				//	me->ChangeState("Attack");
 				//	return;
 				//}
-
-	/*			bool isAttack = false;
+				bool isAttack = false;
 				me->PosIdentify(0 , isAttack);
-				if (isAttack) return;*/
+				if (isAttack)
+					return;
 
 				// 아이템 확인 
 				tempArr.clear();
 				tempArr = leftTilePos->GetObjects(ObjectItem);
-				item = static_cast<ItemBase *>(tempArr[0]);
 				if (tempArr.size() > 0)
 				{
+				item = static_cast<ItemBase *>(tempArr[0]);
 
 					if (item->CanBuyItem())
 					{
@@ -438,9 +445,10 @@ void PlayerIdle::BeatExcute()
 				//	me->ChangeState("Attack");
 				//	return;
 				//}
-				//bool isAttack = false;
-				//me->PosIdentify(1, isAttack);
-				//if (isAttack) return;
+				bool isAttack = false;
+				me->PosIdentify(1, isAttack);
+				if (isAttack) return;
+
 
 				tempArr.clear();
 				tempArr = rightTilePos->GetObjects(ObjectItem);
@@ -488,9 +496,9 @@ void PlayerIdle::BeatExcute()
 					me->ChangeState("Attack");
 					return;
 				}*/
-				//bool isAttack = false;
-				//me->PosIdentify(2, isAttack);
-				//if (isAttack) return;
+				bool isAttack = false;
+				me->PosIdentify(2, isAttack);
+				if (isAttack) return;
 
 				tempArr.clear();
 				tempArr = upTilePos->GetObjects(ObjectItem);
@@ -538,9 +546,9 @@ void PlayerIdle::BeatExcute()
 				//	me->ChangeState("Attack");
 				//	return;
 				//}
-				//bool isAttack = false;
-				//me->PosIdentify(3, isAttack);
-				//if (isAttack) return;
+				bool isAttack = false;
+				me->PosIdentify(3, isAttack);
+				if (isAttack) return;
 
 				tempArr.clear();
 				tempArr = downTilePos->GetObjects(ObjectItem);
