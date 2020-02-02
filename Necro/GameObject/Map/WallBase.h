@@ -34,6 +34,8 @@ public:
 
 	virtual void Active();
 
+	virtual void SetActiveTexture();
+
 	virtual void SetTransformInfo()
 	{
 		D3DXVECTOR2 tempPivot = _GameWorld->GetTileManager()->GetPivotPos();

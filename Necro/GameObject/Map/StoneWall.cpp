@@ -16,7 +16,7 @@ void StoneWall::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	life = 1;
 	type = WallIndestructible;
-	textureKey = "StoneWall";
+	textureKey = "BlackWall";
 }
 
 void StoneWall::Release()
@@ -62,4 +62,9 @@ void StoneWall::Hide()
 void StoneWall::Active()
 {
 	WallBase::Active();
+}
+
+void StoneWall::SetActiveTexture()
+{
+	textureKey = "StoneWall";
 }

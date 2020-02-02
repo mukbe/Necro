@@ -43,6 +43,7 @@ void MapToolScene::LoadResource()
 	_ImageManager->AddTexture("Door", ResourcePath + L"Stuff/Door.png");
 	_ImageManager->AddTexture("DoorVertical", ResourcePath + L"Stuff/DoorVertical.png");
 	_ImageManager->AddTexture("Stairs", ResourcePath + L"Stuff/Stairs.png");
+	_ImageManager->AddTexture("BlackWall", ResourcePath + L"Wall/BlackWall.png");
 	//SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
 	//SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
 	//SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);
@@ -75,6 +76,7 @@ void MapToolScene::LoadResource()
 
 	//Tool
 	_ImageManager->AddTexture("ToolPlayer", ResourcePath + L"MapTool/ToolPlayer.png");
+	_ImageManager->AddTexture("ToolShopKeeper", ResourcePath + L"MapTool/ToolShopKeeper.png");
 
 	_ImageManager->AddTexture("ToolBat", ResourcePath + L"MapTool/ToolBat.png");
 	_ImageManager->AddTexture("ToolBlueSlime", ResourcePath + L"MapTool/ToolBlueSlime.png");
@@ -87,4 +89,15 @@ void MapToolScene::LoadResource()
 	_ImageManager->AddTexture("ToolGoldWall", ResourcePath + L"MapTool/ToolGoldWall.png");
 	_ImageManager->AddTexture("ToolDoor", ResourcePath + L"MapTool/ToolDoor.png");
 	_ImageManager->AddTexture("ToolDoorVertical", ResourcePath + L"MapTool/ToolDoorVertical.png");
+
+	_ImageManager->AddTexture("ToolItemWeaponDagger", ResourcePath + L"MapTool/ToolItemWeaponDagger.png");
+	_ImageManager->AddTexture("ToolItemWeaponBroadSword", ResourcePath + L"MapTool/ToolItemWeaponBroadSword.png");
+	_ImageManager->AddTexture("ToolItemWeaponSpear", ResourcePath + L"MapTool/ToolItemWeaponSpear.png");
+	_ImageManager->AddTexture("ToolItemShovelShovel", ResourcePath + L"MapTool/ToolItemShovelShovel.png");
+	_ImageManager->AddTexture("ToolItemShovelPickaxe", ResourcePath + L"MapTool/ToolItemShovelPPickaxe.png");
+	_ImageManager->AddTexture("ToolDiamond", ResourcePath + L"MapTool/ToolDiamond.png");
+
+	//Font
+	_ImageManager->AddFrameTexture("NumberFontUI", ResourcePath + L"Font/NumberFontUI.png", 10, 1);
+	_ImageManager->AddTexture("UI_x", ResourcePath + L"Font/UI_x.png");
 }

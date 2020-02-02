@@ -49,6 +49,8 @@ public:
 	D3DXVECTOR2 GetPlayerSpawn() { return playerSpawn; }
 	void SetPlayerSpawn(D3DXVECTOR2 input) { playerSpawn = input; }
 
+	void ActiveAll();
+
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;

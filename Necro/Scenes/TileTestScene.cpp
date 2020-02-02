@@ -258,6 +258,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddTexture("Door", ResourcePath + L"Stuff/Door.png");
 	_ImageManager->AddTexture("DoorVertical", ResourcePath + L"Stuff/DoorVertical.png");
 	_ImageManager->AddTexture("Stairs", ResourcePath + L"Stuff/Stairs.png");
+	_ImageManager->AddTexture("BlackWall", ResourcePath + L"Wall/BlackWall.png");
 	SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
 	SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
 	SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);

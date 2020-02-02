@@ -23,6 +23,8 @@ public:
 
 	virtual void Active();
 
+	virtual void SetActiveTexture();
+
 	virtual void ProcessDestroy();
 
 };

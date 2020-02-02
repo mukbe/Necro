@@ -256,6 +256,18 @@ int TileManager::LoadMapData(vector<string> input)
 	return i;
 }
 
+void TileManager::ActiveAll()
+{
+	if (mapTiles.size() > 0)
+	{
+		for (int i = 0; i < mapTiles.size(); ++i)
+		{
+			mapTiles[i]->Active();
+			mapTiles[i]->Show();
+		}
+	}
+}
+
 
 
 void TileManager::ReleaseMap()

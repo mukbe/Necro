@@ -56,6 +56,9 @@ public:
 		/*Player*/
 		Load<Player>("P_Player");
 
+		/*NPC*/
+		Load<ShopKeeper>("N_ShopKeeper");
+
 		/*Monster*/
 		Load<GreenSlime>("M_GreenSlime");
 		Load<BlueSlime>("M_BlueSlime");

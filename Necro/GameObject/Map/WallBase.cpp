@@ -41,7 +41,7 @@ void WallBase::Init()
 
 	life = 1;
 	type = WallDestructibleShovel;
-	textureKey = "DefaultWall";//?
+	textureKey = "BlackWall";
 }
 
 void WallBase::Release()
@@ -101,6 +101,12 @@ void WallBase::Active()
 {
 	bActive = true;
 	alpha = 0.f;
+	SetActiveTexture();
+}
+
+void WallBase::SetActiveTexture()
+{
+	textureKey = "DefaultWall";
 }
 
 void WallBase::SetTileAttribute()

@@ -3136,3 +3136,243 @@ Code: Does not exist Texture
  2020.2.2	15:52:31	 'Directx11 2D' Start Succeeded
 ===================================================
  2020.2.2	15:53:23	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:07:13	 'Directx11 2D' Start Succeeded
+16:07:19	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:20	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:21	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:21	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:22	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:22	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:22	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:23	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:07:23	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:08:54	 'Directx11 2D' Start Succeeded
+16:08:57	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:08:58	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:08:59	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:09:00	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:09:08	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:09:24	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:15:16	 'Directx11 2D' Start Succeeded
+16:15:30	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:15:44	 'Directx11 2D' Start Succeeded
+16:16:58	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:17:04	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:18:14	 'Directx11 2D' Start Succeeded
+16:18:26	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:20:15	 'Directx11 2D' Start Succeeded
+16:20:21	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:25	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:26	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:26	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:26	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:27	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:27	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:28	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:28	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:20:28	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:20:43	 'Directx11 2D' Start Succeeded
+16:20:50	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:21:02	 'Directx11 2D' Start Succeeded
+16:21:10	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+16:21:12	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:21:19	 'Directx11 2D' Start Succeeded
+16:21:25	Assertion Failure!
+File: c:\users\wingk\desktop\github\necro\render\imagemanager.cpp
+Line: 51
+Code: Does not exist Texture
+===================================================
+ 2020.2.2	16:21:46	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:22:01	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:24:39	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:29:33	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:37:22	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:40:55	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:46:17	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:46:36	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:48:29	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:50:21	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:51:10	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:51:36	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:52:36	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:55:33	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:56:00	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:56:18	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:56:51	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	16:57:22	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	16:59:22	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	17:03:36	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:07:30	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	17:08:30	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	17:09:43	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	17:10:16	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:10:46	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.2	17:10:52	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:11:41	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:12:13	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:15:37	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.2	17:16:35	 'Directx11 2D' Start Succeeded
+			 End
+===================================================

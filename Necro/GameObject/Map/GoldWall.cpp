@@ -16,7 +16,8 @@ void GoldWall::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	life = 4;
 	type = WallDestructiblePick;
-	textureKey = "GoldWallFine";
+	textureKey = "BlackWall";
+	
 }
 
 void GoldWall::Release()
@@ -62,6 +63,11 @@ void GoldWall::Hide()
 void GoldWall::Active()
 {
 	WallBase::Active();
+}
+
+void GoldWall::SetActiveTexture()
+{
+	textureKey = "GoldWallFine";
 }
 
 void GoldWall::ProcessDestroy()

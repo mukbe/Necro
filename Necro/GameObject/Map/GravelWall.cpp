@@ -16,7 +16,7 @@ void GravelWall::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	life = 2;
 	type = WallDestructiblePick;
-	textureKey = "GravelWallFine";
+	textureKey = "BlackWall";
 }
 
 void GravelWall::Release()
@@ -62,6 +62,11 @@ void GravelWall::Hide()
 void GravelWall::Active()
 {
 	WallBase::Active();
+}
+
+void GravelWall::SetActiveTexture()
+{
+	textureKey = "GravelWallFine";
 }
 
 void GravelWall::ProcessDestroy()

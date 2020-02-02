@@ -23,4 +23,5 @@ public:
 
 	virtual void Active();
 
+	virtual void SetActiveTexture();
 };

@@ -51,6 +51,7 @@ void MapTool::Update(float tick)
 	{
 		map->SetMapSize({ MapSize[0], MapSize[1] });
 		map->HighLightOn();
+		
 		oldMapSize[0] = MapSize[0];
 		oldMapSize[1] = MapSize[1];
 	}
@@ -204,6 +205,8 @@ void MapTool::ImguiRender()
 			_GameWorld->GetTileManager()->LoadMap(wstring(mapFileNameConvert));
 			MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
 			MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
+
+			map->ActiveAll();
 		}
 		ImGui::Separator();
 		ImGui::Text("Brush Mode");
@@ -311,6 +314,8 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
 			targetNode->AddObject(palleteType, newObject);
 			newObject->SetPosition(targetNode->Transform().GetPos());
+			newObject->Active();
+			newObject->Show();
 			if (palleteType == ObjectWall)
 			{
 				GameObject* abc = newObject;
