@@ -8,7 +8,7 @@ GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 
 	
 	playerHp = 10;
-	playerCoin = 0;
+	playerCoin = 999;
 	playerDia = 0;
 	comboCount = 0;
 	ratioCoin = 1.f;
@@ -65,7 +65,7 @@ void GameData::ImguiRender()
 
 void GameData::AddDia(UINT val)
 {
-	playerDia += val;
+	playerDia += val ;
 }
 
 void GameData::AddCoin(UINT val)
@@ -80,7 +80,6 @@ void GameData::MinusCoin(UINT val)
 	if (playerCoin < val)
 	{
 		Log_ErrorAssert(playerCoin < val);
-		//코인 상점 못 삼 
 		return;
 	}
 	playerCoin -= (int)val;
@@ -106,9 +105,18 @@ void GameData::SetWeaponData(WeaponInfo weaponInfo)
 	weaponData = weaponInfo;
 }
 
+void GameData::SetShovelData(ShovelInfo shovelInfo)
+{
+	shovelData = shovelInfo;
+}
+
+void GameData::SetTorchData(TorchInfo torchInfo)
+{
+	torchData = torchInfo;
+}
+
 void GameData::Combo()
 {
-	//이미 콤보값이 있었을 경우
 	if (bCombo)
 	{
 		comboCount++;

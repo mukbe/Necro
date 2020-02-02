@@ -64,6 +64,7 @@ protected:
 	//지금은 잘 사용안함
 	Matrix2D transform;
 
+
 	FloatRect rc;
 	Pivot pivot;
 	D3DXVECTOR2 position;

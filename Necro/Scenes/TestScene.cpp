@@ -6,10 +6,7 @@
 #include "./GameObject/UI/AttackSlot.h"
 #include "./GameObject/UI/ShovelSlot.h"
 #include "./GameObject/UI/TorchSlot.h"
-#include "./GameObject/UI/BodySlot.h"	
-#include "./GameObject/UI/HeadSlot.h"
 #include "./GameObject/UI/ItemSlot.h"
-#include "./GameObject/UI/BoomSlot.h"
 #include "./GameObject/UI/ThrowSlot.h"
 #include "./GameObject/TestPlayer.h"
 #include "./GameObject/UI/Note.h"
@@ -18,9 +15,7 @@
 
 #include "./GameObject/Item/ItemCoin.h"		// µ¿Àü
 #include "./GameObject/Item/ItemWeapon.h"	// ¹«±â 
-#include "./GameObject/Item/ItemBody.h"		// °©ºü
 #include "./GameObject/Item/ItemDiamond.h"	// ´ÙÀÌ¾Æ¸óµå
-#include "./GameObject/Item/ItemHead.h"		// ¶Ñ²±
 #include "./GameObject/Item/ItemShovel.h"	// »ð / °î±ª
 #include "./GameObject/Item/ItemHP.h"		// Ã¼·Â¾ÆÀÌÅÛ / À½½Ä 
 
@@ -71,10 +66,7 @@ void TestScene::Init()
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BodySlot>("UI_BodySlot", D3DXVECTOR2(310, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<HeadSlot>("UI_HeadSlot", D3DXVECTOR2(390, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BoomSlot>("UI_BoomSlot", D3DXVECTOR2(70, 350), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
 	
 	//ÇÊµå ¾ÆÀÌÅÛ °ü·Ã 
@@ -87,8 +79,6 @@ void TestScene::Init()
 	//ItemBody* Body = _ObjectPool->CreateObject<ItemBody>("ItemBody", D3DXVECTOR2(), D3DXVECTOR2());
 	//Body->Init({ 5, 5 });
 
-	ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	Head->Init({ 5,6 });
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });

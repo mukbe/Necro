@@ -2,12 +2,12 @@
 
 enum Weapon
 {
-	Baredhand, Dagger, Spear, Broadsword
+	Baredhand, WDagger, WSpear, WBroadsword
 };
 
 enum ShovelType
 {
-	Hand, Shovel, Pickaxe
+	Hend, WShovel, WPickaxe
 };
 
 class GameData : public GameObject
@@ -22,28 +22,37 @@ public:
 		string EffactImagekey;
 		string Imagekey;
 		WeaponInfo()
-			: Range({ 0,0 }), Damage(0)
+			: Range({ 0,1 }), Damage(1)
 		{
 			Imagekey = "";
 			EffactImagekey = "";
-			Type = Weapon::Baredhand;
+			Type = Weapon::WDagger;
 		}
 	};
-	//삽 . 곡괭이 
 
+	//삽 . 곡괭이 
 	struct ShovelInfo
 	{
 		ShovelType Type;
-		UINT life;  // 벽 까기위한
+		UINT Damge;  
 		string Imagekey;
 		ShovelInfo()
-			: life(1)
+			: Damge(1)
 		{
 			Imagekey = "";
-			Type = ShovelType::Shovel;
+			Type = ShovelType::WShovel;
 		}
 	};
 	
+	struct TorchInfo
+	{
+		string ImageKey;
+		TorchInfo()
+		{
+			ImageKey = "";
+		}
+	};
+
 
 public:
 	GameData(string name ,D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -74,10 +83,12 @@ public:
 	POINT GetIndex() {return playerIndex;}
 
 
-
+	ShovelInfo GetShovelData() { return shovelData; }
 	WeaponInfo GetWeaponData() { return weaponData; }
 	void SetWeaponData(WeaponInfo weaponInfo);
-
+	void SetShovelData(ShovelInfo shovelInfo);
+	TorchInfo GetTorchDate() { return torchData; }
+	void SetTorchData(TorchInfo torchInfo);
 
 	//몬스터를 죽였을때 한번 호출(몬스터가 호출할지 플레이어가 호출할지 정해야됨)
 	void Combo();
@@ -98,7 +109,8 @@ private:
 	POINT playerIndex;	// 플레이어 위치 인덱스 
 
 	WeaponInfo weaponData;
-	ShovelInfo shovelDate;
+	ShovelInfo shovelData;
+	TorchInfo torchData;
 
 	bool bCombo;
 	UINT comboCount;

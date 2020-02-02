@@ -160,16 +160,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Systems\Manage\EffectManager.cpp" />
     <ClCompile Include="GameObject\GameData.cpp" />
     <ClCompile Include="GameObject\Item\ItemBase.cpp" />
-    <ClCompile Include="GameObject\Item\ItemBody.cpp" />
-    <ClCompile Include="GameObject\Item\ItemBoom.cpp" />
     <ClCompile Include="GameObject\Item\ItemCoin.cpp" />
     <ClCompile Include="GameObject\Item\ItemDiamond.cpp" />
-    <ClCompile Include="GameObject\Item\ItemHead.cpp" />
     <ClCompile Include="GameObject\Item\ItemHP.cpp" />
     <ClCompile Include="GameObject\Item\ItemShovel.cpp" />
     <ClCompile Include="GameObject\Item\ItemWeapon.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponBroadSword.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponSpear.cpp" />
     <ClCompile Include="GameObject\Map\MapTool\MapTool.cpp" />
     <ClCompile Include="GameObject\Map\MapTool\Pallete.cpp" />
     <ClCompile Include="GameObject\Map\TileNode.cpp" />
@@ -184,11 +184,8 @@
     <ClCompile Include="GameObject\Monster\RedDragon.cpp" />
     <ClCompile Include="GameObject\Monster\Skeleton.cpp" />
     <ClCompile Include="GameObject\UI\AttackSlot.cpp" />
-    <ClCompile Include="GameObject\UI\BodySlot.cpp" />
-    <ClCompile Include="GameObject\UI\BoomSlot.cpp" />
     <ClCompile Include="GameObject\UI\Coin.cpp" />
     <ClCompile Include="GameObject\UI\Diamond.cpp" />
-    <ClCompile Include="GameObject\UI\HeadSlot.cpp" />
     <ClCompile Include="GameObject\UI\HPUi.cpp" />
     <ClCompile Include="GameObject\UI\ItemSlot.cpp" />
     <ClCompile Include="GameObject\UI\Note.cpp" />
@@ -197,6 +194,10 @@
     <ClCompile Include="GameObject\TestPlayer.cpp" />
     <ClCompile Include="GameObject\UI\ThrowSlot.cpp" />
     <ClCompile Include="GameObject\UI\TorchSlot.cpp" />
+    <ClCompile Include="GameObject\Item\ItemWeaponDagger.cpp" />
+    <ClCompile Include="GameObject\Item\ItemShovelShovel.cpp" />
+    <ClCompile Include="GameObject\Item\ItemShovelPickaxe.cpp" />
+    <ClCompile Include="GameObject\Item\ItemTorch.cpp" />
     <ClCompile Include="Scenes\Loading.cpp" />
     <ClCompile Include="Scenes\MapToolScene.cpp" />
     <ClCompile Include="Scenes\TileTestScene.cpp" />
@@ -247,16 +248,16 @@
     <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Systems\Manage\EffectManager.h" />
     <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />
-    <ClInclude Include="GameObject\Item\ItemBody.h" />
-    <ClInclude Include="GameObject\Item\ItemBoom.h" />
     <ClInclude Include="GameObject\Item\ItemCoin.h" />
     <ClInclude Include="GameObject\Item\ItemDiamond.h" />
-    <ClInclude Include="GameObject\Item\ItemHead.h" />
     <ClInclude Include="GameObject\Item\ItemHP.h" />
     <ClInclude Include="GameObject\Item\ItemShovel.h" />
     <ClInclude Include="GameObject\Item\ItemWeapon.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponBroadSword.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponSpear.h" />
     <ClInclude Include="GameObject\Map\MapTool\MapTool.h" />
     <ClInclude Include="GameObject\Map\MapTool\Pallete.h" />
     <ClInclude Include="GameObject\Map\TileNode.h" />
@@ -271,11 +272,8 @@
     <ClInclude Include="GameObject\Monster\RedDragon.h" />
     <ClInclude Include="GameObject\Monster\Skeleton.h" />
     <ClInclude Include="GameObject\UI\AttackSlot.h" />
-    <ClInclude Include="GameObject\UI\BodySlot.h" />
-    <ClInclude Include="GameObject\UI\BoomSlot.h" />
     <ClInclude Include="GameObject\UI\Coin.h" />
     <ClInclude Include="GameObject\UI\Diamond.h" />
-    <ClInclude Include="GameObject\UI\HeadSlot.h" />
     <ClInclude Include="GameObject\UI\HPUi.h" />
     <ClInclude Include="GameObject\UI\ItemSlot.h" />
     <ClInclude Include="GameObject\UI\Note.h" />
@@ -284,6 +282,10 @@
     <ClInclude Include="GameObject\TestPlayer.h" />
     <ClInclude Include="GameObject\UI\ThrowSlot.h" />
     <ClInclude Include="GameObject\UI\TorchSlot.h" />
+    <ClInclude Include="GameObject\Item\ItemWeaponDagger.h" />
+    <ClInclude Include="GameObject\Item\ItemShovelShovel.h" />
+    <ClInclude Include="GameObject\Item\ItemShovelPickaxe.h" />
+    <ClInclude Include="GameObject\Item\ItemTorch.h" />
     <ClInclude Include="Scenes\Loading.h" />
     <ClInclude Include="Scenes\MapToolScene.h" />
     <ClInclude Include="Scenes\TileTestScene.h" />

@@ -25,11 +25,13 @@ public:
 	void ReturnNote();
 
 	MoveMode GetMode() { return moveMode; }
+	string CurrentMusic() { return currentMusicName; }
 private:
 //===== 정보만 받고 사용안함
 	using Beat = pair<float, UINT>;
 	deque<Beat> beats;
 //=====================================
+	string currentMusicName;
 
 	MoveMode moveMode;
 	using Shown = pair<float, float>;

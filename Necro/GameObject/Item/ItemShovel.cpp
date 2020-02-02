@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ItemShovel.h"
+#include "./GameObject/Map/TileNode.h"
+#include "./GameObject/UI/ShovelSlot.h"
 
 
 ItemShovel::ItemShovel(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -26,18 +28,36 @@ void ItemShovel::Release()
 
 void ItemShovel::Update(float tick)
 {
+	if (Keyboard::Get()->Down('G'))
+	{
+		_MessagePool->ReserveMessage(this, "EatItem");
+	}
 }
 
 void ItemShovel::Render()
 {
-	//_ImageManager->FindTexture("Pickaxe")->FrameRender(rc, nullptr, 0, (UINT)bShow);
-	//_ImageManager->FindTexture("Shovel")->FrameRender(rc.Update(D3DXVECTOR2(52.f,42.f),TileManager::tileSize * 0.85f,Pivot::CENTER), nullptr, 0, (UINT)bShow);
-	// _ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
-	_ImageManager->FindTexture("Shovel")->FrameRender(rc, nullptr, 0, (UINT)bShow);
+	if (info.Imagekey == "") return;
+	_ImageManager->FindTexture(info.Imagekey)->FrameRender(rc, nullptr, 0, (UINT)!bShow);
+}
 
 
+void ItemShovel::EatItem()
+{
+	
 
-	//_ImageManager->FindTexture("Shovel")->FrameRender(FloatRectr (this->Transform, 60.f, Pivot::CENTER), NULL);
+	_GameData->SetShovelData(info);
+	POINT myIndex = PosToIndex(position, TileManager::tileSize, TileManager::pivotPos);
+
+	TileNode* tempTile = _TileMap->Tile(myIndex.x, myIndex.y);
+	tempTile->DeleteObject(ObjectItem, this);
+
+	_ObjectPool->DeletaObject(this);
+
+	GameObject* UI = _ObjectPool->FindObject<UIBase>("UI_ShovelSlot");
+	_MessagePool->ReserveMessage(UI, "EatItem", 0.f, info.Imagekey);
+	_MessagePool->ReserveMessage(UI, "CurrentPosition", 0.f, position);
+
+
 }
 
 void ItemShovel::Init(POINT tileIndex)
@@ -45,7 +65,3 @@ void ItemShovel::Init(POINT tileIndex)
 	ItemBase::Init(tileIndex);
 }
 
-void ItemShovel::EatItem()
-{
-	//아이템 속성 
-}

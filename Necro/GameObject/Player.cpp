@@ -24,13 +24,17 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	jumpPower = 0;
 	gravity = 0;
 	startTime = 0;
-
+	isSight = false;
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
-		// 이팩트가 뜨고. > 나중에 추가해 준대
-		// 피를 깍아준다. > 아직 구현 안되있음. 
+		// 이팩트가 뜨고 > 애너미 방향에 따라 출력해 주면 됩니다. 
+		// 피를 깍아준다. >> 애너미에서 게임 데이터로 쏴야 하지않나? 
+
 		// 피격음 튼다. 
+		SOUNDMANAGER->Play("playerHurt", 0.6f);
+
+		// 다하고 함수로 빼주기 
 
 	});
 	// 피를 업데이트에서 계속 확인해 주고 피가 0이 되면 캐릭터 죽인다음에 죽었다고 씬메니져? 같은곳에 넘겨야 할듯 
@@ -54,6 +58,8 @@ void Player::Init()
 	_RenderPool->Request(this, RenderManager::Layer::Object);
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 
+	wstring path = ResourcePath + L"Sound/playerHurt.ogg";
+	SOUNDMANAGER->AddSound("playerHurt", String::WStringToString(path), true, false);
 }
 
 void Player::Release()
@@ -66,7 +72,8 @@ void Player::Release()
 void Player::ControlUpdate()
 {
 	currentState->BeatExcute();
-	Sight();
+	
+	if (isSight)Sight();
 }
 
 void Player::MissControlUpdate()
@@ -122,41 +129,41 @@ void Player::ImguiRender()
 
 }
 
-vector<vector<int> > GetDistance(int x, int y, vector<vector<int> > cells)
-{
-	const int INF = 0x7FFFFF;
-	vector<vector<int> > distance(cells.size());
-
-	for (int i = 0; i < distance.size(); i++)
-		distance[i].assign(cells[i].size(), INF);  // size만큼 INF 를 할당한다
-	
-	queue<pair<int, int> > q;
-
-	q.push(make_pair(x, y));
-	distance[x][y] = 0;
-
-	while (!q.empty())
-	{
-		pair<int, int> curPoint = q.front();
-		q.pop();
-		int curDistance = distance[curPoint.first][curPoint.second];
-		for (int i = -1; i <= 1; i++)
-			for (int j = -1; j <= 1; j++)
-			{
-				if ((i + j) % 2 == 0) continue;
-				pair<int, int> nextPoint(curPoint.first + i, curPoint.second + j);
-				if (nextPoint.first >= 0 && nextPoint.first < cells.size()
-					&& nextPoint.second >= 0 && nextPoint.second < cells[nextPoint.first].size()
-					//&& cells[nextPoint.first][nextPoint.second] != BARRIER
-					&& distance[nextPoint.first][nextPoint.second] > curDistance + 1)
-				{
-					distance[nextPoint.first][nextPoint.second] = curDistance + 1;
-					q.push(nextPoint);
-				}
-			}
-	}
-	return distance;
-}
+//vector<vector<int> > GetDistance(int x, int y, vector<vector<int> > cells)
+//{
+//	const int INF = 0x7FFFFF;
+//	vector<vector<int> > distance(cells.size());
+//
+//	for (int i = 0; i < distance.size(); i++)
+//		distance[i].assign(cells[i].size(), INF);  // size만큼 INF 를 할당한다
+//	
+//	queue<pair<int, int> > q;
+//
+//	q.push(make_pair(x, y));
+//	distance[x][y] = 0;
+//
+//	while (!q.empty())
+//	{
+//		pair<int, int> curPoint = q.front();
+//		q.pop();
+//		int curDistance = distance[curPoint.first][curPoint.second];
+//		for (int i = -1; i <= 1; i++)
+//			for (int j = -1; j <= 1; j++)
+//			{
+//				if ((i + j) % 2 == 0) continue;
+//				pair<int, int> nextPoint(curPoint.first + i, curPoint.second + j);
+//				if (nextPoint.first >= 0 && nextPoint.first < cells.size()
+//					&& nextPoint.second >= 0 && nextPoint.second < cells[nextPoint.first].size()
+//					//&& cells[nextPoint.first][nextPoint.second] != BARRIER
+//					&& distance[nextPoint.first][nextPoint.second] > curDistance + 1)
+//				{
+//					distance[nextPoint.first][nextPoint.second] = curDistance + 1;
+//					q.push(nextPoint);
+//				}
+//			}
+//	}
+//	return distance;
+//}
 
 void Player::ChangeState(string str)
 {
@@ -181,8 +188,7 @@ void Player::FloodFill(POINT index, int sight)
 
 	int proveX[4] = { 0,-1,0,1 };
 	int proveY[4] = { -1,0,1,0 };
-	
-	
+
 	shownTiles.push_back(tile);
 
 	if (!tile->IsActive())
@@ -191,32 +197,12 @@ void Player::FloodFill(POINT index, int sight)
 	}
 	else
 	{
-			if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
-			{
-				return;
-			}
+		//if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
+		//{
+		//	return;
+		//}
 		_MessagePool->ReserveMessage(tile, "Show");
 	}
-
-	// 바닥인 경우
-	if (tile->GetAttribute() == ObjNone)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			POINT tempIndex;
-			tempIndex.x = index.x + proveX[i];
-			tempIndex.y = index.y + proveY[i];
-			// 중복 처리 해야함 방향? 조절 할수있다던데 
-			
-			FloodFill(tempIndex, sight - 1);
-		}
-
-	}
-	if (_GameWorld->GetTileManager()->Tile(index.x, index.y)->GetAttribute() == ObjDestructable)
-	{
-		
-	}
-
 }
 
 void Player::Sight()
@@ -225,9 +211,138 @@ void Player::Sight()
 		_MessagePool->ReserveMessage(shownTiles[t], "Hide");
 	shownTiles.clear();
 
-	FloodFill(myIndex, 10);
+	FloodFill(myIndex, 5);
 }
 
+
+void Player::Shovel(TileNode* TilePos, vector<GameObject*> temp)
+{
+	if (TilePos->GetAttribute() == ObjDestructable)
+	{
+		// 해당 오브젝트 찾아서 조지는듯 
+		temp = TilePos->GetObjects(ObjectWall);
+		for (int i = 0; i < temp.size(); ++i)
+		{
+			_MessagePool->ReserveMessage(temp[i], "ShovelHit");
+		}
+	}
+}
+
+void Player::InitToMove(TileNode * TilePos, float JumpPower, float Gravity)
+{
+	startTime = 0; // 시작 시간 초기화
+	startPos = position; // 시작 위치 
+	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectPlayer, this); // 원래 있던 타일 삭제하고
+	TilePos->AddObject(ObjectPlayer, this); // 플레이어를 타일에 등록한다.
+	destination = TilePos->GetPos(); // 목적지
+	jumpPower = JumpPower;
+	gravity = Gravity;
+}
+
+void Player::PosIdentify(int direction, bool IsAttack)
+{
+	vector<GameObject*> tempArr;
+	attackRange = _GameWorld->GetGameData()->GetWeaponData().Range;
+
+	vAttackRange.clear();
+
+	if (attackRange.y == 0)
+	{
+		for (int i = 1; i < attackRange.x + 1;i++)
+		{
+			int proveX[4] = { -1,1,0,0 };
+			int proveY[4] = { 0,0,-1, 1 };
+			// proveX proveY변수는 대입해서 넣게 
+			POINT sour;
+			sour.x = i * proveX[direction];
+			sour.y = i * proveY[direction];
+			tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
+			// 여기서 백터에 넣어 
+			vAttackRange.push_back(sour);
+			if (tempArr.size() > 0)
+			{
+				ChangeState("Attack");
+				IsAttack = true;
+				return;
+			}
+		}
+	}
+	if (attackRange.y > 0)
+	{
+
+		for (int i = -1; i < attackRange.y - 1;i++)
+		{
+			POINT sour;
+			// 0 1 2 여기다 -1만 하면 범윈데 
+			int proveX[4] = { -1,1,0,0 };
+			int proveY[4] = { 0,0,-1, 1 };
+		
+			if (direction = 0)
+			{
+				sour.x = -1;
+				sour.y = i;
+				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
+				// 여기서 백터에 넣어 
+				vAttackRange.push_back(sour);
+				if (tempArr.size() > 0)
+				{
+					ChangeState("Attack");
+					IsAttack = true;
+					return;
+				}
+
+			}
+			if (direction = 1)
+			{
+				sour.x = 1;
+				sour.y = i;
+				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
+				// 여기서 백터에 넣어 
+				vAttackRange.push_back(sour);
+				if (tempArr.size() > 0)
+				{
+					ChangeState("Attack");
+					IsAttack = true;
+					return;
+				}
+
+			}
+			if (direction = 2)
+			{
+				sour.x = i;
+				sour.y = -1;
+				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
+				// 여기서 백터에 넣어 
+				vAttackRange.push_back(sour);
+				if (tempArr.size() > 0)
+				{
+					ChangeState("Attack");
+					IsAttack = true;
+					return;
+				}
+
+			}
+			if (direction = 3)
+			{
+				sour.x = i;
+				sour.y = 1;
+				tempArr = _GameWorld->GetTileManager()->Tile(sour)->GetObjects(ObjectMonster);
+				// 여기서 백터에 넣어 
+				vAttackRange.push_back(sour);
+				if (tempArr.size() > 0)
+				{
+					ChangeState("Attack");
+					IsAttack = true;
+					return;
+				}
+
+			}
+
+			tempArr = _GameWorld->GetTileManager()->Tile(i + i * proveX[1], i + i * proveY[1])->GetObjects(ObjectMonster);
+
+		}
+	}
+}
 
 void PlayerIdle::Enter()
 {
@@ -240,7 +355,8 @@ void PlayerIdle::BeatExcute()
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
 	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-	vector<GameObject*> tempArr; 
+	ItemBase* item;
+	vector<GameObject*> tempArr;
 	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 
@@ -252,57 +368,54 @@ void PlayerIdle::BeatExcute()
 
 		// 갈 곳의 인덱스가 맵밖이 아니고 , 장애물이 아닌경우 > > > 움직여라!
 		if (me->myIndex.x - 1 >= 0) {
-			// _GameWorld->GetTileManager .... 같이 외부에서 참조하는 애를 여러번 호출 하기 싫으면 
-			// temp 같은 변수 선언해서 거기에 담아 놓고 쓰면 한번만 호출하게 되서 훨씬 빠르고, if 밖으로 나가게되면 자연스럽게 삭제된다.
+
 			TileNode* leftTilePos;
 			leftTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y);
 
 			if (leftTilePos->GetAttribute() == ObjNone) // 지나갈수있는 타일이면 
 			{
-				// 여기서 타일 검사 해서 에너민지 봐야할거같은데
-				// ObjectMonster
-				tempArr = leftTilePos->GetObjects(ObjectMonster);
-				if (tempArr.size() > 0)
-				{
-					me->ChangeState("Attack");
-					return;
-				}
-				
+				// 몬스터 확인
+				//tempArr.clear();
+
+				//tempArr = leftTilePos->GetObjects(ObjectMonster);
+				//if (tempArr.size() > 0)
+				//{
+				//	me->ChangeState("Attack");
+				//	return;
+				//}
+
+	/*			bool isAttack = false;
+				me->PosIdentify(0 , isAttack);
+				if (isAttack) return;*/
+
+				// 아이템 확인 
+				tempArr.clear();
 				tempArr = leftTilePos->GetObjects(ObjectItem);
+				item = static_cast<ItemBase *>(tempArr[0]);
 				if (tempArr.size() > 0)
 				{
-					//static_cast<ItemBase*>
-					ItemBase* item;
-					//item = static_cast<ItemBase*>;
-					// 살수 있으면 (트루) -> 먹고(잇 아이템)-> 이동 
-					// 살수 없으면 (펄스) -> 리턴 
-					//me->ChangeState("Attack");
-					return;
+
+					if (item->CanBuyItem())
+					{
+
+						for (int i = 0; i < tempArr.size(); ++i)
+						{
+							_MessagePool->ReserveMessage(tempArr[i], "EatItem");
+						}
+
+					}
+					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
-				me->startTime = 0; // 시작 시간 초기화
-				me->startPos = me->position; // 시작 위치 
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me); // 원래 있던 타일 삭제하고
-				leftTilePos->AddObject(ObjectPlayer, me); // 플레이어를 타일에 등록한다.
 
-				me->destination.x = leftTilePos->GetPos().x; // 목적지
+				me->InitToMove(leftTilePos, 4.5f, 0.6f);
 
-				me->jumpPower = 4.5f;
-				me->gravity = 0.6f;
 
 				me->ChangeState("Move");
 			}
 
-			// 이게 이동 위에 있으면 부순뒤 - 이동이 됨으로 전진하면서 부숨 ( 창 )
-			if (leftTilePos->GetAttribute() == ObjDestructable)
-			{
-				// 해당 오브젝트 찾아서 조지는듯 
-				tempArr = leftTilePos->GetObjects(ObjectWall);
-				for (int i = 0; i < tempArr.size(); ++i)
-				{
-					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
-				}
-			}
+			me->Shovel(leftTilePos, tempArr);
+
 		}
 
 	}
@@ -316,37 +429,45 @@ void PlayerIdle::BeatExcute()
 			TileNode* rightTilePos;
 			rightTilePos = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y);
 
-
 			if (rightTilePos->GetAttribute() == ObjNone)
 			{
-				tempArr = rightTilePos->GetObjects(ObjectMonster);
+				//tempArr.clear();
+				//tempArr = rightTilePos->GetObjects(ObjectMonster);
+				//if (tempArr.size() > 0)
+				//{
+				//	me->ChangeState("Attack");
+				//	return;
+				//}
+				//bool isAttack = false;
+				//me->PosIdentify(1, isAttack);
+				//if (isAttack) return;
+
+				tempArr.clear();
+				tempArr = rightTilePos->GetObjects(ObjectItem);
 				if (tempArr.size() > 0)
 				{
-					me->ChangeState("Attack");
-					return;
+
+					item = static_cast<ItemBase *>(tempArr[0]);
+
+					if (item->CanBuyItem())
+					{
+
+						for (int i = 0; i < tempArr.size(); ++i)
+						{
+							_MessagePool->ReserveMessage(tempArr[i], "EatItem");
+						}
+
+					}
+					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
 
-				me->startTime = 0;
-				me->startPos = me->position;
-
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
-				rightTilePos->AddObject(ObjectPlayer, me);
-
-				me->destination.x = rightTilePos->GetPos().x;
-
-				me->jumpPower = 4.5f;
-				me->gravity = 0.6f;
+				me->InitToMove(rightTilePos, 4.5f, 0.6f);
 
 				me->ChangeState("Move");
 			}
-			if (rightTilePos->GetAttribute() == ObjDestructable)
-			{
-				tempArr = rightTilePos->GetObjects(ObjectWall);
-				for (int i = 0; i < tempArr.size(); ++i)
-				{
-					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
-				}
-			}
+
+			me->Shovel(rightTilePos, tempArr);
+
 		}
 	}
 	else if (KeyCode->Down(VK_UP))
@@ -360,34 +481,42 @@ void PlayerIdle::BeatExcute()
 
 			if (upTilePos->GetAttribute() == ObjNone)
 			{
+			/*	tempArr.clear();
 				tempArr = upTilePos->GetObjects(ObjectMonster);
-			if (tempArr.size() > 0) 
-			{
-				me->ChangeState("Attack");
-				return;
-			}
+				if (tempArr.size() > 0)
+				{
+					me->ChangeState("Attack");
+					return;
+				}*/
+				//bool isAttack = false;
+				//me->PosIdentify(2, isAttack);
+				//if (isAttack) return;
 
-				me->startTime = 0;
-				me->startPos = me->position;
+				tempArr.clear();
+				tempArr = upTilePos->GetObjects(ObjectItem);
+				if (tempArr.size() > 0)
+				{
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
-				upTilePos->AddObject(ObjectPlayer, me);
+					item = static_cast<ItemBase *>(tempArr[0]);
 
-				me->destination.y = upTilePos->GetPos().y;
+					if (item->CanBuyItem())
+					{
 
-				me->jumpPower = 9.5f;
-				me->gravity = 0.6f;
+						for (int i = 0; i < tempArr.size(); ++i)
+						{
+							_MessagePool->ReserveMessage(tempArr[i], "EatItem");
+						}
+
+					}
+					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
+				}
+				me->InitToMove(upTilePos, 9.5f, 0.6f);
+
 				me->ChangeState("Move");
 			}
 
-			if (upTilePos->GetAttribute() == ObjDestructable)
-			{
-				 tempArr = upTilePos->GetObjects(ObjectWall);
-				for (int i = 0; i < tempArr.size(); ++i)
-				{
-					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
-				}
-			}
+			me->Shovel(upTilePos, tempArr);
+
 		}
 	}
 	else if (KeyCode->Down(VK_DOWN))
@@ -402,36 +531,46 @@ void PlayerIdle::BeatExcute()
 
 			if (downTilePos->GetAttribute() == ObjNone)
 			{
-				tempArr = downTilePos->GetObjects(ObjectMonster);
-				if (tempArr.size() > 0) 
+				//tempArr.clear();
+				//tempArr = downTilePos->GetObjects(ObjectMonster);
+				//if (tempArr.size() > 0)
+				//{
+				//	me->ChangeState("Attack");
+				//	return;
+				//}
+				//bool isAttack = false;
+				//me->PosIdentify(3, isAttack);
+				//if (isAttack) return;
+
+				tempArr.clear();
+				tempArr = downTilePos->GetObjects(ObjectItem);
+				if (tempArr.size() > 0)
 				{
-					me->ChangeState("Attack");
-					return;
+
+					item = static_cast<ItemBase *>(tempArr[0]);
+
+					if (item->CanBuyItem())
+					{
+
+						for (int i = 0; i < tempArr.size(); ++i)
+						{
+							_MessagePool->ReserveMessage(tempArr[i], "EatItem");
+						}
+
+					}
+					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
 
-				me->startTime = 0;
-				me->startPos = me->position;
+				me->InitToMove(downTilePos, 0.6f, 0.6f);
 
-				_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->DeleteObject(ObjectPlayer, me);
-				downTilePos->AddObject(ObjectPlayer, me);
-
-				me->destination.y = downTilePos->GetPos().y;
-
-				me->jumpPower = 0.6f;
-				me->gravity = 0.6f;
 				me->ChangeState("Move");
 			}
 
-			if (downTilePos->GetAttribute() == ObjDestructable)
-			{
-				 tempArr = downTilePos->GetObjects(ObjectWall);
-				for (int i = 0; i < tempArr.size(); ++i)
-				{
-					_MessagePool->ReserveMessage(tempArr[i], "ShovelHit");
-				}
-			}
+			me->Shovel(downTilePos, tempArr);
+
 		}
 	}
+
 }
 
 void PlayerIdle::Excute()
@@ -487,53 +626,69 @@ void PlayerAttack::Enter()
 
 void PlayerAttack::BeatExcute()
 {
-	
+
 }
 
 void PlayerAttack::Excute()
 {
-
-
-	// 아이템 범위 받으면 좀더 예쁘게 만들 수 있지 않을까??
-	if (me->playerDirection == PlayerLeft)
+	// 여기는 어택만 하셔야 하구욘 
+	me->EffactName = _GameWorld->GetGameData()->GetWeaponData().EffactImagekey;
+	//me->vAttackRange 
+	vector<GameObject*> tempArr;
+	for (int i = 0; i < me->vAttackRange.size(); i++)
 	{
-		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
-		for (int i = 0; i < tempArr.size(); ++i)
-		{
-			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
-		}
-	}
-	if (me->playerDirection == PlayerRight)
-	{
-		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetObjects(ObjectMonster);
-		for (int i = 0; i < tempArr.size(); ++i)
-		{
-			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
-		}
-	}
-	if (me->playerDirection == PlayerUp)
-	{
-		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y-1)->GetObjects(ObjectMonster);
+		tempArr = _GameWorld->GetTileManager()->Tile(me->vAttackRange[i])->GetObjects(ObjectMonster);
 
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
-			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
-		}
-	}
-	if (me->playerDirection == PlayerDown)
-	{
-		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y+1)->GetObjects(ObjectMonster);
-
-		for (int i = 0; i < tempArr.size(); ++i)
-		{
-			_MessagePool->ReserveMessage(tempArr[i], "BatHit");
+			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+			CAMERA->Shake(); // 몬스터 피격시가 아니라 여기서 해주는게 나을거같대 
+			me->ChangeState("Idle");
+			return;
 		}
 	}
 
-	CAMERA->Shake(); // 몬스터 피격시가 아니라 여기서 해주는게 나을거같대 
-	me->ChangeState("Idle");
+
+	//if (me->playerDirection == PlayerLeft)
+	//{
+	//	vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
+	//	for (int i = 0; i < tempArr.size(); ++i)
+	//	{
+	//		_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+
+	//	}
+	//}
+	//if (me->playerDirection == PlayerRight)
+	//{
+	//	vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetObjects(ObjectMonster);
+	//	for (int i = 0; i < tempArr.size(); ++i)
+	//	{
+	//		_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+	//	}
+	//}
+	//if (me->playerDirection == PlayerUp)
+	//{
+	//	vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y - 1)->GetObjects(ObjectMonster);
+
+	//	for (int i = 0; i < tempArr.size(); ++i)
+	//	{
+	//		_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+	//	}
+	//}
+	//if (me->playerDirection == PlayerDown)
+	//{
+	//	vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y + 1)->GetObjects(ObjectMonster);
+
+	//	for (int i = 0; i < tempArr.size(); ++i)
+	//	{
+	//		_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
+	//	}
+	//}
+
+
 }
 
 void PlayerAttack::Exit()
 {
 }
+

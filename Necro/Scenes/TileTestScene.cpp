@@ -15,15 +15,33 @@
 #include "./GameObject/Monster/Minotaur.h"
 #include "./GameObject/Monster/RedDragon.h"
 #include "./GameObject/Monster/GreenDragon.h"
-// Item / Ui 
-#include "./GameObject/UI/Heart.h"
-#include "./GameObject/UI/Note.h"
-#include "./GameObject/UI/AttackSlot.h"
-#include "./GameObject/Item/ItemBase.h"
-#include "./GameObject/Item/ItemShovel.h"
-#include "./GameObject/Item/ItemWeapon.h"
-#include "./GameObject/Item/ItemDiamond.h"
-#include "./GameObject/UI/Diamond.h"
+// Ui 
+#include "./GameObject/UI/Heart.h"				// 심장 
+#include "./GameObject/UI/Note.h"				// 노트
+#include "./GameObject/UI/Diamond.h"			// 다이아 
+#include "./GameObject/UI/Coin.h"				// 코인
+#include "./GameObject/UI/AttackSlot.h"			// 무기슬롯
+#include "./GameObject/UI/ShovelSlot.h"			// 삽 슬롯
+#include "./GameObject/UI/TorchSlot.h"			// 횃불 슬롯
+#include "./GameObject/UI/ItemSlot.h"			// 체력/ 아이템 슬롯
+#include "./GameObject/UI/ThrowSlot.h"			// 던지기 슬롯
+#include "./GameObject/UI/HPUi.h"				// 체력UI 
+
+// Item 
+#include "./GameObject/Item/ItemBase.h"			
+#include "./GameObject/Item/ItemShovel.h"		// 삽 or 곡괭
+#include "./GameObject/Item/ItemWeapon.h"		// 무기 3종류
+#include "./GameObject/Item/ItemDiamond.h"		// 다이아몬드
+#include "./GameObject/Item/ItemHP.h"			// 체력하트 
+#include "./GameObject/Item/ItemCoin.h"			// 동전
+#include "./GameObject/Item/ItemTorch.h"
+#include "./GameObject/Item/ItemWeaponDagger.h"
+#include "./GameObject/Item/ItemWeaponBroadSword.h"
+#include "./GameObject/Item/ItemWeaponSpear.h"
+#include "./GameObject/Item/ItemShovelShovel.h"
+#include "./GameObject/Item/ItemShovelPickaxe.h"
+
+
 
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
@@ -44,7 +62,7 @@ void TileTestScene::Init()
 	ImageLoad();
 	for (int i = 0; i < 10; i++)
 	{
-		Note* note = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(20, 70));
+		Note* note = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(8, 70));
 		note->Init();
 	}
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
@@ -107,14 +125,6 @@ void TileTestScene::Init()
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
 
 
-	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
-
-	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
-	Dia->Init({ 5,5 });
-
-
-
-
 	for (int i = 0; i < 10; ++i)
 	{
 		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
@@ -138,7 +148,6 @@ void TileTestScene::Init()
 		_TileMap->Tile(i+1, 9)->AddObject(ObjectWall, testWall);
 	}
 
-
 	for (int i = 0; i < 5; ++i)
 	{
 		WallBase* testWall = _ObjectPool->CreateObject<WallBase>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
@@ -146,21 +155,67 @@ void TileTestScene::Init()
 		_TileMap->Tile(5, i+1)->AddObject(ObjectWall, testWall);
 	}
 	
-	// Item
-
-	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
-	Shovel->Init({ 2,6 });
-	_TileMap->Tile(2, 6)->AddObject(ObjectItem, Shovel);
-
-	ItemWeapon* Weapon = _ObjectPool->CreateObject<ItemWeapon>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
-	Weapon->Init({ 3,6 });
-	_TileMap->Tile(3, 6)->AddObject(ObjectItem, Weapon);
-	Weapon->SetItemData(Dagger, { 0,0 }, 1, "DaggerEffect", "Dagger");
-	_GameData->SetWeaponData(Weapon->GetInfo());
-
-
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
+	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
+	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
+	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
+	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
+	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
+	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
+
+	for (int i = 0; i < 5; i++)
+	{
+		HPUi* Hp = _ObjectPool->CreateObject<HPUi>("HPUi", D3DXVECTOR2(1100 - i * 55, 50), D3DXVECTOR2(50, 50));
+		Hp->Init();
+	}
+
+	// Item
+
+	ItemShovelShovel* IShovel = _ObjectPool->CreateObject<ItemShovelShovel>("Shovel", D3DXVECTOR2(), D3DXVECTOR2());
+	IShovel->Init({ 2,6 });
+	_TileMap->Tile(2, 6)->AddObject(ObjectItem, IShovel);
+	IShovel->SetItemData(WShovel, 1, "Shovel");
+	_GameData->SetShovelData(IShovel->GetInfo());
+
+	ItemShovelPickaxe* IPickaxe = _ObjectPool->CreateObject<ItemShovelPickaxe>("Pickaxe", D3DXVECTOR2(), D3DXVECTOR2());
+	IPickaxe->Init({ 2,5 });
+	_TileMap->Tile(2, 5)->AddObject(ObjectItem, IPickaxe);
+	IPickaxe->SetItemData(WPickaxe, 1, "Pickaxe");
+	_GameData->SetShovelData(IPickaxe->GetInfo());
+
+
+	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
+	Dia->Init({ 5,5 });
+	_TileMap->Tile(5, 5)->AddObject(ObjectItem, Dia);
+
+	ItemCoin* Coin = _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
+	Coin->Init({ 8,1 }); 
+	_TileMap->Tile(8, 1)->AddObject(ObjectItem, Coin);
+
+	ItemTorch* Torch = _ObjectPool->CreateObject<ItemTorch>("Torch", D3DXVECTOR2(), D3DXVECTOR2());
+	Torch->Init({ 3,2 });
+	_TileMap->Tile(3, 2)->AddObject(ObjectItem, Torch);
+	Torch->SetItemData("Torch");
+	_GameData->SetTorchData(Torch->GetInfo());
+
+	ItemWeaponDagger* Dagger = _ObjectPool->CreateObject<ItemWeaponDagger>("Dagger", D3DXVECTOR2(), D3DXVECTOR2());
+	Dagger->Init({ 1,3 });
+	_TileMap->Tile(1, 3)->AddObject(ObjectItem, Dagger);
+	Dagger->SetItemData(WDagger, { 1,1 }, 1, "Swipe_Dagger", "Dagger");
+	_GameData->SetWeaponData(Dagger->GetInfo());
+
+	ItemWeaponBroadSword* BroadSword = _ObjectPool->CreateObject<ItemWeaponBroadSword>("Broadsword", D3DXVECTOR2(), D3DXVECTOR2());
+	BroadSword->Init({ 2,3 });
+	_TileMap->Tile(2, 3)->AddObject(ObjectItem, BroadSword);
+	BroadSword->SetItemData(WBroadsword, { 3,1 }, 1, "Swipe_Broadsword", "Broadsword");
+	_GameData->SetWeaponData(BroadSword->GetInfo());
+
+	ItemWeaponSpear* Spear = _ObjectPool->CreateObject<ItemWeaponSpear>("Spear", D3DXVECTOR2(), D3DXVECTOR2());
+	Spear->Init({ 3,3 });
+	_TileMap->Tile(3, 3)->AddObject(ObjectItem, Spear);
+	Spear->SetItemData(WSpear, { 1,2 }, 1, "Swipe_Spear", "Spear");
+	_GameData->SetWeaponData(Spear->GetInfo());
 
 }
 
@@ -173,6 +228,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("NormalPlayer", ResourcePath + L"Player/NormalPlayer.png", 4, 2);
 	_ImageManager->AddFrameTexture("LeatherPlayer", ResourcePath + L"Player/LeatherPlayer.png", 4, 2);
 	_ImageManager->AddTexture("PlayerShadow", ResourcePath + L"Player/PlayerShadow.png");
+
 	// NPC
 	_ImageManager->AddFrameTexture("ShopKeeper", ResourcePath + L"NPC/ShopKeeper.png", 8, 2);
 	_ImageManager->AddTexture("Music", ResourcePath + L"NPC/Music.png");
@@ -187,18 +243,37 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
 	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
 	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
-	
+	_ImageManager->AddFrameTexture("Playerhit", ResourcePath + L"Effect/Playerhit.png", 5, 1);
+
 	//Item
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
 	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia1", ResourcePath + L"Item/Field_Dia.png", 1, 2);
 	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
+	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
+	_ImageManager->AddFrameTexture("Leather_Armor", ResourcePath + L"Item/Leather_Armor.png", 1, 2);
+	_ImageManager->AddFrameTexture("Head_Cap", ResourcePath + L"Item/Head_Cap.png", 1, 2);
+	_ImageManager->AddFrameTexture("Torch", ResourcePath + L"Item/Torch.png", 1, 2);
+	_ImageManager->AddFrameTexture("Pickaxe", ResourcePath + L"Item/Pickaxe.png", 1, 2);
+	_ImageManager->AddFrameTexture("Field_Coin", ResourcePath + L"Item/Field_Coin.png", 2, 2);
+	_ImageManager->AddTexture("Shadow", ResourcePath + L"Shadow.png");
 
 	//UI
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
+	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
+	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
+	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot2.png");
+	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
+	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
+	_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/UI_ThrowSlot.png");
+	_ImageManager->AddTexture("UI_Coin", ResourcePath + L"UI/UI_Coin.png");
+	_ImageManager->AddTexture("E_Hp", ResourcePath + L"UI/Heart_Empty.png");
+	_ImageManager->AddTexture("H_Hp", ResourcePath + L"UI/Heart_half .png");
+	_ImageManager->AddTexture("F_Hp", ResourcePath + L"UI/Heart.png");  //체력 
+
 
 	//몬스터
 	_ImageManager->AddFrameTexture("greenslime", ResourcePath + L"Monster/slime_green.png", 4, 4);

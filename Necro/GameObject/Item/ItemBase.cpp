@@ -2,17 +2,13 @@
 #include "ItemBase.h"
 #include "./GameObject/Map/TileNode.h" // 타일위에 아이템을 올리기 위해서 
 
-// 플레이어 보고 그림자랑 이미지 확인 하기 
-// 월 베이스 확인하면 서 키값이랑 어떻게 줬는지 
-// 부딪혔을 때 없애지게 만들어주는거
-
- 
 ItemBase::ItemBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	: GameObject(name, pos, size)
 {
 
 	this->name = name;									// 모든 상속받는 클래스 일일히 하는것보단 여기서 처리  밑에 콜백 또한 같음
 	SetCost(0);
+
 
 	// 아이템 먹었을 때 
 	AddCallback("EatItem", [&](TagMessage msg) {
@@ -60,19 +56,18 @@ void ItemBase::Render()
 
 		for (int t = 0; t < text.size(); t++)
 		{
-			FloatRect rc(start + offset * (text.size() - 1 - t) + D3DXVECTOR2(0,30.f), font->GetFrameSize() * 1.75f, Pivot::CENTER);
+			FloatRect rc(start + offset * (text.size() - 1 - t) + D3DXVECTOR2(0,50.f), font->GetFrameSize() * 1.75f, Pivot::CENTER);
 			font->FrameRender(rc, nullptr, text[t], 0);
 		}
+
 	}
 
-		
 }
 
 void ItemBase::Init(POINT tileIndex)
 {
 	position = _TileMap->Tile(tileIndex)->GetPos();							// 타일위치 검출!  
-	rc.Update(position, TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 	
-
+	rc.Update(position , TileManager::tileSize * 0.85f, Pivot::CENTER);		// 타일위치에 렉트 , 사이즈 , 그릴 위치 
 }
 
 void ItemBase::EatItem()
@@ -95,7 +90,6 @@ void ItemBase::Active()
 {
 	bActive = true;
 }
-
 void ItemBase::SetCost(UINT val)
 {
 	cost = val;
@@ -122,4 +116,3 @@ void ItemBase::PushCount(UINT val)
 		text.push_back(0);
 
 }
-

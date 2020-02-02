@@ -35,20 +35,10 @@ void ShopKeeper::Release()
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
 }
 
-void ShopKeeper::Update(float tick)
+void ShopKeeper::ControlUpdate()
 {
-	GameObject::Update(tick);
-	if (Keyboard::Get()->Down(VK_F3))
-	{
-		SOUNDMANAGER->Play("ShopKeeper");
-		SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
-		// 4-5초? 먼저 시작함 조정 요망
-	}
-		//int time =SOUNDMANAGER->Getposition("stage1");
-		//SOUNDMANAGER->Setposition("ShopKeeper", time);
-	
-	D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52,52), D3DXVECTOR2(26,26));
-	
+	D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52, 52), D3DXVECTOR2(26, 26));
+
 	distance = D3DXVECTOR2(playerPos.x - position.x, playerPos.y - position.y);
 	float factor;
 	factor = Math::Abs(D3DXVec2Length(&distance)) / 350;
@@ -64,6 +54,26 @@ void ShopKeeper::Update(float tick)
 	// 볼륨을 계속 갱신 해준다 .
 	SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
 
+
+}
+
+void ShopKeeper::Update(float tick)
+{
+	GameObject::Update(tick);
+
+	if (SOUNDMANAGER->IsPlaySound(_BeatManager->CurrentMusic()))
+	{
+		if (!SOUNDMANAGER->IsPlaySound("ShopKeeper"))
+		{
+			SOUNDMANAGER->Play("ShopKeeper");
+			SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
+		}
+	}
+
+
+		//int time =SOUNDMANAGER->Getposition("stage1");
+		//SOUNDMANAGER->Setposition("ShopKeeper", time);
+	
 
 
 	interver += tick * 4;

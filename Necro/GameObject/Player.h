@@ -1,16 +1,9 @@
 #pragma once
 
-// 필요한 상태
-// 1. 아이들, 2. 이동. 3. 공격 
-// 아이들에서 -> 바닥 검사하고-> 공격범위에있으면 어택 , 없으면 이동 
-// 이동과 공격에서는 정말 이동과 공격만 해야함 (목표지점에 도달했거나, 데미지를 넣었으면 바로 아이들로 돌아오게)
-
 // 할 일
-// 1. 이동 수정 >> 인덱스 말고 수치 이동으로 바꾸자 그냥 
-// 2. 
-// 3. 일단은 이동 범위만 확인
-//    이동 범위 = 0(첫번쨰)로 두고, 공격 범위에 적이 있으면 공격 > 장애물이 있으면 장애물에 따라 삽질 , 아무것도없으면 이동 
-// 4. 
+// 1. 이펙트
+// 2. 무기 
+// 3. 
 
 //전방선언
 class StateBase;
@@ -56,9 +49,14 @@ private:
 
 	PlayerDirection playerDirection;		// 방향
 
-	POINT attackrRange;						// 공격 범위
 
 	vector<GameObject*> shownTiles;
+
+	string EffactName;			// 공격 이팩트 이름 
+	POINT attackRange;			// 공격 범위
+	vector<POINT> vAttackRange;
+	
+	bool isSight;
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -86,8 +84,17 @@ public:
 	void ChangeState(string str);
 
 	void FloodFill(POINT index , int sight);
+	// 시야 
 	void Sight();
+	// 삽질
+	void Shovel(TileNode* TilePos, vector<GameObject*> temp);
+	// 이동하기 위해 초기화 하는것들 
+	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
+	// 공격/ 이동전 위치 확인 
+	void PosIdentify(int direction, bool IsAttack);
 
+	
+	void setSight(bool sight) { isSight = sight; }
 };
 
 
@@ -143,7 +150,5 @@ public:
 	virtual void BeatExcute();
 	virtual void Excute();
 	virtual void Exit();
-private:
-
-
 };
+
