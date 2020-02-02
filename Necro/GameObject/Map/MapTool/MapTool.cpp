@@ -25,6 +25,8 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	oldMapSize[0] = defaultMapSize.x;
 	oldMapSize[1] = defaultMapSize.y;
 	selectedObject = selectedPallete = nullptr;
+	
+	strcpy(mapFileName, "");
 
 	map->CreateMap();
 	map->HighLightOn();
@@ -185,32 +187,23 @@ void MapTool::ImguiRender()
 		ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
 		ImGui::SetWindowCollapsed(false);
 		ImGui::Text("Save / Load");
+		ImGui::InputText("File Name", mapFileName, 90, ImGuiInputTextFlags_EnterReturnsTrue);
+		
+		string temp(mapFileName);
+		wstring mapFileNameConvert;
+		mapFileNameConvert.assign(temp.begin(), temp.end());
+
 		if (ImGui::Button("Save", ImVec2(100, 50)))
 		{
-			if (ImGui::BeginPopupContextWindow())
-			{
-				if (ImGui::Selectable("Clear"))
-				{
-				}
-				ImGui::EndPopup();
-			}
-			//ImGui::BeginChild(u8"Input File Name");
-			//ImGui::SetWindowSize(ImVec2(100.f, 100.f));
-			//ImGui::SetWindowSize(ImVec2(100.f, 100.f));
-			//if (ImGui::Button("Exit", ImVec2(100, 50)))
-			//{
-			//	ImGui::EndChild();
-
-			//}
-			_GameWorld->GetTileManager()->SaveMap(L"ABC");
-			//ImGui::EndChild();
+			_GameWorld->GetTileManager()->SaveMap(wstring(mapFileNameConvert));
 
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
-			_GameWorld->GetTileManager()->LoadMap(L"ABC");
-			
+			_GameWorld->GetTileManager()->LoadMap(wstring(mapFileNameConvert));
+			MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
+			MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
 		}
 		ImGui::Separator();
 		ImGui::Text("Brush Mode");

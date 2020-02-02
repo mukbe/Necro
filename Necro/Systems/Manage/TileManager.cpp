@@ -97,7 +97,7 @@ void TileManager::SaveMap(wstring mapName)
 		saveOut << "[TileNode" + interpolation + to_string(i) + "]" << endl;
 		saveOut << "TextureKey:" + tempTile->GetTextureKey() << endl;
 		saveOut << "Attribute:" + to_string(tempTile->GetAttribute()) << endl;
-		saveOut << "ObjectContainer:" << endl;
+		saveOut << "ObjectContainer:";
 
 		unordered_map<ObjectType, vector<GameObject*>> tempStorage = mapTiles[i]->GetStorage();
 		unordered_map<ObjectType, vector<GameObject*>>::iterator tempIter = tempStorage.begin(), tempEnd = tempStorage.end();
@@ -105,10 +105,13 @@ void TileManager::SaveMap(wstring mapName)
 		{
 			vector<GameObject*> tempVector = (*tempIter).second;
 			vector<GameObject*>::iterator vectorIter = tempVector.begin(), vectorEnd = tempVector.end();
-
+			if (tempVector.size() > 0) 
+			{
+				saveOut << endl;
+			}
 			for (; vectorIter != vectorEnd; ++vectorIter)
 			{
-				saveOut << (*vectorIter)->Name() + ",";
+				saveOut << (*vectorIter)->Name();
 			}
 		}
 		saveOut << endl;
@@ -138,6 +141,7 @@ void TileManager::LoadMap(wstring mapName)
 	CreateMap();
 	
 	char abc[15];
+	string temp;
 	int target = 0;
 
 	while (cnt < tempLines.size())
@@ -147,76 +151,63 @@ void TileManager::LoadMap(wstring mapName)
 			++cnt;
 			continue;
 		}
-		tempLines[cnt].copy(abc, 1, 0);
-		if (abc[0] == '[') 
+		if (tempLines[cnt][0] == '[')
 		{
-			tempLines[cnt].copy(abc,9, 12);
-			target = atoi(abc);
+			temp = tempLines[cnt].substr(9, 4);
+			//tempLines[cnt].copy(abc,4, 9);
+			target = stoi(temp);
+			//if (temp != "0000")target++;
 			++cnt;
 			mapTiles[target]->SetTextureKey(tempLines[cnt].substr(11,tempLines[cnt].size()-11));
 			++cnt;
 			mapTiles[target]->SetAttribute((AttributeType)stoi(tempLines[cnt].substr(10,1)));
 			cnt = cnt + 2;
 			
-			//if (tempLines[i] == "")continue;
+			string tempKey;
 
-			vector<int> vecPoint;
-
-			for (int i = 0; i < tempLines[cnt].size(); ++i)
+			while (true)
 			{
-				if (tempLines[cnt][i] == ',')
+				tempKey = tempLines[cnt].substr(0, 1);
+				ObjectType tempType;
+
+				if (tempKey == "[") break;
+
+				switch (tempKey[0])
 				{
-					vecPoint.push_back(i);
+				case 'T':
+					tempType = ObjectTerrain;
+					break;
+				case 'P':
+					tempType = ObjectPlayer;
+					break;
+				case 'M':
+					tempType = ObjectMonster;
+					break;
+				case 'I':
+					tempType = ObjectItem;
+					break;
+				case 'N':
+					tempType = ObjectNPC;
+					break;
+				case 'W':
+					tempType = ObjectWall;
+					break;
 				}
-			}
-
-			if (vecPoint.size() > 0)
-			{
-				for (int i = 0; i < vecPoint.size(); ++i)
+				if(cnt < tempLines.size() - 1)
 				{
-					int begin = 0;
-					if (i != 0) begin = i-1;
-
-					char tempKey[20];
-					//tempLines[cnt].substr(begin,);
-					// 여까지 했고.. substr 제대로 되게 고쳐야 댐.
-
-					ObjectType tempType;
-					
-					switch (tempKey[0])
-					{
-					case 'T':
-						tempType = ObjectTerrain;
-						break;
-					case 'P':
-						tempType = ObjectPlayer;
-						break;
-					case 'M':
-						tempType = ObjectMonster;
-						break;
-					case 'I':
-						tempType = ObjectItem;
-						break;
-					case 'N':
-						tempType = ObjectNPC;
-						break;
-					case 'W':
-						tempType = ObjectWall;
-						break;
-					}
-					GameObject* newObject = spawner->Spawn(tempKey);
+					GameObject* newObject = spawner->Spawn(tempLines[cnt].substr(0, tempLines[cnt].size() - 4));
 					mapTiles[target]->AddObject(tempType, newObject);
 					newObject->SetPosition(mapTiles[target]->Transform().GetPos());
 				}
+				else break;
+
+				++cnt;
 			}
+			--cnt;
 		}
 		cnt++;
 	}
 
-	/*
-	saveOut << "TextureKey:" + tempTile->GetTextureKey() << endl;
-	saveOut << "Attribute:" + to_string(tempTile->GetAttribute()) << endl;
-	saveOut << "ObjectContainer:";*/
 }
 
 int TileManager::LoadMapData(vector<string> input)
@@ -226,24 +217,25 @@ int TileManager::LoadMapData(vector<string> input)
 	{
 		++i;
 		int point = input[i].find(',') + 1;
-		mapSize.x = stoi(input[i].substr(point, input[i].size()));
-		mapSize.y = stoi(input[i].substr(0, point));
+		mapSize.x = stoi(input[i].substr(0, point));
+		mapSize.y = stoi(input[i].substr(point, input[i].size()));
 	}
 	++i;
 	if (input[i] == "[TileSize]")
 	{
 		++i;
 		int point = input[i].find(',') + 1;
-		tileSize.x = stoi(input[i].substr(point, input[i].size()));
-		tileSize.y = stoi(input[i].substr(0, point));
+		tileSize.x = stoi(input[i].substr(0, point));
+		tileSize.y = stoi(input[i].substr(point, input[i].size()));
+		
 	}
 	++i;
 	if (input[i] == "[PivotPosition]")
 	{
 		++i;
 		int point = input[i].find(',') + 1;
-		pivotPos.x = stoi(input[i].substr(point, input[i].size()));
-		pivotPos.y = stoi(input[i].substr(0, point));
+		pivotPos.x = stoi(input[i].substr(0, point));
+		pivotPos.y = stoi(input[i].substr(point, input[i].size()));
 	}
 	++i;
 	return i;

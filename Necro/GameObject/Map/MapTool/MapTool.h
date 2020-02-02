@@ -46,5 +46,7 @@ private:
 
 	GameObject* selectedObject;
 	palleteNode* selectedPallete;
+
+	char mapFileName[100];
 };
 
