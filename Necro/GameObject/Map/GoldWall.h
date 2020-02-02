@@ -1,11 +1,11 @@
 #pragma once
 #include "WallBase.h"
 
-class StoneWall : public WallBase
+class GoldWall : public WallBase
 {
 public:
-	StoneWall(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	virtual ~StoneWall();
+	GoldWall(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	virtual ~GoldWall();
 
 	virtual void Init();
 	virtual void Release();
@@ -24,4 +24,7 @@ public:
 	virtual void Active();
 
 	virtual void SetActiveTexture();
+
+	virtual void ProcessDestroy();
+
 };

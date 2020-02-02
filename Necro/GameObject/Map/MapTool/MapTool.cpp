@@ -2,6 +2,7 @@
 #include "./Systems/Manage/TileManager.h""
 #include "./GameObject/Map/TileNode.h"
 #include "Pallete.h"
+#include "./GameObject/Map/MapTool/MapHelper.h"
 
 MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size)
@@ -17,14 +18,19 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	io.Fonts->AddFontFromFileTTF("..//_Resources//TTF//Maplestory Light.ttf", 16.f, nullptr, io.Fonts->GetGlyphRangesKorean());
 
 	_RenderPool->Request(this, RenderManager::Layer::Imgui);
+	oldPalleteType = (ObjectType)0;
 	palleteType = (ObjectType)0;
-	MapSize[0] = 1;
-	MapSize[1] = 1;
-	oldMapSize[0] = 1;
-	oldMapSize[1] = 1;
+	MapSize[0] = defaultMapSize.x;
+	MapSize[1] = defaultMapSize.y;
+	oldMapSize[0] = defaultMapSize.x;
+	oldMapSize[1] = defaultMapSize.y;
 	selectedObject = selectedPallete = nullptr;
+	tempPlayer = nullptr;
+	
+	strcpy(mapFileName, "");
 
 	map->CreateMap();
+	map->HighLightOn();
 }
 
 MapTool::~MapTool()
@@ -45,17 +51,23 @@ void MapTool::Update(float tick)
 	if (oldMapSize[0] != MapSize[0] || oldMapSize[1] != MapSize[1])
 	{
 		map->SetMapSize({ MapSize[0], MapSize[1] });
+		map->HighLightOn();
+		
 		oldMapSize[0] = MapSize[0];
 		oldMapSize[1] = MapSize[1];
 	}
 
-	if (Keyboard::Get()->Down(VK_LBUTTON))
+	if (Keyboard::Get()->Press(VK_RBUTTON))
 	{
 		TileNode* tempNode = isInCollision();
 
 		if (tempNode != nullptr)
 		{
 			ProcessSetMap(tempNode);
+		}
+		else
+		{
+			int a = 0;
 		}
 	}
 
@@ -75,6 +87,10 @@ void MapTool::Update(float tick)
 				}
 				temp->SetIsSelected(true);
 				selectedPallete = temp;
+				if (brushType != Brush)
+				{
+					brushType = Brush;
+				}
 			}
 		}
 		else
@@ -85,38 +101,41 @@ void MapTool::Update(float tick)
 
 
 
-
-	switch (palleteType)
+	if(oldPalleteType != palleteType)
 	{
-	case ObjectAll:
-		break;
-	case ObjectTerrain:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectPlayer:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectMonster:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectItem:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectNPC:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
-		break;
-	case ObjectWall:
-		pallete->ReleasePallete();
-		pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
-		break;
-	default:
-		//pallete->ReleasePallete();
-		break;
+		switch (palleteType)
+		{
+		case ObjectAll:
+			break;
+		case ObjectTerrain:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectTerrain, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectPlayer:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectPlayer, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectMonster:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectMonster, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectItem:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectItem, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectNPC:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectNPC, D3DXVECTOR2(50, 50));
+			break;
+		case ObjectWall:
+			pallete->ReleasePallete();
+			pallete->CreatePallete(ObjectWall, D3DXVECTOR2(50, 50));
+			break;
+		default:
+			//pallete->ReleasePallete();
+			break;
+		}
+	oldPalleteType = palleteType;
 	}
 }
 
@@ -170,17 +189,34 @@ void MapTool::ImguiRender()
 
 	ImGui::Begin(u8"Map Tool");
 	{
-		//ImGui::SetWindowPos(ImVec2(WinSizeX - 520.f, 10.f));
-		//ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
+		ImGui::SetWindowPos(ImVec2(WinSizeX - 520.f, 10.f));
+		ImGui::SetWindowSize(ImVec2(500.f, WinSizeY - 20.f));
+		ImGui::SetWindowCollapsed(false);
 		ImGui::Text("Save / Load");
+		ImGui::InputText("File Name", mapFileName, 90, ImGuiInputTextFlags_EnterReturnsTrue);
+		
+		string temp(mapFileName);
+		wstring mapFileNameConvert;
+		mapFileNameConvert.assign(temp.begin(), temp.end());
+
 		if (ImGui::Button("Save", ImVec2(100, 50)))
 		{
+			_GameWorld->GetTileManager()->SaveMap(wstring(mapFileNameConvert));
 
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
+			if (tempPlayer != nullptr)
+			{
+				_ObjectPool->DeletaObject(tempPlayer);
+				tempPlayer = nullptr;
+			}
+			_GameWorld->GetTileManager()->LoadMap(wstring(mapFileNameConvert));
+			oldMapSize[0] = MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
+			oldMapSize[1] = MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
 
+			map->ActiveAll();
 		}
 		ImGui::Separator();
 		ImGui::Text("Brush Mode");
@@ -260,14 +296,48 @@ TileNode* MapTool::isInCollision()
 
 void MapTool::ProcessSetMap(TileNode* targetNode)
 {
+	GameObject* newObject;
+	vector<GameObject*> tempTileObjects;
 	switch (brushType)
 	{
 	case Brush:
+		tempTileObjects = targetNode->GetObjects(palleteType);
+
+		if (tempTileObjects.size() <= 0)
+		{
+			if (palleteType == ObjectPlayer)
+			{
+				if (!Keyboard::Get()->Up(VK_RBUTTON))
+				{
+					if (tempPlayer != nullptr)
+					{
+						_ObjectPool->DeletaObject(tempPlayer);
+						tempPlayer = nullptr;
+					}
+					_GameWorld->GetTileManager()->SetPlayerSpawn(targetNode->Transform().GetPos());
+					tempPlayer = _GameWorld->GetTileManager()->spawner->Spawn("P_Player");
+					tempPlayer->SetPosition(_GameWorld->GetTileManager()->GetPlayerSpawn());
+					
+				}
+				return;
+			}
+
+			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
+			targetNode->AddObject(palleteType, newObject);
+			newObject->SetPosition(targetNode->Transform().GetPos());
+			newObject->Active();
+			newObject->Show();
+			if (palleteType == ObjectWall)
+			{
+				GameObject* abc = newObject;
+				WallBase* test = dynamic_cast<WallBase*>(newObject);
+				test->SetMyTile(targetNode);
+				static_cast<WallBase*>(newObject)->SetTileAttribute();
+			}
+		}
 		break;
 	case Eraser:
-		//targetNode->Init();
-		break;
-	default:
+		targetNode->ReleaseObjects();
 		break;
 	}
 }

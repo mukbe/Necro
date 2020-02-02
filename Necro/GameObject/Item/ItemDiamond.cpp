@@ -11,7 +11,7 @@ ItemDiamond::ItemDiamond(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	itemKey = name;
 	int temp = Math::Clamp(hasDia, 0, 3);
 	itemKey += to_string(temp);
-	itemTex = _ImageManager->FindTexture(itemKey);
+	itemTex = _ImageManager->FindTexture("Dia2");
 }
 
 ItemDiamond::~ItemDiamond()

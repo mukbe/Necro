@@ -61,7 +61,7 @@ void ShopKeeper::Update(float tick)
 {
 	GameObject::Update(tick);
 
-	if (SOUNDMANAGER->IsPlaySound(_BeatManager->CurrentMusic()))
+	/*if (SOUNDMANAGER->IsPlaySound(_BeatManager->CurrentMusic()))
 	{
 		if (!SOUNDMANAGER->IsPlaySound("ShopKeeper"))
 		{
@@ -69,7 +69,7 @@ void ShopKeeper::Update(float tick)
 			SOUNDMANAGER->SetVolume("ShopKeeper", loudness);
 		}
 	}
-
+*/
 
 		//int time =SOUNDMANAGER->Getposition("stage1");
 		//SOUNDMANAGER->Setposition("ShopKeeper", time);
