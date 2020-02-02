@@ -10,8 +10,11 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		haveIShowIcon = true;
 		if (type == WallDestructibleShovel)
 		{
-			CAMERA->Shake();
 			ProcessDestroy();
+		}
+		else
+		{
+			ProcessFail();
 		}
 		
 	});
@@ -19,8 +22,11 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 		haveIShowIcon = true;
 		if (type == WallDestructiblePick || type == WallDestructibleShovel)
 		{
-			CAMERA->Shake();
 			ProcessDestroy();
+		}
+		else
+		{
+			ProcessFail();
 		}
 	});
 }
@@ -73,7 +79,9 @@ void WallBase::Render()
 
 	if(haveIShowIcon)
 	{
-		_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+		//_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+		//EFFECTS->Fire("EffectShovel", this->Transform().GetPos());
+		
 	}
 }
 
@@ -118,8 +126,8 @@ void WallBase::ProcessDestroy()
 	life--;
 	if (life <= 0) 
 	{
-		//이펙트 추가 필요.
-		
+		CAMERA->Shake();
+		SOUNDMANAGER->Play("Dig");
 		myTile->SetAttribute(ObjNone);
 		this->SetActive(false);
 	}
@@ -127,5 +135,5 @@ void WallBase::ProcessDestroy()
 
 void WallBase::ProcessFail()
 {
-
+	SOUNDMANAGER->Play("DigFail");
 }

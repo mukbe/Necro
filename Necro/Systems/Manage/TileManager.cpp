@@ -85,7 +85,9 @@ void TileManager::SaveMap(wstring mapName)
 	saveOut << "[TileSize]" << endl;
 	saveOut << to_string(tileSize.x) + "," + to_string(tileSize.y) << endl;
 	saveOut << "[PivotPosition]" << endl;
-	saveOut << to_string(pivotPos.x) + "," + to_string(pivotPos.y) << endl << endl;
+	saveOut << to_string(pivotPos.x) + "," + to_string(pivotPos.y) << endl;
+	saveOut << "[PlayerSpawn]" << endl;
+	saveOut << to_string(playerSpawn.x) + "," + to_string(playerSpawn.y) << endl << endl;
 
 	for (int i = 0; i < mapTiles.size(); ++i)
 	{
@@ -140,6 +142,9 @@ void TileManager::LoadMap(wstring mapName)
 	int cnt = LoadMapData(tempLines);
 	CreateMap();
 	
+	GameObject* newPlayer = spawner->Spawn("P_Player");
+	newPlayer->SetPosition(playerSpawn);
+
 	char abc[15];
 	string temp;
 	int target = 0;
@@ -213,6 +218,7 @@ void TileManager::LoadMap(wstring mapName)
 int TileManager::LoadMapData(vector<string> input)
 {
 	int i = 0;
+
 	if (input[i] == "[MapSize]")
 	{
 		++i;
@@ -236,6 +242,15 @@ int TileManager::LoadMapData(vector<string> input)
 		int point = input[i].find(',') + 1;
 		pivotPos.x = stoi(input[i].substr(0, point));
 		pivotPos.y = stoi(input[i].substr(point, input[i].size()));
+	}
+	++i;
+
+	if (input[i] == "[PlayerSpawn]")
+	{
+		++i;
+		int point = input[i].find(',') + 1;
+		playerSpawn.x = stoi(input[i].substr(0, point));
+		playerSpawn.y = stoi(input[i].substr(point, input[i].size()));
 	}
 	++i;
 	return i;

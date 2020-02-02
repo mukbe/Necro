@@ -45,7 +45,9 @@ public:
 	void SaveMap(wstring mapName);
 	void LoadMap(wstring mapName);
 	int LoadMapData(vector<string> input);
-	void LoadTileData();
+
+	D3DXVECTOR2 GetPlayerSpawn() { return playerSpawn; }
+	void SetPlayerSpawn(D3DXVECTOR2 input) { playerSpawn = input; }
 
 private:
 	typedef vector<TileNode*>::iterator VecIter;
@@ -54,6 +56,8 @@ private:
 	Spawner* spawner;
 
 	string textureName;
+
+	D3DXVECTOR2 playerSpawn;
 
 	void Release();
 

@@ -87,6 +87,9 @@ public:
 
 	virtual void ProcessFail();
 
+	TileNode* GetMyTile() { return myTile; }
+	void SetMyTile(TileNode* input) { myTile = input; }
+
 protected:
 	string textureKey;
 	POINT textureFrame;

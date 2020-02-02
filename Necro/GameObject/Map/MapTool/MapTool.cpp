@@ -289,6 +289,23 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 	{
 	case Brush:
 		tempTileObjects = targetNode->GetObjects(palleteType);
+
+		if (palleteType == ObjectPlayer)
+		{
+			if(!Keyboard::Get()->Up(VK_RBUTTON))
+			{
+			if (temp != nullptr)
+			{
+				_ObjectPool->DeletaObject(temp);
+				temp = nullptr;
+			}
+			_GameWorld->GetTileManager()->SetPlayerSpawn(targetNode->Transform().GetPos());
+			temp = _GameWorld->GetTileManager()->spawner->Spawn("P_Player");
+			temp->SetPosition(_GameWorld->GetTileManager()->GetPlayerSpawn());
+			}
+			return;
+		}
+
 		if (tempTileObjects.size() <= 0)
 		{
 			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
@@ -296,6 +313,9 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 			newObject->SetPosition(targetNode->Transform().GetPos());
 			if (palleteType == ObjectWall)
 			{
+				GameObject* abc = newObject;
+				WallBase* test = dynamic_cast<WallBase*>(newObject);
+				test->SetMyTile(targetNode);
 				static_cast<WallBase*>(newObject)->SetTileAttribute();
 			}
 		}

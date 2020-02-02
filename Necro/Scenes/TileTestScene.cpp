@@ -248,11 +248,26 @@ void TileTestScene::ImageLoad()
 
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
+	// Wall
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("GravelWallFine", ResourcePath + L"Wall/GravelWallFine.png");
+	_ImageManager->AddTexture("GravelWallDamaged", ResourcePath + L"Wall/GravelWallDamaged.png");
+	_ImageManager->AddTexture("GoldWallFine", ResourcePath + L"Wall/GoldWallFine.png");
+	_ImageManager->AddTexture("GoldWallDamaged", ResourcePath + L"Wall/GoldWallDamaged.png");
+	_ImageManager->AddTexture("Door", ResourcePath + L"Stuff/Door.png");
+	_ImageManager->AddTexture("DoorVertical", ResourcePath + L"Stuff/DoorVertical.png");
+	_ImageManager->AddTexture("Stairs", ResourcePath + L"Stuff/Stairs.png");
+	SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);
 	
 	// Effect
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+	wstring temp = ResourcePath + L"Effect/Shovel.png";
+	string temp1;
+	temp1.assign(temp.begin(), temp.end());
+	EFFECTS->AddEffect("EffectShovel", "EffectShovel");
 	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
 	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
 	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);

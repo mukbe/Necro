@@ -18,14 +18,31 @@
 #include "./GameObject/Monster/GreenDragon.h"
 
 /* Item */
-#include "./GameObject/Item/ItemBase.h"
-#include "./GameObject/Item/ItemShovel.h"
-#include "./GameObject/Item/ItemWeapon.h"
-#include "./GameObject/Item/ItemDiamond.h"
+#include "./GameObject/Item/ItemBase.h"			
+#include "./GameObject/Item/ItemShovel.h"		// 삽 or 곡괭
+#include "./GameObject/Item/ItemWeapon.h"		// 무기 3종류
+#include "./GameObject/Item/ItemDiamond.h"		// 다이아몬드
+#include "./GameObject/Item/ItemBody.h"			// 방어구
+#include "./GameObject/Item/ItemHead.h"			// 뚝배기
+#include "./GameObject/Item/ItemHP.h"			// 체력하트 
+#include "./GameObject/Item/ItemCoin.h"			// 동전
+#include "./GameObject/Item/ItemTorch.h"
+#include "./GameObject/Item/ItemWeaponDagger.h"
+#include "./GameObject/Item/ItemWeaponBroadSword.h"
+#include "./GameObject/Item/ItemWeaponSpear.h"
+#include "./GameObject/Item/ItemShovelShovel.h"
+#include "./GameObject/Item/ItemShovelPickaxe.h"
 
 /*Wall*/
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
+#include "./GameObject/Map/GravelWall.h"
+#include "./GameObject/Map/GoldWall.h"
+#include "./GameObject/Map/Door.h"
+#include "./GameObject/Map/DoorVertical.h"
+
+/*NPC*/
+#include "./GameObject/ShopKeeper.h"
 
 
 class Spawner
@@ -36,8 +53,10 @@ public:
 
 	void LoadObjects()
 	{
-		//Load<Player>("P_Player");
+		/*Player*/
+		Load<Player>("P_Player");
 
+		/*Monster*/
 		Load<GreenSlime>("M_GreenSlime");
 		Load<BlueSlime>("M_BlueSlime");
 		Load<Bat>("M_Bat");
@@ -49,12 +68,21 @@ public:
 		//Load<RedDragon>("M_RedDragon");
 		//Load<GreenDragon>("M_GreenDragon");
 
-		//Load<ItemShovel>("I_ItemShovel");
-		//Load<ItemWeapon>("I_ItemWeapon");
-		//Load<ItemDiamond>("I_Diamond");
+		/*Item*/
+		Load<ItemDiamond>("I_Diamond");
+		Load<ItemWeaponDagger>("I_ItemWeaponDagger");
+		Load<ItemWeaponBroadSword>("I_ItemWeaponBroadSword");
+		Load<ItemWeaponDagger>("I_ItemWeaponSpear");
+		Load<ItemShovelShovel>("I_ItemShovelShovel");
+		Load<ItemShovelPickaxe>("I_ItemShovelPickaxe");
 		
+		/*Wall*/
 		Load<WallBase>("W_WallBase");
 		Load<StoneWall>("W_StoneWall");
+		Load<GravelWall>("W_GravelWall");
+		Load<GoldWall>("W_GoldWall");
+		Load<Door>("W_Door");
+		Load<DoorVertical>("W_DoorVertical");
 	}
 
 	GameObject* Spawn(string Key)
