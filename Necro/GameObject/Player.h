@@ -57,6 +57,7 @@ private:
 	vector<POINT> vAttackRange;
 	
 	bool isSight;
+	bool isAttack;
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -91,7 +92,7 @@ public:
 	// 이동하기 위해 초기화 하는것들 
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
 	// 공격/ 이동전 위치 확인 
-	void PosIdentify(int direction, bool IsAttack);
+	void PosIdentify(int direction, bool canAttack);
 
 	
 	void setSight(bool sight) { isSight = sight; }

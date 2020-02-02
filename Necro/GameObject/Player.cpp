@@ -19,13 +19,14 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	destination = pos;
 	interver = 0;
+
 	imageName = "NormalPlayer";
 	playerDirection = PlayerRight;
 	jumpPower = 0;
 	gravity = 0;
 	startTime = 0;
 	isSight = false;
-
+	isAttack = false;
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
@@ -243,7 +244,7 @@ void Player::InitToMove(TileNode * TilePos, float JumpPower, float Gravity)
 	gravity = Gravity;
 }
 
-void Player::PosIdentify(int direction, bool IsAttack)
+void Player::PosIdentify(int direction)
 {
 	vector<GameObject*> tempArr;
 	attackRange = _GameWorld->GetGameData()->GetWeaponData().Range;
@@ -267,7 +268,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 			if (tempArr.size() > 0)
 			{
 				ChangeState("Attack");
-				IsAttack = true;
+				isAttack = true;
 				return;
 			}
 		}
@@ -292,7 +293,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				if (tempArr.size() > 0)
 				{
 					ChangeState("Attack");
-					IsAttack = true;
+					isAttack = true;
 					return;
 				}
 
@@ -309,7 +310,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				if (tempArr.size() > 0)
 				{
 					ChangeState("Attack");
-					IsAttack = true;
+					isAttack = true;
 					return;
 				}
 
@@ -324,7 +325,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				if (tempArr.size() > 0)
 				{
 					ChangeState("Attack");
-					IsAttack = true;
+					isAttack = true;
 					return;
 				}
 
@@ -339,7 +340,7 @@ void Player::PosIdentify(int direction, bool IsAttack)
 				if (tempArr.size() > 0)
 				{
 					ChangeState("Attack");
-					IsAttack = true;
+					isAttack = true;
 					return;
 				}
 
@@ -390,10 +391,9 @@ void PlayerIdle::BeatExcute()
 				//	me->ChangeState("Attack");
 				//	return;
 				//}
-				bool isAttack = false;
-				me->PosIdentify(0 , isAttack);
-				if (isAttack)
-					return;
+				
+				me->PosIdentify(0);
+				if (me->isAttack ==true) return;
 
 				// 아이템 확인 
 				tempArr.clear();
@@ -438,16 +438,9 @@ void PlayerIdle::BeatExcute()
 
 			if (rightTilePos->GetAttribute() == ObjNone)
 			{
-				//tempArr.clear();
-				//tempArr = rightTilePos->GetObjects(ObjectMonster);
-				//if (tempArr.size() > 0)
-				//{
-				//	me->ChangeState("Attack");
-				//	return;
-				//}
-				bool isAttack = false;
-				me->PosIdentify(1, isAttack);
-				if (isAttack) return;
+
+				me->PosIdentify(1);
+				if (me->isAttack) return;
 
 
 				tempArr.clear();
@@ -489,16 +482,10 @@ void PlayerIdle::BeatExcute()
 
 			if (upTilePos->GetAttribute() == ObjNone)
 			{
-			/*	tempArr.clear();
-				tempArr = upTilePos->GetObjects(ObjectMonster);
-				if (tempArr.size() > 0)
-				{
-					me->ChangeState("Attack");
-					return;
-				}*/
-				bool isAttack = false;
-				me->PosIdentify(2, isAttack);
-				if (isAttack) return;
+
+				
+				me->PosIdentify(2);
+				if (me->isAttack) return;
 
 				tempArr.clear();
 				tempArr = upTilePos->GetObjects(ObjectItem);
@@ -539,16 +526,9 @@ void PlayerIdle::BeatExcute()
 
 			if (downTilePos->GetAttribute() == ObjNone)
 			{
-				//tempArr.clear();
-				//tempArr = downTilePos->GetObjects(ObjectMonster);
-				//if (tempArr.size() > 0)
-				//{
-				//	me->ChangeState("Attack");
-				//	return;
-				//}
-				bool isAttack = false;
-				me->PosIdentify(3, isAttack);
-				if (isAttack) return;
+
+				me->PosIdentify(3);
+				if (me->isAttack) return;
 
 				tempArr.clear();
 				tempArr = downTilePos->GetObjects(ObjectItem);
@@ -652,6 +632,7 @@ void PlayerAttack::Excute()
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 			CAMERA->Shake(); // 몬스터 피격시가 아니라 여기서 해주는게 나을거같대 
 			me->ChangeState("Idle");
+			me->isAttack = false;
 			return;
 		}
 	}
