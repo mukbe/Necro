@@ -23,10 +23,7 @@
 #include "./GameObject/UI/AttackSlot.h"			// ¹«±â½½·Ô
 #include "./GameObject/UI/ShovelSlot.h"			// »ð ½½·Ô
 #include "./GameObject/UI/TorchSlot.h"			// È¶ºÒ ½½·Ô
-#include "./GameObject/UI/BodySlot.h"			// ¹æ¾î±¸ ½½·Ô
-#include "./GameObject/UI/HeadSlot.h"			// ¶Ò¹è±â ½½·Ô
 #include "./GameObject/UI/ItemSlot.h"			// Ã¼·Â/ ¾ÆÀÌÅÛ ½½·Ô
-#include "./GameObject/UI/BoomSlot.h"			// ÆøÅº ½½·Ô
 #include "./GameObject/UI/ThrowSlot.h"			// ´øÁö±â ½½·Ô
 #include "./GameObject/UI/HPUi.h"				// Ã¼·ÂUI 
 
@@ -35,8 +32,6 @@
 #include "./GameObject/Item/ItemShovel.h"		// »ð or °î±ª
 #include "./GameObject/Item/ItemWeapon.h"		// ¹«±â 3Á¾·ù
 #include "./GameObject/Item/ItemDiamond.h"		// ´ÙÀÌ¾Æ¸óµå
-#include "./GameObject/Item/ItemBody.h"			// ¹æ¾î±¸
-#include "./GameObject/Item/ItemHead.h"			// ¶Ò¹è±â
 #include "./GameObject/Item/ItemHP.h"			// Ã¼·ÂÇÏÆ® 
 #include "./GameObject/Item/ItemCoin.h"			// µ¿Àü
 #include "./GameObject/Item/ItemTorch.h"
@@ -163,14 +158,11 @@ void TileTestScene::Init()
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<HeadSlot>("UI_HeadSlot", D3DXVECTOR2(390, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BoomSlot>("UI_BoomSlot", D3DXVECTOR2(70, 350), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BodySlot>("UI_BodySlot", D3DXVECTOR2(310, 75), D3DXVECTOR2(75, 75));
 
 	for (int i = 0; i < 5; i++)
 	{
