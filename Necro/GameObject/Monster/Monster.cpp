@@ -91,6 +91,15 @@ void Monster::ControlUpdate()
 
 		if (name == "Skeleton") 
 		{
+			if (tempArr.size() > 0)
+			{
+				ChangeState("Atk");
+			}
+			else
+			{
+				ChangeState("Move");
+			}
+
 			monsterBeat = 2;
 		}
 		if (name == "Bat")
@@ -183,7 +192,7 @@ void Monster::ProcessDestroy()
 
 		this->SetActive(false);
 		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
-		_GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->DeleteObject(ObjectMonster, this);
+		//_GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->DeleteObject(ObjectMonster, this);
 		_GameWorld->GetObjectPool()->DeletaObject(this);
 		
 	}
@@ -293,11 +302,11 @@ void MonsterStateOneStep::Update()
 	if (me->name == "BlueSlime") 
 	{
 
-		
+		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		
 			
-				_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
+				//_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 			
 	}
 
@@ -445,7 +454,8 @@ void MonsterStateIdle::Enter()
 				me->startPos.x = me->endPos.x;
 				me->startPos.y = me->endPos.y;
 
-
+				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 				//me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 				//me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 
@@ -502,13 +512,7 @@ void MonsterStateIdle::Enter()
 				
 			}
 
-			if (me->startPos.x > 0)
-			{
-
-				//me->myIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-				me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-			}
+		
 			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 	
 	}
