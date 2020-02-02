@@ -75,6 +75,8 @@ void Door::ProcessDestroy()
 		CAMERA->Shake();
 		SOUNDMANAGER->Play("DoorOpen");
 		myTile->SetAttribute(ObjNone);
+		myTile->DeleteObject(ObjectWall, this);
+		_ObjectPool->DeletaObject(this);
 		this->SetActive(false);
 	}
 }

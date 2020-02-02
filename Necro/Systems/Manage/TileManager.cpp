@@ -106,15 +106,18 @@ void TileManager::SaveMap(wstring mapName)
 		unordered_map<ObjectType, vector<GameObject*>>::iterator tempIter = tempStorage.begin(), tempEnd = tempStorage.end();
 		for (; tempIter != tempEnd; ++tempIter)
 		{
-			vector<GameObject*> tempVector = (*tempIter).second;
-			vector<GameObject*>::iterator vectorIter = tempVector.begin(), vectorEnd = tempVector.end();
-			if (tempVector.size() > 0) 
+			if((*tempIter).first != ObjectPlayer)
 			{
-				saveOut << endl;
-			}
-			for (; vectorIter != vectorEnd; ++vectorIter)
-			{
-				saveOut << (*vectorIter)->Name();
+				vector<GameObject*> tempVector = (*tempIter).second;
+				vector<GameObject*>::iterator vectorIter = tempVector.begin(), vectorEnd = tempVector.end();
+				if (tempVector.size() > 0) 
+				{
+					saveOut << endl;
+				}
+				for (; vectorIter != vectorEnd; ++vectorIter)
+				{
+					saveOut << (*vectorIter)->Name();
+				}
 			}
 		}
 		saveOut << endl;
@@ -142,10 +145,8 @@ void TileManager::LoadMap(wstring mapName)
 
 	int cnt = LoadMapData(tempLines);
 	CreateMap();
-	/*
 	GameObject* newPlayer = spawner->Spawn("P_Player");
 	newPlayer->SetPosition(playerSpawn);
-*/
 	char abc[15];
 	string temp;
 	int target = 0;
@@ -207,6 +208,13 @@ void TileManager::LoadMap(wstring mapName)
 					if (tempType == ObjectPlayer)
 					{
 						
+					}
+					if (tempType == ObjectWall)
+					{
+						GameObject* abc = newObject;
+						WallBase* test = dynamic_cast<WallBase*>(newObject);
+						test->SetMyTile(mapTiles[target]);
+						static_cast<WallBase*>(newObject)->SetTileAttribute();
 					}
 				}
 				else break;

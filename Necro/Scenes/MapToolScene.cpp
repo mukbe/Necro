@@ -44,9 +44,21 @@ void MapToolScene::LoadResource()
 	_ImageManager->AddTexture("DoorVertical", ResourcePath + L"Stuff/DoorVertical.png");
 	_ImageManager->AddTexture("Stairs", ResourcePath + L"Stuff/Stairs.png");
 	_ImageManager->AddTexture("BlackWall", ResourcePath + L"Wall/BlackWall.png");
-	//SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
-	//SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
-	//SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);
+	SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);
+
+	// Effect
+	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+	wstring temp = ResourcePath + L"Effect/Shovel.png";
+	string temp1;
+	temp1.assign(temp.begin(), temp.end());
+	EFFECTS->AddEffect("EffectShovel", "EffectShovel");
+	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
+	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
+	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
+	_ImageManager->AddFrameTexture("Playerhit", ResourcePath + L"Effect/Playerhit.png", 5, 1);
+
 
 	// Item
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);

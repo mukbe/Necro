@@ -25,6 +25,7 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	oldMapSize[0] = defaultMapSize.x;
 	oldMapSize[1] = defaultMapSize.y;
 	selectedObject = selectedPallete = nullptr;
+	tempPlayer = nullptr;
 	
 	strcpy(mapFileName, "");
 
@@ -206,6 +207,11 @@ void MapTool::ImguiRender()
 		ImGui::SameLine();
 		if (ImGui::Button("Load", ImVec2(100, 50)))
 		{
+			if (tempPlayer != nullptr)
+			{
+				_ObjectPool->DeletaObject(tempPlayer);
+				tempPlayer = nullptr;
+			}
 			_GameWorld->GetTileManager()->LoadMap(wstring(mapFileNameConvert));
 			oldMapSize[0] = MapSize[0] = _GameWorld->GetTileManager()->GetMapSize().x;
 			oldMapSize[1] = MapSize[1] = _GameWorld->GetTileManager()->GetMapSize().y;
@@ -297,24 +303,25 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 	case Brush:
 		tempTileObjects = targetNode->GetObjects(palleteType);
 
-		if (palleteType == ObjectPlayer)
-		{
-			if(!Keyboard::Get()->Up(VK_RBUTTON))
-			{
-			if (temp != nullptr)
-			{
-				_ObjectPool->DeletaObject(temp);
-				temp = nullptr;
-			}
-			_GameWorld->GetTileManager()->SetPlayerSpawn(targetNode->Transform().GetPos());
-			temp = _GameWorld->GetTileManager()->spawner->Spawn("P_Player");
-			temp->SetPosition(_GameWorld->GetTileManager()->GetPlayerSpawn());
-			}
-			return;
-		}
-
 		if (tempTileObjects.size() <= 0)
 		{
+			if (palleteType == ObjectPlayer)
+			{
+				if (!Keyboard::Get()->Up(VK_RBUTTON))
+				{
+					if (tempPlayer != nullptr)
+					{
+						_ObjectPool->DeletaObject(tempPlayer);
+						tempPlayer = nullptr;
+					}
+					_GameWorld->GetTileManager()->SetPlayerSpawn(targetNode->Transform().GetPos());
+					tempPlayer = _GameWorld->GetTileManager()->spawner->Spawn("P_Player");
+					tempPlayer->SetPosition(_GameWorld->GetTileManager()->GetPlayerSpawn());
+					
+				}
+				return;
+			}
+
 			newObject = _GameWorld->GetTileManager()->GetSpawner()->Spawn(selectedPallete->GetObjectKey());
 			targetNode->AddObject(palleteType, newObject);
 			newObject->SetPosition(targetNode->Transform().GetPos());

@@ -80,8 +80,8 @@ void WallBase::Render()
 	if(haveIShowIcon)
 	{
 		//_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
-		//EFFECTS->Fire("EffectShovel", this->Transform().GetPos());
 		
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos(), { 45,45 });
 	}
 }
 
@@ -130,11 +130,12 @@ void WallBase::SetTileAttribute()
 void WallBase::ProcessDestroy()
 {
 	life--;
+	CAMERA->Shake();
+	SOUNDMANAGER->Play("Dig");
 	if (life <= 0) 
 	{
-		CAMERA->Shake();
-		SOUNDMANAGER->Play("Dig");
 		myTile->SetAttribute(ObjNone);
+		myTile->DeleteObject(ObjectWall, this);
 		this->SetActive(false);
 	}
 }
