@@ -53,9 +53,10 @@ private:
 	vector<GameObject*> shownTiles;
 
 	string EffactName;			// 공격 이팩트 이름 
-	POINT attackrRange;			// 공격 범위
-	TileNode* AttackPos;		// 공격 위치 
+	POINT attackRange;			// 공격 범위
+	vector<POINT> vAttackRange;
 	
+	bool isSight;
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -89,8 +90,11 @@ public:
 	void Shovel(TileNode* TilePos, vector<GameObject*> temp);
 	// 이동하기 위해 초기화 하는것들 
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
-	// 플레이어 공격
-	//void PlayerAttack();
+	// 공격/ 이동전 위치 확인 
+	void PosIdentify(int direction, bool IsAttack);
+
+	
+	void setSight(bool sight) { isSight = sight; }
 };
 
 
