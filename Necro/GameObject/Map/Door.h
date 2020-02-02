@@ -1,11 +1,11 @@
 #pragma once
 #include "WallBase.h"
 
-class StoneWall : public WallBase
+class Door : public WallBase
 {
 public:
-	StoneWall(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
-	virtual ~StoneWall();
+	Door(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	virtual ~Door();
 
 	virtual void Init();
 	virtual void Release();
@@ -23,5 +23,5 @@ public:
 
 	virtual void Active();
 
-	virtual void SetActiveTexture();
+	virtual void ProcessDestroy();
 };

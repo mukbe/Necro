@@ -160,6 +160,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject\Map\Door.cpp" />
+    <ClCompile Include="GameObject\Map\DoorVertical.cpp" />
+    <ClCompile Include="GameObject\Map\GoldWall.cpp" />
+    <ClCompile Include="GameObject\Map\GravelWall.cpp" />
     <ClCompile Include="Systems\Manage\EffectManager.cpp" />
     <ClCompile Include="GameObject\GameData.cpp" />
     <ClCompile Include="GameObject\Item\ItemBase.cpp" />
@@ -248,6 +252,11 @@
     <ClCompile Include="GameObject\Map\WallBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject\Map\Door.h" />
+    <ClInclude Include="GameObject\Map\DoorVertical.h" />
+    <ClInclude Include="GameObject\Map\GoldWall.h" />
+    <ClInclude Include="GameObject\Map\GravelWall.h" />
+    <ClInclude Include="GameObject\Map\MapTool\MapHelper.h" />
     <ClInclude Include="Systems\Manage\EffectManager.h" />
     <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />

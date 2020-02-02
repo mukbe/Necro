@@ -6,9 +6,9 @@ class TileNode;
 enum WallType
 {
 	WallTypeBegin = 0,
-	WallDestructableShovel,
-	WallDestructablePick,
-	WallUndestructable,
+	WallDestructibleShovel,
+	WallDestructiblePick,
+	WallIndestructible,
 	WallTypeEnd
 };
 
@@ -33,6 +33,8 @@ public:
 	virtual void Hide();
 
 	virtual void Active();
+
+	virtual void SetActiveTexture();
 
 	virtual void SetTransformInfo()
 	{
@@ -84,6 +86,11 @@ public:
 	virtual WallType GetType() { return type; }
 
 	virtual void ProcessDestroy();
+
+	virtual void ProcessFail();
+
+	TileNode* GetMyTile() { return myTile; }
+	void SetMyTile(TileNode* input) { myTile = input; }
 
 protected:
 	string textureKey;

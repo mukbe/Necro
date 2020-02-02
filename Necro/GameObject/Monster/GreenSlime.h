@@ -29,5 +29,5 @@ public:
 
 private:
 	
-	
+	shared_ptr<Texture> tex;
 };

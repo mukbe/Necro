@@ -94,19 +94,21 @@ public:
 				for (int i = 0; i < (*iter).second.size(); ++i)
 				{
 					OnIter pointIter = (*iter).second.begin() + i;
+					_ObjectPool->DeletaObject((*pointIter));
 					(*iter).second.erase(pointIter);
 					--i;
 				}
 			}
 			(*iter).second.clear();
 		}
-		objectStorage.clear();
 	}
 
 	bool GetSelected() { return isSelected; }
 	bool GetHighlight() { return haveIDrawHighlight; }
 	void SetHighlight(bool input) { haveIDrawHighlight = input; }
 	void SetUIMode(bool input) { isUI = input; }
+
+	unordered_map<ObjectType, vector<GameObject*>> GetStorage() { return objectStorage; }
 
 protected:
 	string textureKey;

@@ -158,11 +158,16 @@ void RenderManager::ImguiRender()
 {
 	vector<GameObject*>& arr = renderList[Layer::Imgui];
 	VecIter Iter = arr.begin();
-	for (; Iter != arr.end(); ++Iter)
+	//for (; Iter != arr.end(); ++Iter)
+	//{
+	//	GameObject* obj = *Iter;
+	//	if (obj->IsActive())
+	//		obj->ImguiRender();
+	//}
+	for (int i = 0; i < arr.size(); ++i)
 	{
-		GameObject* obj = *Iter;
+		GameObject* obj = arr[i];
 		if (obj->IsActive())
 			obj->ImguiRender();
 	}
-
 }

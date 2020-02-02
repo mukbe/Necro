@@ -1,0 +1,13 @@
+[MapSize]
+3,3
+[TileSize]
+52.000000,52.000000
+[PivotPosition]
+26.000000,26.000000
+[PlayerSpawn]
+78.000000,78.000000
+
+[TileNode0000]
+TextureKey:DefaultMap
+Attribute:3
+ObjectContainer:

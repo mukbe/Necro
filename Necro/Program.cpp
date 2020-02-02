@@ -19,12 +19,12 @@ Program::Program()
 	//SceneBase* scene = new MapToolScene;
 	//_SceneManager->AddScene(scene);
 	
-	//SceneBase* scene = new TestScene;
-	//_SceneManager->AddScene(scene);
-
-
-	SceneBase* scene = new TileTestScene;
+	SceneBase* scene = new MapToolScene;
 	_SceneManager->AddScene(scene);
+
+
+	//SceneBase* scene = new TileTestScene;
+	//_SceneManager->AddScene(scene);
 
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
 	EFFECTS->AddEffect("Test", "Test");
