@@ -50,7 +50,7 @@ void Diamond::Render()
 {
 	UIBase::Render();
 
-	_ImageManager->Render("UI_Diamond", rc, nullptr);
+	_ImageManager->Render("Diamond", rc, nullptr);
 
 	D3DXVECTOR2 start = position + D3DXVECTOR2(35, 0);
 
