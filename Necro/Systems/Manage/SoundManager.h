@@ -18,13 +18,14 @@ private:
 	typedef unordered_map<string, Channel**>				arrChannels;
 	typedef unordered_map<string, Channel**>::iterator	arrChannelsIter;
 	
+	using arrPlayCount = unordered_map<string, int>;
 private:
 	System* _system;
 	Sound** _sound;
 	Channel** _channel;
 	
 	arrSounds _mTotalSounds;
-
+	arrPlayCount playCount;
 public:
 
 	void Init();

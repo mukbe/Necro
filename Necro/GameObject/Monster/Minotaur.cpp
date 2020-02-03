@@ -59,7 +59,7 @@ void Minotaur::PostUpdate()
 
 void Minotaur::Render()
 {
-	_ImageManager->FindTexture("minotaur")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("minotaur")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow);
 }
 
 void Minotaur::ImguiRender()

@@ -6,25 +6,41 @@
 WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:GameObject(name, pos, size), haveIShowIcon(false), IconLifeTime(0.f)
 {
-	_RenderPool->Request(this,RenderManager::Layer::Object);
-	
 	AddCallback("ShovelHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
-		if (type == WallDestructableShovel)
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 },0.f,15);
+
+		if (type == WallDestructibleShovel)
 		{
-			CAMERA->Shake();
 			ProcessDestroy();
+
+		}
+		else
+		{
+			ProcessFail();
+
 		}
 		
 	});
 	AddCallback("PickHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
-		if (type == WallDestructablePick || type == WallDestructableShovel)
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 }, 0.f, 15);
+
+		if (type == WallDestructiblePick || type == WallDestructibleShovel)
 		{
-			CAMERA->Shake();
 			ProcessDestroy();
 		}
+		else
+		{
+			ProcessFail();
+		}
 	});
+	AddCallback("Fail", [&](TagMessage msg) {
+
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 }, 0.f, 15);
+	});
+
+
 }
 
 WallBase::~WallBase()
@@ -33,15 +49,17 @@ WallBase::~WallBase()
 
 void WallBase::Init()
 {
+	_RenderPool->Request(this, RenderManager::Layer::Object);
+
 	life = 1;
-	type = WallDestructableShovel;
-	textureKey = "DefaultWall";//?
+	type = WallDestructibleShovel;
+	textureKey = "BlackWall";
 }
 
 void WallBase::Release()
 {
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
-
+	//_ObjectPool->DeletaObject(this);
 }
 
 void WallBase::ControlUpdate()
@@ -69,40 +87,51 @@ void WallBase::Update(float tick)
 void WallBase::Render()
 {
 	
-	_ImageManager->FindTexture(textureKey)->Render(FloatRect(D3DXVECTOR2(this->Transform().GetPos().x, this->Transform().GetPos().y +defaultTileSize.y/2) , D3DXVECTOR2(52.f, 80.f), Pivot::BOTTOM), NULL);
+	_ImageManager->FindTexture(textureKey)->Render(FloatRect(D3DXVECTOR2(this->Transform().GetPos().x, this->Transform().GetPos().y +defaultTileSize.y/2) , D3DXVECTOR2(52.f, 80.f), Pivot::BOTTOM), NULL,alpha);
 
 	if(haveIShowIcon)
 	{
-		_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+		//_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
+		
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f,TileManager::pivotPos.y), { 45,45 });
 	}
 }
 
 void WallBase::Show()
 {
+	bShow = true;
 	alpha = 1.0f;
 }
 
 void WallBase::Hide()
 {
-	alpha = 0.5f;
+	bShow = false;
+	alpha = 0.3f;
 }
 
 void WallBase::Active()
 {
-	GameObject::Active();
+	bActive = true;
+	alpha = 0.f;
+	SetActiveTexture();
+}
+
+void WallBase::SetActiveTexture()
+{
+	textureKey = "DefaultWall";
 }
 
 void WallBase::SetTileAttribute()
 {
 	switch (type)
 	{
-	case WallDestructableShovel:
+	case WallDestructibleShovel:
 		myTile->SetAttribute(ObjDestructable);
 		break;
-	case WallDestructablePick:
+	case WallDestructiblePick:
 		myTile->SetAttribute(ObjDestructable);
 		break;
-	case WallUndestructable:
+	case WallIndestructible:
 		myTile->SetAttribute(ObjStatic);
 		break;
 	default:
@@ -113,11 +142,17 @@ void WallBase::SetTileAttribute()
 void WallBase::ProcessDestroy()
 {
 	life--;
+	CAMERA->Shake();
+	SOUNDMANAGER->Play("Dig");
 	if (life <= 0) 
 	{
-		//이펙트 추가 필요.
-
 		myTile->SetAttribute(ObjNone);
+		myTile->DeleteObject(ObjectWall, this);
 		this->SetActive(false);
 	}
+}
+
+void WallBase::ProcessFail()
+{
+	SOUNDMANAGER->Play("DigFail");
 }

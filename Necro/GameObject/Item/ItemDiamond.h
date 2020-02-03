@@ -15,6 +15,8 @@ public:
 
 	virtual void EatItem();
 
+
+
 private:
 	shared_ptr<Texture> itemTex;
 	string itemKey;

@@ -13,11 +13,12 @@ GreenSlime::GreenSlime(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	FrameCount=0;
 	frameX=0;
-	frameY=0;
+	
 	position = pos;
 	this->size = size;
 	startPos = pos;
 	endPos = pos;
+	monsterBeat = 1;
 	life = 1;
 	
 }
@@ -32,15 +33,12 @@ void GreenSlime::Init()
 {
 	GameObject::Init();
 	_RenderPool->Request(this, RenderManager::Layer::Object);
-	_RenderPool->Request(this, RenderManager::Layer::Imgui);
 }
 
 void GreenSlime::Release()
 {
 	GameObject::Release();
 	_RenderPool->Remove(this, RenderManager::Layer::Object);
-	//값 출력 테스트 할 창을 지워보아요
-	_RenderPool->Remove(this, RenderManager::Layer::Imgui);
 }
 
 
@@ -64,7 +62,6 @@ void GreenSlime::Update(float tick)
 			frameX = 0;
 		}
 	}
-	
 	
 	
 	/*if (KeyCode->Down(VK_RIGHT))
@@ -108,7 +105,7 @@ void GreenSlime::PostUpdate()
 void GreenSlime::Render()
 {
 	
-	_ImageManager->FindTexture("greenslime")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("greenslime")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow);
 	//_ImageManager->FindTexture("greenslime")->FrameRender(rc, nullptr, frameX, frameY);
 }
 

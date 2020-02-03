@@ -6,10 +6,7 @@
 #include "./GameObject/UI/AttackSlot.h"
 #include "./GameObject/UI/ShovelSlot.h"
 #include "./GameObject/UI/TorchSlot.h"
-#include "./GameObject/UI/BodySlot.h"	
-#include "./GameObject/UI/HeadSlot.h"
 #include "./GameObject/UI/ItemSlot.h"
-#include "./GameObject/UI/BoomSlot.h"
 #include "./GameObject/UI/ThrowSlot.h"
 #include "./GameObject/TestPlayer.h"
 #include "./GameObject/UI/Note.h"
@@ -18,9 +15,7 @@
 
 #include "./GameObject/Item/ItemCoin.h"		// µ¿Àü
 #include "./GameObject/Item/ItemWeapon.h"	// ¹«±â 
-#include "./GameObject/Item/ItemBody.h"		// °©ºü
 #include "./GameObject/Item/ItemDiamond.h"	// ´ÙÀÌ¾Æ¸óµå
-#include "./GameObject/Item/ItemHead.h"		// ¶Ñ²±
 #include "./GameObject/Item/ItemShovel.h"	// »ð / °î±ª
 #include "./GameObject/Item/ItemHP.h"		// Ã¼·Â¾ÆÀÌÅÛ / À½½Ä 
 
@@ -67,14 +62,11 @@ void TestScene::Init()
 	_ObjectPool->CreateObject<TestPlayer>("Player", D3DXVECTOR2(200, 200), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 820.f }, { 110.f,120.f });
 	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
-	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
+	_ObjectPool->CreateObject<Diamond>("Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BodySlot>("UI_BodySlot", D3DXVECTOR2(310, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<HeadSlot>("UI_HeadSlot", D3DXVECTOR2(390, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BoomSlot>("UI_BoomSlot", D3DXVECTOR2(70, 350), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
 	
 	//ÇÊµå ¾ÆÀÌÅÛ °ü·Ã 
@@ -87,13 +79,11 @@ void TestScene::Init()
 	//ItemBody* Body = _ObjectPool->CreateObject<ItemBody>("ItemBody", D3DXVECTOR2(), D3DXVECTOR2());
 	//Body->Init({ 5, 5 });
 
-	ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	Head->Init({ 5,6 });
 
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });
 
-	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
+	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("ItemDiamond", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 7,1 });
 
 
@@ -147,7 +137,7 @@ void TestScene::ImageLoad()
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
 	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
-	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	_ImageManager->AddTexture("Diamond", ResourcePath + L"UI/UI_Diamond.png");
 	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
 	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot.png");
 	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
@@ -167,8 +157,7 @@ void TestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 	_ImageManager->AddFrameTexture("Apple", ResourcePath + L"Item/Apple.png", 1, 2);
 	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia", ResourcePath + L"Item/Field_Dia.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
+	_ImageManager->AddFrameTexture("ItemDiamond", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 
 	_ImageManager->AddTexture("E_Hp", ResourcePath + L"UI/Heart_Empty.png");
 	_ImageManager->AddTexture("H_Hp", ResourcePath + L"UI/Heart_half .png");

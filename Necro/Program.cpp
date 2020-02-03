@@ -4,7 +4,7 @@
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
 #include "./Scenes/MapToolScene.h"
-
+#include "./Scenes/GameScene.h"
 
 Program::Program()
 {
@@ -13,18 +13,23 @@ Program::Program()
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
 
-	bGrid = true;
+	bGrid = false;
 	gridColor = ColorWhite;
 
-	//SceneBase* scene = new MapToolScene;
-	//_SceneManager->AddScene(scene);
-	
-	//SceneBase* scene = new TestScene;
-	//_SceneManager->AddScene(scene);
+	SceneBase* scene = new MapToolScene;
+	_SceneManager->AddScene("Map", scene);
+	scene = new TileTestScene;
+	_SceneManager->AddScene("TileTest", scene);
+	scene = new TestScene;
+	_SceneManager->AddScene("Test", scene);
+	scene = new GameScene;
+	_SceneManager->AddScene("Game", scene);
 
+	_SceneManager->ChangeScene("Game");
 
-	SceneBase* scene = new TileTestScene;
-	_SceneManager->AddScene(scene);
+	CAMERA->ModeTargetPlayer();
+	//CAMERA->ModeFreeCamera();
+
 
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
 	EFFECTS->AddEffect("Test", "Test");
@@ -54,12 +59,30 @@ void Program::PreUpdate()
 	if (Keyboard::Get()->Down(VK_F6))
 		EFFECTS->Fire("Test", D3DXVECTOR2(WinSizeX*0.5f, WinSizeY * 0.5f), D3DXVECTOR2(100, 100),Math::Random(0.f, Math::PI * 2.f));
 
+
+	//if (Keyboard::Get()->Down(VK_F9))
+	//{
+	//	_SceneManager->ChangeScene("Map");
+	//}
+	//if (Keyboard::Get()->Down(VK_F10))
+	//{
+	//	_SceneManager->ChangeScene("TileTest");
+
+	//}
+	//if (Keyboard::Get()->Down(VK_F11))
+	//{
+	//	_SceneManager->ChangeScene("Test");
+
+	//}
+
+
 }
 
 void Program::Update(float tick)
 {
-	_GameWorld->Update(tick);
 	EFFECTS->Update(tick);
+
+	_GameWorld->Update(tick);
 
 }
 
@@ -80,11 +103,11 @@ void Program::Render()
 	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 	EFFECTS->Render();
 
-	wstring str;
-	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
-	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
-	p2DRenderer->SetCamera(false);
-	p2DRenderer->DrawText2D(D3DXVECTOR2((Mouse::Get()->GetPosition().x - 200.f), (Mouse::Get()->GetPosition().y - 20.f)), str, 20, gridColor);
+	//wstring str;
+	//str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
+	//str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
+	//p2DRenderer->SetCamera(false);
+	//p2DRenderer->DrawText2D(D3DXVECTOR2((Mouse::Get()->GetPosition().x - 200.f), (Mouse::Get()->GetPosition().y - 20.f)), str, 20, gridColor);
 
 }
 

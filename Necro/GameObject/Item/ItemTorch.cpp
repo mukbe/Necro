@@ -42,15 +42,13 @@ void ItemTorch::Render()
 	ItemBase::Render();
 	
 	if (info.ImageKey == "") return;
-	_ImageManager->FindTexture(info.ImageKey)->FrameRender(rc, nullptr, 0, (UINT)bShow);
+	_ImageManager->FindTexture(info.ImageKey)->FrameRender(rc, nullptr, 0, (UINT)!bShow);
 
-	//_ImageManager->FindTexture("Torch")->FrameRender(rc, nullptr, 1, (UINT)bShow);
 }
 
 
 void ItemTorch::EatItem()
 {
-	_GameData->MinusCoin(cost);
 
 	_GameData->SetTorchData(info);
 	POINT myIndex = PosToIndex(position, TileManager::tileSize, TileManager::pivotPos);

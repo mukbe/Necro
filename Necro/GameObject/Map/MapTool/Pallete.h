@@ -1,5 +1,10 @@
 #pragma once
 
+
+
+class Spawner;
+
+
 class palleteNode : public GameObject
 {
 public:
@@ -17,10 +22,10 @@ public:
 
 	}
 
-	virtual void SetData(string TextureKey, GameObject* Object)
+	virtual void SetData(string textureStringKey, string objectStringKey)
 	{
-		textureKey = TextureKey;
-		myObject = Object;
+		textureKey = textureStringKey;
+		objectKey = objectStringKey;
 	}
 
 	virtual void Release()
@@ -30,25 +35,13 @@ public:
 
 	virtual void Update(float tick)
 	{
-		//int a = 0;
-		//if (Math::IsPointInAABB(rc, (D3DXVECTOR2)Mouse::Get()->GetPosition()))
-		//{
-		//	isMouseOnMe = true;
-		//	if (Keyboard::Get()->Down(VK_LBUTTON))
-		//	{
-		//		isSelected = true;
-		//	}
-		//}
-		//else
-		//{
-		//	isMouseOnMe = false;
-		//}
+
 	}
 
 	virtual void Render()
 	{
 		_ImageManager->Render(textureKey, rc, NULL);
-		
+
 
 		if (isMouseOver)
 		{
@@ -79,9 +72,12 @@ public:
 	bool GetIsSelected() { return isSelected; }
 	void SetIsSelected(bool input) { isSelected = input; }
 
+	string GetTextureKey() { return textureKey; }
+	string GetObjectKey() { return objectKey; }
+
 private:
 	string textureKey;
-	GameObject* myObject;
+	string objectKey;
 	bool isSelected;
 	bool isMouseOver;
 };
@@ -117,26 +113,6 @@ public:
 
 	void ReleasePallete();
 
-	void LoadObjects();
-
-	template<typename T>
-	GameObject* Load(string Key, ObjectType objType, RenderManager::Layer renderType)
-	{
-		string namePal = "Tool";
-		GameObject* temp;
-		temp = _ObjectPool->CreateObject<T>(namePal + Key, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
-		_RenderPool->Remove(temp, renderType);
-		AddObject(objType, temp);
-
-		wstring tempString;
-		tempString.assign(temp->Name().begin(), temp->Name().end());
-
-		_ImageManager->AddTexture(temp->Name(), ResourcePath + L"/MapTool/" + tempString + L".png");
-
-		return temp;
-	}
-
-
 	vector<GameObject*> GetArrayByType(ObjectType inputType)
 	{
 		return objectStorage[inputType];
@@ -150,15 +126,12 @@ public:
 	{
 		return vecPallete;
 	}
-
 private:
 	vector<palleteNode*> vecPallete;
 	typedef vector<palleteNode*>::iterator PalleteIter;
 
 	int separateSize;
 	D3DXVECTOR2 pivotPos;
-
-	
 
 	unordered_map<ObjectType, vector<GameObject*>> objectStorage;
 	typedef unordered_map<ObjectType, vector<GameObject*>>::iterator MapIter;

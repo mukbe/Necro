@@ -35,6 +35,7 @@ private:
 	int frameX, frameY;			// 프레임 렌더용
 	float interver;				// 프레임 인터벌
 	string imageName;			// 이미지 이름 
+	
 
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
@@ -53,9 +54,13 @@ private:
 	vector<GameObject*> shownTiles;
 
 	string EffactName;			// 공격 이팩트 이름 
-	POINT attackrRange;			// 공격 범위
-	TileNode* AttackPos;		// 공격 위치 
+	POINT attackRange;			// 공격 범위
+	vector<POINT> vAttackRange;
 	
+	bool isSight;
+
+
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -89,8 +94,15 @@ public:
 	void Shovel(TileNode* TilePos, vector<GameObject*> temp);
 	// 이동하기 위해 초기화 하는것들 
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
-	// 플레이어 공격
-	//void PlayerAttack();
+
+	void setSight(bool sight) { isSight = sight; }
+
+	void SetIndex(POINT pt) 
+	{
+		myIndex = pt;
+		_GameWorld->GetGameData()->PosRedefinition(myIndex);
+
+	}
 };
 
 
@@ -108,7 +120,7 @@ public:
 	virtual void BeatExcute() = 0;	
 
 	virtual void Excute() = 0;	// 박자에 맞추지 않아도 될 어떠한 업데이트
-	virtual void Exit() {}		// 
+	virtual void Exit() {}		
 protected:
 	Player* me;
 };

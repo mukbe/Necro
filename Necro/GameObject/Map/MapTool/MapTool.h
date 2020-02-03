@@ -5,6 +5,7 @@ class TileManager;
 class TileNode;
 class Pallete;
 class palleteNode;
+class Spawner;
 
 class MapTool : public GameObject
 {
@@ -33,6 +34,7 @@ private:
 	Pallete* pallete;
 
 	ObjectType palleteType;
+	ObjectType oldPalleteType;
 	BrushType brushType;
 
 	TileNode* selectedNode;
@@ -44,5 +46,9 @@ private:
 
 	GameObject* selectedObject;
 	palleteNode* selectedPallete;
+
+	GameObject* tempPlayer;
+
+	char mapFileName[100];
 };
 

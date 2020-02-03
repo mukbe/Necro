@@ -10,6 +10,8 @@ ShopKeeper::ShopKeeper(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	interver = frameX = frameY = 0;
 	
 	loudness = 0.6f;
+	bShow = false;
+	alpha = 0.f;
 }
 
 ShopKeeper::~ShopKeeper()
@@ -89,5 +91,21 @@ void ShopKeeper::Update(float tick)
 
 void ShopKeeper::Render()
 {
-	_ImageManager->FindTexture("ShopKeeper")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y - 20), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("ShopKeeper")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y - 20), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow, alpha);
+}
+
+void ShopKeeper::Show()
+{
+	bShow = true;
+}
+
+void ShopKeeper::Hide()
+{
+	bShow = false;
+}
+
+void ShopKeeper::Active()
+{
+	bActive = true;
+	alpha = 1.0f;
 }

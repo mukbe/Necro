@@ -47,6 +47,7 @@ void UIBase::Update(float tick)
 
 		if (factor > 1.0)
 		{
+			saveTime = 0.f;
 			screenPos = Math::Lerp(screenPosItem, position, 1.f);
 			bMove = false;
 		}

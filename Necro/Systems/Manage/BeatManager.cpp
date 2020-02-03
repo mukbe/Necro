@@ -35,7 +35,7 @@ bool BeatManager::CheckInputForUpdate()
 			|| Keyboard::Get()->Down(VK_UP)
 			|| Keyboard::Get()->Down(VK_DOWN))
 		{
-			if (Math::Abs(check.first - saveTime) <= 0.2f)
+			if (Math::Abs(check.first - saveTime) <= 0.25f)
 			{
 				if (check.second)
 				{
@@ -86,7 +86,7 @@ bool BeatManager::CheckInputForUpdate()
 
 				}
 			}
-			else if (Math::Abs(check.first - saveTime) > 0.2f && Math::Abs(check.first - saveTime) < 0.505f)
+			else if (Math::Abs(check.first - saveTime) > 0.25f && Math::Abs(check.first - saveTime) < 0.505f)
 			{
 
 				if (checkInfos.front().second == true)
@@ -200,7 +200,7 @@ void BeatManager::MusicStart()
 	{
 		saveTime = 0.f;
 		SOUNDMANAGER->Play("stage1");
-		SOUNDMANAGER->SetVolume("stage1", 0.6f);
+		SOUNDMANAGER->SetVolume("stage1", 0.3f);
 		bMusic = true;
 	}
 }

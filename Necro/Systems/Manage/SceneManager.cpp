@@ -8,19 +8,18 @@ SceneManager::SceneManager()
 {
 }
 
-
 SceneManager::~SceneManager()
 {
-	for (size_t i = 0; i < scenes.size(); i++)
+	MapIter Iter = scenes.begin();
+	for (; Iter != scenes.end();)
 	{
-		SceneBase* node = scenes.top();
+		SceneBase* node = Iter->second;
 		node->Release();
 		SafeDelete(node);
-		scenes.pop();
+
+		Iter = scenes.erase(Iter);
 	}
 }
-
-
 
 void SceneManager::Update(float tick)
 {
@@ -29,39 +28,51 @@ void SceneManager::Update(float tick)
 
 }
 
-
-
-
-void SceneManager::AddScene(SceneBase * node)
+void SceneManager::AddScene(string name, SceneBase * node)
 {
-	nowScene = node;
-
-	node->Init();
-	scenes.push(node);
+	scenes.insert(make_pair(name, node));
 }
 
-void SceneManager::PopScene()
+void SceneManager::PopScene(string name)
 {
-	SceneBase* node = scenes.top();
-	node->Release();
-	SafeDelete(node);
-	scenes.pop();
+	MapIter Iter = scenes.find(name);
+	if (Iter != scenes.end())
+	{
+		SceneBase* node = Iter->second;
+		node->Release();
+		SafeDelete(node);
 
-	nowScene = scenes.top();
+		scenes.erase(Iter);
+	}
 }
 
-void SceneManager::ChangeScene(SceneBase * node)
+void SceneManager::ChangeScene(string name)
 {
-	SceneBase* scene = scenes.top();
-	scene->Release();
-	SafeDelete(scene);
-	scenes.pop();
+	if (nowScene != nullptr)
+	{
+		nowScene->Release();
+		SafeDelete(nowScene);
+	}
 
-	AddScene(node);
+	SceneBase* scene = FindScene(name);
+	nowScene = scene;
+	scene->Init();
 }
 
 SceneBase * SceneManager::GetNowScene()
 {
 	Log_ErrorAssert(nowScene != nullptr);
 	return nowScene;
+}
+
+SceneBase * SceneManager::FindScene(string name)
+{
+	MapIter Iter = scenes.find(name);
+
+	if (Iter != scenes.end())
+		return Iter->second;
+
+	
+	LOG->Warning(__FILE__, __LINE__, "no scene");
+	return nullptr;
 }

@@ -4,19 +4,19 @@ class SceneManager
 {
 	SingletonHeader(SceneManager)
 public:
-
 	void Release();
 	void Update(float tick);
-	//void Render();
-	//void ImguiRender();
 
-
-	void AddScene(SceneBase* node);
-	void PopScene();
-	void ChangeScene(SceneBase* node);
+	void AddScene(string name, SceneBase* node);
+	void PopScene(string name);
+	void ChangeScene(string name);
 	SceneBase* GetNowScene();
+
 private:
-	stack<SceneBase*> scenes;
+	SceneBase* FindScene(string name);
+
+	using MapIter = unordered_map<string, SceneBase*>::iterator;
+	unordered_map<string, SceneBase*> scenes;
 
 	SceneBase* nowScene;
 };

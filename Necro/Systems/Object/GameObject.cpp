@@ -21,6 +21,7 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	this->size = size;
 	bActive = true;
 	position = pos;
+	this->size = size;
 	rc = FloatRect(pos, size, Pivot::CENTER);
 	bBeatChance = 1;
 

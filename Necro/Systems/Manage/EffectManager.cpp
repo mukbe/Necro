@@ -28,6 +28,7 @@ void EffectManager::Update(float tick)
 			if (effect.Frame >= effect.MaxFrame)
 			{
 				effect.RoopCount--;
+				effect.Frame = 0;
 			}
 		}
 	}
@@ -62,6 +63,8 @@ void EffectManager::Fire(string key, D3DXVECTOR2 pos, D3DXVECTOR2 size, float ra
 	effect.Rect = FloatRect(D3DXVECTOR2(0, 0), size, Pivot::CENTER);
 	effect.InvFps = 1.f / fps;
 	effect.RoopCount = 1;
+	if (effect.Image->GetMaxFrame().x < 1.5f)
+		effect.RoopCount++;
 	playList.push_back(effect);
 }
 

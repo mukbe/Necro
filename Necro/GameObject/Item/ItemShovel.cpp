@@ -8,7 +8,7 @@ ItemShovel::ItemShovel(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	:ItemBase(name,pos,size)
 {
 	bShow = false;
-	SetCost(500);
+	
 }
 
 ItemShovel::~ItemShovel()
@@ -43,7 +43,7 @@ void ItemShovel::Render()
 
 void ItemShovel::EatItem()
 {
-	_GameData->MinusCoin(cost);
+	
 
 	_GameData->SetShovelData(info);
 	POINT myIndex = PosToIndex(position, TileManager::tileSize, TileManager::pivotPos);

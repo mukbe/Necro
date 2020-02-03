@@ -23,11 +23,7 @@
 #include "./GameObject/UI/AttackSlot.h"			// ¹«±â½½·Ô
 #include "./GameObject/UI/ShovelSlot.h"			// »ð ½½·Ô
 #include "./GameObject/UI/TorchSlot.h"			// È¶ºÒ ½½·Ô
-#include "./GameObject/UI/BodySlot.h"			// ¹æ¾î±¸ ½½·Ô
-#include "./GameObject/UI/HeadSlot.h"			// ¶Ò¹è±â ½½·Ô
 #include "./GameObject/UI/ItemSlot.h"			// Ã¼·Â/ ¾ÆÀÌÅÛ ½½·Ô
-#include "./GameObject/UI/BoomSlot.h"			// ÆøÅº ½½·Ô
-#include "./GameObject/UI/ThrowSlot.h"			// ´øÁö±â ½½·Ô
 #include "./GameObject/UI/HPUi.h"				// Ã¼·ÂUI 
 
 // Item 
@@ -35,8 +31,6 @@
 #include "./GameObject/Item/ItemShovel.h"		// »ð or °î±ª
 #include "./GameObject/Item/ItemWeapon.h"		// ¹«±â 3Á¾·ù
 #include "./GameObject/Item/ItemDiamond.h"		// ´ÙÀÌ¾Æ¸óµå
-#include "./GameObject/Item/ItemBody.h"			// ¹æ¾î±¸
-#include "./GameObject/Item/ItemHead.h"			// ¶Ò¹è±â
 #include "./GameObject/Item/ItemHP.h"			// Ã¼·ÂÇÏÆ® 
 #include "./GameObject/Item/ItemCoin.h"			// µ¿Àü
 #include "./GameObject/Item/ItemTorch.h"
@@ -48,8 +42,13 @@
 
 
 
+// Wall
 #include "./GameObject/Map/WallBase.h"
 #include "./GameObject/Map/StoneWall.h"
+#include "./GameObject/Map/GravelWall.h"
+#include "./GameObject/Map/GoldWall.h"
+#include "./GameObject/Map/Door.h"
+#include "./GameObject/Map/DoorVertical.h"
 
 TileTestScene::TileTestScene()
 	: SceneBase()
@@ -132,11 +131,11 @@ void TileTestScene::Init()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		GoldWall* testWall = _ObjectPool->CreateObject<GoldWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(0, i);
 		_TileMap->Tile(0, i)->AddObject(ObjectWall, testWall);
 
-		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall = _ObjectPool->CreateObject<GoldWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(9, i);
 		_TileMap->Tile(9, i)->AddObject(ObjectWall, testWall);
 
@@ -144,11 +143,11 @@ void TileTestScene::Init()
 
 	for (int i = 0; i < 7; ++i)
 	{
-		StoneWall* testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		GravelWall* testWall = _ObjectPool->CreateObject<GravelWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 0);
 		_TileMap->Tile(i+1, 0)->AddObject(ObjectWall, testWall);
 
-		testWall = _ObjectPool->CreateObject<StoneWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
+		testWall = _ObjectPool->CreateObject<GravelWall>("Wall", D3DXVECTOR2(0, 0), D3DXVECTOR2(52.f, 52.f));
 		testWall->SetTransformInfo(i+1, 9);
 		_TileMap->Tile(i+1, 9)->AddObject(ObjectWall, testWall);
 	}
@@ -163,14 +162,10 @@ void TileTestScene::Init()
 	// UI 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<HeadSlot>("UI_HeadSlot", D3DXVECTOR2(390, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ItemSlot>("UI_ItemSlot", D3DXVECTOR2(70, 170), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BoomSlot>("UI_BoomSlot", D3DXVECTOR2(70, 350), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<ThrowSlot>("UI_ThrowSlot", D3DXVECTOR2(70, 260), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
-	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
+	_ObjectPool->CreateObject<Diamond>("Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
-	_ObjectPool->CreateObject<BodySlot>("UI_BodySlot", D3DXVECTOR2(310, 75), D3DXVECTOR2(75, 75));
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -193,17 +188,13 @@ void TileTestScene::Init()
 	_GameData->SetShovelData(IPickaxe->GetInfo());
 
 
-	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
+	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("ItemDiamond", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 5,5 });
-	
-	//º¸·ù
-	//ItemHead* Head = _ObjectPool->CreateObject<ItemHead>("ItemHead", D3DXVECTOR2(), D3DXVECTOR2());
-	//Head->Init({ 5,6 });
-	//Head->Init({ 5,6 });
-	//_TileMap->Tile(5, 6)->AddObject(ObjectItem, Head);
+	_TileMap->Tile(5, 5)->AddObject(ObjectItem, Dia);
 
 	ItemCoin* Coin = _ObjectPool->CreateObject<ItemCoin>("ItemCoin", D3DXVECTOR2(), D3DXVECTOR2());
 	Coin->Init({ 8,1 }); 
+	_TileMap->Tile(8, 1)->AddObject(ObjectItem, Coin);
 
 	ItemTorch* Torch = _ObjectPool->CreateObject<ItemTorch>("Torch", D3DXVECTOR2(), D3DXVECTOR2());
 	Torch->Init({ 3,2 });
@@ -229,6 +220,8 @@ void TileTestScene::Init()
 	Spear->SetItemData(WSpear, { 1,2 }, 1, "Swipe_Spear", "Spear");
 	_GameData->SetWeaponData(Spear->GetInfo());
 
+
+	_TileMap->ActiveAll();
 }
 
 void TileTestScene::ImageLoad()
@@ -247,11 +240,27 @@ void TileTestScene::ImageLoad()
 
 	_ImageManager->AddTexture("NoteBeat", ResourcePath + L"UI/basicbeat.png");
 
+	// Wall
 	_ImageManager->AddTexture("DefaultWall", ResourcePath + L"Wall/WallBase.png");
 	_ImageManager->AddTexture("StoneWall", ResourcePath + L"Wall/StoneWall.png");
+	_ImageManager->AddTexture("GravelWallFine", ResourcePath + L"Wall/GravelWallFine.png");
+	_ImageManager->AddTexture("GravelWallDamaged", ResourcePath + L"Wall/GravelWallDamaged.png");
+	_ImageManager->AddTexture("GoldWallFine", ResourcePath + L"Wall/GoldWallFine.png");
+	_ImageManager->AddTexture("GoldWallDamaged", ResourcePath + L"Wall/GoldWallDamaged.png");
+	_ImageManager->AddTexture("Door", ResourcePath + L"Stuff/Door.png");
+	_ImageManager->AddTexture("DoorVertical", ResourcePath + L"Stuff/DoorVertical.png");
+	_ImageManager->AddTexture("Stairs", ResourcePath + L"Stuff/Stairs.png");
+	_ImageManager->AddTexture("BlackWall", ResourcePath + L"Wall/BlackWall.png");
+	SOUNDMANAGER->AddSound("Dig", "../_Resources/Sound/Dig.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DigFail", "../_Resources/Sound/DigFail.Ogg", false, false);
+	SOUNDMANAGER->AddSound("DoorOpen", "../_Resources/Sound/DoorOpen.Ogg", false, false);
 	
 	// Effect
 	_ImageManager->AddTexture("EffectShovel", ResourcePath + L"Effect/Shovel.png");
+	wstring temp = ResourcePath + L"Effect/Shovel.png";
+	string temp1;
+	temp1.assign(temp.begin(), temp.end());
+	EFFECTS->AddEffect("EffectShovel", "EffectShovel");
 	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
 	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
 	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
@@ -262,7 +271,7 @@ void TileTestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
 	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
+	_ImageManager->AddFrameTexture("ItemDiamond", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
 	_ImageManager->AddFrameTexture("Leather_Armor", ResourcePath + L"Item/Leather_Armor.png", 1, 2);
 	_ImageManager->AddFrameTexture("Head_Cap", ResourcePath + L"Item/Head_Cap.png", 1, 2);
@@ -273,14 +282,14 @@ void TileTestScene::ImageLoad()
 
 	//UI
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
-	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	_ImageManager->AddTexture("Diamond", ResourcePath + L"UI/UI_Diamond.png");
 	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
 	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
-	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
-	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot2.png");
-	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
-	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
-	_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/UI_ThrowSlot.png");
+	//_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
+	//_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot2.png");
+	//_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
+	//_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
+	//_ImageManager->AddTexture("UI_ThrowSlot", ResourcePath + L"UI/UI_ThrowSlot.png");
 	_ImageManager->AddTexture("UI_Coin", ResourcePath + L"UI/UI_Coin.png");
 	_ImageManager->AddTexture("E_Hp", ResourcePath + L"UI/Heart_Empty.png");
 	_ImageManager->AddTexture("H_Hp", ResourcePath + L"UI/Heart_half .png");
