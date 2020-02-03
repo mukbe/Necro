@@ -26,7 +26,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	gravity = 0;
 	startTime = 0;
 	isSight = false;
-	isAttack = false;
+
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
@@ -62,8 +62,9 @@ void Player::Init()
 	SOUNDMANAGER->AddSound("playerHurt", String::WStringToString(path), true, false);
 	attackRange = _GameWorld->GetGameData()->GetWeaponData().Range;
 	EFFECTS->AddEffect("Playerhit", "Playerhit");
-
-
+	EFFECTS->AddEffect("Swipe_Dagger", "Swipe_Dagger");
+	EFFECTS->AddEffect("Swipe_Spear", "Swipe_Spear");
+	EFFECTS->AddEffect("Swipe_Broadsword", "Swipe_Broadsword");
 
 }
 
@@ -524,12 +525,13 @@ void PlayerAttack::BeatExcute()
 
 void PlayerAttack::Excute()
 {
-
+	string effectName = _GameWorld->GetGameData()->GetWeaponData().EffactImagekey;
 	if (me->playerDirection == PlayerLeft)
 	{
 		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x-26, me->position.y - 20), D3DXVECTOR2(52, 52),0.5F);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 
 		}
@@ -539,6 +541,7 @@ void PlayerAttack::Excute()
 		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetObjects(ObjectMonster);
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x + 26, me->position.y - 20), D3DXVECTOR2(52, 52), -0.5F);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}
@@ -548,6 +551,7 @@ void PlayerAttack::Excute()
 
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x , me->position.y - 46), D3DXVECTOR2(52, 52), 1.F);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}
@@ -557,6 +561,7 @@ void PlayerAttack::Excute()
 
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x , me->position.y +6), D3DXVECTOR2(52, 52), 1.F);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}
