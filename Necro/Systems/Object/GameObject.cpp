@@ -18,6 +18,7 @@ GameObject::GameObject(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	worldBuffer = Buffers->FindShaderBuffer<WorldBuffer>();
 	transform = Matrix2D(pos);
 
+	this->size = size;
 	bActive = true;
 	position = pos;
 	rc = FloatRect(pos, size, Pivot::CENTER);
