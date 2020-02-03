@@ -200,7 +200,7 @@ void BeatManager::MusicStart()
 	{
 		saveTime = 0.f;
 		SOUNDMANAGER->Play("stage1");
-		SOUNDMANAGER->SetVolume("stage1", 0.6f);
+		SOUNDMANAGER->SetVolume("stage1", 0.3f);
 		bMusic = true;
 	}
 }

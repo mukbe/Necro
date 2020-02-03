@@ -37,7 +37,7 @@ void ItemDiamond::Update(float tick)
 void ItemDiamond::Render()
 {
 	if (itemTex)
-		itemTex->FrameRender(rc, nullptr, (UINT)bShow);
+		itemTex->FrameRender(rc, nullptr, (UINT)!bShow);
 
 }
 
@@ -64,14 +64,3 @@ void ItemDiamond::EatItem()
 
 }
 
-void ItemDiamond::Show()
-{
-}
-
-void ItemDiamond::Hide()
-{
-}
-
-void ItemDiamond::Active()
-{
-}

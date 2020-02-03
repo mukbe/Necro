@@ -46,7 +46,7 @@ void ItemBase::Update(float tick)
 
 void ItemBase::Render()
 {
-	if (cost != 0)
+	if (cost != 0 && bShow != false)
 	{
 		shared_ptr<Texture> font = _ImageManager->FindTexture("NumberFontUI");
 		D3DXVECTOR2 offset = D3DXVECTOR2(font->GetFrameSize().x * 1.75f, 0);

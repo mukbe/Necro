@@ -20,9 +20,11 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	myIndex = { 0,0 };
 	//startPos = { 0,0 };
 	//mynextIndex = { 0,0 };
+	bShow = false;
+	frameY = 1;
 	ChangeState("Idle");
-	
-	
+
+	bActive = false;
 	AddCallback("MonsterHit", [&](TagMessage msg)
 	{
 		CAMERA->Shake();
@@ -204,8 +206,11 @@ void Monster::Hide()
 
 void Monster::Active()
 {
-	bActive = true;
+	bActive = true;	
+
 }
+
+
 
 //움직임 클래쓰
 void MonsterStateOneStep::Enter()

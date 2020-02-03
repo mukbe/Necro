@@ -11,7 +11,7 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	FrameCount = 0;
 	frameX = 0;
-	frameY = 0;
+	
 	position = pos;
 	this->size = size;
 	startPos = pos;
