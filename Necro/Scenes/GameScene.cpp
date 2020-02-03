@@ -104,7 +104,7 @@ void GameScene::Init()
 	}
 
 	_TileMap->LoadMap(L"Stage1");
-	_TileMap->ActiveAll();
+	//_TileMap->ActiveAll();
 }
 
 void GameScene::ImageLoad()

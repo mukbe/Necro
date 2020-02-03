@@ -11,7 +11,8 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	isSelected = false;
 	haveIDrawHighlight = false;
 	isUI = false;
-	alpha = 100;
+	alpha = 0.f;
+	bActive = false;
 
 	for (int i = ObjectTypeBegin; i != ObjectTypeEnd; ++i)
 	{
