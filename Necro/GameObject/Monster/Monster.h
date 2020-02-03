@@ -20,7 +20,9 @@ public:
 	virtual void ImguiRender();
 	void ChangeState(string key);
 	virtual void ProcessDestroy();
-	
+	virtual void Show();
+	virtual void Hide();
+	virtual void clocking();
 
 protected :
 
@@ -32,13 +34,13 @@ protected :
 	D3DXVECTOR2 startPos;
 	D3DXVECTOR2 endPos;
 
-	float batX;
-	float batY;
 	int monsterBeat;
 	int life;
 	POINT myIndex;
 	POINT mynextIndex;
-	bool isDeath;
+	bool monkeyckeak;
+	bool ismotion;
+	bool bShow;
 private:
 	
 	

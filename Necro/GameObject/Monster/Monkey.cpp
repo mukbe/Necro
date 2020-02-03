@@ -12,13 +12,13 @@ Monkey::Monkey(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	position = pos;
 	this->size = size;
 	startPos = pos;
-	endPos = { position.x + 52.f, position.y + 52.f };
+	endPos = { position.x , position.y  };
 	
-	monsterBeat = 2;
+	monsterBeat = 1;
 
 	life = 1;
 
-
+	ismotion = true;
 }
 
 
@@ -43,18 +43,21 @@ void Monkey::Update(float tick)
 {
 	Monster::Update(tick);
 	
-
-	FrameCount++;
-	if (FrameCount == 10)
+	if (ismotion)
 	{
-		frameX++;
-		FrameCount = 0;
-		if (frameX > 5)
+		FrameCount++;
+		if (FrameCount == 10)
 		{
+			frameX++;
+			FrameCount = 0;
+			if (frameX > 3)
+			{
 
-			frameX = 0;
+				frameX = 0;
+			}
 		}
 	}
+	clocking();
 }
 
 void Monkey::PostUpdate()

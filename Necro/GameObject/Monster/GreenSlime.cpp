@@ -66,7 +66,7 @@ void GreenSlime::Update(float tick)
 		}
 	}
 	
-	
+	clocking();
 	
 	/*if (KeyCode->Down(VK_RIGHT))
 	{

@@ -61,6 +61,7 @@ void Bat::Update(float tick)
 		}
 	}
 
+	clocking();
 }
 
 void Bat::PostUpdate()

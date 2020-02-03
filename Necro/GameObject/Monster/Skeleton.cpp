@@ -61,6 +61,7 @@ void Skeleton::Update(float tick)
 		}
 	}
 
+	clocking();
 }
 
 void Skeleton::PostUpdate()
