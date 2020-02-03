@@ -26,8 +26,9 @@ Program::Program()
 	_SceneManager->AddScene("Game", scene);
 
 	_SceneManager->ChangeScene("Game");
+
 	CAMERA->ModeTargetPlayer();
-	
+	//CAMERA->ModeFreeCamera();
 
 
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
@@ -79,8 +80,9 @@ void Program::PreUpdate()
 
 void Program::Update(float tick)
 {
-	_GameWorld->Update(tick);
 	EFFECTS->Update(tick);
+
+	_GameWorld->Update(tick);
 
 }
 
@@ -101,11 +103,11 @@ void Program::Render()
 	//_ImageManager->FindTexture("test")->FrameRender(FloatRect({ 100,100 }, 100, Pivot::CENTER), nullptr);
 	EFFECTS->Render();
 
-	wstring str;
-	str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
-	str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
-	p2DRenderer->SetCamera(false);
-	p2DRenderer->DrawText2D(D3DXVECTOR2((Mouse::Get()->GetPosition().x - 200.f), (Mouse::Get()->GetPosition().y - 20.f)), str, 20, gridColor);
+	//wstring str;
+	//str += L"pos.x : " + to_wstring(CAMERA->GetMousePos().x).substr(0, 6);
+	//str += L"pos.y : " + to_wstring(CAMERA->GetMousePos().y).substr(0, 6);
+	//p2DRenderer->SetCamera(false);
+	//p2DRenderer->DrawText2D(D3DXVECTOR2((Mouse::Get()->GetPosition().x - 200.f), (Mouse::Get()->GetPosition().y - 20.f)), str, 20, gridColor);
 
 }
 

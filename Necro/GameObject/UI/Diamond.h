@@ -16,6 +16,7 @@ public:
 	virtual void Update(float tick);
 
 	virtual void Render();
+	virtual void EatItem(string key);
 
 private:
 	shared_ptr<Texture> font;

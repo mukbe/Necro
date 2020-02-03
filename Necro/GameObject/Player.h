@@ -97,7 +97,12 @@ public:
 
 	void setSight(bool sight) { isSight = sight; }
 
-	void SetIndex(POINT pt) { myIndex = pt; }
+	void SetIndex(POINT pt) 
+	{
+		myIndex = pt;
+		_GameWorld->GetGameData()->PosRedefinition(myIndex);
+
+	}
 };
 
 

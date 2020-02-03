@@ -28,7 +28,7 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("MonsterHit", [&](TagMessage msg)
 	{
 		CAMERA->Shake();
-		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52));
+		//EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52),0.f,20);
 		ProcessDestroy();
 	});
 

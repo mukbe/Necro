@@ -50,7 +50,7 @@ void Diamond::Render()
 {
 	UIBase::Render();
 
-	_ImageManager->Render("Diamond", rc, nullptr);
+	_ImageManager->FrameRender("Diamond", rc, nullptr);
 
 	D3DXVECTOR2 start = position + D3DXVECTOR2(35, 0);
 
@@ -64,6 +64,12 @@ void Diamond::Render()
 		font->FrameRender(rc, nullptr, count[t], 0);
 	}
 
+}
+
+void Diamond::EatItem(string key)
+{
+	string temp = key.substr(2, key.size()-7);
+	itemTex = _ImageManager->FindTexture(temp);
 }
 
 void Diamond::PushCount(UINT val)

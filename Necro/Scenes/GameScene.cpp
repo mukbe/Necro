@@ -147,8 +147,13 @@ void GameScene::ImageLoad()
 	temp1.assign(temp.begin(), temp.end());
 	EFFECTS->AddEffect("EffectShovel", "EffectShovel");
 	_ImageManager->AddFrameTexture("Swipe_Dagger", ResourcePath + L"Effect/Swipe_Dagger.png", 3, 1);
+	EFFECTS->AddEffect("Swipe_Dagger", "Swipe_Dagger");
+
 	_ImageManager->AddFrameTexture("Swipe_Spear", ResourcePath + L"Effect/Swipe_Spear.png", 6, 1);
+	EFFECTS->AddEffect("Swipe_Spear", "Swipe_Spear");
+
 	_ImageManager->AddFrameTexture("Swipe_Broadsword", ResourcePath + L"Effect/Swipe_Broadsword.png", 3, 1);
+	EFFECTS->AddEffect("Swipe_Broadsword", "Swipe_Broadsword");
 	_ImageManager->AddFrameTexture("Playerhit", ResourcePath + L"Effect/Playerhit.png", 5, 1);
 
 	//Item
@@ -156,7 +161,7 @@ void GameScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Dagger", ResourcePath + L"Item/Dagger.png", 1, 2);
 	_ImageManager->AddFrameTexture("Broadsword", ResourcePath + L"Item/Broadsword.png", 1, 2);
 	_ImageManager->AddFrameTexture("Spear", ResourcePath + L"Item/Spear.png", 1, 2);
-	_ImageManager->AddFrameTexture("ItemDiamond", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
+	_ImageManager->AddFrameTexture("Diamond", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
 	_ImageManager->AddFrameTexture("Leather_Armor", ResourcePath + L"Item/Leather_Armor.png", 1, 2);
 	_ImageManager->AddFrameTexture("Head_Cap", ResourcePath + L"Item/Head_Cap.png", 1, 2);
@@ -167,7 +172,7 @@ void GameScene::ImageLoad()
 
 	//UI
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
-	_ImageManager->AddTexture("Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	//_ImageManager->AddTexture("Diamond", ResourcePath + L"UI/UI_Diamond.png");
 	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
 	_ImageManager->AddTexture("UI_TorchSlot", ResourcePath + L"UI/UI_TorchSlot.png");
 	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");

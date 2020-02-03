@@ -3960,3 +3960,291 @@ Code: can't find object
  2020.2.3	15:16:26	 'Directx11 2D' Start Succeeded
 			 End
 ===================================================
+===================================================
+ 2020.2.3	15:19:59	 'Directx11 2D' Start Succeeded
+15:19:59	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:22:32	 'Directx11 2D' Start Succeeded
+15:22:32	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:23:20	 'Directx11 2D' Start Succeeded
+15:23:21	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:24:48	 'Directx11 2D' Start Succeeded
+15:24:49	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:29:36	 'Directx11 2D' Start Succeeded
+15:29:36	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:30:48	 'Directx11 2D' Start Succeeded
+15:30:48	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:31:27	 'Directx11 2D' Start Succeeded
+15:31:27	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:32:16	 'Directx11 2D' Start Succeeded
+15:32:16	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:32:52	 'Directx11 2D' Start Succeeded
+15:32:52	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:40:39	 'Directx11 2D' Start Succeeded
+15:40:39	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:42:38	 'Directx11 2D' Start Succeeded
+15:42:38	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:46:08	 'Directx11 2D' Start Succeeded
+15:46:08	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:48:32	 'Directx11 2D' Start Succeeded
+15:48:32	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:49:27	 'Directx11 2D' Start Succeeded
+15:49:28	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:49:55	 'Directx11 2D' Start Succeeded
+15:49:55	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:50:10	 'Directx11 2D' Start Succeeded
+15:50:10	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:50:38	 'Directx11 2D' Start Succeeded
+15:50:39	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:50:59	 'Directx11 2D' Start Succeeded
+15:50:59	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:51:39	 'Directx11 2D' Start Succeeded
+15:51:39	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:53:26	 'Directx11 2D' Start Succeeded
+15:53:26	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:54:38	 'Directx11 2D' Start Succeeded
+15:54:39	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:55:07	 'Directx11 2D' Start Succeeded
+15:55:08	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:56:46	 'Directx11 2D' Start Succeeded
+15:56:46	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:57:33	 'Directx11 2D' Start Succeeded
+15:57:34	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:58:38	 'Directx11 2D' Start Succeeded
+15:58:39	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+			 End
+===================================================
+===================================================
+ 2020.2.3	15:59:12	 'Directx11 2D' Start Succeeded
+15:59:34	Assertion Failure!
+File: c:\users\kga-6\desktop\ÆÀÆ÷Æú\necro\necro\render\imagemanager.cpp
+Line: 22
+Code: Already Init this key
+===================================================
+ 2020.2.3	15:59:47	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:00:39	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:01:18	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:01:56	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:02:41	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:03:01	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:05:37	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:06:42	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:07:30	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:09:47	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:10:41	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:11:08	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:12:03	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:12:37	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:12:48	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:14:04	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:14:26	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:17:30	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:17:40	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:19:19	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:20:24	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:20:38	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:21:06	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:21:37	 'Directx11 2D' Start Succeeded
+===================================================
+ 2020.2.3	16:22:13	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:22:41	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:23:03	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:23:53	 'Directx11 2D' Start Succeeded
+			 End
+===================================================
+===================================================
+ 2020.2.3	16:27:07	 'Directx11 2D' Start Succeeded
+			 End
+===================================================

@@ -47,6 +47,7 @@ void UIBase::Update(float tick)
 
 		if (factor > 1.0)
 		{
+			saveTime = 0.f;
 			screenPos = Math::Lerp(screenPosItem, position, 1.f);
 			bMove = false;
 		}
@@ -70,8 +71,7 @@ void UIBase::Render()
 
 void UIBase::EatItem(string key)
 {
-	string temp = key.substr(2, key.size()-4);
-	itemTex = _ImageManager->FindTexture(temp);
+	itemTex = _ImageManager->FindTexture(key);
 }
 
 void UIBase::SetLocalPosition(D3DXVECTOR2 pos)
