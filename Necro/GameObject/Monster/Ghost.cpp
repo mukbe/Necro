@@ -62,7 +62,7 @@ void Ghost::PostUpdate()
 
 void Ghost::Render()
 {
-	_ImageManager->FindTexture("ghost")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("ghost")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow);
 }
 
 void Ghost::ImguiRender()

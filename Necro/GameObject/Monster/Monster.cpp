@@ -20,13 +20,15 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	myIndex = { 0,0 };
 	//startPos = { 0,0 };
 	//mynextIndex = { 0,0 };
+	bShow = false;
+	frameY = 1;
 	ChangeState("Idle");
-	
-	
+
+	bActive = false;
 	AddCallback("MonsterHit", [&](TagMessage msg)
 	{
 		CAMERA->Shake();
-		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52));
+		//EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52),0.f,20);
 		ProcessDestroy();
 	});
 
@@ -191,6 +193,24 @@ void Monster::ProcessDestroy()
 		
 	}
 }
+
+void Monster::Show()
+{
+	bShow = true;
+}
+
+void Monster::Hide()
+{
+	bShow = false;
+}
+
+void Monster::Active()
+{
+	bActive = true;	
+
+}
+
+
 
 //움직임 클래쓰
 void MonsterStateOneStep::Enter()

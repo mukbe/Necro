@@ -14,6 +14,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	this->size = size;
 	position = pos;
 	imagePos = pos;
+	imagePos.y = 190.f;
 	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->AddObject(ObjectPlayer, this); // 타일에 등록
 	rc = FloatRect(pos, size, Pivot::CENTER);
@@ -30,7 +31,7 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	AddCallback("PlayerHit", [&](TagMessage msg) {
 
 		CAMERA->Shake();
-		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y-20) , D3DXVECTOR2(52,52));
+		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52));
 		SOUNDMANAGER->Play("playerHurt", 0.6f);
 
 		// 피를 깍아준다. >> 애너미에서 게임 데이터로 쏴야 하지않나? 
@@ -44,7 +45,6 @@ Player::Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	stateList.insert(make_pair("Move", new PlayerMove(this)));
 	stateList.insert(make_pair("Attack", new PlayerAttack(this)));
 	ChangeState("Idle");
-
 }
 
 
@@ -65,6 +65,8 @@ void Player::Init()
 	EFFECTS->AddEffect("Swipe_Dagger", "Swipe_Dagger");
 	EFFECTS->AddEffect("Swipe_Spear", "Swipe_Spear");
 	EFFECTS->AddEffect("Swipe_Broadsword", "Swipe_Broadsword");
+	myIndex = PosToIndex(position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	_GameWorld->GetGameData()->PosRedefinition(myIndex);
 
 }
 
@@ -199,15 +201,14 @@ void Player::Sight()
 
 void Player::Shovel(TileNode* TilePos, vector<GameObject*> temp)
 {
-	if (TilePos->GetAttribute() == ObjDestructable)
-	{
 		// 해당 오브젝트 찾아서 조지는듯 
 		temp = TilePos->GetObjects(ObjectWall);
 		for (int i = 0; i < temp.size(); ++i)
 		{
 			_MessagePool->ReserveMessage(temp[i], "ShovelHit");
 		}
-	}
+	
+
 }
 
 void Player::InitToMove(TileNode * TilePos, float JumpPower, float Gravity)
@@ -512,7 +513,7 @@ void PlayerAttack::Excute()
 		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x - 1, me->myIndex.y)->GetObjects(ObjectMonster);
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
-			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x-26, me->position.y - 20), D3DXVECTOR2(52, 52),0.5F);
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x - 26, me->position.y - 20), D3DXVECTOR2(52, 52), Math::PI, 20);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 
 		}
@@ -522,7 +523,7 @@ void PlayerAttack::Excute()
 		vector<GameObject*> tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x + 1, me->myIndex.y)->GetObjects(ObjectMonster);
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
-			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x + 26, me->position.y - 20), D3DXVECTOR2(52, 52), -0.5F);
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x + 26, me->position.y - 20), D3DXVECTOR2(52, 52),0.f,20);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}
@@ -532,7 +533,7 @@ void PlayerAttack::Excute()
 
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
-			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x , me->position.y - 46), D3DXVECTOR2(52, 52), 1.F);
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x, me->position.y - 46), D3DXVECTOR2(52, 52), -Math::PI*0.5f, 20);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}
@@ -542,7 +543,7 @@ void PlayerAttack::Excute()
 
 		for (int i = 0; i < tempArr.size(); ++i)
 		{
-			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x , me->position.y +6), D3DXVECTOR2(52, 52), 1.F);
+			EFFECTS->Fire(effectName, D3DXVECTOR2(me->position.x , me->position.y +6), D3DXVECTOR2(52, 52), Math::PI * 0.5f,20);
 			_MessagePool->ReserveMessage(tempArr[i], "MonsterHit");
 		}
 	}

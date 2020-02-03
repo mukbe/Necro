@@ -57,6 +57,12 @@ void SoundManager::Release()
 void SoundManager::Update()
 {
 	_system->update();
+	if (Keyboard::Get()->Down('G'))
+	{
+		int count = 0;
+		bool temp = _system->getChannelsPlaying(&count);
+		int a = 10;
+	}
 }
 
 void SoundManager::AddSound(string keyName, string soundName, bool bgm, bool loop)
@@ -86,7 +92,8 @@ void SoundManager::AddSound(string keyName, string soundName, bool bgm, bool loo
 	_mTotalSounds.insert(make_pair(keyName, &_sound[_mTotalSounds.size()]));
 
 }
-
+//사운드를 플레이한 채널의 카운트를 저장하고 나중에 이 페어를 가지고 옵션들은 처리해야됨
+//채널에 isPlaying 함수를 통해 카운트를 증감하여 플레이할때 넣어줘야됨
 void SoundManager::Play(string keyName, float volume)
 {
 	arrSoundsIter iter = _mTotalSounds.begin();
@@ -97,12 +104,26 @@ void SoundManager::Play(string keyName, float volume)
 	{
 		if (keyName == iter->first)
 		{
-			_system->playSound(FMOD_CHANNEL_REUSE, _sound[count], false, &_channel[count]);
-
-			_channel[count]->setVolume(volume);
 			break;
 		}
 	}
+
+	bool isPlay;
+	for (int i = 0;i < TOTALSOUNDBUFFER; i++)
+	{
+		_channel[i]->isPlaying(&isPlay);
+		if (isPlay == false)
+		{
+			_channel[i]->setVolume(volume);
+			_system->playSound(FMOD_CHANNEL_REUSE, *iter->second, false, &_channel[i]);
+
+			playCount.insert(make_pair(keyName, i));
+			break;
+		}
+	}
+
+
+
 }
 
 void SoundManager::Stop(string keyName)
@@ -160,21 +181,15 @@ void SoundManager::Resume(string keyName)
 
 bool SoundManager::IsPlaySound(string keyName)
 {
-	bool isPlay;
-	arrSoundsIter iter = _mTotalSounds.begin();
+	bool isPlay = false;
 
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	arrPlayCount::iterator Iter = playCount.find(keyName);
+	if (Iter != playCount.end())
 	{
-		if (keyName == iter->first)
-		{
-			_channel[count]->isPlaying(&isPlay);
-			break;
-		}
+		_channel[Iter->second]->isPlaying(&isPlay);
 	}
-
 	return isPlay;
+
 }
 
 bool SoundManager::IsPauseSound(string keyName)
@@ -249,18 +264,13 @@ void SoundManager::Setposition(string keyName, unsigned int time)
 }
 void SoundManager::SetVolume(string keyName, float volume)
 {
-	arrSoundsIter iter = _mTotalSounds.begin();
-
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	arrPlayCount::iterator Iter = playCount.find(keyName);
+	if (Iter != playCount.end())
 	{
-		if (keyName == iter->first)
-		{
-			_channel[count]->setVolume(volume);
-			break;
-		}
+		_channel[Iter->second]->setVolume(volume);
 	}
+	
+
 
 }
 

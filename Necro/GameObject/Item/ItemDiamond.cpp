@@ -11,7 +11,7 @@ ItemDiamond::ItemDiamond(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	itemKey = name;
 	int temp = Math::Clamp(hasDia, 0, 3);
 	itemKey += to_string(temp);
-	itemTex = _ImageManager->FindTexture("Dia2");
+	itemTex = _ImageManager->FindTexture("Diamond");
 }
 
 ItemDiamond::~ItemDiamond()
@@ -37,7 +37,7 @@ void ItemDiamond::Update(float tick)
 void ItemDiamond::Render()
 {
 	if (itemTex)
-		itemTex->FrameRender(rc, nullptr, (UINT)bShow);
+		itemTex->FrameRender(rc, nullptr, (UINT)!bShow);
 
 }
 
@@ -55,7 +55,7 @@ void ItemDiamond::EatItem()
 	TileNode* tempTile = _TileMap->Tile(myIndex.x, myIndex.y);
 	tempTile->DeleteObject(ObjectItem, this);
 
-	GameObject* ui = _ObjectPool->FindObject<UIBase>("UI_Diamond");
+	GameObject* ui = _ObjectPool->FindObject<UIBase>("Diamond");
 	_MessagePool->ReserveMessage(ui, "EatItem", 0.f, itemKey);
 	_MessagePool->ReserveMessage(ui, "CurrentPosition", 0.f, position);
 
@@ -64,14 +64,3 @@ void ItemDiamond::EatItem()
 
 }
 
-void ItemDiamond::Show()
-{
-}
-
-void ItemDiamond::Hide()
-{
-}
-
-void ItemDiamond::Active()
-{
-}

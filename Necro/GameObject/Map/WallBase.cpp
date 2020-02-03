@@ -8,18 +8,24 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	AddCallback("ShovelHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 },0.f,15);
+
 		if (type == WallDestructibleShovel)
 		{
 			ProcessDestroy();
+
 		}
 		else
 		{
 			ProcessFail();
+
 		}
 		
 	});
 	AddCallback("PickHit", [&](TagMessage msg) {
 		haveIShowIcon = true;
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 }, 0.f, 15);
+
 		if (type == WallDestructiblePick || type == WallDestructibleShovel)
 		{
 			ProcessDestroy();
@@ -29,6 +35,12 @@ WallBase::WallBase(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 			ProcessFail();
 		}
 	});
+	AddCallback("Fail", [&](TagMessage msg) {
+
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f, TileManager::pivotPos.y), { 45,45 }, 0.f, 15);
+	});
+
+
 }
 
 WallBase::~WallBase()
@@ -81,7 +93,7 @@ void WallBase::Render()
 	{
 		//_ImageManager->FindTexture("EffectShovel")->Render(FloatRect(this->Transform().GetPos(), 52.f, Pivot::CENTER), NULL);
 		
-		EFFECTS->Fire("EffectShovel", this->Transform().GetPos(), { 45,45 });
+		EFFECTS->Fire("EffectShovel", this->Transform().GetPos() - D3DXVECTOR2(0.f,TileManager::pivotPos.y), { 45,45 });
 	}
 }
 

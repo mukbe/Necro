@@ -11,7 +11,7 @@ Skeleton::Skeleton(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	FrameCount = 0;
 	frameX = 0;
-	frameY = 0;
+	
 	position = pos;
 	this->size = size;
 	startPos = pos;
@@ -70,7 +70,7 @@ void Skeleton::PostUpdate()
 void Skeleton::Render()
 {
 	
-	_ImageManager->FindTexture("skeleton")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("skeleton")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow);
 }
 
 void Skeleton::ImguiRender()

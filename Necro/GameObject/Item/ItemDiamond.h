@@ -16,9 +16,6 @@ public:
 	virtual void EatItem();
 
 
-	virtual void Show();
-	virtual void Hide();
-	virtual void Active();
 
 private:
 	shared_ptr<Texture> itemTex;

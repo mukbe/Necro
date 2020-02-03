@@ -62,7 +62,7 @@ void RedDragon::PostUpdate()
 void RedDragon::Render()
 {
 	
-	_ImageManager->FindTexture("reddragon")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, frameY);
+	_ImageManager->FindTexture("reddragon")->FrameRender(FloatRect(D3DXVECTOR2(position.x, position.y), size, Pivot::CENTER), nullptr, frameX, (UINT)!bShow);
 }
 
 void RedDragon::ImguiRender()

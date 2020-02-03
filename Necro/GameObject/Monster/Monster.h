@@ -20,7 +20,12 @@ public:
 	virtual void ImguiRender();
 	void ChangeState(string key);
 	virtual void ProcessDestroy();
-	
+	//시야에 따라서 실행할 함수들
+	virtual void Show();
+	virtual void Hide();
+
+	//처음 시야에 들어왔을 때 실행할 함수
+	virtual void Active();
 
 protected :
 
@@ -32,13 +37,13 @@ protected :
 	D3DXVECTOR2 startPos;
 	D3DXVECTOR2 endPos;
 
-	float batX;
-	float batY;
 	int monsterBeat;
 	int life;
 	POINT myIndex;
 	POINT mynextIndex;
-	bool isDeath;
+	bool monkeyckeak;
+	bool ismotion;
+	bool bShow;
 private:
 	
 	
