@@ -164,6 +164,7 @@
     <ClCompile Include="GameObject\Map\DoorVertical.cpp" />
     <ClCompile Include="GameObject\Map\GoldWall.cpp" />
     <ClCompile Include="GameObject\Map\GravelWall.cpp" />
+    <ClCompile Include="Scenes\GameScene.cpp" />
     <ClCompile Include="Systems\Manage\EffectManager.cpp" />
     <ClCompile Include="GameObject\GameData.cpp" />
     <ClCompile Include="GameObject\Item\ItemBase.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="GameObject\Map\GoldWall.h" />
     <ClInclude Include="GameObject\Map\GravelWall.h" />
     <ClInclude Include="GameObject\Map\MapTool\MapHelper.h" />
+    <ClInclude Include="Scenes\GameScene.h" />
     <ClInclude Include="Systems\Manage\EffectManager.h" />
     <ClInclude Include="GameObject\GameData.h" />
     <ClInclude Include="GameObject\Item\ItemBase.h" />

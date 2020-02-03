@@ -11,7 +11,8 @@ TileNode::TileNode(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	isSelected = false;
 	haveIDrawHighlight = false;
 	isUI = false;
-	alpha = 100;
+	alpha = 0.f;
+	bActive = false;
 
 	for (int i = ObjectTypeBegin; i != ObjectTypeEnd; ++i)
 	{
@@ -98,20 +99,6 @@ void TileNode::Render()
 		{
 			(*vIter)->SetAlpha(alpha);
 		}
-	}
-	
-	if (temp)
-	{
-		if (alpha < 1.f)
-		{
-			alpha += 0.05f;
-		}
-		else
-		{
-			alpha = 1.0f;
-			temp = false;
-		}
-
 	}
 
 	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y, alpha);

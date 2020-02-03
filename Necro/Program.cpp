@@ -4,6 +4,7 @@
 #include "./Scenes/TestScene.h"
 #include "./Scenes/TileTestScene.h"
 #include "./Scenes/MapToolScene.h"
+#include "./Scenes/GameScene.h"
 
 Program::Program()
 {
@@ -24,6 +25,9 @@ Program::Program()
 
 	_SceneManager->ChangeScene("TileTest");
 	CAMERA->ModeTargetPlayer();
+	
+
+
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
 	EFFECTS->AddEffect("Test", "Test");
 

@@ -79,7 +79,7 @@ void Player::ControlUpdate()
 {
 	currentState->BeatExcute();
 	
-	if (isSight)Sight();
+	Sight();
 }
 
 void Player::MissControlUpdate()
@@ -135,41 +135,6 @@ void Player::ImguiRender()
 
 }
 
-//vector<vector<int> > GetDistance(int x, int y, vector<vector<int> > cells)
-//{
-//	const int INF = 0x7FFFFF;
-//	vector<vector<int> > distance(cells.size());
-//
-//	for (int i = 0; i < distance.size(); i++)
-//		distance[i].assign(cells[i].size(), INF);  // size만큼 INF 를 할당한다
-//	
-//	queue<pair<int, int> > q;
-//
-//	q.push(make_pair(x, y));
-//	distance[x][y] = 0;
-//
-//	while (!q.empty())
-//	{
-//		pair<int, int> curPoint = q.front();
-//		q.pop();
-//		int curDistance = distance[curPoint.first][curPoint.second];
-//		for (int i = -1; i <= 1; i++)
-//			for (int j = -1; j <= 1; j++)
-//			{
-//				if ((i + j) % 2 == 0) continue;
-//				pair<int, int> nextPoint(curPoint.first + i, curPoint.second + j);
-//				if (nextPoint.first >= 0 && nextPoint.first < cells.size()
-//					&& nextPoint.second >= 0 && nextPoint.second < cells[nextPoint.first].size()
-//					//&& cells[nextPoint.first][nextPoint.second] != BARRIER
-//					&& distance[nextPoint.first][nextPoint.second] > curDistance + 1)
-//				{
-//					distance[nextPoint.first][nextPoint.second] = curDistance + 1;
-//					q.push(nextPoint);
-//				}
-//			}
-//	}
-//	return distance;
-//}
 
 void Player::ChangeState(string str)
 {
@@ -196,12 +161,9 @@ void Player::FloodFill(POINT index, int sight)
 	int proveY[4] = { -1,0,1,0 };
 
 	shownTiles.push_back(tile);
-
-	if (!tile->IsActive())
-	{
-		_MessagePool->ReserveMessage(tile, "Active");
-	}
-	else
+	_MessagePool->ReserveMessage(tile, "Active");
+	
+	if (tile->IsActive())
 	{
 		//if (tile->IsShow()) // 조건을 더 걸어야함. 지금은 갔던데 가면 그뒤 탐색을 무시해서 탐색을 안하는 공간이 생김. 
 		//{
@@ -209,6 +171,20 @@ void Player::FloodFill(POINT index, int sight)
 		//}
 		_MessagePool->ReserveMessage(tile, "Show");
 	}
+	if (tile->GetAttribute() == ObjNone)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			POINT tempIndex;
+			tempIndex.x = index.x + proveX[i];
+			tempIndex.y = index.y + proveY[i];
+			// 중복 처리 해야함 방향? 조절 할수있다던데 
+
+			FloodFill(tempIndex, sight - 1);
+		}
+	}
+
+
 }
 
 void Player::Sight()
@@ -217,7 +193,7 @@ void Player::Sight()
 		_MessagePool->ReserveMessage(shownTiles[t], "Hide");
 	shownTiles.clear();
 
-	FloodFill(myIndex, 5);
+	FloodFill(myIndex, 3);
 }
 
 
@@ -256,10 +232,9 @@ void PlayerIdle::BeatExcute()
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	//me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	ItemBase* item;
 	vector<GameObject*> tempArr;
-	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 
 	if (KeyCode->Down(VK_LEFT))
@@ -308,7 +283,8 @@ void PlayerIdle::BeatExcute()
 
 
 				me->InitToMove(leftTilePos, 4.5f, 0.6f);
-
+				me->myIndex.x -= 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -360,6 +336,8 @@ void PlayerIdle::BeatExcute()
 				}
 
 				me->InitToMove(rightTilePos, 4.5f, 0.6f);
+				me->myIndex.x += 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -407,6 +385,8 @@ void PlayerIdle::BeatExcute()
 					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
 				me->InitToMove(upTilePos, 9.5f, 0.6f);
+				me->myIndex.y -= 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -456,6 +436,8 @@ void PlayerIdle::BeatExcute()
 				}
 
 				me->InitToMove(downTilePos, 0.6f, 0.6f);
+				me->myIndex.y += 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
