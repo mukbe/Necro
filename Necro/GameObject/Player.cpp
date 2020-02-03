@@ -232,10 +232,9 @@ void PlayerIdle::BeatExcute()
 	// 여기서 타일을 검사한 뒤에 결과 값에 따라 move,attact,idle 중 하나로 이동 하면 됨 
 	// 무기 장착 하거나 했을때 상태변화를 어떻게 줘야 할까? >> 무기는 
 
-	me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+	//me->myIndex = PosToIndex(me->position, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 	ItemBase* item;
 	vector<GameObject*> tempArr;
-	_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 
 	if (KeyCode->Down(VK_LEFT))
@@ -284,7 +283,8 @@ void PlayerIdle::BeatExcute()
 
 
 				me->InitToMove(leftTilePos, 4.5f, 0.6f);
-
+				me->myIndex.x -= 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -336,6 +336,8 @@ void PlayerIdle::BeatExcute()
 				}
 
 				me->InitToMove(rightTilePos, 4.5f, 0.6f);
+				me->myIndex.x += 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -383,6 +385,8 @@ void PlayerIdle::BeatExcute()
 					if (!item->CanBuyItem())return; // return이 있는 애들은 함수로 정리X
 				}
 				me->InitToMove(upTilePos, 9.5f, 0.6f);
+				me->myIndex.y -= 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
@@ -432,6 +436,8 @@ void PlayerIdle::BeatExcute()
 				}
 
 				me->InitToMove(downTilePos, 0.6f, 0.6f);
+				me->myIndex.y += 1;
+				_GameWorld->GetGameData()->PosRedefinition(me->myIndex);
 
 				me->ChangeState("Move");
 			}
