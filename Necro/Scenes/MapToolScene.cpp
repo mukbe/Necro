@@ -17,7 +17,8 @@ void MapToolScene::Init()
 	LoadResource();
 	tool = _ObjectPool->CreateObject<MapTool>("MapTool", D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));
 
-	
+	CAMERA->ModeFreeCamera();
+	CAMERA->ModeTargetPlayer();
 
 }
 

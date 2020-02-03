@@ -18,6 +18,7 @@ TileManager::TileManager()
 	spawner = new Spawner();
 	spawner->LoadObjects();
 	playerSpawn = { -100,-100 };
+	haveIActiveAll = false;
 }
 
 TileManager::~TileManager()
@@ -50,6 +51,11 @@ void TileManager::CreateMap()
 		newTile->SetPivotPos(pivotPos);
 
 		mapTiles.push_back(newTile);
+	}
+
+	if (haveIActiveAll)
+	{
+		ActiveAll();
 	}
 }
 

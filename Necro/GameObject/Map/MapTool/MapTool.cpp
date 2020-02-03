@@ -28,14 +28,16 @@ MapTool::MapTool(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	tempPlayer = nullptr;
 	
 	strcpy(mapFileName, "");
-
+	map->SetActiveAll(true);
 	map->CreateMap();
+	
 	map->HighLightOn();
 }
 
 MapTool::~MapTool()
 {
 	_RenderPool->Remove(this, RenderManager::Layer::Imgui);
+	
 }
 
 void MapTool::Init()
@@ -317,7 +319,7 @@ void MapTool::ProcessSetMap(TileNode* targetNode)
 					_GameWorld->GetTileManager()->SetPlayerSpawn(targetNode->Transform().GetPos());
 					tempPlayer = _GameWorld->GetTileManager()->spawner->Spawn("P_Player");
 					tempPlayer->SetPosition(_GameWorld->GetTileManager()->GetPlayerSpawn());
-					
+					static_cast<Player*>(tempPlayer)->Sight();
 				}
 				return;
 			}

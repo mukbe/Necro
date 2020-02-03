@@ -51,6 +51,8 @@ public:
 
 	void ActiveAll();
 
+	void SetActiveAll(bool input) { haveIActiveAll = input; }
+
 private:
 	typedef vector<TileNode*>::iterator VecIter;
 	vector<TileNode*> mapTiles;
@@ -60,6 +62,8 @@ private:
 	string textureName;
 
 	D3DXVECTOR2 playerSpawn;
+
+	bool haveIActiveAll;
 
 	void Release();
 
