@@ -25,7 +25,7 @@ public:
 			: Range({ 0,1 }), Damage(1)
 		{
 			Imagekey = "";
-			EffactImagekey = "";
+			EffactImagekey = "Swipe_Dagger";
 			Type = Weapon::WDagger;
 		}
 	};

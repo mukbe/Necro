@@ -97,6 +97,7 @@ W_StoneWall0002
 TextureKey:DefaultMap
 Attribute:2
 ObjectContainer:
+M_GreenSlime0001
 W_StoneWall0003
 [TileNode0022]
 TextureKey:DefaultMap
@@ -311,6 +312,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_Diamond0001
 [TileNode0066]
 TextureKey:DefaultMap
 Attribute:1
@@ -531,14 +533,17 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_ItemWeaponBroadSword0001
 [TileNode0114]
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_ItemWeaponSpear0001
 [TileNode0115]
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_ItemWeaponDagger0001
 [TileNode0116]
 TextureKey:DefaultMap
 Attribute:1
@@ -901,6 +906,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_Diamond0004
 [TileNode0195]
 TextureKey:DefaultMap
 Attribute:1
@@ -1232,6 +1238,7 @@ M_BlueSlime0002
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_Diamond0002
 [TileNode0267]
 TextureKey:DefaultMap
 Attribute:1
@@ -1353,6 +1360,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+I_Diamond0003
 [TileNode0294]
 TextureKey:DefaultMap
 Attribute:1

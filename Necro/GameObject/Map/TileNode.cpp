@@ -100,20 +100,6 @@ void TileNode::Render()
 			(*vIter)->SetAlpha(alpha);
 		}
 	}
-	
-	if (temp)
-	{
-		if (alpha < 1.f)
-		{
-			alpha += 0.05f;
-		}
-		else
-		{
-			alpha = 1.0f;
-			temp = false;
-		}
-
-	}
 
 	texture->FrameRender(rc, nullptr, textureFrame.x, textureFrame.y, alpha);
 	
