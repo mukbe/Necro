@@ -77,6 +77,14 @@ void GameScene::Init()
 
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
+	for (int i = 0; i < 10; i++)
+	{
+		Note* note = _ObjectPool->CreateObject<Note>("Note", D3DXVECTOR2(-20, 850), D3DXVECTOR2(8, 70));
+		note->Init();
+	}
+	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
+
+
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
@@ -96,6 +104,7 @@ void GameScene::Init()
 	}
 
 	_TileMap->LoadMap(L"Stage1");
+	_TileMap->ActiveAll();
 }
 
 void GameScene::ImageLoad()
