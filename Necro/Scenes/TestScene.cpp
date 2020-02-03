@@ -62,7 +62,7 @@ void TestScene::Init()
 	_ObjectPool->CreateObject<TestPlayer>("Player", D3DXVECTOR2(200, 200), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 820.f }, { 110.f,120.f });
 	_ObjectPool->CreateObject<Coin>("UI_Coin", D3DXVECTOR2(1200, 50), D3DXVECTOR2(50, 50));
-	_ObjectPool->CreateObject<Diamond>("UI_Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
+	_ObjectPool->CreateObject<Diamond>("Diamond", D3DXVECTOR2(1200, 100), D3DXVECTOR2(50, 50));
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<TorchSlot>("UI_TorchSlot", D3DXVECTOR2(230, 75), D3DXVECTOR2(75, 75));
@@ -83,7 +83,7 @@ void TestScene::Init()
 	ItemShovel* Shovel = _ObjectPool->CreateObject<ItemShovel>("ItemShovel", D3DXVECTOR2(), D3DXVECTOR2());
 	Shovel->Init({ 2,6 });
 
-	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("Dia", D3DXVECTOR2(), D3DXVECTOR2());
+	ItemDiamond* Dia = _ObjectPool->CreateObject<ItemDiamond>("ItemDiamond", D3DXVECTOR2(), D3DXVECTOR2());
 	Dia->Init({ 7,1 });
 
 
@@ -137,7 +137,7 @@ void TestScene::ImageLoad()
 	_ImageManager->AddTexture("UI_AttackSlot", ResourcePath + L"UI/UI_AttackSlot.png");
 	_ImageManager->AddTexture("UI_BodySlot", ResourcePath + L"UI/UI_BodySlot.png");
 	_ImageManager->AddTexture("UI_BoomSlot", ResourcePath + L"UI/UI_BoomSlot.png");
-	_ImageManager->AddTexture("UI_Diamond", ResourcePath + L"UI/UI_Diamond.png");
+	_ImageManager->AddTexture("Diamond", ResourcePath + L"UI/UI_Diamond.png");
 	_ImageManager->AddTexture("UI_HeadSlot", ResourcePath + L"UI/UI_HeadSlot.png");
 	_ImageManager->AddTexture("UI_ItemlSlot", ResourcePath + L"UI/UI_ItemSlot.png");
 	_ImageManager->AddTexture("UI_ShovelSlot", ResourcePath + L"UI/UI_ShovelSlot.png");
@@ -157,8 +157,7 @@ void TestScene::ImageLoad()
 	_ImageManager->AddFrameTexture("Shovel", ResourcePath + L"Item/Shovel.png", 1, 2);
 	_ImageManager->AddFrameTexture("Apple", ResourcePath + L"Item/Apple.png", 1, 2);
 	_ImageManager->AddFrameTexture("Chezz", ResourcePath + L"Item/Chezz.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia", ResourcePath + L"Item/Field_Dia.png", 1, 2);
-	_ImageManager->AddFrameTexture("Dia2", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
+	_ImageManager->AddFrameTexture("ItemDiamond", ResourcePath + L"Item/Field_Dia2.png", 1, 2);
 
 	_ImageManager->AddTexture("E_Hp", ResourcePath + L"UI/Heart_Empty.png");
 	_ImageManager->AddTexture("H_Hp", ResourcePath + L"UI/Heart_half .png");
