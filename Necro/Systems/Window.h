@@ -8,7 +8,7 @@ public:
 	~Window();
 
 	WPARAM Run();
-
+	static bool bUseImguiUI;
 private:
 	static LRESULT CALLBACK WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 

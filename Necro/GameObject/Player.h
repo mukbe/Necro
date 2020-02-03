@@ -96,6 +96,8 @@ public:
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
 
 	void setSight(bool sight) { isSight = sight; }
+
+	void SetIndex(POINT pt) { myIndex = pt; }
 };
 
 

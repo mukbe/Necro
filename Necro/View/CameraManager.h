@@ -7,6 +7,13 @@
 class CameraManager
 {
 	SingletonHeader(CameraManager)  // ½Ì±ÛÅæ ¼±¾ð 
+	enum class Mode 
+	{
+		Mode_Free,
+		Mode_Target,
+
+	};
+
 public:
 
 	void Update();
@@ -33,6 +40,8 @@ public:
 	Matrix2D GetView() { return view; }
 
 	void Shake();
+	void ModeTargetPlayer();
+	void ModeFreeCamera();
 
 private:
 	void UpdateMatrix();
@@ -48,6 +57,10 @@ private:
 	D3DXVECTOR2 pick;
 	D3DXVECTOR2 picked;
 
+	Mode cameraMode;
+	D3DXVECTOR2 targetPos;
+	POINT oldIndex;
+	float saveTime;
 
 	float shakeAmount;
 	float shakeTime;
