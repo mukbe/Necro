@@ -72,10 +72,7 @@ GameScene::~GameScene()
 void GameScene::Init()
 {
 	SceneBase::Init();
-
 	ImageLoad();
-
-	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -84,10 +81,14 @@ void GameScene::Init()
 	}
 	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
 
-
 	beatManager->LoadText(ResourcePath + L"Music/stage1.txt");
 	wstring path = ResourcePath + L"Music/stage1.ogg";
 	SOUNDMANAGER->AddSound("stage1", String::WStringToString(path), true, false);
+
+
+	_ObjectPool->CreateObject<Heart>("Heart", { WinSizeX / 2.f , 830.f }, { 130.f,140.f });
+
+
 
 	_ObjectPool->CreateObject<AttackSlot>("UI_AttackSlot", D3DXVECTOR2(150, 75), D3DXVECTOR2(75, 75));
 	_ObjectPool->CreateObject<ShovelSlot>("UI_ShovelSlot", D3DXVECTOR2(70, 75), D3DXVECTOR2(75, 75));
@@ -104,6 +105,7 @@ void GameScene::Init()
 	}
 
 	_TileMap->LoadMap(L"Stage1");
+	_BeatManager->SetMode(BeatManager::MoveMode::MOVE_MUSIC);
 	//_TileMap->ActiveAll();
 }
 

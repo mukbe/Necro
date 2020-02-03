@@ -18,7 +18,8 @@ CameraManager::CameraManager()
 	cameraMode = Mode::Mode_Free;
 	oldIndex = { 0,0 };
 	targetPos = pos;
-	AddZoom(1.f);
+	AddZoom(2.f);
+	saveTime = 0.f;
 }
 
 

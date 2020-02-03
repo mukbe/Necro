@@ -13,7 +13,7 @@ Program::Program()
 	//JsonHelper::ReadData(L"LevelEditor.json", jsonRoot);
 
 
-	bGrid = true;
+	bGrid = false;
 	gridColor = ColorWhite;
 
 	SceneBase* scene = new MapToolScene;
@@ -22,8 +22,10 @@ Program::Program()
 	_SceneManager->AddScene("TileTest", scene);
 	scene = new TestScene;
 	_SceneManager->AddScene("Test", scene);
+	scene = new GameScene;
+	_SceneManager->AddScene("Game", scene);
 
-	_SceneManager->ChangeScene("TileTest");
+	_SceneManager->ChangeScene("Game");
 	CAMERA->ModeTargetPlayer();
 	
 

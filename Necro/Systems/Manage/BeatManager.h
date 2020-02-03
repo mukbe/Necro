@@ -25,6 +25,7 @@ public:
 	void ReturnNote();
 
 	MoveMode GetMode() { return moveMode; }
+	void SetMode(MoveMode mode) { moveMode = mode; }
 	string CurrentMusic() { return currentMusicName; }
 private:
 //===== 정보만 받고 사용안함
