@@ -6,7 +6,6 @@
 #include "./Scenes/MapToolScene.h"
 #include "./Scenes/GameScene.h"
 
-
 Program::Program()
 {
 	//게임정보저장 json or sql
@@ -17,15 +16,17 @@ Program::Program()
 	bGrid = true;
 	gridColor = ColorWhite;
 
-	//SceneBase* scene = new MapToolScene;
-	//_SceneManager->AddScene(scene);
+	SceneBase* scene = new MapToolScene;
+	_SceneManager->AddScene("Map", scene);
+	scene = new TileTestScene;
+	_SceneManager->AddScene("TileTest", scene);
+	scene = new TestScene;
+	_SceneManager->AddScene("Test", scene);
+
+	_SceneManager->ChangeScene("TileTest");
+	CAMERA->ModeTargetPlayer();
 	
-	SceneBase* scene = new GameScene;
-	_SceneManager->AddScene(scene);
 
-
-	//SceneBase* scene = new TileTestScene;
-	//_SceneManager->AddScene(scene);
 
 	_ImageManager->AddFrameTexture("Test", ResourcePath + L"Effect/Swipe_Broadsword.png", 3);
 	EFFECTS->AddEffect("Test", "Test");
@@ -54,6 +55,23 @@ void Program::PreUpdate()
 		CAMERA->Shake();
 	if (Keyboard::Get()->Down(VK_F6))
 		EFFECTS->Fire("Test", D3DXVECTOR2(WinSizeX*0.5f, WinSizeY * 0.5f), D3DXVECTOR2(100, 100),Math::Random(0.f, Math::PI * 2.f));
+
+
+	//if (Keyboard::Get()->Down(VK_F9))
+	//{
+	//	_SceneManager->ChangeScene("Map");
+	//}
+	//if (Keyboard::Get()->Down(VK_F10))
+	//{
+	//	_SceneManager->ChangeScene("TileTest");
+
+	//}
+	//if (Keyboard::Get()->Down(VK_F11))
+	//{
+	//	_SceneManager->ChangeScene("Test");
+
+	//}
+
 
 }
 

@@ -15,6 +15,10 @@ CameraManager::CameraManager()
 	bShake = false;
 
 	UpdateMatrix();
+	cameraMode = Mode::Mode_Free;
+	oldIndex = { 0,0 };
+	targetPos = pos;
+	AddZoom(1.f);
 }
 
 
@@ -25,32 +29,60 @@ CameraManager::~CameraManager()
 
 void CameraManager::Update()
 {
-	if (Mouse::Get()->Down(0))
+	switch (cameraMode)
 	{
-		memcpy(&picked, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
+		case CameraManager::Mode::Mode_Free:
+		{
+			if (Mouse::Get()->Down(0))
+			{
+				memcpy(&picked, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
 
-		while (ShowCursor(FALSE) >= 0);
+				while (ShowCursor(FALSE) >= 0);
+			}
+			if (Mouse::Get()->Up(0))
+			{
+				while (ShowCursor(TRUE) <= 0);
+				ClipCursor(NULL);
+			}
+
+			if (Mouse::Get()->Press(0))
+			{
+
+				ClipMouse();
+
+				memcpy(&pick, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
+
+				D3DXVECTOR2 delta = picked - pick;
+				pos += delta * zoom;
+
+				memcpy(&picked, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
+
+				UpdateMatrix();
+			}
+		}
+		break;
+		case CameraManager::Mode::Mode_Target:
+		{
+			POINT index = _GameData->GetIndex();
+			if (oldIndex.x != index.x || oldIndex.y != index.y)
+			{
+				oldIndex = index;
+				targetPos = IndexToPos(index, TileManager::tileSize, TileManager::pivotPos) * zoom - D3DXVECTOR2(WinSizeX*0.5f, WinSizeY*0.5f);
+
+				saveTime = 0.f;
+
+			}
+			float factor = saveTime * 2.f;
+			saveTime += Time::Tick();
+			factor > 1.0f ? factor = 1.f : factor;
+			pos = Math::LerpSmoothArrival(pos, targetPos, factor, 3);
+
+			UpdateMatrix();
+		}
+		break;
 	}
-	if (Mouse::Get()->Up(0))
-	{
-		while (ShowCursor(TRUE) <= 0);
-		ClipCursor(NULL);
-	}
 
-	if (Mouse::Get()->Press(0))
-	{
-		
-		ClipMouse();
 
-		memcpy(&pick, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
-
-		D3DXVECTOR2 delta = picked - pick;
-		pos += delta * zoom;
-
-		memcpy(&picked, Mouse::Get()->GetPosition(), sizeof(D3DXVECTOR2));
-
-		UpdateMatrix();
-	}
 
 	if (bShake)
 	{
@@ -168,6 +200,16 @@ void CameraManager::Shake()
 	shakeDir = Math::RandVec2();
 	oldPos = pos;
 	bShake = true;
+}
+
+void CameraManager::ModeTargetPlayer()
+{
+	cameraMode = Mode::Mode_Target;
+}
+
+void CameraManager::ModeFreeCamera()
+{
+	cameraMode = Mode::Mode_Free;
 }
 
 void CameraManager::CameraDataBind()
