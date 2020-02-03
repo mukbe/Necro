@@ -5,7 +5,7 @@
 [PivotPosition]
 26.000000,26.000000
 [PlayerSpawn]
-235.000000,180.000000
+702.000000,286.000000
 
 [TileNode0000]
 TextureKey:DefaultMap
@@ -441,6 +441,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
+N_ShopKeeper0001
 [TileNode0095]
 TextureKey:DefaultMap
 Attribute:1
@@ -814,7 +815,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Skeleton0004
+M_Skeleton0001
 [TileNode0176]
 TextureKey:DefaultMap
 Attribute:1
@@ -904,7 +905,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_BlueSlime0002
+M_BlueSlime0001
 [TileNode0196]
 TextureKey:DefaultMap
 Attribute:1
@@ -973,7 +974,7 @@ W_GravelWall0010
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_GreenSlime0004
+M_GreenSlime0003
 [TileNode0211]
 TextureKey:DefaultMap
 Attribute:3
@@ -1135,7 +1136,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Skeleton0001
+M_Skeleton0002
 [TileNode0247]
 TextureKey:DefaultMap
 Attribute:1
@@ -1226,7 +1227,7 @@ W_WallBase0062
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_BlueSlime0001
+M_BlueSlime0002
 [TileNode0266]
 TextureKey:DefaultMap
 Attribute:1
@@ -1254,7 +1255,7 @@ W_WallBase0064
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_GreenSlime0003
+M_GreenSlime0004
 [TileNode0272]
 TextureKey:DefaultMap
 Attribute:1
@@ -1271,7 +1272,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Bat0003
+M_Bat0001
 [TileNode0276]
 TextureKey:DefaultMap
 Attribute:1
@@ -1402,12 +1403,12 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Skeleton0002
+M_Skeleton0003
 [TileNode0305]
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Bat0001
+M_Bat0003
 [TileNode0306]
 TextureKey:DefaultMap
 Attribute:1
@@ -1438,7 +1439,7 @@ ObjectContainer:
 TextureKey:DefaultMap
 Attribute:1
 ObjectContainer:
-M_Skeleton0003
+M_Skeleton0004
 [TileNode0313]
 TextureKey:DefaultMap
 Attribute:1
