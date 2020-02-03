@@ -254,7 +254,7 @@ void PlayerIdle::BeatExcute()
 				// 몬스터 확인
 				tempArr.clear();
 
-				tempArr = leftTilePos->GetObjects(ObjectMonster);
+				tempArr = leftTilePos->GetObjects(ObjectMonster); 
 				if (tempArr.size() > 0)
 				{
 					me->ChangeState("Attack");
