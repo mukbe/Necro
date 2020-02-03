@@ -20,8 +20,10 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	myIndex = { 0,0 };
 	//startPos = { 0,0 };
 	//mynextIndex = { 0,0 };
+	bShow = false;
+	frameY = 1;
 	ChangeState("Idle");
-	
+
 	
 	AddCallback("MonsterHit", [&](TagMessage msg)
 	{
@@ -188,6 +190,31 @@ void Monster::ProcessDestroy()
 		_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->DeleteObject(ObjectMonster, this);
 		//_GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->DeleteObject(ObjectMonster, this);
 		_GameWorld->GetObjectPool()->DeletaObject(this);
+		
+	}
+}
+
+void Monster::Show()
+{
+	frameY = 0;
+	bShow = true;
+}
+
+void Monster::Hide()
+{
+	
+	frameY = 1;
+	bShow = false;
+}
+
+void Monster::clocking()
+{
+	if (bShow)
+	{
+		
+	}
+	else 
+	{
 		
 	}
 }
