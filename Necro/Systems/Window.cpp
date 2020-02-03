@@ -3,6 +3,7 @@
 #include "../Program.h"
 
 Program* Window::program = nullptr;
+bool Window::bUseImguiUI = true;
 
 WPARAM Window::Run()
 {
@@ -26,13 +27,13 @@ WPARAM Window::Run()
 		else
 		{
 			Time::Get()->Update();
+			Keyboard::Get()->Update();
+			CameraManager::Get()->Update();
 
 			//imgui UI위에 마우스 있으면 게임 화면에만 키보드하고 마우스 정보 안보냄 => imgui만 누르기 위해서
 			if (ImGui::IsAnyWindowFocused() == false && ImGui::IsAnyWindowHovered() == false)
 			{
-				Keyboard::Get()->Update();
 				Mouse::Get()->Update();
-				CameraManager::Get()->Update();
 			}
 			SoundManager::Get()->Update();
 			program->PreUpdate();
@@ -81,11 +82,20 @@ WPARAM Window::Run()
 					}
 					p2DRenderer->EndDraw();
 
-					program->ImguiRender();
-					LOG->ImShowData();
 
-					static bool bImguiWin = true;
-					ImGui::ShowDemoWindow(&bImguiWin);
+					if (Keyboard::Get()->Down(VK_F8))
+					{
+						Window::bUseImguiUI = !Window::bUseImguiUI;
+					}
+
+					if (bUseImguiUI)
+					{
+						program->ImguiRender();
+						LOG->ImShowData();
+
+						static bool bImguiWin = true;
+						ImGui::ShowDemoWindow(&bImguiWin);
+					}
 
 					ImGui::Render();
 					ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

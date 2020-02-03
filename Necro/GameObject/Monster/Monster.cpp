@@ -25,10 +25,9 @@ Monster::Monster(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	
 	AddCallback("MonsterHit", [&](TagMessage msg)
 	{
-
+		CAMERA->Shake();
+		EFFECTS->Fire("Playerhit", D3DXVECTOR2(position.x, position.y - 20), D3DXVECTOR2(52, 52));
 		ProcessDestroy();
-		
-
 	});
 
 
@@ -71,8 +70,9 @@ void Monster::ControlUpdate()
 		
 		
 			//ChangeState("Idle");
+		myIndex = PosToIndex(this->Transform().GetPos(), _TileMap->GetTileSize(), _TileMap->GetPivotPos());
 
-		if (name == "GreenSlime")
+		if (name.substr(2, 10) == "GreenSlime")
 		{
 			tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->GetObjects(ObjectPlayer);
 
@@ -89,17 +89,8 @@ void Monster::ControlUpdate()
 			monsterBeat = 1;
 		}
 
-		if (name == "Skeleton") 
+		if (name.substr(2, 8) == "Skeleton")
 		{
-			if (tempArr.size() > 0)
-			{
-				ChangeState("Atk");
-			}
-			else
-			{
-				ChangeState("Move");
-			}
-
 			monsterBeat = 2;
 		}
 		if (name == "Bat")
@@ -119,8 +110,9 @@ void Monster::ControlUpdate()
 		}
 
 
-		if (name == "BlueSlime")
+		if (name.substr(2, 9) == "BlueSlime")
 		{
+
 			tempArr = _GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->GetObjects(ObjectPlayer);
 
 			if (tempArr.size() > 0)
@@ -133,7 +125,7 @@ void Monster::ControlUpdate()
 			}
 			monsterBeat = 2;
 		}
-		if (name == "Minotaur")
+		if (name.substr(2, 8) == "Minotaur")
 		{
 			monsterBeat = 1;
 		}
@@ -191,7 +183,9 @@ void Monster::ProcessDestroy()
 
 
 		this->SetActive(false);
-		_GameWorld->GetTileManager()->Tile(myIndex.x, myIndex.y)->DeleteObject(ObjectMonster, this);
+
+		POINT tempIndex = PosToIndex(this->Transform().GetPos(), _TileMap->GetTileSize(), _TileMap->GetPivotPos());
+		_GameWorld->GetTileManager()->Tile(tempIndex.x, tempIndex.y)->DeleteObject(ObjectMonster, this);
 		//_GameWorld->GetTileManager()->Tile(mynextIndex.x, mynextIndex.y)->DeleteObject(ObjectMonster, this);
 		_GameWorld->GetObjectPool()->DeletaObject(this);
 		
@@ -223,13 +217,13 @@ void MonsterStateOneStep::Update()
 	D3DXVECTOR2 playerPos = IndexToPos(_GameWorld->GetGameData()->GetIndex(), D3DXVECTOR2(52, 52), D3DXVECTOR2(26, 26));
 
 
-	if (me->name == "GreenSlime")
+	if (me->name.substr(2, 10) == "GreenSlime")
 	{
 		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 	}
 
 	//스켈레톤 움직임
-	if (me->name == "Skeleton")
+	if (me->name.substr(2, 8) == "Skeleton")
 	{
 
 	
@@ -287,7 +281,7 @@ void MonsterStateOneStep::Update()
 
 
 	//박쥐 움직임
-	if (me->name == "Bat") 
+	if (me->name.substr(2, 3) == "Bat")
 	{
 		
 	
@@ -299,20 +293,20 @@ void MonsterStateOneStep::Update()
 	}
 
 	//파란 슬라임 움직임
-	if (me->name == "BlueSlime") 
+	if (me->name.substr(2, 9) == "BlueSlime")
 	{
 
-		_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
+		
 			me->position.y = Math::Lerp(me->startPos.y, me->endPos.y, me->startTime);
 		
 			
-				//_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
+				_GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->DeleteObject(ObjectMonster, me);
 			
 	}
 
 
 	//미노 타우루스 움직임
-	if (me->name == "Minotaur")
+	if (me->name.substr(2, 8) == "Minotaur")
 	{
 		if (me->startPos.x < playerPos.x) {
 			me->position.x = Math::Lerp(me->startPos.x, me->endPos.x, me->startTime);
@@ -351,7 +345,7 @@ void MonsterStateAtk::Enter()
 {
 
 
-	if (me->name == "Skeleton")
+	if (me->name.substr(2, 8) == "Skeleton")
 	{
 
 		me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->GetObjects(ObjectPlayer);
@@ -366,7 +360,7 @@ void MonsterStateAtk::Enter()
 	
 	}
 
-	if (me->name == "BlueSlime")
+	if (me->name.substr(2, 9) == "BlueSlime")
 	{
 
 		me->tempArr = _GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y )->GetObjects(ObjectPlayer);
@@ -379,7 +373,7 @@ void MonsterStateAtk::Enter()
 	}
 	
 
-	if (me->name == "Bat")
+	if (me->name.substr(2, 3) == "Bat")
 	{
 
 		me->tempArr = _GameWorld->GetTileManager()->Tile(me->mynextIndex.x, me->mynextIndex.y)->GetObjects(ObjectPlayer);
@@ -416,7 +410,7 @@ void MonsterStateIdle::Enter()
 	
 	//초록 슬라임 아이덜 
 
-	if (me->name == "GreenSlime")
+	if (me->name.substr(2, 10) == "GreenSlime")
 	{
 
 		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
@@ -444,7 +438,7 @@ void MonsterStateIdle::Enter()
 	}
 
 	//스켈레톤 아이덜
-	if (me->name == "Skeleton")
+	if (me->name.substr(2, 8) == "Skeleton")
 	{
 
 		
@@ -454,8 +448,7 @@ void MonsterStateIdle::Enter()
 				me->startPos.x = me->endPos.x;
 				me->startPos.y = me->endPos.y;
 
-				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
-				me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+
 				//me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 				//me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
 
@@ -512,7 +505,13 @@ void MonsterStateIdle::Enter()
 				
 			}
 
-		
+			if (me->startPos.x > 0)
+			{
+
+				//me->myIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+				me->mynextIndex = PosToIndex(me->endPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
+			}
 			_GameWorld->GetTileManager()->Tile(me->myIndex.x, me->myIndex.y)->AddObject(ObjectMonster, me);
 	
 	}
@@ -521,7 +520,7 @@ void MonsterStateIdle::Enter()
 
 
 	//박쥐 아이덜
-	if (me->name == "Bat") 
+	if (me->name.substr(2, 3) == "Bat")
 	{
 	
 		//0에서 3까지 랜덤으로 하나 뽑아서 스위치문에서 움직일 곳 줌
@@ -622,7 +621,7 @@ void MonsterStateIdle::Enter()
 
 
 	//파란슬라임 아이덜
-	if (me->name == "BlueSlime") 
+	if (me->name.substr(2, 9) == "BlueSlime")
 	{
 
 		me->myIndex = PosToIndex(me->startPos, _GameWorld->GetTileManager()->GetTileSize(), _GameWorld->GetTileManager()->GetPivotPos());
@@ -682,7 +681,7 @@ void MonsterStateIdle::Enter()
 	}
 
 	//미노타우루스 아이덜
-	if (me->name == "Minotaur")
+	if (me->name.substr(2, 8) == "Minotaur")
 	{
 
 		//끝난 좌표를 다시 시작 좌표로 바꿈

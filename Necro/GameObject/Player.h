@@ -35,6 +35,7 @@ private:
 	int frameX, frameY;			// 프레임 렌더용
 	float interver;				// 프레임 인터벌
 	string imageName;			// 이미지 이름 
+	
 
 	D3DXVECTOR2 imagePos;		// 이미지 위치 보정
 	
@@ -57,10 +58,9 @@ private:
 	vector<POINT> vAttackRange;
 	
 	bool isSight;
-	bool isAttack;
 
-	POINT attackIndex;
-	int attackX, attackY;
+
+
 
 public:
 	Player(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size);
@@ -96,6 +96,8 @@ public:
 	void InitToMove(TileNode* TilePos, float JumpPower, float Gravity);
 
 	void setSight(bool sight) { isSight = sight; }
+
+	void SetIndex(POINT pt) { myIndex = pt; }
 };
 
 
@@ -113,7 +115,7 @@ public:
 	virtual void BeatExcute() = 0;	
 
 	virtual void Excute() = 0;	// 박자에 맞추지 않아도 될 어떠한 업데이트
-	virtual void Exit() {}		// 
+	virtual void Exit() {}		
 protected:
 	Player* me;
 };

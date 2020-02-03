@@ -63,3 +63,15 @@ void ItemDiamond::EatItem()
 	_GameData->AddDia(hasDia);
 
 }
+
+void ItemDiamond::Show()
+{
+}
+
+void ItemDiamond::Hide()
+{
+}
+
+void ItemDiamond::Active()
+{
+}

@@ -75,7 +75,7 @@ public:
 		Load<ItemDiamond>("I_Diamond");
 		Load<ItemWeaponDagger>("I_ItemWeaponDagger");
 		Load<ItemWeaponBroadSword>("I_ItemWeaponBroadSword");
-		Load<ItemWeaponDagger>("I_ItemWeaponSpear");
+		Load<ItemWeaponSpear>("I_ItemWeaponSpear");
 		Load<ItemShovelShovel>("I_ItemShovelShovel");
 		Load<ItemShovelPickaxe>("I_ItemShovelPickaxe");
 		

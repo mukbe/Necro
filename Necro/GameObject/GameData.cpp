@@ -14,7 +14,7 @@ GameData::GameData(string name, D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	ratioCoin = 1.f;
 	bCombo = false;
 	bBeat = false;
-
+	playerIndex = { 0,0 };
 	AddCallback("Miss", [&](TagMessage msg) {
 		MissControlUpdate();
 	});
