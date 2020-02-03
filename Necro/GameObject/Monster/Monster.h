@@ -21,6 +21,13 @@ public:
 	void ChangeState(string key);
 	virtual void ProcessDestroy();
 	
+	//시야에 따라서 실행할 함수들
+	virtual void Show();
+	virtual void Hide();
+
+	//처음 시야에 들어왔을 때 실행할 함수
+	virtual void Active();
+
 
 protected :
 

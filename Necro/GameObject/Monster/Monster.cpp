@@ -192,6 +192,21 @@ void Monster::ProcessDestroy()
 	}
 }
 
+void Monster::Show()
+{
+	bShow = true;
+}
+
+void Monster::Hide()
+{
+	bShow = false;
+}
+
+void Monster::Active()
+{
+	bActive = true;
+}
+
 //움직임 클래쓰
 void MonsterStateOneStep::Enter()
 {
